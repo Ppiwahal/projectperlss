@@ -1,0 +1,24 @@
+.mdm-recipient-header-row {
+    margin: 12px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.close-icon {
+    color: #1B365D;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.recipient-card {
+    background-color: #F6FAFF;
+    font-size: 14px;
+}
+
+.mdm-heading {
+    color: #1B365D;
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 25px;
+}

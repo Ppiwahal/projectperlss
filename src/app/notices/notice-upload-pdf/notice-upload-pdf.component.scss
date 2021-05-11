@@ -1,0 +1,88 @@
+.required-color {
+    color: #EE3524;
+}
+
+.fileDropContainer {
+    width: 100%;
+    height: 370px;
+    margin-top: 10px;
+    text-align: center;
+    border: dashed 1px #979797;
+    position: relative;
+}
+  
+.fileDropContainer * {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.file_upload {
+    transform: scale(2);
+}
+
+.smallLabel {
+    font-size: small;
+    margin-top: 0;
+}
+
+.uploadButton {
+    background-color: white;
+    color: #ed6053;
+    cursor: pointer;
+    border: 1px solid #ed6053 !important;
+}
+
+.bottomText {
+    font-size: small;
+    padding-top: 60px;
+    font-weight: bold;
+}
+
+.savecancel-Button{
+    color: #1B365D;
+    background-color: white;
+    font-weight: bold;
+    height: 30px;
+}
+
+.upload-Button{
+    color: #FFFFFF;
+    background-color: #ed6053;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#fileDropRef {
+    opacity: 0;
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.note-icon{
+    color: #ed6053;
+    cursor: pointer;
+}
+
+.trash-icon{
+    color: #ed6053;
+    cursor: pointer;
+}
+
+.cloud-icon-wrapper{
+    position: relative;
+}
+.size {
+    position: absolute;
+    top: 5px;
+    left: 30px;
+}
+
+.delete-icons {
+    margin-left: 350px;
+    color: #ed6053;
+    cursor: pointer;
+}

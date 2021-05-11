@@ -1,0 +1,56 @@
+@import '../../../colors.scss';
+
+.applicant-sub-heading {
+    font-weight: bold;
+    color: #547E1A;
+    font-size: 22px;
+    margin-left: 50px;
+    margin-top: 5px;
+  }
+  
+  .radio-option-container {
+    padding-bottom: 25px;
+    margin-left: 50px;
+  }
+  .question-container{
+    padding-top: 25px;
+    margin-left: 50px;
+  }
+  
+  #applicantName {
+    border: 2px solid;
+    border-color: #4D7E20;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+  }
+  ::ng-deep .mat-form-field {
+    width: 100%;
+  }
+  
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: $colorControlBackground;
+    border-radius: 5px;
+    border-color: #CED4DA;
+  }
+  
+  .chkboxContainer{
+    margin-left: 63px;;
+    margin-top: 18px;
+  }
+  
+  .required-color {
+    color: #EE3524;
+  }
+  
+  .validationContainer {
+    margin-bottom: 10px;
+  }
+  .applicant-heading{
+    padding-top: 20px; 
+    font-size: 18px; 
+    font-weight: 500;
+    color: #6e7073;
+    margin-bottom: 40px
+  }
+  

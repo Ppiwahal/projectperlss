@@ -1,0 +1,429 @@
+<div class="responsive">
+  <form [formGroup]="referralActivitiesCommunityLivingFormGroup">
+    <div class="scroller">
+      <div class="applicantName">{{applicantName}}</div>
+      <div class="user-info-pae-summary">
+        <mat-label class="seizures-header">Person Details</mat-label>
+        <div class="seperator-mar"></div>
+        <div class="row">
+          <div class="col-md-3">
+            <strong>Name:</strong>
+          </div>
+          <div class="col-md-3">
+            <span>{{applicationDetails.firstName}}
+              {{applicationDetails.midInitial}} {{applicationDetails.lastName}}</span>
+          </div>
+          <div class="col-md-3">
+            <strong>Program Requested:</strong>
+          </div>
+          <div class="col-md-3">
+            <span>{{(programRequestedDisplayed ? programRequestedDisplayed : "---" )}}</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <strong>Date Of Birth:</strong>
+          </div>
+          <div class="col-md-3">
+            <span> {{covertDate(applicationDetails.dobDt)}}</span>
+
+          </div>
+          <div class="col-md-3">
+            <strong>Interpreter Services:</strong>
+          </div>
+          <div class="col-md-3">
+            <span>{{(interprtLang ? interprtLang : "---" )}}</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <strong>Last 4 of SSN:</strong>
+          </div>
+          <div class="col-md-3">
+            <span> {{(applicationDetails.ssn ? getSSNMask(applicationDetails.ssn) : "---" )}}</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <strong>Living Arrangement:</strong>
+          </div>
+          <div class="col-md-3">
+            <span>{{(livArrgmntDisplayed ? livArrgmntDisplayed : "---" )}}</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="seperator-mar"></div>
+      <mat-divider></mat-divider>
+
+      <div class="user-info-pae-summary">
+        <mat-label class="seizures-header">Contact Details</mat-label>
+        <div class="seperator-mar"></div>
+        <div class="row">
+          <div class="col-md-4">
+            <strong>Applicant Physical Address:</strong>
+            <br />
+            <span>{{applicationAddress.addrLine1}} <br />{{applicationAddress.city}} {{applicationAddress.stateCd}}
+              {{applicationAddress.zip}}</span>
+          </div>
+          <div class="col-md-4" *ngIf="applicationAddress.mailAddrSw === 'Y'">
+            <strong>Applicant Mailing Address:</strong>
+            <br />
+            <span>{{applicationAddress.addrLine1}} <br />{{applicationAddress.city}} {{applicationAddress.stateCd}}
+              {{applicationAddress.zip}}</span>
+          </div>
+          <div class="col-md-4" *ngIf="applicationAddress.mailAddrSw === 'N'">
+            <strong>Applicant Mailing Address:</strong>
+            <br />
+            <span>{{applicationAddress.mailAddrLine1}} <br />{{applicationAddress.mailState}}
+              {{applicationAddress.mailCity}} {{applicationAddress.mailZip}}</span>
+          </div>
+
+          <div class="col-md-4">
+            <strong>Phone and Email</strong>
+            <br />
+            <strong>Email:</strong><span>
+              {{(emailAddress ? emailAddress : "---" )}}</span>
+            <br />
+            <strong>Home:</strong><span mask="000-000-0000">
+              {{( homePhone ? getPhoneMask(homePhone) : "---" )}}</span>
+            <br />
+            <strong>Cell:</strong><span mask="000-000-0000">
+              {{( cellPhNum ? getCellMask(cellPhNum) : "---" )}}</span>
+          </div>
+        </div>
+
+      </div>
+      <div class="seperator-mar"></div>
+      <mat-divider></mat-divider>
+      <div class="row" *ngIf="selectedMenu ==='CG1' || selectedMenu ==='ICF' || selectedMenu ==='CG2' || selectedMenu ==='CG3'">
+        <mat-label class="seizures-header">Diagnosis</mat-label>
+        <div class="seperator-mar"></div>
+        <div class="col-md-12">
+
+          <table mat-table [dataSource]="medicalDiagnosisDataSource">
+            <ng-container matColumnDef="medicalDiagnosis">
+              <th mat-header-cell *matHeaderCellDef class="status-header">
+                Medical Diagnosis
+              </th>
+              <div *ngIf="hideMedicalDiagnosisTab">
+                <td mat-cell *matCellDef="let medDia" class="usrActions">{{medDia.medDiagnsCd}}</td>
+              </div>
+
+            </ng-container>
+            <ng-container matColumnDef="persistedMonth">
+              <th mat-header-cell *matHeaderCellDef class="status-header">
+                Persisted last 6 months
+              </th>
+              <div *ngIf="hideMedicalDiagnosisTab">
+
+                <td mat-cell *matCellDef="let medDia" class="usrActions">{{medDia.persist6MonthsSw}} <div
+                    *ngIf="medDia.persist6MonthsSw === null || medDia.persist6MonthsSw === '' || medDia.persist6MonthsSw === undefined">
+                    ---</div>
+                </td>
+              </div>
+            </ng-container>
+            <ng-container matColumnDef="expectedMonth">
+              <th mat-header-cell *matHeaderCellDef class="status-header">
+                Expected to last more than 12 months 
+              </th>
+              <div *ngIf="hideMedicalDiagnosisTab">
+                <td mat-cell *matCellDef="let medDia" class="usrActions">{{medDia.expctd12MonthsSw}} <div
+                    *ngIf="medDia.expctd12MonthsSw === null || medDia.expctd12MonthsSw === '' || medDia.expctd12MonthsSw === undefined">
+                    ---</div>
+                </td>
+              </div>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsDiagnosis"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsDiagnosis;"></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="selectedMenu ==='EC4' || selectedMenu ==='EC5' || selectedMenu ==='EC6'">
+        <mat-label class="seizures-header">Diagnosis</mat-label>
+        <div class="seperator-mar"></div>
+        <div class="col-md-12">
+
+          <table mat-table [dataSource]="medicalDiagnosisDataSource">
+            <ng-container matColumnDef="medicalDiagnosis">
+              <th mat-header-cell *matHeaderCellDef class="status-header">
+                Medical Diagnosis
+              </th>
+              <div *ngIf="hideMedicalDiagnosisTab">
+                <td mat-cell *matCellDef="let medDia" class="usrActions">{{medDia.medDiagnsCd}}</td>
+              </div>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsDiagnosisMed"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsDiagnosisMed;"></tr>
+          </table>
+        </div>
+      </div>
+
+
+      <div class="seperator-mar"></div>
+      <mat-divider></mat-divider>
+      <div class="row">
+        <mat-label class="seizures-header">Functional Assessment</mat-label>
+        <div class="seperator-mar"></div>
+        <div class="col-md-12">
+          <mat-card class="dashboard-card">
+
+            <mat-card-title class="dashboard-card-header">
+              <div class="row">
+                <div class="col-md-6">
+                  Functional Measure
+                </div>
+                <div class="col-md-6">
+                  Acuity Score
+                </div>
+              </div>
+            </mat-card-title>
+
+            <mat-divider class="dashboard-card-divider"></mat-divider>
+            <mat-card-content>
+
+              <div class="row" *ngIf="functionalAssessmentDetails.transferMeasureNum!==null">
+                <div class="col-md-6">
+                  Transfer
+                </div>
+                <div class="col-md-6">
+                  <span class="due-number">{{(functionalAssessmentDetails.transferMeasureNum )}}
+                  </span>
+                </div>
+
+              </div>
+
+              <mat-divider></mat-divider>
+
+              <div class="row" *ngIf="functionalAssessmentDetails.mobilityMeasureNum!==null">
+                <div class="col-md-6">
+                  Mobility
+                </div>
+                <div class="col-md-6">
+                  <span class="due-number">{{(functionalAssessmentDetails.mobilityMeasureNum  )}}
+                  </span>
+                </div>
+
+              </div>
+              <mat-divider></mat-divider>
+
+              <div class="row" *ngIf="functionalAssessmentDetails.mobilityWheelchairMeasureNum!==null">
+                <div class="col-md-6">
+                  Mobility - Wheelchair
+                </div>
+                <div class="col-md-6">
+                  <span class="due-number">{{(functionalAssessmentDetails.mobilityWheelchairMeasureNum )}}
+                  </span>
+                </div>
+
+              </div>
+              <mat-divider></mat-divider>
+
+              <div class="row" *ngIf="functionalAssessmentDetails.eatingMeasureNum!==null">
+                <div class="col-md-6">
+                  Eating
+                </div>
+                <div class="col-md-6">
+                  <span class="due-number">{{(functionalAssessmentDetails.eatingMeasureNum  )}}
+                  </span>
+                </div>
+
+              </div>
+              <mat-divider></mat-divider>
+
+              <div class="row" *ngIf="functionalAssessmentDetails.toiletingMeasureNum!==null">
+                <div class="col-md-6">
+                  Toileting
+                </div>
+                <div class="col-md-6">
+                  <span class="due-number">{{(functionalAssessmentDetails.toiletingMeasureNum  )}}
+                  </span>
+                </div>
+
+              </div>
+              <mat-divider></mat-divider>
+
+              <div class="row"  *ngIf="functionalAssessmentDetails.toiletingInconMeasureNum!==null">
+                <div class="col-md-6">
+                  Toileting Incontinence
+                </div>
+                <div class="col-md-6">
+                  <span class="due-number">{{(functionalAssessmentDetails.toiletingInconMeasureNum  )}}
+                  </span>
+                </div>
+
+              </div>
+              <mat-divider></mat-divider>
+
+              <div class="row" *ngIf="functionalAssessmentDetails.toiletingCathOstMeasureNum!==null">
+                <div class="col-md-6">
+                  Toileting - Catherter / Ostomy
+                </div>
+                <div class="col-md-6">
+                  <span class="due-number">
+                    {{(functionalAssessmentDetails.toiletingCathOstMeasureNum  )}}
+                  </span>
+                </div>
+
+              </div>
+              <mat-divider></mat-divider>
+
+              <div class="row" *ngIf="functionalAssessmentDetails.orientationMeasureNum!==null">
+                <div class="col-md-6">
+                  Orientation
+                </div>
+                <div class="col-md-6">
+                  <span class="due-number">
+                    {{(functionalAssessmentDetails.orientationMeasureNum )}}
+                  </span>
+                </div>
+
+              </div>
+              <mat-divider></mat-divider>
+
+              <div class="row" *ngIf="functionalAssessmentDetails.communicationExpMeasureNum!==null">
+                <div class="col-md-6">
+                  Expressive Communication
+                </div>
+                <div class="col-md-6">
+                  <span class="due-number">
+                    {{(functionalAssessmentDetails.communicationExpMeasureNum  )}}</span>
+                </div>
+
+              </div>
+              <mat-divider></mat-divider>
+
+              <div class="row" *ngIf="functionalAssessmentDetails.communicationRecMeasureNum!==null">
+                <div class="col-md-6">
+                  Receptive Communication
+                </div>
+                <div class="col-md-6">
+                  <span class="due-number">
+                    {{(functionalAssessmentDetails.communicationRecMeasureNum  )}}
+                  </span>
+                </div>
+
+              </div>
+              <mat-divider></mat-divider>
+
+              <div class="row" *ngIf="functionalAssessmentDetails.medicationMeasureNum!==null">
+                <div class="col-md-6">
+                  Medication
+                </div>
+                <div class="col-md-6">
+                  <span class="due-number">
+                    {{(functionalAssessmentDetails.medicationMeasureNum  )}}
+                  </span>
+                </div>
+
+              </div>
+              <mat-divider></mat-divider>
+              <div class="row"  *ngIf="functionalAssessmentDetails.medicationMeasureNum!==null">
+                <div class="col-md-6">
+                  Behavior
+                </div>
+                <div class="col-md-6">
+                  <span class="due-number">
+                    {{(functionalAssessmentDetails.behaviorMeasureNum)}}
+                  </span>
+                </div>
+
+              </div>
+              <mat-divider></mat-divider>
+              <div class="row">
+                <div class="col-md-6">
+                  <strong>Maximum Possible Acuity Score</strong>
+                </div>
+                <div class="col-md-6">
+                  <span class="due-number"><strong>
+                    {{(functionalAssessmentDetails.maxPossibleAcuScoreNum ? functionalAssessmentDetails.maxPossibleAcuScoreNum : "---" )}}
+                  </strong>
+                  </span>
+                </div>
+
+              </div>
+            </mat-card-content>
+          </mat-card>
+
+        </div>
+      </div>
+
+      <div class="seperator-mar"></div>
+      <mat-divider></mat-divider>
+      <div class="row">
+        <mat-label class="seizures-header">Skilled Services
+        </mat-label>
+        <div class="seperator-mar"></div>
+        <table id="serviceScore" aria-describedBy="false">
+          <tr>
+            <th id="service" class="left" style="padding-left: 81px">Functional Measure</th>
+            <th id="score">Acuity Score</th>
+          </tr>
+
+          <tr *ngFor="let skilledservicescore of skilledservicescore">
+            <td class="left" style="padding-left: 81px">{{skilledservicescore.sectionCode}}</td>
+            <td>{{skilledservicescore.sectionScore}}</td>
+          </tr>
+        </table>
+
+      </div>
+      <div  *ngIf="selectedMenu ==='EC4'">
+      <div class="seperator-mar"></div>
+      <mat-divider></mat-divider>
+      <div>
+      <div class="row">
+        <mat-label class="seizures-header">Safety Determination
+        </mat-label>
+        <div class="seperator-mar"></div>
+        <div class="col-md-12">
+          <mat-card class="dashboard-card-change-border-color">
+            <mat-card-content>
+              <div class="row">
+                <div class="col-md-12"><span class="textStyle">Based on the responses to the Safety
+                  Determination section of the assessment, in
+                  total the <br /> applicant meets <strong> ({{safetyScore}})</strong>
+                  safety concerns.</span>
+                </div>
+
+
+              </div>
+
+            </mat-card-content>
+          </mat-card>
+
+        </div>
+      </div>
+    </div></div>
+
+      <div class="seperator-mar"></div>
+      <mat-divider></mat-divider>
+      <div class="row">
+        <mat-label class="seizures-header">Cost Neutrality
+        </mat-label>
+        <div class="seperator-mar"></div>
+        <div class="col-md-12">
+          <mat-card class="dashboard-card-change-border-color">
+            <mat-card-content>
+              <div class="row">
+                <div class="col-md-12"><span class="textStyle"> Based on the responses in the Cost Neutrality section, the Grand Total Cost of in-home care is: ${{totalAnnualCost}}.</span>
+                </div>
+
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div class="buttonBar">
+      <button mat-flat-button type="button" class="perlss-click-button-white" (click)="back()">BACK</button>
+      <button mat-flat-button color="primary" class="perlss-click-button-white-noborder"><span
+          class="hoverClass">SAVE AND EXIT</span></button>
+        <button mat-flat-button color="primary" class="perlss-click-button" (click)="next()">NEXT</button>
+    </div>
+  </form>
+</div>

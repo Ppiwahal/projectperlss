@@ -1,0 +1,2276 @@
+<div>
+  <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header style="background-color: #f5f5f5">
+            <mat-panel-title class="panelText">
+              SELF-CARE <span class="text-align-right"></span>
+          </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="quesContainer">
+            <div class="row">
+             {{lsaFormQuestionList | json}}
+              <div  *ngFor="let lsaQustnsId of lsaFormQuestionList">
+              {{lsaQustnsId.description}}
+              <div  *ngFor="let optionsCd of lsaQustnsId.options">
+                {{optionsCd.name}}
+                <div class="iconColor">
+                  <input type="radio" value="Y" name="{{lsaQustnsId.code}}.{{optionsCd.name}}" [(ngModel)]="optionsCd.value" [ngModelOptions]="{standalone: true}" />
+                  <!-- <label for="Y">
+                      <mat-icon class="green">check_circle_outline</mat-icon>
+                  </label>-->
+                  <input type="radio" value="N" name="{{lsaQustnsId.code}}.{{optionsCd.name}}" [(ngModel)]="optionsCd.value" [ngModelOptions]="{standalone: true}"/>
+                  <!-- <label for="N">
+                      <mat-icon class="red extraWidth">cancel</mat-icon>
+                  </label>-->
+                  <input type="radio" value="NC" name="{{lsaQustnsId.code}}.{{optionsCd.name}}" [(ngModel)]="optionsCd.value" [ngModelOptions]="{standalone: true}"/>
+                  <!-- <label for="NC">
+                      <mat-icon class="yellow">remove_circle</mat-icon>
+                  </label>-->
+              </div>
+              </div>
+            </div>
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant bathes or showers independently including transfer to tub or
+                       shower,
+                       turning on and adjusting water scrubbing, washing hair, transfer from tub or shower
+                       and
+                       drying,
+                       without using assistive devices.</strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor">
+                        <input type="radio" name="radBtn" id="yes" class="input-hidden" />
+                        <label for="yes">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn" id="no" class="input-hidden" />
+                        <label for="no">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn" id="nc" class="input-hidden" />
+                        <label for="nc">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor1">
+                        <input type="radio" name="radBtn1" id="yes1" class="input-hidden" />
+                        <label for="yes1">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn1" id="no1" class="input-hidden" />
+                        <label for="no1">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn1" id="nc1" class="input-hidden" />
+                        <label for="nc1">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor2">
+                        <input type="radio" name="radBtn2" id="yes2" class="input-hidden" />
+                        <label for="yes2">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn2" id="no2" class="input-hidden" />
+                        <label for="no2">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn2" id="nc2" class="input-hidden" />
+                        <label for="nc2">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <mat-divider class="perlss-horizontal-divider"></mat-divider>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant completes grooming independently, including brushing/combing
+                       hair,
+                       brushing teeth, shaving, and cleaning and trimming nails, without using assistive
+                       devices.</strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor3">
+                        <input type="radio" name="radBtn3" id="yes3" class="input-hidden" />
+                        <label for="yes3">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn3" id="no3" class="input-hidden" />
+                        <label for="no3">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn3" id="nc3" class="input-hidden" />
+                        <label for="nc3">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor4">
+                        <input type="radio" name="radBtn4" id="yes4" class="input-hidden" />
+                        <label for="yes4">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn4" id="no4" class="input-hidden" />
+                        <label for="no4">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn4" id="nc4" class="input-hidden" />
+                        <label for="nc4">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor5">
+                        <input type="radio" name="radBtn5" id="yes5" class="input-hidden" />
+                        <label for="yes5">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn5" id="no5" class="input-hidden" />
+                        <label for="no5">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn5" id="nc5" class="input-hidden" />
+                        <label for="nc5">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <mat-divider class="perlss-horizontal-divider"></mat-divider>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant independently selects attire appropriate to season and
+                       activity
+                       and independently dresses and undresses self, including underclothes, outer clothes,
+                       socks and
+                       shoes,
+                       without using adapted clothes or assistive devices.</strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor6">
+                        <input type="radio" name="radBtn6" id="yes6" class="input-hidden" />
+                        <label for="yes6">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn6" id="no6" class="input-hidden" />
+                        <label for="no6">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn6" id="nc6" class="input-hidden" />
+                        <label for="nc6">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor7">
+                        <input type="radio" name="radBtn7" id="yes7" class="input-hidden" />
+                        <label for="yes7">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn7" id="no7" class="input-hidden" />
+                        <label for="no7">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn7" id="nc7" class="input-hidden" />
+                        <label for="nc7">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor8">
+                        <input type="radio" name="radBtn8" id="yes8" class="input-hidden" />
+                        <label for="yes8">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn8" id="no8" class="input-hidden" />
+                        <label for="no8">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn8" id="nc8" class="input-hidden" />
+                        <label for="nc8">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <mat-divider class="perlss-horizontal-divider"></mat-divider>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant is continent of bowel and bladder, and independently toilets
+                       self,
+                       including transferring to toilet, wiping self and transferring from toilet, without
+                       using
+                       assistive devices. If alternative methods of urinary voiding or fecal evacuation are
+                       applicable,
+                       applicant independently completes entire routine.</strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor9">
+                        <input type="radio" name="radBtn9" id="yes9" class="input-hidden" />
+                        <label for="yes9">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn9" id="no9" class="input-hidden" />
+                        <label for="no9">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn9" id="nc9" class="input-hidden" />
+                        <label for="nc9">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor10">
+                        <input type="radio" name="radBtn10" id="yes10" class="input-hidden" />
+                        <label for="yes10">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn10" id="no10" class="input-hidden" />
+                        <label for="no10">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn10" id="nc10" class="input-hidden" />
+                        <label for="nc10">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor11">
+                        <input type="radio" name="radBtn11" id="yes11" class="input-hidden" />
+                        <label for="yes11">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn11" id="no11" class="input-hidden" />
+                        <label for="no11">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn11" id="nc11" class="input-hidden" />
+                        <label for="nc11">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <div class="row" style="margin-left: 18px; padding-top: 10px; width:95%;">
+            <div class="col-md-1" style="text-align: left;">
+              <button mat-flat-button style="background: #ed9924; color: white;">SAVE</button>
+          </div>
+            <div class="col-md-4" style="text-align: left;">
+              <button mat-flat-button style="background: white; color: #225282;">CANCEL</button>
+          </div>
+       </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+<div>
+  <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header style="background-color: #f5f5f5">
+            <mat-panel-title class="panelText">
+              RECEPTIVE AND EXPRESSIVE LANGUAGE <span class="text-align-right"></span>
+          </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant can hear and comprehend the content of ordinary spoken
+                       language
+                       without
+                       using a
+                       hearing aid or other assistive device.</strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor12">
+                        <input type="radio" name="radBtn12" id="yes12" class="input-hidden" />
+                        <label for="yes12">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn12" id="no12" class="input-hidden" />
+                        <label for="no12">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn12" id="nc12" class="input-hidden" />
+                        <label for="nc12">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor13">
+                        <input type="radio" name="radBtn13" id="yes13" class="input-hidden" />
+                        <label for="yes13">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn13" id="no13" class="input-hidden" />
+                        <label for="no13">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn13" id="nc13" class="input-hidden" />
+                        <label for="nc13">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor14">
+                        <input type="radio" name="radBtn14" id="yes14" class="input-hidden" />
+                        <label for="yes14">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn14" id="no14" class="input-hidden" />
+                        <label for="no14">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn14" id="nc14" class="input-hidden" />
+                        <label for="nc14">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <mat-divider class="perlss-horizontal-divider"></mat-divider>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant pays attention and can follow simple instructions given to
+                       him
+                       or her verbally.</strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor15">
+                        <input type="radio" name="radBtn15" id="yes15" class="input-hidden" />
+                        <label for="yes15">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn15" id="no15" class="input-hidden" />
+                        <label for="no15">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn15" id="nc15" class="input-hidden" />
+                        <label for="nc15">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor16">
+                        <input type="radio" name="radBtn16" id="yes16" class="input-hidden" />
+                        <label for="yes16">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn16" id="no16" class="input-hidden" />
+                        <label for="no16">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn16" id="nc16" class="input-hidden" />
+                        <label for="nc16">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor17">
+                        <input type="radio" name="radBtn17" id="yes17" class="input-hidden" />
+                        <label for="yes17">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn17" id="no17" class="input-hidden" />
+                        <label for="no17">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn17" id="nc17" class="input-hidden" />
+                        <label for="nc17">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <mat-divider class="perlss-horizontal-divider"></mat-divider>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant can communicate basic wants and needs and answer simple
+                       questions in a manner that can be understood by others without the use of assistive
+                       devices.</strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor18">
+                        <input type="radio" name="radBtn18" id="yes18" class="input-hidden" />
+                        <label for="yes18">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn18" id="no18" class="input-hidden" />
+                        <label for="no18">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn18" id="nc18" class="input-hidden" />
+                        <label for="nc18">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor19">
+                        <input type="radio" name="radBtn19" id="yes19" class="input-hidden" />
+                        <label for="yes19">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn19" id="no19" class="input-hidden" />
+                        <label for="no19">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn19" id="nc19" class="input-hidden" />
+                        <label for="nc19">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor20">
+                        <input type="radio" name="radBtn20" id="yes20" class="input-hidden" />
+                        <label for="yes20">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn20" id="no20" class="input-hidden" />
+                        <label for="no20">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn20" id="nc20" class="input-hidden" />
+                        <label for="nc20">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <mat-divider class="perlss-horizontal-divider"></mat-divider>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant has sufficient vocabulary and intelligible speech or
+                       nonverbal
+                       communication skills to interact with individuals of casual acquaintance and conduct
+                       ordinary
+                       business in the community.</strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor21">
+                        <input type="radio" name="radBtn21" id="yes21" class="input-hidden" />
+                        <label for="yes21">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn21" id="no21" class="input-hidden" />
+                        <label for="no21">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn21" id="nc21" class="input-hidden" />
+                        <label for="nc21">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor22">
+                        <input type="radio" name="radBtn22" id="yes22" class="input-hidden" />
+                        <label for="yes22">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn22" id="no22" class="input-hidden" />
+                        <label for="no22">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn22" id="nc22" class="input-hidden" />
+                        <label for="nc22">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor23">
+                        <input type="radio" name="radBtn23" id="yes23" class="input-hidden" />
+                        <label for="yes23">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn23" id="no23" class="input-hidden" />
+                        <label for="no23">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn23" id="nc23" class="input-hidden" />
+                        <label for="nc23">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <div class="row" style="margin-left: 18px; padding-top: 10px; width:95%;">
+            <div class="col-md-1" style="text-align: left;">
+              <button mat-flat-button style="background: #ed9924; color: white;">SAVE</button>
+          </div>
+            <div class="col-md-4" style="text-align: left;">
+              <button mat-flat-button style="background: white; color: #225282;">CANCEL</button>
+          </div>
+       </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+<div>
+  <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header style="background-color: #f5f5f5">
+            <mat-panel-title class="panelText">
+              LEARNING <span class="text-align-right"></span>
+          </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant is able to provide complete and accurate personal data,
+                       including name,
+                       date of birth, place of residence (street address, city, and state), telephone
+                       number,
+                       etc.
+                       without
+                       using assistive devices.
+                    </strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor24">
+                        <input type="radio" name="radBtn24" id="yes24" class="input-hidden" />
+                        <label for="yes24">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn24" id="no24" class="input-hidden" />
+                        <label for="no24">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn24" id="nc24" class="input-hidden" />
+                        <label for="nc24">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor25">
+                        <input type="radio" name="radBtn25" id="yes25" class="input-hidden" />
+                        <label for="yes25">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn25" id="no25" class="input-hidden" />
+                        <label for="no25">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn25" id="nc25" class="input-hidden" />
+                        <label for="nc25">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor26">
+                        <input type="radio" name="radBtn26" id="yes26" class="input-hidden" />
+                        <label for="yes26">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn26" id="no26" class="input-hidden" />
+                        <label for="no26">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn26" id="nc26" class="input-hidden" />
+                        <label for="nc26">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <mat-divider class="perlss-horizontal-divider"></mat-divider>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant is able to read and understand items such as personal mail,
+                       labels on food or other common domestic products, menus in restaurants, and signs in
+                       the
+                       community.</strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor27">
+                        <input type="radio" name="radBtn27" id="yes27" class="input-hidden" />
+                        <label for="yes27">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn27" id="no27" class="input-hidden" />
+                        <label for="no27">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn27" id="nc27" class="input-hidden" />
+                        <label for="nc27">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor28">
+                        <input type="radio" name="radBtn28" id="yes28" class="input-hidden" />
+                        <label for="yes28">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn28" id="no28" class="input-hidden" />
+                        <label for="no28">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn28" id="nc28" class="input-hidden" />
+                        <label for="nc28">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor29">
+                        <input type="radio" name="radBtn29" id="yes29" class="input-hidden" />
+                        <label for="yes29">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn29" id="no29" class="input-hidden" />
+                        <label for="no29">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn29" id="nc29" class="input-hidden" />
+                        <label for="nc29">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <mat-divider class="perlss-horizontal-divider"></mat-divider>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant is able to do simple addition and subtraction, identify basic
+                       units of money - pennies, nickels, dimes, quarters, $1, $5, $10, and $20, calculate
+                       the
+                       value
+                       of combinations of these items and make change up to $5.00.</strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor14">
+                        <input type="radio" name="radBtn30" id="yes30" class="input-hidden" />
+                        <label for="yes30">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn30" id="no30" class="input-hidden" />
+                        <label for="no30">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn30" id="nc30" class="input-hidden" />
+                        <label for="nc30">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor31">
+                        <input type="radio" name="radBtn31" id="yes31" class="input-hidden" />
+                        <label for="yes31">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn31" id="no31" class="input-hidden" />
+                        <label for="no31">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn31" id="nc31" class="input-hidden" />
+                        <label for="nc31">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor32">
+                        <input type="radio" name="radBtn32" id="yes32" class="input-hidden" />
+                        <label for="yes32">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn32" id="no32" class="input-hidden" />
+                        <label for="no32">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn32" id="nc32" class="input-hidden" />
+                        <label for="nc32">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <mat-divider class="perlss-horizontal-divider"></mat-divider>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant is able to tell the time of day, including A.M. and P.M.
+                       (or morning, afternoon, and evening) using a time-keeping device, use a calendar to
+                       tell
+                       the day of the week and month of the year, and associate activities with the
+                       appropriate time
+                       of day or year without using assistive devices.</strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor33">
+                        <input type="radio" name="radBtn33" id="yes33" class="input-hidden" />
+                        <label for="yes33">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn33" id="no33" class="input-hidden" />
+                        <label for="no33">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn33" id="nc33" class="input-hidden" />
+                        <label for="nc33">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor34">
+                        <input type="radio" name="radBtn34" id="yes34" class="input-hidden" />
+                        <label for="yes34">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn34" id="no34" class="input-hidden" />
+                        <label for="no34">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn34" id="nc34" class="input-hidden" />
+                        <label for="nc34">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor35">
+                        <input type="radio" name="radBtn35" id="yes35" class="input-hidden" />
+                        <label for="yes35">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn35" id="no35" class="input-hidden" />
+                        <label for="no35">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn35" id="nc35" class="input-hidden" />
+                        <label for="nc35">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <mat-divider class="perlss-horizontal-divider"></mat-divider>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant is able to write his or her name, a note for self or someone
+                       else,
+                       send an email or text message, and complete basic forms.</strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor36">
+                        <input type="radio" name="radBtn36" id="yes36" class="input-hidden" />
+                        <label for="yes36">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn36" id="no36" class="input-hidden" />
+                        <label for="no36">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn36" id="nc36" class="input-hidden" />
+                        <label for="nc36">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor37">
+                        <input type="radio" name="radBtn37" id="yes37" class="input-hidden" />
+                        <label for="yes37">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn37" id="no37" class="input-hidden" />
+                        <label for="no37">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn37" id="nc37" class="input-hidden" />
+                        <label for="nc37">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor38">
+                        <input type="radio" name="radBtn38" id="yes38" class="input-hidden" />
+                        <label for="yes38">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn38" id="no38" class="input-hidden" />
+                        <label for="no38">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn38" id="nc38" class="input-hidden" />
+                        <label for="nc38">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <mat-divider class="perlss-horizontal-divider"></mat-divider>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant is able to complete a task involving at least three steps
+                       that are presented verbally at the beginning of the task (stand up, take the tray to
+                       the other side of the room, and set it on the blue table).</strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor39">
+                        <input type="radio" name="radBtn39" id="yes39" class="input-hidden" />
+                        <label for="yes39">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn39" id="no39" class="input-hidden" />
+                        <label for="no39">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn39" id="nc39" class="input-hidden" />
+                        <label for="nc39">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor40">
+                        <input type="radio" name="radBtn40" id="yes40" class="input-hidden" />
+                        <label for="yes40">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn40" id="no40" class="input-hidden" />
+                        <label for="no40">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn40" id="nc40" class="input-hidden" />
+                        <label for="nc40">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor41">
+                        <input type="radio" name="radBtn41" id="yes41" class="input-hidden" />
+                        <label for="yes41">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn41" id="no41" class="input-hidden" />
+                        <label for="no41">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn41" id="nc41" class="input-hidden" />
+                        <label for="nc41">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <div class="row" style="margin-left: 18px; padding-top: 10px; width:95%;">
+            <div class="col-md-1" style="text-align: left;">
+              <button mat-flat-button style="background: #ed9924; color: white;">SAVE</button>
+          </div>
+            <div class="col-md-4" style="text-align: left;">
+              <button mat-flat-button style="background: white; color: #225282;">CANCEL</button>
+          </div>
+       </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+<div>
+  <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header style="background-color: #f5f5f5">
+            <mat-panel-title class="panelText">
+              MOBILITY <span class="text-align-right"></span>
+          </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant independently and safely moves about within indoor and
+                       outdoor
+                       environments without using a wheelchair, crutches, cane, or other assistive
+                       devices.</strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor14">
+                        <input type="radio" name="radBtn42" id="yes42" class="input-hidden" />
+                        <label for="yes42">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn42" id="no42" class="input-hidden" />
+                        <label for="no42">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn42" id="nc42" class="input-hidden" />
+                        <label for="nc42">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor43">
+                        <input type="radio" name="radBtn43" id="yes43" class="input-hidden" />
+                        <label for="yes43">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn43" id="no43" class="input-hidden" />
+                        <label for="no43">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn43" id="nc43" class="input-hidden" />
+                        <label for="nc43">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor44">
+                        <input type="radio" name="radBtn44" id="yes44" class="input-hidden" />
+                        <label for="yes44">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn44" id="no44" class="input-hidden" />
+                        <label for="no44">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn44" id="nc44" class="input-hidden" />
+                        <label for="nc44">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <mat-divider class="perlss-horizontal-divider"></mat-divider>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant independently and safety pulls self into a standing position,
+                       stands,
+                       and transfers self from one surface to another, e.g. bed to chair, chair to bed,
+                       onto
+                       and off
+                       toilet,
+                       in and out of bath or shower, etc. without using assistive equipment.</strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor45">
+                        <input type="radio" name="radBtn45" id="yes45" class="input-hidden" />
+                        <label for="yes45">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn45" id="no45" class="input-hidden" />
+                        <label for="no45">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn45" id="nc45" class="input-hidden" />
+                        <label for="nc45">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor46">
+                        <input type="radio" name="radBtn46" id="yes46" class="input-hidden" />
+                        <label for="yes46">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn46" id="no46" class="input-hidden" />
+                        <label for="no46">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn46" id="nc46" class="input-hidden" />
+                        <label for="nc46">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor47">
+                        <input type="radio" name="radBtn47" id="yes47" class="input-hidden" />
+                        <label for="yes47">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn47" id="no47" class="input-hidden" />
+                        <label for="no47">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn47" id="nc47" class="input-hidden" />
+                        <label for="nc47">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <mat-divider class="perlss-horizontal-divider"></mat-divider>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant is able to turn knobs or handles to open a door, lock and
+                       unlock
+                       doors,
+                       and enter and exit the home without using assistive devices.</strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor48">
+                        <input type="radio" name="radBtn48" id="yes48" class="input-hidden" />
+                        <label for="yes48">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn48" id="no48" class="input-hidden" />
+                        <label for="no48">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn14" id="nc48" class="input-hidden" />
+                        <label for="nc48">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor49">
+                        <input type="radio" name="radBtn49" id="yes49" class="input-hidden" />
+                        <label for="yes49">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn49" id="no49" class="input-hidden" />
+                        <label for="no49">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn49" id="nc49" class="input-hidden" />
+                        <label for="nc49">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor50">
+                        <input type="radio" name="radBtn50" id="yes50" class="input-hidden" />
+                        <label for="yes50">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn50" id="no50" class="input-hidden" />
+                        <label for="no50">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn50" id="nc50" class="input-hidden" />
+                        <label for="nc50">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <mat-divider class="perlss-horizontal-divider"></mat-divider>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant independently picks up small objects, carries small objects,
+                       removes wrappings, opens containers, and pours and stirs without using assistive
+                       devices.
+                    </strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor51">
+                        <input type="radio" name="radBtn51" id="yes51" class="input-hidden" />
+                        <label for="yes51">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn51" id="no51" class="input-hidden" />
+                        <label for="no51">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn51" id="nc51" class="input-hidden" />
+                        <label for="nc51">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor52">
+                        <input type="radio" name="radBtn52" id="yes52" class="input-hidden" />
+                        <label for="yes52">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn52" id="no52" class="input-hidden" />
+                        <label for="no52">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn52" id="nc52" class="input-hidden" />
+                        <label for="nc52">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor53">
+                        <input type="radio" name="radBtn53" id="yes53" class="input-hidden" />
+                        <label for="yes53">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn53" id="no53" class="input-hidden" />
+                        <label for="no53">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn53" id="nc53" class="input-hidden" />
+                        <label for="nc53">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <div class="row" style="margin-left: 18px; padding-top: 10px; width:95%;">
+            <div class="col-md-1" style="text-align: left;">
+              <button mat-flat-button style="background: #ed9924; color: white;">SAVE</button>
+          </div>
+            <div class="col-md-4" style="text-align: left;">
+              <button mat-flat-button style="background: white; color: #225282;">CANCEL</button>
+          </div>
+       </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+<div>
+  <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header style="background-color: #f5f5f5">
+            <mat-panel-title class="panelText">
+              SELF DIRECTION <span class="text-align-right"></span>
+          </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant makes and implements essentially independent daily personal
+                       decisions
+                       regarding diet (what to eat, when to eat, where to eat) and schedule of activities,
+                       including
+                       when
+                       to get up, what to do (for example, work, leisure, home, chores, etc. and when to go
+                       to
+                       bed.</strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor533">
+                        <input type="radio" name="radBtn533" id="yes533" class="input-hidden" />
+                        <label for="yes533">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn533" id="no533" class="input-hidden" />
+                        <label for="no533">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn533" id="nc533" class="input-hidden" />
+                        <label for="nc533">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor54">
+                        <input type="radio" name="radBtn54" id="yes54" class="input-hidden" />
+                        <label for="yes54">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn54" id="no54" class="input-hidden" />
+                        <label for="no54">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn54" id="nc54" class="input-hidden" />
+                        <label for="nc54">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor55">
+                        <input type="radio" name="radBtn55" id="yes55" class="input-hidden" />
+                        <label for="yes55">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn55" id="no55" class="input-hidden" />
+                        <label for="no55">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn55" id="nc55" class="input-hidden" />
+                        <label for="nc55">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <mat-divider class="perlss-horizontal-divider"></mat-divider>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant makes and implements essentially independent major life
+                       decisions
+                       such as choice of type of location of living arrangements, marriage, and career
+                       choice.</strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor56">
+                        <input type="radio" name="radBtn56" id="yes56" class="input-hidden" />
+                        <label for="yes56">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn56" id="no56" class="input-hidden" />
+                        <label for="no56">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn56" id="nc56" class="input-hidden" />
+                        <label for="nc56">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor57">
+                        <input type="radio" name="radBtn57" id="yes57" class="input-hidden" />
+                        <label for="yes57">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn57" id="no57" class="input-hidden" />
+                        <label for="no57">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn57" id="nc57" class="input-hidden" />
+                        <label for="nc57">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor58">
+                        <input type="radio" name="radBtn58" id="yes58" class="input-hidden" />
+                        <label for="yes58">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn58" id="no58" class="input-hidden" />
+                        <label for="no58">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn58" id="nc58" class="input-hidden" />
+                        <label for="nc58">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <mat-divider class="perlss-horizontal-divider"></mat-divider>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant possesses adequate social skills to establish and maintain
+                       interpersonal
+                       relationships with friends, relatives, or coworkers.</strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor59">
+                        <input type="radio" name="radBtn59" id="yes59" class="input-hidden" />
+                        <label for="yes59">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn59" id="no59" class="input-hidden" />
+                        <label for="no59">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn59" id="nc59" class="input-hidden" />
+                        <label for="nc59">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor60">
+                        <input type="radio" name="radBtn60" id="yes60" class="input-hidden" />
+                        <label for="yes60">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn60" id="no60" class="input-hidden" />
+                        <label for="no60">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn60" id="nc60" class="input-hidden" />
+                        <label for="nc60">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor61">
+                        <input type="radio" name="radBtn61" id="yes61" class="input-hidden" />
+                        <label for="yes61">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn61" id="no61" class="input-hidden" />
+                        <label for="no61">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn61" id="nc61" class="input-hidden" />
+                        <label for="nc61">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <mat-divider class="perlss-horizontal-divider"></mat-divider>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant sets personal goals and makes plans and takes steps to
+                       accomplish them.
+                    </strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor62">
+                        <input type="radio" name="radBtn62" id="yes62" class="input-hidden" />
+                        <label for="yes62">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn62" id="no62" class="input-hidden" />
+                        <label for="no62">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn62" id="nc62" class="input-hidden" />
+                        <label for="nc62">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor63">
+                        <input type="radio" name="radBtn63" id="yes63" class="input-hidden" />
+                        <label for="yes63">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn63" id="no63" class="input-hidden" />
+                        <label for="no63">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn63" id="nc63" class="input-hidden" />
+                        <label for="nc63">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor64">
+                        <input type="radio" name="radBtn64" id="yes64" class="input-hidden" />
+                        <label for="yes64">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn64" id="no64" class="input-hidden" />
+                        <label for="no64">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn14" id="nc64" class="input-hidden" />
+                        <label for="nc64">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant solves problems and takes responsibility for own actions,
+                       obeys
+                       laws.
+                    </strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor65">
+                        <input type="radio" name="radBtn65" id="yes65" class="input-hidden" />
+                        <label for="yes65">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn65" id="no65" class="input-hidden" />
+                        <label for="no65">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn65" id="nc65" class="input-hidden" />
+                        <label for="nc65">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor66">
+                        <input type="radio" name="radBtn66" id="yes66" class="input-hidden" />
+                        <label for="yes66">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn66" id="no66" class="input-hidden" />
+                        <label for="no66">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn66" id="nc66" class="input-hidden" />
+                        <label for="nc66">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor67">
+                        <input type="radio" name="radBtn67" id="yes67" class="input-hidden" />
+                        <label for="yes67">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn67" id="no67" class="input-hidden" />
+                        <label for="no67">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn67" id="nc67" class="input-hidden" />
+                        <label for="nc67">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant is able to manage physical and mental health, self-refers for
+                       routine medical and dental checkups and treatment, including selecting a doctor,
+                       setting
+                       appointment and providing a medical history as necessary.</strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor68">
+                        <input type="radio" name="radBtn68" id="yes68" class="input-hidden" />
+                        <label for="yes68">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn68" id="no68" class="input-hidden" />
+                        <label for="no68">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn68" id="nc68" class="input-hidden" />
+                        <label for="nc68">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor69">
+                        <input type="radio" name="radBtn69" id="yes69" class="input-hidden" />
+                        <label for="yes69">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn69" id="no69" class="input-hidden" />
+                        <label for="no69">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn69" id="nc69" class="input-hidden" />
+                        <label for="nc69">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor70">
+                        <input type="radio" name="radBtn70" id="yes70" class="input-hidden" />
+                        <label for="yes70">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn70" id="no70" class="input-hidden" />
+                        <label for="no70">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn70" id="nc70" class="input-hidden" />
+                        <label for="nc70">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <div class="row" style="margin-left: 18px; padding-top: 10px; width:95%;">
+            <div class="col-md-1" style="text-align: left;">
+              <button mat-flat-button style="background: #ed9924; color: white;">SAVE</button>
+          </div>
+            <div class="col-md-4" style="text-align: left;">
+              <button mat-flat-button style="background: white; color: #225282;">CANCEL</button>
+          </div>
+       </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+<div>
+  <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header style="background-color: #f5f5f5">
+            <mat-panel-title class="panelText">
+              CAPACITY FOR INDEPENDENT LIVING <span class="text-align-right"></span>
+          </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant generally carries out regular duties and chores (shopping,
+                       simple
+                       meal preparation, laundry, light housekeeping, etc.) safely and without need for
+                       reminders.</strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor71">
+                        <input type="radio" name="radBtn71" id="yes71" class="input-hidden" />
+                        <label for="yes71">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn71" id="no71" class="input-hidden" />
+                        <label for="no71">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn71" id="nc71" class="input-hidden" />
+                        <label for="nc71">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor72">
+                        <input type="radio" name="radBtn72" id="yes72" class="input-hidden" />
+                        <label for="yes72">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn72" id="no72" class="input-hidden" />
+                        <label for="no72">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn72" id="nc72" class="input-hidden" />
+                        <label for="nc72">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor73">
+                        <input type="radio" name="radBtn73" id="yes73" class="input-hidden" />
+                        <label for="yes73">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn73" id="no73" class="input-hidden" />
+                        <label for="no73">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn73" id="nc73" class="input-hidden" />
+                        <label for="nc73">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <mat-divider class="perlss-horizontal-divider"></mat-divider>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant is aware of a variety of community businesses and resources
+                       such
+                       as grocery stores, departments stores, gas stations and quick stops, banks, post
+                       offices,
+                       libraries, churches, etc. and independently finds and uses services or resources as
+                       needed.</strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor74">
+                        <input type="radio" name="radBtn74" id="yes74" class="input-hidden" />
+                        <label for="yes74">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn74" id="no74" class="input-hidden" />
+                        <label for="no74">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn74" id="nc74" class="input-hidden" />
+                        <label for="nc74">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor75">
+                        <input type="radio" name="radBtn75" id="yes75" class="input-hidden" />
+                        <label for="yes75">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn75" id="no75" class="input-hidden" />
+                        <label for="no75">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn75" id="nc75" class="input-hidden" />
+                        <label for="nc75">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor76">
+                        <input type="radio" name="radBtn76" id="yes76" class="input-hidden" />
+                        <label for="yes76">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn76" id="no76" class="input-hidden" />
+                        <label for="no76">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn76" id="nc76" class="input-hidden" />
+                        <label for="nc76">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <mat-divider class="perlss-horizontal-divider"></mat-divider>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant is able to get around in the neighborhood and community
+                       (including safely crossing streets and driving or using public
+                       transportation).</strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor77">
+                        <input type="radio" name="radBtn77" id="yes77" class="input-hidden" />
+                        <label for="yes77">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn77" id="no77" class="input-hidden" />
+                        <label for="no77">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn77" id="nc77" class="input-hidden" />
+                        <label for="nc77">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor78">
+                        <input type="radio" name="radBtn78" id="yes78" class="input-hidden" />
+                        <label for="yes78">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn78" id="no78" class="input-hidden" />
+                        <label for="no78">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn78" id="nc78" class="input-hidden" />
+                        <label for="nc78">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor79">
+                        <input type="radio" name="radBtn79" id="yes79" class="input-hidden" />
+                        <label for="yes79">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn79" id="no79" class="input-hidden" />
+                        <label for="no79">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn79" id="nc79" class="input-hidden" />
+                        <label for="nc79">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <mat-divider class="perlss-horizontal-divider"></mat-divider>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant can be left alone during the day without being considered a
+                       significant
+                       risk.</strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor80">
+                        <input type="radio" name="radBtn80" id="yes80" class="input-hidden" />
+                        <label for="yes80">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn80" id="no80" class="input-hidden" />
+                        <label for="no80">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn80" id="nc80" class="input-hidden" />
+                        <label for="nc80">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor81">
+                        <input type="radio" name="radBtn81" id="yes81" class="input-hidden" />
+                        <label for="yes81">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn81" id="no81" class="input-hidden" />
+                        <label for="no81">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn81" id="nc81" class="input-hidden" />
+                        <label for="nc81">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor82">
+                        <input type="radio" name="radBtn82" id="yes82" class="input-hidden" />
+                        <label for="yes82">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn82" id="no82" class="input-hidden" />
+                        <label for="no82">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn82" id="nc82" class="input-hidden" />
+                        <label for="nc82">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant is able to protect self from being taken advantage of and
+                       knows
+                       how to
+                       ask for help when needed.</strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor83">
+                        <input type="radio" name="radBtn83" id="yes83" class="input-hidden" />
+                        <label for="yes83">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn82" id="no83" class="input-hidden" />
+                        <label for="no83">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn83" id="nc83" class="input-hidden" />
+                        <label for="nc83">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor84">
+                        <input type="radio" name="radBtn84" id="yes84" class="input-hidden" />
+                        <label for="yes84">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn84" id="no84" class="input-hidden" />
+                        <label for="no84">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn84" id="nc84" class="input-hidden" />
+                        <label for="nc84">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor85">
+                        <input type="radio" name="radBtn85" id="yes85" class="input-hidden" />
+                        <label for="yes85">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn14" id="no85" class="input-hidden" />
+                        <label for="no85">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn85" id="nc85" class="input-hidden" />
+                        <label for="nc85">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <div class="quesContainer">
+            <div class="row">
+              <div class="col-md-8">
+                  <mat-label><strong>Applicant has hobbies and interests, is aware of community businesses
+                       and
+                       activities such as restaurants, parks, recreational facilities and programs,
+                       sporting
+                       events,
+                       movies, etc. and independently selects and participates in desired activities on a
+                       regular
+                       basis.</strong>
+                </mat-label>
+              </div>
+              <div class="col-md-4">
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Observation</strong>
+                    </div>
+                    <div class="iconColor86">
+                        <input type="radio" name="radBtn86" id="yes86" class="input-hidden" />
+                        <label for="yes86">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn86" id="no86" class="input-hidden" />
+                        <label for="no86">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn86" id="nc86" class="input-hidden" />
+                        <label for="nc86">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Applicant</strong>
+                    </div>
+                    <div class="iconColor87">
+                        <input type="radio" name="radBtn87" id="yes87" class="input-hidden" />
+                        <label for="yes87">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn87" id="no87" class="input-hidden" />
+                        <label for="no87">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn87" id="nc87" class="input-hidden" />
+                        <label for="nc87">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+                  <div class="center">
+                    <div class="optionWidth">
+                        <strong>Informant</strong>
+                    </div>
+                    <div class="iconColor88">
+                        <input type="radio" name="radBtn88" id="yes88" class="input-hidden" />
+                        <label for="yes88">
+                          <mat-icon class="green">check_circle_outline</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn88" id="no88" class="input-hidden" />
+                        <label for="no88">
+                          <mat-icon class="red extraWidth">cancel</mat-icon>
+                      </label>
+                        <input type="radio" name="radBtn88" id="nc88" class="input-hidden" />
+                        <label for="nc88">
+                          <mat-icon class="yellow">remove_circle</mat-icon>
+                      </label>
+                    </div>
+                </div>
+              </div>
+          </div>
+       </div>
+        <div class="row" style="margin-left: 18px; padding-top: 10px; width:95%;">
+            <div class="col-md-1" style="text-align: left;">
+              <button mat-flat-button style="background: #ed9924; color: white;">SAVE</button>
+          </div>
+            <div class="col-md-4" style="text-align: left;">
+              <button mat-flat-button style="background: white; color: #225282;">CANCEL</button>
+          </div>
+       </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

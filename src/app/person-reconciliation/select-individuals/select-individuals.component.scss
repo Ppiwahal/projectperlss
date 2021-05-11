@@ -1,0 +1,129 @@
+.required-color {
+    color: #f44336;
+}
+
+.create-manualtask-button{
+    padding-top: 35px;
+}
+
+.create-manualtask-submitButton{
+    padding-top: 35px;
+    display: flex;
+}
+
+.request-Type {
+    padding-top: 50px;
+    padding-left: 15px;
+    padding-bottom: 25px;
+}
+
+.secondPerson-div{
+    padding-top: 20px;
+}
+
+.select-individuals{
+    padding-top: 36px;
+    color: #04537D !important;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.select-individuals-content{
+    padding-top: 36px;
+}
+
+.text-align-right {
+    flex: 1;
+    text-align: right;
+}
+
+.perlss-update-click-button-white{
+    background-color: white !important;
+    color: #174A7C !important;
+    border: 1px solid #1B365D !important;
+    width: 20% !important;
+    font-weight: bold !important;
+}
+
+.perlss-continue-click-button{
+    background-color: #174A7C !important;
+    color: white !important;
+    width: 20% !important;
+    font-weight: bold !important;
+}
+
+.status-banner {
+    background-color: #ffe399; 
+    border: 0 none; 
+    color: #212121;
+    padding: 1em; 
+    margin: 1em 0; 
+    font-family:"Open Sans, Helvetica Neue, sans-serif";
+}
+
+.request {
+    padding-left: 5px;
+}
+
+.go_back {
+    padding-top: 55px;
+    font-weight: bold;
+    margin-top: 16px;
+    text-align:center;
+    display:block;
+    color:#174A7C;
+}
+
+.error-msg {
+    padding-left: 30px;
+    color: #f44336;
+    font-weight: bold;
+    font-family: 'Open Sans';
+}
+
+.popupHeading {
+    font-weight: bold;
+    font-size: 22px;
+    font-family: "Open Sans";
+    color: #174A7C;
+}
+
+.popup_body {
+    font-size: 14px;
+    color: black;
+    font-family: "Open Sans";
+    padding-bottom: 60px;
+}
+
+.close-icon {
+    transform: scale(1.0);
+    cursor: pointer;
+    color: #8b99ac;
+    right: -70px;
+    padding-top: 5px;
+}
+
+.link-error-msg {
+    padding-top: 20px;
+    color: #f44336;
+    font-weight: bold;
+    font-family: 'Open Sans';
+}
+
+.grey-color {
+  background-color: grey !important;
+  cursor: not-allowed !important;
+}
+
+.blue-color{
+    background-color: #174A7C !important;
+}
+
+.perlss-update-click-button-grey-color{
+    background-color: grey !important;
+    color: white !important;
+    border: 1px solid #1B365D !important;
+    width: 20% !important;
+    font-weight: bold !important;
+    cursor: not-allowed !important;
+  }

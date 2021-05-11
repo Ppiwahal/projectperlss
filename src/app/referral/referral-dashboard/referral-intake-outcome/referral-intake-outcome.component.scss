@@ -1,0 +1,638 @@
+@import "../../../../colors.scss";
+h4 {
+    font-size: 25px;
+    line-height: 36px;
+    font-weight: 700;
+    margin: 0;
+    padding:  20px 0 5.5px 0;
+    color: #547E1A;
+    font-family: 'Open Sans';
+    margin: 14.5px 0 9px 0;
+  }
+
+.formBox {
+    background: rgb(237, 245, 255);
+    width: 720px;
+    margin: 27px 9px;
+    height: 72px;
+    position: relative;
+    padding: 0;
+    border-radius: 5.5px;
+    box-shadow: 2px 2px 5.5px #999999;
+
+    &:hover {
+        background: rgb(213, 228, 246);
+    }
+
+    &::before {
+        font-family: 'Material Icons';
+        content: 'assignment';
+        font-size: 39.5px;
+        display: block;
+        width: 45px;
+        height: 45px;
+        margin: 0;
+        position: absolute;
+        left: 23.5px;
+        top: 25px;
+        color: rgb(238, 120, 110);
+    }
+
+   > label.formName {
+        font-size: 25px;
+        color: #1B365D;
+        font-weight: 500;
+        width: 360px;
+        letter-spacing: 0.05em;
+        margin: 0;
+        padding: 0;
+        display: block;
+        position: absolute;
+        left: 72px;
+        top: 25px;
+    }
+
+    .right {
+
+        position: absolute;
+        top: 18px;
+        right: 27px;
+        text-align: right;
+        width:  270px;
+        display:block;
+
+        > .start {
+            font-size: 27px;
+            font-weight: 600;
+            display: inline-block;
+            margin: 0;
+            color:rgb(199, 80, 0);
+            top: 29px;
+            right: 54px;
+            width: 180px;
+
+            &::after {
+                content: 'keyboard_arrow_right';
+                font-family: 'Material Icons';
+                color: rgb(199, 80, 0);
+                display: inline-block;
+                margin: 0;
+                padding: 0;
+                width: 27px;
+                font-size: 32.5px;
+                top: 7px;
+                position: relative;
+            }
+        }
+
+        > .complete {
+            font-size: 27px;
+            font-weight: 600;
+            display: inline-block;
+            margin: 0;
+            color: #1B365D;
+            top: 29px;
+            right: 54px;
+            width: 180px;
+
+            &::before {
+                color: #1B365D;
+                content: "keyboard_arrow_left";
+                font-family: 'Material Icons';
+                display: inline-block;
+                margin: 0;
+                width: 27px;
+                font-size: 32.5px;
+                top: 7px;
+                position: relative;
+            }
+        }
+    }
+}
+
+.responsive .form .groupCheck {
+    margin-bottom: 36px;
+
+    > table {
+
+        table-layout: fixed;
+
+        > head > tr > th:first-child {
+            text-align: left;
+            width: 10%;
+        }
+
+        > tbody > tr > td {
+
+            > button, > span {
+                font-family: 'Material Icons';
+                border: none;
+                font-size: 29px;
+                color: #CCCCCC;
+                background: transparent;
+                display: inline-block;
+                position: relative;
+                margin: 0;
+                padding: 0;
+                top: 5.5px;
+
+                &.selected {
+                    color: green;
+                }
+            }
+            > span:hover {
+                cursor: not-allowed;
+            }
+
+            > button {
+                &:focus {
+                    outline: 0;
+                }
+                &:hover:not(.selected) {
+                    cursor: pointer;
+                    color: rgb(101, 131, 101);
+                }
+            }
+        }
+    }
+}
+
+.responsive .form .assessmentTable {
+    margin-top: 54px;
+    > table {
+        > thead > tr {
+            &:first-child > th {
+                border-top: 1px solid #AAAAAA;
+            }
+            > th {
+                border-bottom: 1px solid #666666;
+                background: #dbe5f3;
+
+                > label {
+                    color: #000000;
+                }
+            }
+        }
+        > thead, tbody {
+            > tr.greybar {
+                > td {
+                    font-weight: 600;
+                    color: #000000;
+                }
+                > td, > th {
+                    background: #e9e9e9;
+                    > label {
+                        margin: 0;
+                        padding: 0;
+                        float: right;
+
+                        &:first-child {
+                            float: left;
+                        }
+                    }
+                }
+            }
+            > tr {
+                > td, > th {
+                    &:first-child {
+                        text-align: left;
+                        border-right: 1px solid #666666;
+                        border-left: 1px solid #AAAAAA;
+                    }
+                    &:last-child {
+                        border-right: 1px solid #AAAAAA;
+                    }
+                }
+            }
+        }
+        > tbody > tr > td {
+            border-bottom: 1px solid #AAAAAA;
+            &.yesNo.yes {
+                font-weight: 700;
+                color: black;
+            }
+            &:first-child {
+                font-weight: 700;
+            }
+        }
+    }
+}
+
+.reserveCapacityTable {
+    font-size: 16px !important;
+    text-overflow: ellipsis !important;
+}
+
+div.responsive > .form,
+div.response > form {
+
+    div.docTable {
+        border: 1px solid #555555;
+        overflow: hidden;
+        height: auto;
+        margin: 36px 0 21.5px 0 !important;
+
+        > div.title {
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+            font-size:  20px;
+            line-height: 23.5px;
+            margin: 0;
+            padding: 14.5px 18px 14.5px 18px;
+            font-weight: 600;
+            background: rgb(205, 221, 244);
+            border: none;
+            color: #000000;
+        }
+
+        > div {
+            margin: 0;
+            border-top: 1px solid #555555;
+            clear: both;
+            height: auto;
+            width: 100%;
+            overflow: hidden;
+            padding: 3.5px 0;
+            > label, > div {
+                font-size: 15px;
+                line-height: 21.5px;
+                padding: 9px 18px;
+                margin: 0;
+            }
+            > label {
+                float: left;
+                padding-left: 36px;
+                display: block;
+
+                &.asLink {
+                    text-decoration: underline;
+                    &:hover {
+                    color: #2a70d1;
+                    cursor: pointer;
+                    }
+                }
+            }
+            > div {
+                float: right;
+                font-size:  18px;
+                line-height: 21.5px;
+                height: 36px;
+                overflow: hidden;
+                width: 432;
+                padding: 0;
+                > div {
+                    float: left;
+                    height: auto;
+                    overflow: hidden;
+                    padding: 0;
+                    margin: 7px 0 0 0;
+
+                    > mat-icon, > label > mat-icon {
+                        font-size: 27px;
+                        padding: 0;
+                        margin: 0;
+                        position: relative;
+                        top: -2px;
+                    }
+
+                    &.available {
+                        width: 180px;
+
+                        > label.done {
+
+                            padding: 0;
+                            margin: 0;
+                            display: inline-block;
+
+                            &:hover {
+                            cursor: pointer;
+                            }
+
+                            &.checked > span.check > mat-icon {
+                            visibility: visible;
+                            }
+
+                            > span.check {
+                                display: inline-block;
+                                border: 2px solid #666666;
+                                width: 21.5px;
+                                height: 21.5px;
+                                margin: 2px 0 0 0;
+
+                                > mat-icon {
+                                    display: inline-block;
+                                    font-size: 32.5px;
+                                    color: #cc0000;
+                                    margin: 0;
+                                    padding: 0;
+                                    position: relative;
+                                    visibility: hidden;
+                                    top: -10px;
+                                    left: -3.5px;
+                                }
+
+                                + span {
+                                    display: inline-block;
+                                    position: relative;
+                                    top: -16px;
+                                    left: 11px;
+                                }
+                            }
+                        }
+                    }
+
+                    &.linkItem {
+                        width: 144px;
+                        text-align: center;
+
+                        > label > mat-icon.blue {
+                            &:hover {
+                                color: rgb(27, 95, 122);
+                                cursor: pointer;
+                            }
+                        }
+
+                        > mat-icon.grey {
+                            &:hover {
+                                cursor: not-allowed;
+                            }
+                        }
+
+                        > div.popupLink {
+                            color: blue;
+                            text-decoration: underline;
+                            &:hover {
+                                color: rgb(54, 136, 85);
+                                cursor: pointer;
+                            }
+                        }
+
+                        > label > mat-icon.blue, > mat-icon.grey, > mat-icon.green {
+                            font-size: 32.5px;
+                            position: relative;
+                            top: -3.0px;
+                        }
+                    }
+
+                    &.delete {
+                        width: 72px;
+                        text-align: center;
+
+                        > label > mat-icon.red {
+                            &:hover {
+                                color: rgb(124, 44, 87);
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    div.noClicks {
+        pointer-events: none;
+        border: 1px solid #555555;
+        overflow: hidden;
+        height: auto;
+        width: 1080px;
+        margin: 36px 0 21.5px 0 !important;
+
+        > div.title {
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+            font-size:  20px;
+            line-height: 23.5px;
+            margin: 0;
+            padding: 14.5px 18px 14.5px 18px;
+            font-weight: 600;
+            background: rgb(205, 221, 244);
+            border: none;
+            color: #000000;
+        }
+
+        > div {
+            margin: 0;
+            border-top: 1px solid #555555;
+            clear: both;
+            height: auto;
+            width: 100%;
+            overflow: hidden;
+            padding: 3.5px 0;
+            > label, > div {
+                font-size: 15px;
+                line-height: 21.5px;
+                padding: 9px 18px;
+                margin: 0;
+            }
+            > label {
+                float: left;
+                padding-left: 36px;
+                display: block;
+
+                &.asLink {
+                    text-decoration: underline;
+                    &:hover {
+                    color: #2a70d1;
+                    cursor: pointer;
+                    }
+                }
+            }
+            > div {
+                float: right;
+                font-size:  18px;
+                line-height: 21.5px;
+                height: 36px;
+                overflow: hidden;
+                width: 432;
+                padding: 0;
+                > div {
+                    float: left;
+                    height: auto;
+                    overflow: hidden;
+                    padding: 0;
+                    margin: 7px 0 0 0;
+
+                    > mat-icon, > label > mat-icon {
+                        font-size: 27px;
+                        padding: 0;
+                        margin: 0;
+                        position: relative;
+                        top: -2px;
+                    }
+
+                    &.available {
+                        width: 180px;
+
+                        > label.done {
+
+                            padding: 0;
+                            margin: 0;
+                            display: inline-block;
+
+                            &:hover {
+                            cursor: pointer;
+                            }
+
+                            &.checked > span.check > mat-icon {
+                            visibility: visible;
+                            }
+
+                            > span.check {
+                                display: inline-block;
+                                border: 2px solid #666666;
+                                width: 21.5px;
+                                height: 21.5px;
+                                margin: 2px 0 0 0;
+
+                                > mat-icon {
+                                    display: inline-block;
+                                    font-size: 32.5px;
+                                    color: #cc0000;
+                                    margin: 0;
+                                    padding: 0;
+                                    position: relative;
+                                    visibility: hidden;
+                                    top: -10px;
+                                    left: -3.5px;
+                                }
+
+                                + span {
+                                    display: inline-block;
+                                    position: relative;
+                                    top: -16px;
+                                    left: 11px;
+                                }
+                            }
+                        }
+                    }
+
+                    &.linkItem {
+                        width: 144px;
+                        text-align: center;
+
+                        > label > mat-icon.blue {
+                            &:hover {
+                                color: rgb(27, 95, 122);
+                                cursor: pointer;
+                            }
+                        }
+
+                        > mat-icon.grey {
+                            &:hover {
+                                cursor: not-allowed;
+                            }
+                        }
+
+                        > div.popupLink {
+                            color: blue;
+                            text-decoration: underline;
+                            &:hover {
+                                color: rgb(54, 136, 85);
+                                cursor: pointer;
+                            }
+                        }
+
+                        > label > mat-icon.blue, > mat-icon.grey, > mat-icon.green {
+                            font-size: 32.5px;
+                            position: relative;
+                            top: -3.0px;
+                        }
+                    }
+
+                    &.delete {
+                        width: 72px;
+                        text-align: center;
+
+                        > label > mat-icon.red {
+                            &:hover {
+                                color: rgb(124, 44, 87);
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.accordion-content-container{
+    padding-top: 18px;
+    padding-left: 36px;
+    padding-right: 36px;
+    padding-bottom: 18px;
+    font-family: 'Open Sans';
+    font-weight: 500;
+    background-color: white;
+    .row{
+      padding-bottom: 13.5px;
+      width: calc(100% - 4.90px);
+    }
+  }
+
+.check-green{
+    color: #547E1A;
+    padding-left: 9px;
+  }
+
+.accordion-container {
+    margin-bottom: 36px;
+    mat-accordion {
+      mat-expansion-panel {
+        justify-content: space-between;
+        font-weight: 500;
+        font-size: 23.5px;
+        font-family: 'Open Sans';
+        background-color:  $colorControlBackground;
+        mat-expansion-panel-header{
+          width: 100%;
+          padding: 0 7vw 0  3vw;
+        }
+        mat-panel-title{
+          font-weight: 500;
+          font-size: 23.5px;
+        }
+        mat-panel-title.right-aligned {
+          flex-grow: 0;
+          font-weight: 500;
+          font-size: 23.5px;
+          mat-label{
+            margin-top: 2px;
+            font-size: 20px;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+
+.responsive > .form > .note {
+    margin: 36px 0;
+    border-color: rgb(87, 18, 18);
+}
+
+.lsa-form {
+    cursor: pointer;
+}
+
+.responsive .form mat-expansion-panel .form-container {
+   padding: 27px 72px !important;
+   margin: 0 !important;
+   width: 100% !important;
+}
+
+.material-bulb
+{
+color:#ea5e52;
+
+}
+
+.applicantData{
+    padding: 50px 54px !important;
+}
+
+.chkBordr{
+    border-color: red;
+}

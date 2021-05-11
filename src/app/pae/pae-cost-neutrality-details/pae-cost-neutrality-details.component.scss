@@ -1,0 +1,164 @@
+@import "../../../colors.scss";
+
+.panel {
+
+  margin: 15px 0 15px 0px;
+  padding: 0;
+  overflow: hidden;
+  height: auto;
+  width: 900px;
+
+  &.open > .panelHead > .toggle {
+    > mat-icon {
+      color: $colorMediumGray;
+      transform: rotate(180deg);
+      transition-property: transform;
+      transition-duration: 1s;
+    }
+  }
+
+  > .panelHead {
+
+    width: 100%;
+    padding: 5.5px 9px;
+    height: 50px;
+
+    &:hover {
+      background: $colorLightBlueGray;
+    }
+
+    &.disabled {
+       hover {
+          background: transparent;
+       } 
+
+       > * {
+        color: $colorMediumGray;
+       }
+    }
+                    
+    > mat-icon {
+      display: inline-block;
+      font-size: 29px;
+      margin: 0 11px 0 0;
+      color: $colorGrayBlue;
+    }
+
+    &.hidden {
+      display: none;
+    }
+
+    &.saved {
+
+      background: $colorLightBlueGray;
+
+      &:hover {
+        background: $colorLightBlueGrayHover;
+      }
+
+      > h3 {
+        float: left;
+        font-size:  20px;
+        margin: 0.5px 0 0 9px;
+        padding: 0;
+        width: 60%;
+      }
+
+      .toggle {
+        float: right;
+        width: 30%;
+        text-align: right;
+        margin: 0;
+        padding-top: 7px;
+        font-size: 18px;
+        color: $colorGrayBlue;
+
+        > mat-icon {
+          color: $colorMediumGray;
+          vertical-align: middle;
+        }
+      }
+    }
+    
+    > span {
+      font-size: 20px;
+      letter-spacing: 0.02em;
+      color: $colorGrayBlue;
+      font-weight: 600;
+      position: relative;
+      top: -6px;
+    }
+   
+  }
+
+  > .panelBody {
+    overflow: hidden;
+    height: auto;
+    max-height: 0;
+    padding: 0 9px;
+    width: 100%;
+    transition-property: max-height;
+    transition-duration: 1s;
+
+    > .panelButtons {
+      margin-left: 2px;
+  
+      > button {
+        font-size:  18px;
+        line-height: 21.5px;
+        font-weight: 500;
+        padding: 7px 9px 9px 9px;
+        margin: 0 14.5px 27px 0;
+        border-radius: 2.5px;
+      }
+    }
+  } 
+
+  &.open {
+    > .panelBody {
+      display: block;
+      max-height: 324px;
+      transition-property: max-height;
+      transition-duration: 1s;
+    }
+  }
+}
+
+textarea {
+  width: 100%;
+  font-size: 14.5px;
+  line-height: 16px;
+  height: 144px;
+  display: none;
+}
+.textword{
+  font-weight: 500 !important;
+    font-size: 23.5px !important;
+    line-height: 30px !important;
+    color: #04537d !important;
+}
+
+textarea {
+  width: 100%;
+  font-size: 14.5px;
+  line-height: 16px;
+  height: 72px;
+}
+
+.responsive .form .scroller h2 + p {
+  margin-top: -5.5px;
+  padding-top: 0;  
+}
+
+.responsive .form .scroller h2 {
+  margin-top:  -18px;
+}
+.responsive .form .scroller h2:not(:first-child) {
+  margin-top: 27px;
+  border-top: 1px solid #CCCCCC;
+  width: 100%;
+  display: block;
+}
+
+
+ 

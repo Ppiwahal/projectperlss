@@ -1,0 +1,30 @@
+<form [formGroup]="updateDocketForm">
+    <div>
+        <mat-form-field appearance="outline" class="mat-dropdowns">
+            <mat-label><span class="required">*</span>Docket Number</mat-label>
+            <input formControlName="docketNumber" aria-label="docket number" matInput>
+        </mat-form-field>
+        <mat-error *ngIf="isShowErrors && updateDocketForm.get('docketNumber')?.hasError('required')">
+            <span>{{customValidation.A1}}</span>
+        </mat-error>
+    </div>
+    <div>
+        <mat-form-field appearance="outline" class="mat-dropdowns">
+            <mat-label>
+                <mat-label><span class="required">*</span>Include Appeal Details in Docket Workbook?</mat-label>
+            </mat-label>
+            <mat-select formControlName="include">
+                <mat-option value=''>Select an Option</mat-option>
+                <mat-option *ngFor="let yn of yesOrNo" value={{yn.code}}>{{yn.value}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-error *ngIf="isShowErrors && updateDocketForm.get('include')?.hasError('required')">
+            <span>{{customValidation.A1}}</span>
+        </mat-error>
+    </div>
+</form>
+<div>
+    <button style="margin-right: 50px; margin-top: 30px;" mat-stroked-button color="primary" class="perlss-click-button"
+        (click)="cancelDocket()">CANCEL</button>
+    <button mat-stroked-button color="primary" class="perlss-click-button" (click)="updateDocket()">SAVE</button>
+</div>

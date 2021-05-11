@@ -1,0 +1,20 @@
+<div class="responsive dialog">
+    <div class="header">
+        <h1>Back</h1>
+    </div>
+    <div class="form">
+        <div class="scroller noScroll">
+            <p>Are you sure you would like to leave this page?</p>
+            <p>Your information will not be saved. </p>
+                <p>If you wish to proceed, please
+                    click "YES" button to navigate to your previous page.</p>
+            <p>Click the "NO" button to stay on the current page.</p>
+        </div>
+        <div class="buttonBar floatedRight">
+            <button mat-flat-button color="primary" (click)="closePopup()"
+                class="perlss-click-button-white-noborder">No</button>
+            <button mat-flat-button color="primary" (click)="goBackSummary()"
+                class="perlss-click-button-white-noborder">Yes</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,120 @@
+<div style="margin: 30px 40px 30px 40px;">
+  <div class="row" style="width: 100%; padding-bottom: 50px;">
+    <div class="col-md-8" style="width: 100% !important;">
+      <div class="applicant-sub-heading">
+        Applicant Information
+      </div>
+    </div>
+  </div>
+  <div class="applicant-information">
+    <div class="grid-container">
+      <div *ngIf="applicantInformation.firstName && applicantInformation.lastName">
+        <div class="row"><strong class="col-md-4 color-black">APPLICANT NAME:</strong>
+          <span class="col-md-3 color-black">{{applicantInformation.firstName}} {{applicantInformation.lastName}}</span>
+        </div>
+      </div>
+      <div *ngIf="applicantInformation.refId">
+        <div class="row"><strong class="col-md-4 color-black">REFERRAL ID:</strong><span
+            class="col-md-3 color-black">{{applicantInformation.refId}}</span>
+        </div>
+      </div>
+      <div *ngIf="applicantInformation.prsnId">
+        <div class="row"><strong class="col-md-4 color-black">PERSON ID:</strong><span
+            class="col-md-3 color-black">{{applicantInformation.prsnId}}</span>
+        </div>
+      </div>
+      <div *ngIf="applicantInformation.paeId">
+        <div class="row"><strong class="col-md-4 color-black">PAE ID:</strong><span
+            class="col-md-3 color-black">{{applicantInformation.paeId}}</span>
+        </div>
+      </div>
+      <div *ngIf="applicantInformation.dobDt">
+        <div class="row"><strong class="col-md-4 color-black">DATE OF BIRTH:</strong><span
+            class="col-md-3 color-black">{{applicantInformation.dobDt}}</span>
+        </div>
+      </div>
+      <div *ngIf="applicantInformation.paeStatus">
+        <div class="row"><strong class="col-md-4 color-black">PAE STATUS:</strong><span
+            class="col-md-3 color-black">{{applicantInformation.paeStatus}}</span>
+        </div>
+      </div>
+      <div *ngIf="applicantInformation.ssn">
+        <div class="row"><strong class="col-md-4 color-black">SSN:</strong><span
+            class="col-md-3 color-black">{{applicantInformation.ssn}}</span>
+        </div>
+      </div>
+      <div *ngIf="applicantInformation.aplId">
+        <div class="row"><strong class="col-md-4 color-black">APPEAL ID:</strong><span
+            class="col-md-3 color-black">{{applicantInformation.aplId}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="reassign-sub-heading">
+    Reassign Document
+  </div>
+  <div style="color: black; margin-top: 20px; font-size: 16px;">
+    Select the changes you would like to make then click "<strong>Save.</strong>"
+  </div>
+  <div class="doc-container">
+    <div class="common-doc-values-type" style="margin-left: 5px;">
+      <div style="display: flex;">
+        <div>
+          <mat-icon class="required-color">description</mat-icon>
+        </div>
+        <div (click)="viewDoc(document)" class="document-link">
+          <strong style="font-size: 14px;">{{document.docType}}</strong>
+        </div>
+      </div>
+    </div>
+    <div style="font-size: 14px;" class="common-doc-values-description">
+      <strong>Document Description:<br /></strong>
+      <span>{{document.docDesc}}</span>
+    </div>
+    <div style="font-size: 14px;" class="right common-doc-values-uploaded">
+      <strong>Upload Date: </strong>{{document.createdDt}}<br />
+      <strong><br />Uploaded By: </strong>{{document.userName}}
+    </div>
+  </div>
+  <div *ngIf="isShowSpinner" class="spinner-overlay">
+    <mat-spinner color="warn" mode="indeterminate"></mat-spinner>
+  </div>
+  <div *ngIf="isShowTypeAndRecords">
+    <div style="margin-top: 100px; margin-bottom: 25px;" class="reassign-sub-heading">
+      1. Change Document Type(s)
+    </div>
+    <div class="dropdown">
+      <ng-multiselect-dropdown [placeholder]="'Change Document Type(s)'" [settings]="documentSettings"
+        [data]="documentsList" [(ngModel)]="selectedDocuments">
+      </ng-multiselect-dropdown>
+    </div>
+    <div *ngIf="documentsError" class="error-text">
+      {{documentErrorText}}
+    </div>
+    <div style="margin-top: 25px;">
+      <button type="submit" class="save-button" (click)="saveDocTypes()">SAVE</button>
+    </div>
+  </div>
+  <div  *ngIf="isShowTypeAndRecords">
+    <div style="margin-top: 100px; margin-bottom: 25px;" class="reassign-sub-heading">
+      2. Add document to another record
+    </div>
+    <div style="margin-bottom: 5px; color: black;">
+      <strong style="font-size: 12px;">Select applicant's record</strong>
+    </div>
+    <div class="dropdown">
+      <ng-multiselect-dropdown [placeholder]="'Select Applicant record'" [settings]="recordsSettings"
+        [data]="recordsList" [(ngModel)]="selectedRecords">
+      </ng-multiselect-dropdown>
+    </div>
+    <div *ngIf="recordsError" class="error-text">
+      {{recordsErrorText}}
+    </div>
+    <div style="margin-top: 25px;">
+      <button type="submit" class="save-button" (click)="saveApplicantRecord()">SAVE</button>
+    </div>
+  </div>
+  <div (click)="navigateToHistory()" class="navigate-link">
+    GO BACK TO VIEW / UPLOAD DOCUMENTS
+  </div>
+</div>

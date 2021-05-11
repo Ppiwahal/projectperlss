@@ -1,0 +1,160 @@
+@import '../../../colors.scss';
+
+.close-icon {
+    color : #969190;
+    font-size: small;
+    cursor: pointer;
+  }
+  .dialog-heading {
+    font-weight: bold;
+    font-size: 22px;
+    font-family: 'Open Sans';
+    color: #174A7C;
+  }
+  .row-header {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 0 0 0;
+  }
+  .search{
+    margin-left: 370px !important;
+  }
+  tr.element-row:not(.expanded-row):hover {
+    background: $colorControlBackground;
+  }
+  tr.example-detail-row {
+    height: 0;
+  }
+  .example-element-detail {
+    overflow: hidden;
+  }
+  
+  tr.element-row:not(.expanded-row):active {
+    background: $colorControlBackground;
+  }
+  
+  tr.expanded-row {
+    background: #EDF4FB;
+    font-weight: bold;
+  }
+  
+  .align-right {
+    flex: 1;
+    text-align: right;
+  }
+  
+  .table-th{
+    font-size: 14px;
+    font-weight: bold;
+    color: #04537D;
+    border-bottom: 3px solid #1B365D;
+  }
+  
+  .user-role-heading{
+    color: #4D7E20;
+    font-size: 22px;
+    font-weight: bold;
+  }
+  
+  .required {
+    font-size: 12px;
+    justify-content: flex-end;
+    display: flex;
+  }
+  
+  table {
+    border: 1px solid #1B365D;
+  }
+  
+  table tr:last-child td {
+    border-bottom: 1px solid #1B365D;
+  }
+  
+  .mat-paginator {
+    background: none !important;
+  }
+  
+  ::ng-deep .mat-checkbox-indeterminate .mat-checkbox-background {
+    background-color: #ED6053 !important;
+  }
+  
+  ::ng-deep .mat-checkbox.mat-accent {
+    &.mat-checkbox-checked .mat-checkbox-background {
+      background-color: $colorControlBackground;
+      border: 1px solid #B3B3B3;
+    }
+  
+    .mat-checkbox-checkmark-path {
+      stroke: #ED6053 !important;
+    }
+  }
+  
+  .subrow-header{
+    font-weight: bold;
+    padding-top: 10px;
+  }
+  
+  .subrow-continue-button{
+    padding-bottom: 15px;
+    padding-left: 50%;
+  }
+  .subrow-update-button{
+    padding-left: 50%;
+  }
+  
+  .subrow-content{
+    padding-bottom: 12px;
+  }
+  
+  .subrow-continue-button-width{
+    width: 111px;
+  }
+  .color{
+    background-color: #f5faff;
+  }
+  .d-btn-filter{
+    width: 90%;
+    margin-bottom: 5px;
+    display: block;
+    white-space: pre-wrap;
+  }
+  th.mat-header-cell, td.mat-cell, td.mat-footer-cell{
+    text-align: left;
+    white-space: pre-wrap;
+    padding: 5px;
+  }
+  .custom-filter{
+   max-height:280px;
+   overflow: auto;
+  }
+  .grid-btn{
+    padding:0px;
+    width: 50%;
+  }
+  .moduleFilter button.active{
+    background-color:#174A7C!important;
+    color: white !important;
+  }
+  .accessFilter button.active{
+    background-color:#174A7C !important;
+    color: white !important;
+  }
+
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline{
+    background-color: #F6FAFF;
+    }
+    .padding{
+      padding-left: 89px;
+      padding-top: 18px;
+    }
+    .paddingaccess{
+      padding-left: 97px;
+    }
+    ::ng-deep .toast-message{
+      color: white;
+      font-size: 16px;
+    }
+
+div > .mat-form-field {
+  width: 100%;
+}

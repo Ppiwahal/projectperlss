@@ -1,0 +1,57 @@
+<div class="wrapper">
+    <table id="mainTable" aria-describedby mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8"
+        style="width: 100%;font-size: 12px;">
+
+        <ng-container matColumnDef="recordId">
+            <th id="recordId" mat-header-cell *matHeaderCellDef>Record ID</th>
+            <td mat-cell *matCellDef="let element"><u>{{element.recordId}}</u></td>
+       </ng-container>
+
+        <ng-container matColumnDef="recordStatus">
+            <th id="recordStatus" mat-header-cell *matHeaderCellDef>Record Status</th>
+            <td mat-cell *matCellDef="let element">{{element.statusVal}}</td>
+       </ng-container>
+
+        <ng-container matColumnDef="enrollmentGroup">
+            <th id="enrollmentGroup" mat-header-cell *matHeaderCellDef>Enrollment Group</th>
+            <td mat-cell *matCellDef="let element">{{element.enrGrpVal}}</td>
+       </ng-container>
+
+        <ng-container matColumnDef="enrollmentStatus">
+            <th id="enrollmentStatus" mat-header-cell *matHeaderCellDef>Enrollment Status</th>
+            <td mat-cell *matCellDef="let element">{{element.enrStatusVal}}</td>
+       </ng-container>
+
+        <ng-container matColumnDef="action">
+            <th id="action" mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let element; let i = dataIndex;">
+                <div>
+                    <button mat-flat-button color="primary" class="perlss-click-button-white" [ngClass]="{'highlight-button':selectedIndex === i}" (click)="selectRow(element, i)">
+                        SELECT THIS NOTICE <mat-icon>offline_pin</mat-icon>
+                    </button>
+                </div>
+            </td>
+       </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row"
+            [class.example-expanded-row]="expandedElement === element"
+            (click)="expandedElement = expandedElement === element ? null : element">
+       </tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+    <div class="row button-content">
+        <div class="col-6 back-button">
+            <button mat-flat-button matStepperPrevious color="primary" class="perlss-click-button-white">
+                BACK
+            </button>
+       </div>
+        <div class="col-6 next-button">
+            <button mat-button matStepperNext mat-flat-button color="primary" class="perlss-click-button" [disabled]="!selectedRow"  (click)="postNoticeRecord()">
+                NEXT
+            </button>
+       </div>
+    </div>
+
+</div>

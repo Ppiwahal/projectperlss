@@ -1,0 +1,635 @@
+<div class="responsive dialog">
+  <div class="header">
+    <h1 class="formTitle" mat-dialog-title>LSA Form</h1>
+    <mat-icon class="popup-close-icon" (click)="close()">highlight_off</mat-icon>
+    <label class="req requireDisplay">Required</label>
+  </div>
+  <form [formGroup]="informantForm">
+    <div class="scroller noPad">
+      <div class="row">
+        <div class="col-8 note-container">
+          <p><strong>Intellectual disability (ID</strong>- two (2) or more of
+            substantial functional limitations and before eighteen (18) years of age.</p>
+          <br>
+          <p><strong>Developmental disability (DD)</strong>- three(3) or more of substantial
+            functional limitations over 5 and before twenty-two (22) years of age.</p>
+       </div>
+        <div class="col-4 note-container">
+            <span><mat-icon class="yes-icon">check_circle_outline</mat-icon></span>
+            <span><strong>Yes</strong></span>
+          <br>
+          <mat-icon class="no-icon">cancel</mat-icon>
+            <strong>No</strong>
+          <br>
+          <mat-icon class="no-conclusion-icon">remove_circle</mat-icon>
+            <strong>No Conclusion</strong>
+       </div>
+      </div>
+      <div class="padded">
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group">
+                <mat-label>How many informants are available in completing this assessment?
+                </mat-label>
+                <mat-form-field style="width: 40%;">
+                <mat-select formControlName="numberOfInformants" class="form-control selection"
+                  style="background-color: #F6FAFF;" (selectionChange)="onChangeInformants($event.value)">
+                  <mat-option></mat-option>
+                  <mat-option *ngFor="let infnt of informantCountDisplay" [value]="infnt.code">
+                    {{infnt.description}}
+                </mat-option>
+                </mat-select>
+                <mat-error *ngIf="informantForm.controls.numberOfInformants.errors">
+                  <mat-error *ngIf="informantForm.controls.numberOfInformants.touched && informantForm.controls.numberOfInformants.errors.required">{{customValidation.A1}}
+                  </mat-error>
+                </mat-error>
+              </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div formArrayName="refIntLsaInfrmntVOList">
+            <table style="width: auto; border: 1px solid #225282">
+                <thead>
+                    <tr class="thead-light">
+                        <th class="headerTitle" id="informant">Informant</th>
+                        <th class="headerTitle" id="fullName">*Full Name</th>
+                        <th class="headerTitle" id="relationship">*Relationship</th>
+                        <th class="headerTitle" id="edit"></th>
+                        <th class="headerTitle" id="delete"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <span *ngIf="!isLsaFormLoad">
+                    <mat-spinner></mat-spinner>
+                  </span>
+                    <tr *ngFor="let informantDetail of informantForm.controls.refIntLsaInfrmntVOList.value; let i = index;trackBy:trackFn" [hidden]="informantDetail.deleteInformant" [formGroupName]="i">
+                        <td class="labelCounter informantTableTd">
+                            <label>{{i + 1}}</label>
+                        </td>
+                        <td class="informantTableTd fullNameDisplay">
+                            <input type="text" formControlName="fullName"
+                            [value]="informantDetail.fullName"
+                            class="form-control inputSize" />
+                        </td>
+                        <td class="informantTableTd">
+                            <mat-select class="form-control relationshipDisplay" formControlName="reltshpCd" placeholder="Select an option">
+                                <mat-option *ngFor="let reltshpCd of relationShipCdList" [value]="reltshpCd.code">
+                                    {{reltshpCd.description}}
+                                </mat-option>
+                            </mat-select>
+                        </td>
+                        <td class="editInformant informantTableTd">
+                            <button mat-raised-button (click)="clearInformants(i)" [hidden] = "editInformantDisable" class="orange">Edit</button>
+                        </td>
+                        <td class="deleteInformants informantTableTd">
+                            <button mat-raised-button (click)="removeInformants(i)" [hidden] = "editInformantDisable" color="warn">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+          <div class="panelButtons">
+            <button (click)="onSaveInformants()" [hidden] = "saveInformantDisable" class="orange chkW">
+              SAVE</button>
+          </div>
+        </div>
+        <div class="accordionSpace">
+          <mat-accordion>
+            <mat-expansion-panel [hidden] = "editInformantDisable" #selfCareAccordion="matExpansionPanel">
+              <mat-expansion-panel-header class="accordionHeader">
+                <mat-panel-title class="panelText">
+                  SELF-CARE <span class="text-align-right"></span>
+                  <mat-icon *ngIf="isScAnswerFinished" class="check-green">offline_pin</mat-icon>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="quesContainer" *ngFor="let lsaQustnsId of getSLCRQuestionTypeCd, index as o">
+                <div class="floatChildren">
+                  <div class="w55 flex">
+                    <div>
+                      {{lsaQustnsId.description}}
+                    </div>
+                  </div>
+                  <div class="w45 floatRight">
+                    <div class="floatChildren" *ngFor="let optionsCd of lsaQustnsId.options, index as i">
+                      <div class="w55 label">
+                        {{optionsCd.name}}
+                      </div>
+                      <div class="w45 lsaButton ">
+                          <button [disabled] = "isScAnswerSelected" (click)="onButtonSelection('Y',o,i,lsaQustnsId.value)"  [ngClass]="{'xgreen':getSLCRQuestionTypeCd[o].options[i].value == 'Y'}">
+                            <ng-container *ngIf= "getSLCRQuestionTypeCd[o].options[i].value == 'Y'">check_circle_outline</ng-container>
+                            <ng-container *ngIf= "getSLCRQuestionTypeCd[o].options[i].value !== 'Y'">check_circle</ng-container>
+                          </button>
+                          <button [disabled] = "isScAnswerSelected" (click)="onButtonSelection('N',o,i,lsaQustnsId.value)"  [ngClass]="{'xred':getSLCRQuestionTypeCd[o].options[i].value == 'N'}">
+                            <ng-container *ngIf= "getSLCRQuestionTypeCd[o].options[i].value !== 'N'">highlight_off</ng-container>
+                            <ng-container *ngIf= "getSLCRQuestionTypeCd[o].options[i].value == 'N'">highlight_off</ng-container>
+                          </button>
+                          <button [disabled] = "isScAnswerSelected" (click)="onButtonSelection('NC',o,i,lsaQustnsId.value)" [ngClass]="{'xyellow':getSLCRQuestionTypeCd[o].options[i].value == 'NC'}">
+                            <ng-container *ngIf= "getSLCRQuestionTypeCd[o].options[i].value !== 'NC'">remove_circle_outline</ng-container>
+                            <ng-container *ngIf= "getSLCRQuestionTypeCd[o].options[i].value == 'NC'">remove_circle</ng-container>
+                          </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row chkM">
+                <div class="col-2">
+                  <button (click)="saveSelfCareResponse(); closeSelfCareAccordion();;"
+                    *ngIf= "!editSCAccordionDisable"
+                    mat-button
+                    [disabled] = "saveScAccordionDisable"
+                    class="save-button-accordion button-align chkW">
+                    SAVE
+                  </button>
+                  <button (click)="saveSelfCareResponse()"
+                    *ngIf= "editSCAccordionDisable"
+                    mat-button
+                    class="save-button-accordion button-align chkW">
+                    EDIT
+                  </button>
+                </div>
+                <div class="col-3 button-align">
+                  <button mat-button
+                    (click)="closeSelfCareAccordion();"
+                    class="cancel-button-accordion chkW">
+                    CANCEL
+                  </button>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+       </div>
+       <div class="accordionSpace">
+        <mat-accordion>
+          <mat-expansion-panel [hidden] = "editInformantDisable" #recpAccordion="matExpansionPanel">
+            <mat-expansion-panel-header class="accordionHeader">
+              <mat-panel-title class="panelText">
+                RECEPTIVE AND EXPRESSIVE LANGUAGE <span class="text-align-right"></span>
+                <mat-icon *ngIf="isRecpAnswerFinished" class="check-green">offline_pin</mat-icon>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="quesContainer" *ngFor="let lsaQustnsId of getRECPQuestionTypeCd, index as o">
+              <div class="floatChildren">
+                <div class="w55 flex">
+                  <div>
+                    {{lsaQustnsId.description}}
+                  </div>
+                </div>
+                <div class="w45 floatRight">
+                  <div class="floatChildren" *ngFor="let optionsCd of lsaQustnsId.options, index as i">
+                    <div class="w55 label">
+                      {{optionsCd.name}}
+                    </div>
+                    <div class="w45 lsaButton ">
+                        <button [disabled] = "isRecpAnswerSelected" (click)="onButtonSelection('Y',o,i,lsaQustnsId.value)"  [ngClass]="{'xgreen':getRECPQuestionTypeCd[o].options[i].value == 'Y'}">
+                          <ng-container *ngIf= "getRECPQuestionTypeCd[o].options[i].value == 'Y'">check_circle_outline</ng-container>
+                          <ng-container *ngIf= "getRECPQuestionTypeCd[o].options[i].value !== 'Y'">check_circle</ng-container>
+                        </button>
+                        <button [disabled] = "isRecpAnswerSelected" (click)="onButtonSelection('N',o,i,lsaQustnsId.value)"  [ngClass]="{'xred':getRECPQuestionTypeCd[o].options[i].value == 'N'}">
+                          <ng-container *ngIf= "getRECPQuestionTypeCd[o].options[i].value !== 'N'">highlight_off</ng-container>
+                          <ng-container *ngIf= "getRECPQuestionTypeCd[o].options[i].value == 'N'">highlight_off</ng-container>
+                        </button>
+                        <button [disabled] = "isRecpAnswerSelected" (click)="onButtonSelection('NC',o,i,lsaQustnsId.value)" [ngClass]="{'xyellow':getRECPQuestionTypeCd[o].options[i].value == 'NC'}">
+                          <ng-container *ngIf= "getRECPQuestionTypeCd[o].options[i].value !== 'NC'">remove_circle_outline</ng-container>
+                          <ng-container *ngIf= "getRECPQuestionTypeCd[o].options[i].value == 'NC'">remove_circle</ng-container>
+                        </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row chkM">
+              <div class="col-2 button-align">
+                <button (click)="saveRecpResponse(); closeRecpAccordion();;"
+                  *ngIf= "!editRecpAccordionDisable"
+                  mat-button
+                  [disabled] = "saveRecpAccordionDisable"
+                  class="save-button-accordion chkW">
+                  SAVE
+                </button>
+                <button (click)="saveRecpResponse()"
+                  *ngIf= "editRecpAccordionDisable"
+                  mat-button
+                  class="save-button-accordion chkW">
+                  EDIT
+                </button>
+              </div>
+              <div class="col-3 button-align">
+                <button mat-button
+                  (click)="closeRecpAccordion();"
+                  class="cancel-button-accordion chkW">
+                  CANCEL
+                </button>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+       </div>
+       <div class="accordionSpace">
+        <mat-accordion>
+          <mat-expansion-panel [hidden] = "editInformantDisable" #learnAccordion="matExpansionPanel">
+            <mat-expansion-panel-header class="accordionHeader">
+              <mat-panel-title class="panelText">
+                LEARNING <span class="text-align-right"></span>
+                <mat-icon *ngIf="isLernAnswerFinished" class="check-green">offline_pin</mat-icon>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="quesContainer" *ngFor="let lsaQustnsId of getLERNQuestionTypeCd, index as o">
+              <div class="floatChildren">
+                <div class="w55 flex">
+                  <div>
+                    {{lsaQustnsId.description}}
+                  </div>
+                </div>
+                <div class="w45 floatRight">
+                  <div class="floatChildren" *ngFor="let optionsCd of lsaQustnsId.options, index as i">
+                    <div class="w55 label">
+                      {{optionsCd.name}}
+                    </div>
+                    <div class="w45 lsaButton ">
+                        <button [disabled] = "isLernAnswerSelected" (click)="onButtonSelection('Y',o,i,lsaQustnsId.value)"  [ngClass]="{'xgreen':getLERNQuestionTypeCd[o].options[i].value == 'Y'}">
+                          <ng-container *ngIf= "getLERNQuestionTypeCd[o].options[i].value == 'Y'">check_circle_outline</ng-container>
+                          <ng-container *ngIf= "getLERNQuestionTypeCd[o].options[i].value !== 'Y'">check_circle</ng-container>
+                        </button>
+                        <button [disabled] = "isLernAnswerSelected" (click)="onButtonSelection('N',o,i,lsaQustnsId.value)"  [ngClass]="{'xred':getLERNQuestionTypeCd[o].options[i].value == 'N'}">
+                          <ng-container *ngIf= "getLERNQuestionTypeCd[o].options[i].value !== 'N'">highlight_off</ng-container>
+                          <ng-container *ngIf= "getLERNQuestionTypeCd[o].options[i].value == 'N'">highlight_off</ng-container>
+                        </button>
+                        <button [disabled] = "isLernAnswerSelected" (click)="onButtonSelection('NC',o,i,lsaQustnsId.value)" [ngClass]="{'xyellow':getLERNQuestionTypeCd[o].options[i].value == 'NC'}">
+                          <ng-container *ngIf= "getLERNQuestionTypeCd[o].options[i].value !== 'NC'">remove_circle_outline</ng-container>
+                          <ng-container *ngIf= "getLERNQuestionTypeCd[o].options[i].value == 'NC'">remove_circle</ng-container>
+                        </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row chkM">
+              <div class="col-2 button-align">
+                <button (click)="saveLernResponse(); closeLearnAccordion();;"
+                  *ngIf= "!editLernAccordionDisable"
+                  mat-button
+                  [disabled] = "saveLernAccordionDisable"
+                  class="save-button-accordion chkW">
+                  SAVE
+                </button>
+                <button (click)="saveLernResponse()"
+                  *ngIf= "editLernAccordionDisable"
+                  mat-button
+                  class="save-button-accordion chkW">
+                  EDIT
+                </button>
+              </div>
+              <div class="col-3 button-align">
+                <button mat-button
+                 (click)="closeLearnAccordion();"
+                  class="cancel-button-accordion chkW">
+                  CANCEL
+                </button>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+       </div>
+       <div class="accordionSpace">
+        <mat-accordion>
+          <mat-expansion-panel [hidden] = "editInformantDisable" #mobilityAccordion="matExpansionPanel">
+            <mat-expansion-panel-header class="accordionHeader">
+              <mat-panel-title class="panelText">
+                MOBILITY <span class="text-align-right"></span>
+                <mat-icon *ngIf="isMbltAnswerFinished" class="check-green">offline_pin</mat-icon>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="quesContainer" *ngFor="let lsaQustnsId of getMBLTQuestionTypeCd, index as o">
+              <div class="floatChildren">
+                <div class="w55 flex">
+                  <div>
+                    {{lsaQustnsId.description}}
+                  </div>
+                </div>
+                <div class="w45 floatRight">
+                  <div class="floatChildren" *ngFor="let optionsCd of lsaQustnsId.options, index as i">
+                    <div class="w55 label">
+                      {{optionsCd.name}}
+                    </div>
+                    <div class="w45 lsaButton ">
+                        <button [disabled] = "isMbltAnswerSelected" (click)="onButtonSelection('Y',o,i,lsaQustnsId.value)"  [ngClass]="{'xgreen':getMBLTQuestionTypeCd[o].options[i].value == 'Y'}">
+                          <ng-container *ngIf= "getMBLTQuestionTypeCd[o].options[i].value == 'Y'">check_circle_outline</ng-container>
+                          <ng-container *ngIf= "getMBLTQuestionTypeCd[o].options[i].value !== 'Y'">check_circle</ng-container>
+                        </button>
+                        <button [disabled] = "isMbltAnswerSelected" (click)="onButtonSelection('N',o,i,lsaQustnsId.value)"  [ngClass]="{'xred':getMBLTQuestionTypeCd[o].options[i].value == 'N'}">
+                          <ng-container *ngIf= "getMBLTQuestionTypeCd[o].options[i].value !== 'N'">highlight_off</ng-container>
+                          <ng-container *ngIf= "getMBLTQuestionTypeCd[o].options[i].value == 'N'">highlight_off</ng-container>
+                        </button>
+                        <button [disabled] = "isMbltAnswerSelected" (click)="onButtonSelection('NC',o,i,lsaQustnsId.value)" [ngClass]="{'xyellow':getMBLTQuestionTypeCd[o].options[i].value == 'NC'}">
+                          <ng-container *ngIf= "getMBLTQuestionTypeCd[o].options[i].value !== 'NC'">remove_circle_outline</ng-container>
+                          <ng-container *ngIf= "getMBLTQuestionTypeCd[o].options[i].value == 'NC'">remove_circle</ng-container>
+                        </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row chkM">
+              <div class="col-2 button-align">
+                <button (click)="saveMbltResponse(); closeMobilityAccordion();"
+                  *ngIf= "!editMbltAccordionDisable"
+                  mat-button
+                  [disabled] = "saveMbltAccordionDisable"
+                  class="save-button-accordion chkW">
+                  SAVE
+                </button>
+                <button (click)="saveMbltResponse()"
+                  *ngIf= "editMbltAccordionDisable"
+                  mat-button
+                  class="save-button-accordion chkW">
+                  EDIT
+                </button>
+              </div>
+              <div class="col-3 button-align">
+                <button mat-button
+                  (click)="closeMobilityAccordion();"
+                  class="cancel-button-accordion chkW">
+                  CANCEL
+                </button>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+       </div>
+       <div class="accordionSpace">
+        <mat-accordion>
+          <mat-expansion-panel [hidden] = "editInformantDisable" #sedrAccordion="matExpansionPanel">
+            <mat-expansion-panel-header class="accordionHeader">
+              <mat-panel-title class="panelText">
+                SELF-DIRECTION <span class="text-align-right"></span>
+                <mat-icon *ngIf="isSedrAnswerFinished" class="check-green">offline_pin</mat-icon>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="quesContainer" *ngFor="let lsaQustnsId of getSEDRQuestionTypeCd, index as o">
+              <div class="floatChildren">
+                <div class="w55 flex">
+                  <div>
+                    {{lsaQustnsId.description}}
+                  </div>
+                </div>
+                <div class="w45 floatRight">
+                  <div class="floatChildren" *ngFor="let optionsCd of lsaQustnsId.options, index as i">
+                    <div class="w55 label">
+                      {{optionsCd.name}}
+                    </div>
+                    <div class="w45 lsaButton ">
+                        <button [disabled] = "isSedrAnswerSelected" (click)="onButtonSelection('Y',o,i,lsaQustnsId.value)"  [ngClass]="{'xgreen':getSEDRQuestionTypeCd[o].options[i].value == 'Y'}">
+                          <ng-container *ngIf= "getSEDRQuestionTypeCd[o].options[i].value == 'Y'">check_circle_outline</ng-container>
+                          <ng-container *ngIf= "getSEDRQuestionTypeCd[o].options[i].value !== 'Y'">check_circle</ng-container>
+                        </button>
+                        <button [disabled] = "isSedrAnswerSelected" (click)="onButtonSelection('N',o,i,lsaQustnsId.value)"  [ngClass]="{'xred':getSEDRQuestionTypeCd[o].options[i].value == 'N'}">
+                          <ng-container *ngIf= "getSEDRQuestionTypeCd[o].options[i].value !== 'N'">highlight_off</ng-container>
+                          <ng-container *ngIf= "getSEDRQuestionTypeCd[o].options[i].value == 'N'">highlight_off</ng-container>
+                        </button>
+                        <button [disabled] = "isSedrAnswerSelected" (click)="onButtonSelection('NC',o,i,lsaQustnsId.value)" [ngClass]="{'xyellow':getSEDRQuestionTypeCd[o].options[i].value == 'NC'}">
+                          <ng-container *ngIf= "getSEDRQuestionTypeCd[o].options[i].value !== 'NC'">remove_circle_outline</ng-container>
+                          <ng-container *ngIf= "getSEDRQuestionTypeCd[o].options[i].value == 'NC'">remove_circle</ng-container>
+                        </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row chkM">
+              <div class="col-2 button-align">
+                <button (click)="saveSedrResponse(); closeSedrAccordion();;"
+                  *ngIf= "!editSedrAccordionDisable"
+                  mat-button
+                  [disabled] = "saveSedrAccordionDisable"
+                  class="save-button-accordion chkW">
+                  SAVE
+                </button>
+                <button (click)="saveSedrResponse()"
+                  *ngIf= "editSedrAccordionDisable"
+                  mat-button
+                  class="save-button-accordion chkW">
+                  EDIT
+                </button>
+              </div>
+              <div class="col-3 button-align">
+                <button mat-button
+                  (click)="closeSedrAccordion();"
+                  class="cancel-button-accordion chkW">
+                  CANCEL
+                </button>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+       </div>
+       <div class="accordionSpace">
+        <mat-accordion>
+          <mat-expansion-panel [hidden] = "editInformantDisable" #capacityAccordion="matExpansionPanel">
+            <mat-expansion-panel-header class="accordionHeader">
+              <mat-panel-title class="panelText">
+                CAPACITY FOR INDEPENDENT LIVING <span class="text-align-right"></span>
+                <mat-icon *ngIf="isCpidAnswerFinished" class="check-green">offline_pin</mat-icon>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="quesContainer" *ngFor="let lsaQustnsId of getCPIDQuestionTypeCd, index as o">
+              <div class="floatChildren">
+                <div class="w55 flex">
+                  <div>
+                    {{lsaQustnsId.description}}
+                  </div>
+                </div>
+                <div class="w45 floatRight">
+                  <div class="floatChildren" *ngFor="let optionsCd of lsaQustnsId.options, index as i">
+                    <div class="w55 label">
+                      {{optionsCd.name}}
+                    </div>
+                    <div class="w45 lsaButton ">
+                        <button [disabled] = "isCpidAnswerSelected" (click)="onButtonSelection('Y',o,i,lsaQustnsId.value)"  [ngClass]="{'xgreen':getCPIDQuestionTypeCd[o].options[i].value == 'Y'}">
+                          <ng-container *ngIf= "getCPIDQuestionTypeCd[o].options[i].value == 'Y'">check_circle_outline</ng-container>
+                          <ng-container *ngIf= "getCPIDQuestionTypeCd[o].options[i].value !== 'Y'">check_circle</ng-container>
+                        </button>
+                        <button [disabled] = "isCpidAnswerSelected" (click)="onButtonSelection('N',o,i,lsaQustnsId.value)"  [ngClass]="{'xred':getCPIDQuestionTypeCd[o].options[i].value == 'N'}">
+                          <ng-container *ngIf= "getCPIDQuestionTypeCd[o].options[i].value !== 'N'">highlight_off</ng-container>
+                          <ng-container *ngIf= "getCPIDQuestionTypeCd[o].options[i].value == 'N'">highlight_off</ng-container>
+                        </button>
+                        <button [disabled] = "isCpidAnswerSelected" (click)="onButtonSelection('NC',o,i,lsaQustnsId.value)" [ngClass]="{'xyellow':getCPIDQuestionTypeCd[o].options[i].value == 'NC'}">
+                          <ng-container *ngIf= "getCPIDQuestionTypeCd[o].options[i].value !== 'NC'">remove_circle_outline</ng-container>
+                          <ng-container *ngIf= "getCPIDQuestionTypeCd[o].options[i].value == 'NC'">remove_circle</ng-container>
+                        </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row chkM">
+              <div class="col-2 button-align">
+                <button (click)="saveCpidResponse(); closeCapacityAccordion();;"
+                  *ngIf= "!editCpidAccordionDisable"
+                  mat-button
+                  [disabled] = "saveCpidAccordionDisable"
+                  class="save-button-accordion chkW">
+                  SAVE
+                </button>
+                <button (click)="saveCpidResponse()"
+                  *ngIf= "editCpidAccordionDisable"
+                  mat-button
+                  class="save-button-accordion chkW">
+                  EDIT
+                </button>
+              </div>
+              <div class="col-3 button-align">
+                <button mat-button
+                  (click)="closeCapacityAccordion();"
+                  class="cancel-button-accordion chkW">
+                  CANCEL
+                </button>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+       </div>
+       <div class="accordionSpace">
+        <mat-accordion>
+          <mat-expansion-panel [hidden] = "editInformantDisable" #economicAccordion="matExpansionPanel">
+            <mat-expansion-panel-header class="accordionHeader">
+              <mat-panel-title class="panelText">
+                ECONOMIC SELF-SUFFICIENTY <span class="text-align-right"></span>
+                <mat-icon *ngIf="isEcslAnswerFinished" class="check-green">offline_pin</mat-icon>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="quesContainer" *ngFor="let lsaQustnsId of getECSLQuestionTypeCd, index as o">
+              <div class="floatChildren">
+                <div class="w55 flex">
+                  <div>
+                    {{lsaQustnsId.description}}
+                  </div>
+                </div>
+                <div class="w45 floatRight">
+                  <div class="floatChildren" *ngFor="let optionsCd of lsaQustnsId.options, index as i">
+                    <div class="w55 label">
+                      {{optionsCd.name}}
+                    </div>
+                    <div class="w45 lsaButton ">
+                        <button [disabled] = "isEcslAnswerSelected" (click)="onButtonSelection('Y',o,i,lsaQustnsId.value)"  [ngClass]="{'xgreen':getECSLQuestionTypeCd[o].options[i].value == 'Y'}">
+                          <ng-container *ngIf= "getECSLQuestionTypeCd[o].options[i].value == 'Y'">check_circle_outline</ng-container>
+                          <ng-container *ngIf= "getECSLQuestionTypeCd[o].options[i].value !== 'Y'">check_circle</ng-container>
+                        </button>
+                        <button [disabled] = "isEcslAnswerSelected" (click)="onButtonSelection('N',o,i,lsaQustnsId.value)"  [ngClass]="{'xred':getECSLQuestionTypeCd[o].options[i].value == 'N'}">
+                          <ng-container *ngIf= "getECSLQuestionTypeCd[o].options[i].value !== 'N'">highlight_off</ng-container>
+                          <ng-container *ngIf= "getECSLQuestionTypeCd[o].options[i].value == 'N'">highlight_off</ng-container>
+                        </button>
+                        <button [disabled] = "isEcslAnswerSelected" (click)="onButtonSelection('NC',o,i,lsaQustnsId.value)" [ngClass]="{'xyellow':getECSLQuestionTypeCd[o].options[i].value == 'NC'}">
+                          <ng-container *ngIf= "getECSLQuestionTypeCd[o].options[i].value !== 'NC'">remove_circle_outline</ng-container>
+                          <ng-container *ngIf= "getECSLQuestionTypeCd[o].options[i].value == 'NC'">remove_circle</ng-container>
+                        </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row chkM">
+              <div class="col-2 button-align">
+                <button (click)="saveEcslResponse(); closeEconomicAccordion();"
+                  *ngIf= "!editEcslAccordionDisable"
+                  mat-button
+                  [disabled] = "saveEcslAccordionDisable"
+                  class="save-button-accordion chkW">
+                  SAVE
+                </button>
+                <button (click)="saveEcslResponse()"
+                  *ngIf= "editEcslAccordionDisable"
+                  mat-button
+                  class="save-button-accordion chkW">
+                  EDIT
+                </button>
+              </div>
+              <div class="col-3 button-align">
+                <button mat-button
+                  (click)="closeEconomicAccordion();"
+                  class="cancel-button-accordion chkW">
+                  CANCEL
+                </button>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+       </div>
+       <div class="padded">
+      <div formGroupName="refIntLsaSubmsnVO" [hidden] = "saveSubmissionForm">
+        <div class="commentsHeader">
+          <mat-label>
+            <strong>Comments:</strong>
+          </mat-label>
+          <div class="comment-box">
+            <mat-form-field class="textArea" appearance="outline">
+                <textarea matInput formControlName="comments" maxlength="2000"></textarea>
+              </mat-form-field>
+            <div class="commentBoxLimit">
+              0/2000
+            </div>
+          </div>
+       </div>
+        <div class="row">
+          <div class="commentsHeader col-md-4">
+            <mat-form-field appearance="outline">
+              <mat-label><sup>
+                  <mat-label class="required-color">*</mat-label>
+                </sup>Electronic Signature</mat-label>
+              <input matInput
+                formControlName="elecSign"
+                placeholder="Electronic Signature"
+                >
+                <mat-error *ngIf="f.elecSign.errors">
+                  <mat-error *ngIf="f.elecSign.touched && f.elecSign.errors.required">{{customValidation.A1}}</mat-error>
+                  <mat-error *ngIf="f.elecSign.errors && !f.elecSign.errors.required">{{customValidation.A2}} </mat-error>
+                </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="commentsHeader col-md-5">
+            <mat-form-field appearance="outline" class="qaCode">
+              <mat-label><sup>
+                  <mat-label class="required-color">*</mat-label>
+                </sup>Qualified Assessor Code</mat-label>
+              <input matInput
+                formControlName="qualAssessorNameCd"
+                placeholder="Qualified Assessor Code"
+                >
+                <mat-error *ngIf="f.qualAssessorNameCd.errors">
+                  <mat-error *ngIf="f.qualAssessorNameCd.touched && f.qualAssessorNameCd.errors.required">{{customValidation.A1}}</mat-error>
+                  <mat-error *ngIf="f.qualAssessorNameCd.errors && !f.qualAssessorNameCd.errors.required">{{customValidation.A2}} </mat-error>
+                  <mat-error *ngIf="f.qualAssessorNameCd.errors && !f.qualAssessorNameCd.errors.required">{{customValidation.A37}} </mat-error>
+                </mat-error>
+            </mat-form-field>
+          </div>
+       </div>
+
+        <div class="commentsHeader">
+          <mat-form-field appearance="outline" style="width: 360px;">
+            <mat-label><sup>
+                <mat-label class="required-color">*</mat-label>
+              </sup>Completion Date</mat-label>
+            <input matInput [matDatepicker]="comptnDt" formControlName="comptnDt" [min]="minDate" [max]="maxDate">
+            <mat-error *ngIf="f.comptnDt.errors">
+              <mat-error *ngIf="f.comptnDt.errors.matDatepickerMax && f.comptnDt.errors.required">{{customValidation.A5}}</mat-error>
+              <mat-error *ngIf="f.comptnDt.errors.matDatepickerMin && !f.comptnDt.errors.required">{{customValidation.A6}} </mat-error>
+            </mat-error>
+            <mat-datepicker-toggle matSuffix [for]="comptnDt"></mat-datepicker-toggle>
+            <mat-datepicker #comptnDt></mat-datepicker>
+          </mat-form-field>
+       </div>
+      </div>
+      </div>
+    </div>
+    <div class="buttonBar">
+      <button mat-flat-button
+       color="primary"
+       [hidden] = "saveSubmissionForm"
+       [disabled] = "!informantForm.value || !informantForm.valid"
+       class="perlss-click-button"
+       (click)="submitLsaFormResponse()">
+       SUBMIT
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,110 @@
+<div class="wrapper">
+  <div class="header">
+    <div class="search-heading">
+      <strong>Search Result</strong>
+    </div>
+    <div class="filter-field">
+      <mat-form-field appearance="outline">
+        <mat-label>Search Filter</mat-label>
+        <input matInput placeholder="" #input>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <table aria-describedby="dataSources" mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8" style="width: 100%;">
+    <ng-container matColumnDef="personName">
+      <th id="personName" mat-header-cell *matHeaderCellDef class='table-th'>Person Name</th>
+      <td mat-cell *matCellDef="let element">{{element.personName}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="ssn">
+      <th id="ssn" mat-header-cell *matHeaderCellDef class='table-th'>SSN</th>
+      <td mat-cell *matCellDef="let element">{{element.ssn}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="age">
+      <th id="age" mat-header-cell *matHeaderCellDef class='table-th'>Age</th>
+      <td mat-cell *matCellDef="let element">{{element.birthDate}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="referralId">
+      <th id="referralId" mat-header-cell *matHeaderCellDef class='table-th'>Referral Id</th>
+      <td mat-cell *matCellDef="let element">{{element.refId}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="programType">
+      <th id="programType" mat-header-cell *matHeaderCellDef class='table-th'>Program Type</th>
+      <td mat-cell *matCellDef="let element">{{element.programType}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="lOCReassessmentDueDate">
+      <th id="lOCReassessmentDueDate" mat-header-cell *matHeaderCellDef class='table-th'>LOC Reassessment Due Date</th>
+      <td mat-cell *matCellDef="let element">{{element.reassessmentDueDate}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+        <div class="example-element-detail"
+             [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+              <div class="inside-table-wrapper">
+              <div class="innerTable">
+                <div>
+                  <mat-label><strong>Person ID</strong></mat-label>
+                  <p>{{element.personId}}</p>
+                </div>
+                <div>
+                  <mat-label><strong>Date Added</strong></mat-label>
+                  <p>{{element.dateAdded}}</p>
+                </div>
+                <div *ngIf="element.taskDetails && element.taskDetails.length >0">
+                  <mat-label><strong>Assigned User</strong></mat-label>
+                  <p>{{element.taskDetails[0]?.assignedUser}}</p>
+                </div>
+                <div *ngIf="element.taskDetails && element.taskDetails.length >0">
+                  <mat-label><strong>Task Queue</strong></mat-label>
+                  <p>{{element.taskDetails[0]?.taskQueue}}</p>
+                </div>
+                <div *ngIf="element.taskDetails && element.taskDetails.length >0">
+                  <mat-label><strong>Task Status</strong></mat-label>
+                  <p>{{element.taskDetails[0]?.taskStatus}}</p>
+                </div>
+                </div>
+                <div class="innerTable">
+                <div>
+                  <mat-label><strong>Date of Birth</strong></mat-label>
+                  <p>{{element.birthDate}}</p>
+                </div>
+                <div>
+                  <mat-label><strong>waiting List Status</strong></mat-label>
+                  <p>{{element.waitingListStatus}}</p>
+                </div>
+                <div>
+                  <mat-label><strong>Received in Queue</strong></mat-label>
+                  <p>{{element.receivedQueue}}</p>
+                </div>
+                <div>
+                  <mat-label><strong>Task Completion</strong></mat-label>
+                  <p>{{element.taskCompletion}}</p>
+                </div>
+                <div>
+                  <P><button mat-stroked-button
+                      routerLink="/ltss/waitingListManagement/waitingListdetails" [queryParams]="{ prsnid: element.personId, refId: element.refId, progtype: element.programType}">VIEW DETAILS</button></P>
+                </div>
+              </div>
+            </div>
+       </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+        class="element-row"
+        [class.expanded-row]="expandedElement === element"
+        (click)="expandedElement = expandedElement === element ? null : element">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" ></mat-paginator>
+
+</div>

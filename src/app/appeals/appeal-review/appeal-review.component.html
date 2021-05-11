@@ -1,0 +1,63 @@
+<div class="wrapper">
+  <div class="header-wrapper">
+    <p class="header">Appeal Review</p>
+    <p class="required-tag"><span class="required">*</span>Required </p>
+  </div>
+  <app-appellant-info [appellantInfoStatus]="appellantInfoStatus" [appellantInfo]="appellantInfo"></app-appellant-info>
+
+  <div class="section">
+    <app-linked-record-summary [linkedRecordSummary]="appealReviewOnLoad"
+      [passrRefrenceTableData]="passrRefrenceTableData"></app-linked-record-summary>
+  </div>
+
+  <div class="section">
+    <app-appeal-overview (emitSaveAppealOverview)=saveAppealOverview($event) [appealReviewOnLoad]="appealReviewOnLoad"
+      [appealType]="appealTypeCd" [programTypeCd]="programTypeCd">
+    </app-appeal-overview>
+  </div>
+
+  <div class="section">
+    <app-disenrollment-details (emitSaveDisenrollment)="saveDisenrollment($event)"
+      [showDisenrollOrEnroll]="showDisenrollOrEnroll" [appellantInfo]="appellantInfo"
+      [appealReviewOnLoad]="appealReviewOnLoad">
+    </app-disenrollment-details>
+  </div>
+
+  <div class="section">
+    <app-appeals-nurse-review [toEnableAccordion]="toEnableAccordion" [appealType]="appealTypeCd" [appealId]="appealId"
+      (emitAppealNurseReviewSaved)="appealsNurseReviewSaved($event)">
+    </app-appeals-nurse-review>
+  </div>
+
+  <div class="section">
+
+    <app-target-population-review [toEnableAccordion]="toEnableAccordion" [appealType]="appealTypeCd"
+      [appellantInfo]="appellantInfo" [appealReviewOnLoad]="appealReviewOnLoad" [programTypeCd]="programTypeCd"
+      (emitTargetPopulationSaved)=targetPopulationSaved($event)>
+    </app-target-population-review>
+  </div>
+
+  <div class="section">
+    <app-onsite-assessment-request [toEnableAccordion]="toEnableAccordion" [appealType]="appealTypeCd"
+      [appealTimely]="appealTimely" (emitOnsiteAssessmentRequest)="emitOnsiteAssessmentRequest($event)"
+      (emitOnSubmitOnAssessmentRequest)="emitOnSubmitOnAssessmentRequest($event)"
+      [appealReviewOnLoad]="appealReviewOnLoad" [enableOnsiteAssessment]="enableOnsiteAssessment" [appealId]="appealId">
+    </app-onsite-assessment-request>
+  </div>
+
+  <div class="section">
+    <app-appeal-decision [showAppealClosure]="showAppealClosure" [onsiteAssesReq]="onsiteAssesReq"
+      [appealType]="appealTypeCd" [showOnlyAppealDecision]="showOnlyAppealDecision"
+      (emitAppealDecision)="emitAppealDecision($event)">
+    </app-appeal-decision>
+  </div>
+
+  <div class="section">
+    <div class="buttons">
+      <button mat-stroked-button type="button" (click)="back()">BACK </button>
+      <button mat-stroked-button type="button" [ngClass]="(isNextEnabled) ? 'disable-button':'perlss-click-button'"
+        [disabled]="isNextEnabled" (click)="next();">NEXT </button>
+    </div>
+  </div>
+
+</div>

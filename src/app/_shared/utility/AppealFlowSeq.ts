@@ -1,0 +1,9 @@
+export enum AppealStepper {
+    START = 0,
+    APPEAL_DETAIL = 1,
+    APPEAL_REVIEW = 2,
+    APPEAL_ONSITE_ASSESSMENT = 3,
+    APPEAL_REVIEW_ONSITE = 4,
+    APPEAL_HEARING = 5,
+    APPEAL_RESOLUTION = 6
+  }

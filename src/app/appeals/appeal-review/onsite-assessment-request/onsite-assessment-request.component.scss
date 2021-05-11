@@ -1,0 +1,124 @@
+.text-align-right {
+    flex: 1;
+    text-align: right;
+    padding-right: 20px;
+  }
+  .radio-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    .example-radio-group{
+        display: flex;
+        flex-direction: column;
+        margin-top: 5px;
+        margin-left: 5px;
+        width: 1%;
+    }
+}
+
+  .check-list{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-left: 8px;
+}
+
+table tr:last-child td {
+    border-bottom: 1px solid #1B365D;
+}
+
+.icon-wrapper{
+    cursor: pointer;
+    color: #1B365D;
+    width: 120px;
+    position: relative;
+    margin-left: 5%;
+    margin-top: 25px;
+    font-weight: bold;
+    font-size: 16px;
+    span{
+        color: #1B365D;
+        position: absolute;
+        top: -5px;
+        right: 125px;
+    }
+}
+
+.input-td{
+    width: 50%;
+}
+
+.input-td div, .dropdown-td div{
+    margin-top: 16px;
+    width: 90%;
+}
+
+.actions-td{
+    padding-left: 3%;
+}
+
+.icon :hover{
+    cursor: pointer;  
+    margin-right: 10px;
+}
+.share-icon-wrapper{
+    width: 350px;
+    color: #1B365D;
+    position: relative;
+    margin-left: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 18px;
+    span{
+        position: absolute;
+        top: -8px;
+        left: -45px;
+        font-size: 30px;
+    }
+}
+
+.character-count{
+    float: right;
+    margin-top: -24px;
+}
+
+.text-area{
+    margin-top: 25px;
+}
+
+div > .mat-form-field{
+    width: 100%;
+}
+
+.submit-buttom{
+    background: none!important;
+    border: none;
+    padding: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #1B365D;
+}
+
+table {
+    border: 1px solid #1B365D;
+    margin-top: 10px;
+  }
+  
+  table tr:last-child td {
+    border-bottom: 1px solid #1B365D;
+  }
+
+  .required{
+      color: red;
+  }
+  .check-box-wrap{
+    position: relative;
+  }
+  .check-box-error{
+    position: absolute;
+    top: 70%;
+    font-size: 14px;
+    left: 2.5%;
+  }
+  

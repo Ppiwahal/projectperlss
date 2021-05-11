@@ -1,0 +1,120 @@
+@import '../../../colors.scss';
+
+::ng-deep .mat-form-field {
+    width: 100%;
+  }
+  
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: $colorControlBackground;
+    border-radius: 5px;
+    border-color: #ced4da;
+  }
+  
+  .question-container{
+    padding-top:15px;
+  }  
+  
+  .radio-container{
+    padding-top: 2px;
+    margin-left: 4px;
+  }
+  .checkbox-element {
+    position: relative;
+    top: 20%;
+    transform: translateY(-20%);
+  }
+ 
+.red-icon {
+  color: #ed6053;
+  transform: scale(0.8);  
+  display: inline-flex;
+  vertical-align: middle;
+}
+  
+  
+  .perlss-section-divider {
+    width: 100%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: $colorControlBackground;
+    border-radius: 5px;
+    border-color: #ced4da;
+  }
+  
+  .body-font-style {
+    font-size: 14px;
+    padding-left: 20px;
+  }
+  
+  .page-sub-heading {
+    font-weight: bold;
+    color: #547e1a;
+    font-size: 24px;
+    text-align:left;
+  }
+  
+ 
+  .sub-heading {
+    font-family: "Open Sans";
+    letter-spacing: 50;
+    font-weight: bold;
+    font-size: 30px;
+    color: #174a7c;
+    text-align:left;
+  }
+  .required {
+    float: right;
+    color: #ED6053;
+    font-family: "Open Sans";
+    margin-top: 20px;
+  }
+  .required-color {
+    color: #ed6053;
+    padding-right: 5px;
+  }
+.pageMargin {
+  padding-top: 0;
+}
+
+#colGreen {
+  color: #547e1a;
+}
+
+
+.push-right-note{
+  padding-left: 54px;
+}
+.cardStyle {
+  background-color: $colorControlBackground;
+  border-top: 2px solid #4b7f1e;
+  color: #6E7073;
+  font-family: 'Open Sans';
+}
+
+
+
+.button-container{
+  padding-top: 36px;
+}
+
+.chkMargin{
+  display: unset;
+}
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+

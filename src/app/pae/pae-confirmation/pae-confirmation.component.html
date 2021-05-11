@@ -1,0 +1,20 @@
+<div class="responsive">
+
+  <div class="form">
+
+    <div class="scroller">
+     
+      <div class="centeredItems">
+        <p>Congratulations! You have successfully submitted a PAE. Please note down the PAE ID mentioned below for your reference.</p>
+        <p class="paeId">{{paeId}}</p>
+        <p>You can also print a copy of your PAE by clicking on the button below.</p>
+        <button class="print" (click)="generatePdf()"><span>PRINT PAE</span></button>
+        <p><b>Note:</b> You can check the status of the PAE by navigating to your submitted PAEs on the PAE Dashboard.</p>
+      </div>
+    <div>
+
+      <div class="buttonBar">
+        <button mat-flat-button color="primary" (click)="next()" class="perlss-click-button">NEXT</button>
+      </div>
+  </div>
+</div>

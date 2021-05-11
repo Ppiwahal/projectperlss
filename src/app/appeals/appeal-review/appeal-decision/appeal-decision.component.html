@@ -1,0 +1,28 @@
+<div class="wrapper" *ngIf="showAppealDecision">
+    <h5 class="heading">
+         Appeal Decision Review
+    </h5>
+    <form [formGroup]="appealDecisionForm"> 
+        <div class="person-info">
+            <div style="width: 35%;">
+                <mat-form-field appearance="outline">
+                    <mat-label><span class="required">*</span>Appeal Decision</mat-label>
+                    <mat-select formControlName="appealDecision" (selectionChange)="appealDecisionChanged(appealDecisionForm)">
+                        <mat-option value=''> Select an Option </mat-option>
+                        <mat-option *ngFor="let ap of appealDecision" value={{ap.code}} >{{ap.value}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div style="width: 35%;" *ngIf="showDenialReason">
+                <mat-form-field appearance="outline">
+                    <mat-label><span class="required">*</span>Denial Reason</mat-label>
+                    <mat-select formControlName="appealDenialReason" (selectionChange)="appealDenialChanged(appealDecisionForm)">
+                        <mat-option value=''> Select an Option </mat-option>
+                        <mat-option *ngFor="let ad of appealDenial" value={{ad.code}} >{{ad.value}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+   
+</div>

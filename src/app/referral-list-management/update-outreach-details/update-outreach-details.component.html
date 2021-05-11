@@ -1,0 +1,47 @@
+<div class="dropdown-content">
+    <form [formGroup]="outreachForm" (ngSubmit)="outreachDetails()">
+        <div class="row">
+            <div class="col-md-3">
+                <mat-form-field appearance="outline">
+                    <mat-label><sup>
+                            <mat-label class="required-color">*</mat-label>
+                        </sup>Outreach Date</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="outreachDueDt">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="outreachForm.get('outreachDueDt').hasError('required')">
+                        {{customValidation.A1}}</mat-error>
+                </mat-form-field>
+            </div>
+       </div>
+        <div class="row">
+            <div class="col-md-3">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>
+                        <mat-label class="required-color">*</mat-label>Outreach Result
+                    </mat-label>
+                    <mat-select formControlName="updateActionCd">
+                        <mat-option value=''>Select an option</mat-option>
+                        <mat-option *ngFor="let annualOutreach of  annualOutreachs" value={{annualOutreach.code}}>{{annualOutreach.value}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="outreachForm.get('updateActionCd').hasError('required')">
+                        {{customValidation.A1}}</mat-error>
+                </mat-form-field>
+            </div>
+       </div>
+        <div class="row" *ngIf="f.updateActionCd.value === 'NC'">
+            <div style="padding-top: 30px; padding-left: 15px">
+                <button mat-flat-button class="perlss-click-button">
+                    <strong>SUBMIT</strong>
+                </button>
+            </div>
+       </div>
+        <div class="row" *ngIf="f.updateActionCd.value === 'CH'">
+            <div style="padding-top: 30px; padding-left: 15px">
+                <button type="button" mat-flat-button class="perlss-click-button">
+                    <strong>PROCEED TO INTAKE OUTCOME</strong>
+                </button>
+            </div>
+       </div>
+    </form>
+</div>

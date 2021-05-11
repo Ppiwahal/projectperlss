@@ -1,0 +1,64 @@
+<form [formGroup]="userProfileSearch" class="form-class" (ngSubmit)="search()">
+
+    <mat-accordion class="user-search-accrodian">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header style="background-color: #f5f5f5;height: 60px;">
+          <mat-panel-title style="font-size: 14px;">
+            {{userSearchTitle}}
+          </mat-panel-title>
+       </mat-expansion-panel-header>
+
+        <div style="padding-bottom: 10px; padding-top: 15px; color: black;">
+          <p>Please use the criteria below to search by username or person details.</p>
+       </div>
+  
+      <div class="row util-m-t-15">
+        <div class="col-md-12">
+            <mat-form-field appearance="outline" style="width: 100%;">
+              <mat-label><mat-label class="required-color"></mat-label>{{personSearch}}</mat-label>
+              <input matInput autocomplete="off" formControlName="personSearch"/>
+            </mat-form-field>
+       </div>
+      </div>
+  
+      <div class="row util-m-t-15">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" style="width:100% !important">
+            <mat-label><mat-label class="required-color"></mat-label>{{entity}}</mat-label>
+            <mat-select formControlName="entity" (selectionChange)="OnEntityChange($event)">
+              <mat-option value=''>--</mat-option>
+              <mat-option *ngFor = "let entity of  entityOptions" value={{entity.entityId}}>{{entity.entityName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+       </div>
+  
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" style="width:100% !important">
+            <mat-label><mat-label></mat-label>{{status}}</mat-label>
+            <mat-select formControlName="status">
+              <mat-option value=''>--</mat-option>
+              <mat-option *ngFor = "let status of  statusOptions" value={{status.code}}>{{status.value}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+       </div>
+      </div>
+      <div class="row util-m-t-15">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" style="width:100% !important">
+            <mat-label><mat-label></mat-label>{{roles}}</mat-label>
+            <mat-select formControlName="role">
+              <mat-option value=''>--</mat-option>
+              <mat-option *ngFor = "let role of  roleOptions" value={{role.roleId}}>{{role.roleName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+       </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button type="submit" mat-flat-button color="primary" style="font-size: 16px;  padding: 3px 25px; margin-top: 16px;" class="perlss-click-button">SEARCH</button>
+       </div>
+      </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </form>
+  

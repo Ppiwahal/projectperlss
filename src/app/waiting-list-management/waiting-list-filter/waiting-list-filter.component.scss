@@ -1,0 +1,28 @@
+.wrapper{
+    margin-top: 30px;
+    margin-bottom: 30px;
+   }
+   .queue-accordion{
+       margin: 20px 20px 0 20px;
+   }
+   
+   .filter-dropdown{
+       display: flex;
+       justify-content: space-between;
+   }
+   .filter-dropdown div{
+       width: 45%;
+   }
+
+.label-heading{
+    font-weight: bold; 
+    color: black;
+}
+
+.select-hr { 
+    border-bottom: 1px solid #000; 
+}
+
+div > .mat-form-field {
+    width: 100%;
+}

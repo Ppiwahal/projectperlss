@@ -1,0 +1,17 @@
+.filter-dropdown{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px 0 0 0;
+}
+.button{
+    background-color: #174A7C;
+    color: white;
+}
+
+::ng-deep mat-form-field{
+    width: 240px;
+}
+
+.task-details {
+    margin-left: -8px;
+}

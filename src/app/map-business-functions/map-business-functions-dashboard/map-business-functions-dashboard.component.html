@@ -1,0 +1,68 @@
+<div class="main-page">
+  <div class="row">
+    <div class="sub-heading">
+      Select Role
+    </div>
+  </div>
+  <form [formGroup]="selectRoleForm">
+    <div class="row">
+      <div class="col-md-6">
+        <strong style="color: black;">Entity Type</strong>
+        <mat-form-field appearance="outline" style="width:100% !important">
+          <mat-select formControlName="entityType" (selectionChange)="entityTypeChange($event)">
+            <mat-option value=''> Select an option </mat-option>
+            <mat-option *ngFor="let entityType of entityTypeDropDown" [value]="entityType">{{entityType.value}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <strong style="color: black;">Entity</strong>
+        <mat-form-field appearance="outline" style="width:100% !important">
+          <mat-select formControlName="entity" (selectionChange)="entityChange($event)">
+            <mat-option value=''> Select an option </mat-option>
+            <mat-option *ngFor="let entity of entityDropDown" [value]="entity">{{entity.entityName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <strong style="color: black;">Access</strong>
+        <mat-form-field appearance="outline" style="width:100% !important">
+          <mat-select formControlName="access">
+            <mat-option value=''> Select an option </mat-option>
+            <mat-option *ngFor="let accessChange of accessChangeDropDown" [value]="accessChange">{{accessChange}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <strong style="color: black;">User Role</strong>
+        <mat-form-field appearance="outline" style="width:100% !important">
+          <mat-select formControlName="userRole">
+            <mat-option value=''> Select an option </mat-option>
+            <mat-option *ngFor="let userRole of userRoleDropDown" [value]="userRole">{{userRole.roleName}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="selectRoleForm.get('userRole').hasError('required')">
+            {{customValidation.A1}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+  <div class="row">
+    <div class="col">
+      <button class="retrieve-button" type="submit" mat-flat-button color="primary"
+        style="font-size: 16px;  padding: 3px 25px;" (click)="executeSearch()"
+        class="perlss-click-button"><strong>RETRIEVE</strong></button>
+    </div>
+  </div>
+  <mat-divider style="margin-top: 20px;"></mat-divider>
+  <div *ngIf="isShowList" class="row">
+    <div class="col">
+      <app-map-business-functions-list [selectedAccess]="selectedAccess" [accessLevelResponse]="accessLevelResponse"
+        [userRoleName]="userRoleName" [roleIdList]="roleIdList"></app-map-business-functions-list>
+    </div>
+  </div>
+</div>

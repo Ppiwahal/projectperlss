@@ -1,0 +1,40 @@
+<div class="wrapper">
+    <h5>Onsite Assessment</h5>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
+
+        <ng-container matColumnDef="documentName">
+          <th mat-header-cell *matHeaderCellDef id="docName">Documentation Required </th>
+          <td mat-cell *matCellDef="let element"> 
+              <div class="icon-wrapper">
+                <span class="material-icons doc">
+                    description
+                  </span>
+                  <span class="disc-span" [ngClass]="{'add-underline':element.isUploaded === false}" (click)="showPdf(element)">
+                    {{element.documentName}}
+                  </span>
+              </div>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="userActions">
+          <th mat-header-cell *matHeaderCellDef id="userActn"> </th>
+          <td mat-cell *matCellDef="let element ; let i = index">
+                <div *ngIf="element.isUploaded; else elseBlock">
+                        <span class="material-icons cloud-upload" (click)="upload(element, i)">
+                            cloud_upload
+                        </span>
+                </div>
+                <ng-template #elseBlock>
+                    <span class="material-icons check">
+                        check
+                    </span>
+                    <span class="material-icons remove" (click)="removeDoc(element)">
+                        delete_forever
+                    </span>  
+                </ng-template>  
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+      </table>
+</div>

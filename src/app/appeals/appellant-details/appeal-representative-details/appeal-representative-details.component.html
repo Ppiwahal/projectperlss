@@ -1,0 +1,215 @@
+<form [formGroup]="addRepresentativeForm" (ngSubmit)="addRepresentativeData(addRepresentativeForm)">
+    <div class="representative-wrapper">
+            <div class="person-info">
+                <div style="width: 30%;">
+                    <mat-form-field appearance="outline">
+                        <mat-label><span class="required">*</span>First Name </mat-label>
+                        <input matInput formControlName="firstName">
+                        <mat-error *ngIf="f().firstName.errors !== null">
+                            <span *ngIf="f().firstName.touched || f().firstName.errors.required">
+                              {{customValidation.A1}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div style="width: 10%;">
+                    <mat-form-field appearance="outline">
+                        <mat-label>MI </mat-label>
+                        <input matInput formControlName="mi">
+                    </mat-form-field>
+                </div>
+                <div style="width: 30%;">
+                    <mat-form-field appearance="outline">
+                        <mat-label><span class="required">*</span>Last Name </mat-label>
+                        <input matInput formControlName="lastName">
+                        <mat-error *ngIf="f().lastName.errors !== null">
+                            <mat-error *ngIf="f().lastName.touched || f().lastName.errors.required">
+                              {{customValidation.A1}}</mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div style="width: 10%;">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Suffix</mat-label>
+                            <mat-select formControlName="suffix">
+                                <mat-option value=''>Select </mat-option>
+                                <mat-option *ngFor = "let ns of  nameSuffix" value={{ns.code}}>{{ns.value}}</mat-option>
+                            </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="person-info">               
+                <div style="width: 50%;">
+                    <mat-form-field appearance="outline">
+                        <mat-label><span class="required">*</span>Relationship to Appellant</mat-label>
+                            <mat-select formControlName="appellantRelationship">
+                                <mat-option value=''>Select </mat-option>
+                                <mat-option *ngFor = "let ns of  relationshipToAppellant" value={{ns.code}}>{{ns.value}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="f().appellantRelationship.errors !== null">
+                                <mat-error *ngIf="f().appellantRelationship.touched || f().appellantRelationship.errors.required">
+                                  {{customValidation.A1}}</mat-error>
+                            </mat-error>
+                    </mat-form-field>
+                </div>
+                <div style="width: 50%;">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Organization Name</mat-label>
+                        <input matInput formControlName="organizationName">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="person-info">               
+                <div style="width: 33.3%;">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Cell Phone</mat-label>
+                        <input matInput formControlName="cellPhone" placeholder="(xxx)-xxx-xxxx" mask ="(000) 000-0000">
+                    </mat-form-field>
+                </div>
+                <div style="width: 33.3%;">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Home Phone</mat-label>
+                        <input matInput formControlName="homePhone" placeholder="(xxx)-xxx-xxxx" mask ="(000) 000-0000">
+                    </mat-form-field>
+                </div>
+                <div style="width:33.3%;">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Work Phone</mat-label>
+                        <input matInput formControlName="workPhone" placeholder="(xxx)-xxx-xxxx" mask ="(000) 000-0000">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="person-info">  
+                <div style="width:40%;">
+                    <mat-form-field appearance="outline">
+                        <mat-label><span class="required">*</span>Preferred Phone Type</mat-label>
+                            <mat-select formControlName="phoneType">
+                                <mat-option value=''>Select </mat-option>
+                                <mat-option *ngFor = "let ns of  phoneType" value={{ns.code}}>{{ns.value}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="f().phoneType.errors !== null">
+                                <mat-error *ngIf="f().phoneType.touched || f().phoneType.errors.required">
+                                  {{customValidation.A1}}</mat-error>
+                            </mat-error>
+                    </mat-form-field>
+                </div>
+                <div style="width:60%;">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Email Address</mat-label>
+                        <input matInput formControlName="emailAddress">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="radio-wrapper">
+                <mat-label><span class="required">*</span>Is this an Authorized Representative?
+                    <mat-icon class="info" matTooltip="Authorized Representatives can request changes to an 
+                    appeal and will also receive all the notices for this appeal till the verification end date.">info_outline</mat-icon>
+                </mat-label>
+                <mat-radio-group aria-labelledby="example-radio-group-label" 
+                    class="example-radio-group" 
+                    (change)="authorizedRepresentativeSelected($event.value)"
+                    formControlName="authoriedRepresentative">
+                    <mat-radio-button class="example-radio-button" *ngFor="let yn of yesOrNo" [value]="yn.code">
+                        {{yn.value}}
+                    </mat-radio-button>
+                    <mat-error *ngIf="f().authoriedRepresentative.errors !== null && submitted" style="width: 180px;">
+                        <mat-error *ngIf="f().authoriedRepresentative.touched || f().authoriedRepresentative.errors.required">
+                          {{customValidation.A1}}</mat-error>
+                    </mat-error>
+                </mat-radio-group>
+            </div>
+            <div class="radio-wrapper" *ngIf="showProHealthInfo">
+                <mat-label><span class="required">*</span>Permission to release protected health information?
+                    <mat-icon class="info" matTooltip="If Permission to Release Protected Health Information 
+                    is granted then this individual will receive 
+                    all the notices for this appeal till the verification end date, however this individual is not an authorized 
+                    representative and cannon request changes to an appeal">info_outline</mat-icon>
+                </mat-label>
+                <mat-radio-group aria-labelledby="example-radio-group-label" 
+                class="example-radio-group" 
+                formControlName="healthPermission"
+                (change)="permiReleProHealInfoChange($event.value)">
+                    <mat-radio-button class="example-radio-button" *ngFor="let yn of yesOrNo" [value]="yn.code">
+                        {{yn.value}}
+                    </mat-radio-button>
+                    <mat-error *ngIf="f().healthPermission.errors !== null && submitted" style="width: 180px;">
+                        <mat-error *ngIf="f().healthPermission.touched || f().healthPermission.errors.required">
+                          {{customValidation.A1}}</mat-error>
+                    </mat-error>
+                </mat-radio-group>
+            </div>
+            <div class="person-info">  
+                <div style="width:40%;" *ngIf="showVerficationDetails">
+                    <mat-form-field appearance="outline">
+                        <mat-label><span class="required">*</span>Authorized Representative or PHI Release Verification Source</mat-label>
+                            <mat-select formControlName="verificationSource" (selectionChange)="verificationSourChange($event.value)">
+                                <mat-option value=''>Select </mat-option>
+                                <mat-option *ngFor = "let ns of  verificationSource" value={{ns.code}}>{{ns.value}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="f().verificationSource.errors !== null">
+                                <mat-error *ngIf="f().verificationSource.touched || f().verificationSource.errors.required">
+                                  {{customValidation.A1}}</mat-error>
+                            </mat-error>
+                    </mat-form-field>
+                </div>
+                <div style="width:40%;"*ngIf="showOtherVeriSourcDetails">
+                    <mat-form-field appearance="outline">
+                        <mat-label><span class="required">*</span>Other Verification Source Details</mat-label>
+                        <input matInput formControlName="otherVerificationDetails">
+                        <mat-error *ngIf="f().otherVerificationDetails.errors !== null">
+                            <mat-error *ngIf="f().otherVerificationDetails.touched || f().otherVerificationDetails.errors.required">
+                              {{customValidation.A1}}</mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="person-info" *ngIf="showVerficationDetails">
+                <div style="width:40%;">
+                    <mat-form-field appearance="outline">
+                        <mat-label><span class="required">*</span>Date Verified</mat-label>
+                        <input matInput [max]="maxDate" [matDatepicker]="dateVerified"  placeholder="dd/mm/yyyy" formControlName="dateVerified" autocomplete="off">
+                        <mat-datepicker-toggle matSuffix [for]="dateVerified"></mat-datepicker-toggle>
+                        <mat-datepicker #dateVerified></mat-datepicker>
+                        <mat-error *ngIf="f().dateVerified.errors !== null">
+                            <mat-error *ngIf="(f().dateVerified.touched || f().dateVerified.errors.required) && f().dateVerified.errors.matDatepickerMax == undefined">
+                              {{customValidation.A1}}</mat-error>
+                            <mat-error *ngIf="f().dateVerified.errors.matDatepickerMax">{{customValidation.A5}}</mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div style="width:40%;">
+                    <mat-form-field appearance="outline">
+                        <mat-label><span class="required">*</span>End Date for Verification</mat-label>
+                        <input matInput [matDatepicker]="verificationEndDate"  placeholder="dd/mm/yyyy" formControlName="verificationEndDate" autocomplete="off">
+                        <mat-datepicker-toggle matSuffix [for]="verificationEndDate"></mat-datepicker-toggle>
+                        <mat-datepicker #verificationEndDate></mat-datepicker>
+                        <mat-error *ngIf="f().verificationEndDate.errors !== null">
+                            <mat-error *ngIf="f().verificationEndDate.touched || f().verificationEndDate.errors.required">
+                              {{customValidation.A1}}</mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div> 
+            <div class="radio-wrapper">
+                <mat-label><span class="required">*</span>Is the representative mailing address same as the applicant's mailing address?</mat-label>
+                <mat-radio-group aria-labelledby="example-radio-group-label" 
+                class="example-radio-group"
+                (change)="addressTypeChanged($event.value)"
+                formControlName="isMailingAddressSame">
+                    <mat-radio-button class="example-radio-button" *ngFor="let yn of yesOrNo" [value]="yn.code">
+                        {{yn.value}}
+                    </mat-radio-button>
+                    <mat-error *ngIf="f().isMailingAddressSame.errors !== null && submitted" style="width: 180px;">
+                        <mat-error *ngIf="f().isMailingAddressSame.touched || f().isMailingAddressSame.errors.required">
+                          {{customValidation.A1}}</mat-error>
+                    </mat-error>
+                </mat-radio-group>
+            </div>
+            <div class="address" *ngIf="showMailingAddress">
+                <app-physical-address [formData]='mailingAddress' [showAddressType]=true [isPhysicalAddress]=false></app-physical-address>
+            </div>
+            <div style="margin-top: 30px; margin-bottom: 20px;">
+                <button type="button" style="margin-right: 30px; color: #174A7C;" mat-stroked-button (click)="cancel()">CANCEL </button>
+                <button mat-stroked-button type="submit" class="perlss-click-button">SAVE </button>
+            </div>
+       </div>
+</form>

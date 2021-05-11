@@ -1,0 +1,47 @@
+<form [formGroup]="onsiteCorrectnForm" (ngSubmit)="submitForm(onsiteCorrectnForm)">
+    <div class="radio-wrapper">
+        <mat-label><span class="required">*</span>Is Correction required for onsite assessment?</mat-label>
+        <mat-radio-group aria-labelledby="example-radio-group-label" 
+        class="example-radio-group" 
+        (change)="assessmentCorrectionChanged($event.value)" formControlName="corctnRqstdSw">
+            <mat-radio-button class="example-radio-button"  *ngFor="let yn of yesOrNo" [value]="yn.code">
+                {{yn.value}}
+            </mat-radio-button>
+        </mat-radio-group>
+    </div>
+        
+
+        <div *ngIf="showCorrection">
+            <div style="width: 40%; margin-top: 30px;">
+                <mat-form-field appearance="outline">
+                    <mat-label><span class="required">*</span>Does the Appeal Nurse Reviewer Agree with Assessment Acuity Score</mat-label>
+                        <mat-select formControlName="agreeAcutyScoreCd">
+                            <mat-option value=''>Select </mat-option>
+                            <mat-option *ngFor = "let rs of  nrawAssessAcuityScore" value={{rs.code}}>{{rs.value}}</mat-option>
+                        </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="text-area">
+                <mat-form-field appearance="outline">
+                    <mat-label><span class="required">*</span>Contractor's Recommendation</mat-label>
+                    <textarea matInput #contractRecomnd maxlength="2000" formControlName="corctnComments"></textarea>
+                </mat-form-field>
+                <div class="character-count">
+                    {{contractRecomnd.value.length}}/2000
+                </div>
+            </div>
+
+            <div class="icons-wrap">
+                <div class="share-icon-wrapper">
+                    <span class="material-icons">
+                        screen_share
+                    </span>
+                    <button  type="submit" class="submit-button">
+                        SUBMIT FOR ONSITE ASSESSMENT CORRECTION
+                    </button>
+                       
+                </div>
+        </div>
+            
+        </div>
+    </form>

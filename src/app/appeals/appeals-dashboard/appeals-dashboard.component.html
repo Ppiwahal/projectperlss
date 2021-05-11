@@ -1,0 +1,476 @@
+<div class="pageMargin">
+  <div class="dashboard-card-container">
+    <div class="row">
+      <div class="col-md-4" (click)="navigateToStepper()">
+        <mat-card class="dashboard-card">
+          <mat-card-content>
+            <mat-icon class="dashboard-icon">note_add</mat-icon>
+          </mat-card-content>
+          <mat-card-actions>
+            <div class="submit-text">FILE A NEW APPEAL </div>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      <div class="col-md-4">
+        <mat-card class="dashboard-card">
+          <mat-card-title class="dashboard-card-header">Open Appeals</mat-card-title>
+          <mat-divider class="dashboard-card-divider"></mat-divider>
+          <mat-card-actions>
+            <div (click)="openAppeals()" class="open-appeal-count"><u>{{dashboardResponse?.openAppealCount}}</u></div>
+          </mat-card-actions>
+          <mat-card-content>
+            <div class="appeal-text">All Open Appeals</div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="col-md-4">
+        <mat-card class="dashboard-card">
+          <mat-card-title class="dashboard-card-header">Past Due Actions</mat-card-title>
+          <mat-divider class="dashboard-card-divider"></mat-divider>
+          <mat-card-content>
+            <div class="row">
+              <div class="col">
+                ANR Review Past Due
+              </div>
+              <div class="col">
+                <span class="past-due-number"
+                  (click)="anrReviewPastDue()"><u>{{dashboardResponse?.anrReviewPastDue}}</u></span>
+              </div>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="row">
+              <div class="col">
+                Onsite Past Due
+              </div>
+              <div class="col">
+                <span class="past-due-number"
+                  (click)="onsitePastDue()"><u>{{dashboardResponse?.onsitePastDue}}</u></span>
+              </div>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="total-container">
+              <div class="row">
+                <div class="col">
+                  NOH Past Due
+                </div>
+                <div class="col">
+                  <span class="past-due-number" (click)="nohPastDue()"><u>{{dashboardResponse?.nohPastDue}}</u></span>
+                </div>
+              </div>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="total-container">
+              <div class="row">
+                <div class="col">
+                  Overdue Appeals
+                </div>
+                <div class="col">
+                  <span class="past-due-number"
+                    (click)="overDueAppeals()"><u>{{dashboardResponse?.overdueAppeals}}</u></span>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+
+  <mat-divider class="perlss-section-divider"></mat-divider>
+
+  <div class="wrapper">
+    <div class="queue-heading-custom queue-heading">
+      <div>
+        <p class="common">Unassigned Appeal Queues</p>
+      </div>
+      <div>
+        <button class="common-button" mat-stroked-button>MY OPEN TASKS </button>
+      </div>
+    </div>
+    <div class="queue-table">
+      <table aria-describedby="false" mat-table [dataSource]="dataSourceAppealsQueues" class="mat-elevation-z8">
+        <ng-container matColumnDef="queueName">
+          <th id="name" mat-header-cell *matHeaderCellDef>Queue Name </th>
+          <td mat-cell *matCellDef="let element">
+            <strong (click)="queueCountSearch(element)" class="table-underline">{{element.name}}</strong>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="count">
+          <th id="count" mat-header-cell *matHeaderCellDef>Count </th>
+          <td mat-cell *matCellDef="let element">
+            <strong (click)="queueCountSearch(element)" class="table-underline">{{element.count}}</strong>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </div>
+
+  <mat-divider class="perlss-section-divider"></mat-divider>
+
+  <div class="wrapper">
+    <div class="queue-heading-custom queue-heading">
+      <div>
+        <p class="common">Counts of Appeals Across Different Status</p>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Search Filter</mat-label>
+          <input aria-label="search status" (keyup)="applyFilterStatus($event)" matInput placeholder="" #input>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="queue-table">
+      <table aria-describedby="false" mat-table [dataSource]="dataSourceAppealsStatus" class="mat-elevation-z8">
+        <ng-container matColumnDef="appealStatus">
+          <th id="name" mat-header-cell *matHeaderCellDef>Appeal Status </th>
+          <td mat-cell *matCellDef="let element">
+            <strong class="table-underline" (click)="countDifferentStatus(element)">
+              <span *ngIf="element.description">{{element.description}}</span>
+            </strong>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="count">
+          <th id="count" mat-header-cell *matHeaderCellDef>Count</th>
+          <td mat-cell *matCellDef="let element">
+            <strong class="table-underline" (click)="countDifferentStatus(element)">{{element.count}}</strong>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsAppeal"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsAppeal;"></tr>
+      </table>
+    </div>
+  </div>
+
+  <mat-divider class="perlss-section-divider"></mat-divider>
+
+  <div class="wrapper">
+    <div class="queue-heading-custom queue-heading">
+      <div>
+        <p class="common">Counts of Appeals Filed at Different Departments</p>
+      </div>
+    </div>
+    <div class="queue-table">
+      <table aria-describedby="false" mat-table [dataSource]="dataSourceAppealsDepartment" class="mat-elevation-z8">
+        <ng-container matColumnDef="departments">
+          <th id="name" mat-header-cell *matHeaderCellDef>Departments Where Appeal is Filed </th>
+          <td mat-cell *matCellDef="let element">
+            <strong class="table-underline"
+              (click)="countDifferentDepartments(element)">{{element.description}}</strong>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="count">
+          <th id="count" mat-header-cell *matHeaderCellDef>Count </th>
+          <td mat-cell *matCellDef="let element">
+            <strong class="table-underline" (click)="countDifferentDepartments(element)">{{element.count}}</strong>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsdepartments"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsdepartments;"></tr>
+      </table>
+    </div>
+  </div>
+
+  <mat-divider class="perlss-section-divider"></mat-divider>
+
+  <app-appeal-dashboard-onsite-assessment></app-appeal-dashboard-onsite-assessment>
+  <mat-divider class="perlss-section-divider"></mat-divider>
+  <app-appeal-dashboard-hearing-calendar></app-appeal-dashboard-hearing-calendar>
+  <mat-divider class="perlss-section-divider"></mat-divider>
+  <app-appeal-dashboard-docket-workbook></app-appeal-dashboard-docket-workbook>
+  <mat-divider class="perlss-section-divider"></mat-divider>
+
+  <div class="referral-search-container">
+    <mat-accordion>
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header style="background-color: #f5f5f5">
+          <mat-panel-title class="pannel-heading">
+            SEARCH EXISTING APPEALS
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="form-container">
+          <div style="margin-bottom: 15px;">
+            Please use the criteria below to search for an appeal
+          </div>
+          <form [formGroup]="referralSearchForm" (ngSubmit)="referralAdditionalSearch()">
+            <div class="row">
+              <div class="col-md-12">
+                <ng-container>
+                  <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Search by Applicant Name, Date Of Birth, SSN, Person ID, County</mat-label>
+                    <input matInput formControlName="personDisplayName" [matAutocomplete]="auto" #applicantNameInput
+                      placeholder="Search by Applicant Name, Date Of Birth, SSN, Person ID, County">
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)='handleSelection($event.option.value)'>
+                      <mat-option class="select-hr" *ngFor="let option of personOptions" [value]="option">
+                        <strong>Applicant Name:</strong>{{option.prsnDetail?.firstName}}
+                        {{option.prsnDetail?.lastName}},
+                        <strong>DOB:</strong>{{option.prsnDetail?.dobDt | date: 'MM/dd/yyyy'}},
+                        <strong>SSN:</strong>{{option.prsnDetail?.ssn}},
+                        <strong>PersonId:</strong>{{option.prsnDetail?.prsnId}} <span *ngIf="option.prsnDetail.cntyCd">,
+                          <strong>County:</strong></span>{{option.prsnDetail?.cntyCd}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                </ng-container>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <ng-container>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Appeal Number </mat-label>
+                    <input matInput aria-label="appeal number" autocomplete="off" formControlName="appealNumber" />
+                  </mat-form-field>
+                </ng-container>
+              </div>
+              <div class="col-md-6">
+                <ng-container>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Appeal Status</mat-label>
+                    <mat-select formControlName="appealStatus">
+                      <mat-option value="">Select an Option</mat-option>
+                      <mat-option *ngFor="let status of appealStatus" [value]="status.code">{{status.value}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </ng-container>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <ng-container>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Appeal Type</mat-label>
+                    <mat-select formControlName="appealType">
+                      <mat-option value="">Select an Option</mat-option>
+                      <mat-option *ngFor="let status of appealType" [value]="status.code">{{status.value}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </ng-container>
+              </div>
+              <div class="col-md-6">
+                <ng-container>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Hearing Date</mat-label>
+                    <input aria-label="hearing date" matInput placeholder="MM/DD/YYYY" [matDatepicker]="picker"
+                      formControlName="hearingDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </ng-container>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <ng-container>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Queue Name</mat-label>
+                    <mat-select formControlName="queueName">
+                      <mat-option value="">Select an Option</mat-option>
+                      <mat-option *ngFor="let name of queueName" [value]="name.code">{{name.value}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </ng-container>
+              </div>
+              <div class="col-md-6">
+                <ng-container>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Task Status</mat-label>
+                    <mat-select formControlName="taskStatus">
+                      <mat-option value="">Select an Option</mat-option>
+                      <mat-option *ngFor="let status of taskStatus" [value]="status.code">{{status.value}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </ng-container>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <button mat-stroked-button color="primary" class="perlss-click-button" type="submit">Search</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <div [hidden]="!searchAppeal" class="search-table-container">
+    <mat-divider class="perlss-section-divider"></mat-divider>
+    <h2>Search Results <span *ngIf="isSearchName">- {{searchName}}</span></h2>
+    <div class="row">
+      <div class="col-md-3">
+        <button class="heading-button" mat-stroked-button (click)="toggleSelectDisplay()"
+          [ngClass]="{'custom-button': checkboxColumnHeader === 'HIDE', 'custom-button-white': checkboxColumnHeader === 'SELECT'}">{{checkboxColumnHeader}}</button>
+      </div>
+      <div class="col-md-3">
+        <button mat-stroked-button (click)="showAssignTaskDialog()" class="custom-button"
+          *ngIf="isAnyTaskSelected">ASSIGN USER</button>
+      </div>
+      <div style="width: 50%" class="col-md-6">
+        <mat-form-field appearance="outline">
+          <mat-label>Search Filter</mat-label>
+          <input aria-label="search status" (keyup)="applyFilterSearch($event)" matInput placeholder="" #input>
+        </mat-form-field>
+      </div>
+    </div>
+    <br>
+    <table id="referralTable" aria-describedby="false" matSort mat-table [dataSource]="dataSourceAppealsSearch"
+      multiTemplateDataRows class="mat-elevation-z0">
+      <ng-container matColumnDef="select">
+        <th id="" style="border-bottom: 3px solid #1B365D;" mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()" (change)="handleSelectionRecords($event, row)"
+            [checked]="selection.isSelected(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header id="name">Appellant Name </th>
+        <td mat-cell *matCellDef="let element">{{element.firstName}} {{element.middleInitial}} {{element.lastName}}</td>
+      </ng-container>
+      <ng-container matColumnDef="prsnId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header id="prsnId">Person Id</th>
+        <td mat-cell *matCellDef="let element">
+          <span *ngIf="element.prsnId">{{element.prsnId}}</span>
+          <span *ngIf="!element.prsnId">---</span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="aplId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header id="aplId">Appeal #</th>
+        <td mat-cell *matCellDef="let element">
+          <span *ngIf="element.aplId && element.aplStatus !== 'Closed'">{{element.aplId}}</span>
+          <span class="aplIdLink" *ngIf="element.aplId && element.aplStatus === 'Closed'"
+            (click)="$event.stopPropagation()" (click)="getAppealResolutionPDF(element)">{{element.aplId}}</span>
+          <span *ngIf="!element.aplId">---</span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="aplRcvdDt">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header id="aplRcvdDt">Appeal Received</th>
+        <td mat-cell *matCellDef="let element">
+          <span *ngIf="element.aplRcvdDt">{{element.aplRcvdDt | date: 'MM/dd/yyyy'}}</span>
+          <span *ngIf="!element.aplRcvdDt">---</span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="aplStatus">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header id="aplStatus">Appeal Status</th>
+        <td mat-cell *matCellDef="let element">
+          <span *ngIf="element.aplStatus">{{element.aplStatus}}</span>
+          <span *ngIf="!element.aplStatus">---</span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="aplType">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header id="aplType">Appeal Type</th>
+        <td mat-cell *matCellDef="let element">
+          <span *ngIf="element.aplType">{{element.aplType}}</span>
+          <span *ngIf="!element.aplType">---</span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="hrngDtTms">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header id="hrngDtTms">Hearing Date</th>
+        <td mat-cell *matCellDef="let element">
+          <span *ngIf="element.hrngDtTms">{{element.hrngDtTms | date: 'MM/dd/yyyy'}}</span>
+          <span *ngIf="!element.hrngDtTms">---</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumnsSearch.length">
+          <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+            <table class="table table-borderless" aria-describedby="false">
+              <tr>
+                <td>
+                  <strong>Linked Record</strong>
+                  <div>
+                    <span *ngIf="element.linkedRecord">{{element.linkedRecord}}</span>
+                    <span *ngIf="!element.linkedRecord">---</span>
+                  </div>
+                </td>
+                <td>
+                  <strong>COB Status</strong>
+                  <div>
+                    <span *ngIf="element.cobStatus">{{element.cobStatus}}</span>
+                    <span *ngIf="!element.cobStatus">---</span>
+                  </div>
+                </td>
+                <td>
+                  <strong>Appeal Decision</strong>
+                  <div>
+                    <span *ngIf="element.resolutionRsnCd">{{element.resolutionRsnCd}}</span>
+                    <span *ngIf="!element.resolutionRsnCd">---</span>
+                  </div>
+                </td>
+                <td>
+                  <strong>Decision Reason</strong>
+                  <div>
+                    <span *ngIf="element.denialRsnCd">{{element.denialRsnCd}}</span>
+                    <span *ngIf="!element.denialRsnCd">---</span>
+                  </div>
+                </td>
+                <td>
+                  <strong>Assigned User</strong>
+                  <div>
+                    <span *ngIf="element.assignedUserId">{{element.assignedUserId}}</span>
+                    <span *ngIf="!element.assignedUserId">---</span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Task Status</strong>
+                  <div>
+                    <span *ngIf="element.taskStatus">{{element.taskStatus}}</span>
+                    <span *ngIf="!element.taskStatus">---</span>
+                  </div>
+                </td>
+                <td>
+                  <strong>Task Queue</strong>
+                  <div>
+                    <span *ngIf="element.queueCd || element.taskName">{{element.queueCd ? element.queueCd :
+                      element.taskName}}</span>
+                    <span *ngIf="!element.queueCd && !element.taskName">---</span>
+                  </div>
+                </td>
+                <td>
+                  <strong>Received in Queue</strong>
+                  <div>
+                    <span *ngIf="element.createdDt">{{element.createdDt | date: 'MM/dd/yyyy'}}</span>
+                    <span *ngIf="!element.createdDt">---</span>
+                  </div>
+                </td>
+                <td>
+                  <strong>Task Due</strong>
+                  <div>
+                    <span *ngIf="element.dueDt">{{element.dueDt | date: 'MM/dd/yyyy'}}</span>
+                    <span *ngIf="!element.dueDt">---</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="col">
+                    <span><button type="search" style="margin-bottom: 5px;" class="search-result-Button"
+                        (click)="quickAction(element)">QUICK ACTION</button></span> <br />
+                    <span *ngIf="element.taskStatusCd || element.taskStatus"><button type="search" class="search-result-Button"
+                        (click)="continue(element)">CONTINUE</button></span>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsSearch"></tr>
+      <tr mat-row *matRowDef="let element; columns: displayedColumnsSearch;" class="element-row"
+        [class.expanded-row]="expandedElement === element"
+        (click)="expandedElement = expandedElement === element ? null : element">
+      </tr>
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+    </table>
+    <br>
+    <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
+  </div>
+</div>

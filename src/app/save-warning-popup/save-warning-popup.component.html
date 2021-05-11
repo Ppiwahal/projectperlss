@@ -1,0 +1,32 @@
+<div class="dialog">
+    <div class="header">
+        <h1>Attention</h1>
+        <mat-icon (click)="close()">highlight_off</mat-icon>
+    </div>
+    <div class="form">
+        <br>
+        <div class="row">
+            <div class="col-12">
+                <div class="validation-message">
+                    <span>You are about to proceed without saving information on this page. </span>
+
+                    <span> Click the "Continue" button to leave without saving the information.</span>
+
+                    <span> Click the "Cancel" button to stay on the current page.</span>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-12">
+                <div class="text-right">
+                    <button mat-flat-button (click)="close()" color="primary"
+                        class="perlss-click-button-white-noborder">Cancel</button> &nbsp;
+                    <button mat-flat-button (click)="continue()" color="primary"
+                        class="perlss-click-button">Continue</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

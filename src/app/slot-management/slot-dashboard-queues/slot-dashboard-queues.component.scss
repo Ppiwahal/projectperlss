@@ -1,0 +1,31 @@
+@import '../../../colors.scss';
+
+.slot-queue-label {
+     font-weight: bold;
+     font-size: 20px;
+     color: #659737 !important;
+  }
+  .mat-header-class {
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #CDDDF4;
+    color: black !important;
+  }
+  .app-sub-heading{
+    color: #174A7C;
+      font-weight: bold;
+      font-size: 18px ;
+      padding: 20px 0 15px 0;
+  }
+  .handPointer{
+    cursor: pointer;
+  }
+  .material-icons{
+    position: absolute;
+    color: #04537D;
+    top: 9px;
+    font-size: 28px;
+}
+.marginChk {
+  margin: 5vw 0 0 35vw;
+}

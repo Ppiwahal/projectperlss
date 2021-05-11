@@ -1,0 +1,64 @@
+<div class="row-header">
+  <span class="col-lg-9 dialog-heading">
+    View User Profile
+  </span>
+  <span class="col-lg-3 text-right close-icon">
+    <mat-icon (click)=close()>highlight_off</mat-icon>
+  </span>
+</div>
+<mat-divider class="perlss-section-divider"></mat-divider>
+
+<div style="word-wrap: break-word; font-size: 12px;font-family: 'Open Sans'">
+  <table aria-describedby class="table table-borderless">
+    <tr class="d-flex">
+      <th id="userName" class="col-2"><strong>USERNAME:</strong></th>
+      <td class="col-3">{{ data.userName }}</td>
+      <td class="col-3"><strong>STATUS:</strong></td>
+      <td class="col-4">{{ userStatus }}</td>
+    </tr>
+    <tr class="d-flex">
+      <td class="col-2"><strong>FIRST NAME:</strong></td>
+      <td class="col-3">{{ data.firstName }}</td>
+      <td class="col-3"><strong>USER ROLE(S):</strong></td>
+      <div class = textWrap><td class="col-3">{{ roleNameList }}</td></div>
+      
+    </tr>
+    <tr class="d-flex">
+      <td class="col-2"><strong>LAST NAME:</strong></td>
+      <td class="col-3">{{ data.lastName }}</td>
+      <td class="col-3"><strong>MANAGED USER ROLE(S):</strong></td>
+      <td class = textWrap class="col-3">{{ managedRoleList }}</td>
+    </tr>
+    <tr class="d-flex">
+      <td class="col-2"><strong>EMAIL ADDRESS:</strong></td>
+      <td class="col-3">{{ data.emailAddress }}</td>
+      <td class="col-3"><strong>LAST LOG IN:</strong></td>
+      <td class="col-4">{{ data.lastLoginDt | date:'MM/dd/yyyy' }}</td>
+    </tr>
+    <tr class="d-flex">
+      <td class="col-2"><strong>PHONE NUMBER:</strong></td>
+      <td class="col-3">{{ newPhoneNum }}</td>
+      <td class="col-3"><strong>LAST UPDATED:</strong></td>
+      <td class="col-4">{{ data.lastModifiedDt | date:'MM/dd/yyyy' }}</td>
+    </tr>
+    <tr class="d-flex">
+      <td class="col-2"><strong>ENTITY:</strong></td>
+      <td class="col-3">{{ entityName }}</td>
+      <td class="col-3" *ngIf="userStatus === 'Active'"><strong>DATE PROVISIONED:</strong></td>
+      <td class="col-4" *ngIf="userStatus === 'Active'">{{ data.provisionedDt | date:'MM/dd/yyyy' }}</td>
+    </tr>
+    <tr class="d-flex">
+      <td class="col-2" *ngIf="entityName === 'DIDD'"><strong>REGION:</strong></td>
+      <td class="col-3" *ngIf="entityName === 'DIDD'">{{ region }}</td>
+      <td class="col-3" *ngIf="userStatus === 'Inactive'"><strong>DATE DEPROVISIONED:</strong></td>
+      <td class="col-4" *ngIf="userStatus === 'Inactive'">{{ data.deprovisionedDt | date:'MM/dd/yyyy' }}</td>
+    </tr>
+    <tr class="d-flex">
+      <td class="col-2"><strong>COMPLETE?:</strong></td>
+      <td class="col-3" *ngIf="data?.entityDetails.completeSw === 'Y'">Yes</td>
+      <td class="col-3" *ngIf="data?.entityDetails.completeSw === 'N'">No</td>
+      <td class="col-3"><strong>STATUS DATE:</strong></td>
+      <td class="col-4">{{ statusDate }}</td>
+    </tr>
+  </table>
+</div>

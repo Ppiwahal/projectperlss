@@ -1,0 +1,112 @@
+@import '../../../colors.scss';
+
+.row-header {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.dialog-heading {
+    font-weight: bold;
+    font-size: 22px;
+    font-family: 'Open Sans';
+    color: #174A7C;
+}
+
+.close-icon {
+    color : #969190;
+    cursor: pointer;
+}
+
+.update-task-content {
+    overflow-x:hidden;
+}
+
+.table-header-content{
+    padding-bottom:25px;
+    padding-top:25px;
+    font-size: 11px;
+    font-family: 'Open Sans';
+    color: #1B365D;
+}
+
+.spinner-overlay {
+  position: absolute;
+  top: 60%;
+  right: 36vh;
+  margin: -25px 0 0 -25px;
+}
+
+.subrow-update-button{
+    padding-left: 3%;
+    padding-bottom: 10px;
+}
+
+.dropdown-content{
+    padding-left: 3%;
+    padding-top:20px;
+
+}
+
+.create-manualtask-button{
+    padding-left: 3%;
+    padding-bottom: 20px;
+}
+
+.table-th{
+    font-size: 14px;
+    font-weight: bold;
+    color: #04537D;
+}
+
+.second-table {
+    border: 1px solid #1B365D;
+    width: 95%;
+}
+
+.example-element-detail {
+    overflow: hidden;
+}
+
+.subrow-header{
+    font-weight: bold;
+    padding-top: 10px;
+}
+
+tr.element-row:not(.expanded-row):active {
+    background: $colorControlBackground;
+  }
+
+  tr.expanded-row {
+    background: #EDF4FB;
+    font-weight: bold;
+  }
+
+  tr.element-row:not(.expanded-row):hover {
+    background: $colorControlBackground;
+  }
+
+.table-th{
+  font-size: 14px;
+  font-weight: bold;
+  color: #174A7C;
+}
+
+tr.element-row:not(.expanded-row):hover {
+  background: $colorControlBackground;
+}
+tr.example-detail-row {
+  height: 0;
+}
+.example-element-detail {
+  overflow: hidden;
+}
+
+tr.element-row:not(.expanded-row):active {
+  background: $colorControlBackground;
+}
+.required-color {
+  color: #f44336;
+}
+.close-task-button{
+  padding-left: 38px;
+}

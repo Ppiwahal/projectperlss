@@ -1,0 +1,95 @@
+<div class="pageMargin">
+
+  <div class="page-header-container">
+    <div class="row">
+      <div class="col-md-8">
+        <h2>Complex Medication</h2>
+      </div>
+      <div class="col-md-4">
+        <div class="applicant-name-container">
+          <strong>APPLICANT NAME :</strong>{{applicantName}}
+       </div>
+      </div>
+    </div>
+  </div>
+
+  <form [formGroup]="medicalRegimenForm">
+    <div class="question-container">
+      <div class="row">
+        <div class="col-md-12">
+          <mat-label>
+            <mat-label class="required-color">*</mat-label>Does the child require complex medical regimen with more than
+            6
+            different medications given orally by NG-tube, G-tube, or GJ-tube?
+          </mat-label>
+       </div>
+      </div>
+    </div>
+    <div class="radio-container">
+      <div class="row">
+        <div class="col-md-12">
+          <mat-radio-group formControlName="reqComplxMediOrallySw">
+            <div>
+              <mat-radio-button value="Y">Yes</mat-radio-button>
+            </div>
+
+            <div>
+              <mat-radio-button value="N">No</mat-radio-button>
+            </div>
+          </mat-radio-group>
+       </div>
+      </div>
+    </div>
+
+
+    <hr>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Other Medical Details</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <mat-label>
+          <mat-label class="required-color">*</mat-label>Please select medication regimen of the applicant
+          from the list below. (Select <strong>ALL</strong> that apply)
+       </mat-label>
+      </div>
+    </div>
+
+    <div>
+      <mat-error *ngIf="noneCheckBoxSelected && otherCheckboxSelected ">
+        {{customValidation.A27}}
+      </mat-error>
+      <mat-error *ngIf="!noneCheckBoxSelected && !otherCheckboxSelected && submitted">
+        {{customValidation.A1}}
+      </mat-error>
+    </div>
+    <br>
+    <div *ngFor="let medicalRegimen of medicalRegimenList" class="row">
+      <div class="col-md-12">
+        <mat-checkbox [value]="medicalRegimen.code" (change)="checkboxSelected($event)">
+          {{medicalRegimen.value}}
+       </mat-checkbox>
+      </div>
+    </div>
+
+    <div class="button-container">
+      <div class="row">
+        <div class="col-md-2">
+          <button mat-flat-button color="primary" class="perlss-click-button-white" (click)="back()">BACK</button>
+       </div>
+        <div class="col-md-4">
+          <button mat-flat-button color="primary" class="perlss-click-button-white-noborder"
+            (click)="saveAndExit()">SAVE AND EXIT</button>
+       </div>
+        <div class="col-md-6">
+          <button mat-flat-button color="primary" class="perlss-click-button" type="submit">NEXT</button>
+       </div>
+      </div>
+    </div>
+
+  </form>
+</div>

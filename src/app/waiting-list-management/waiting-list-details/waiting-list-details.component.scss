@@ -1,0 +1,157 @@
+@import '../../../colors.scss';
+
+.label_name {
+  font-weight: bold;
+  color: black;
+}
+
+.part_label_name{
+  font-weight: bold;
+  color: black;
+  border: 1px solid #4D7E20; 
+  padding: 20px 25px 15px 15px;
+  font-style: italic;
+}
+
+.inner-container {
+  background-color: $colorControlBackground;
+  padding: 15px;
+}
+
+.common{
+  color: #174A7C;
+  font-weight: bold;
+}
+
+.heading{
+  color: #4D7E20;
+  font-weight: bold;
+  font-size: 18px ;
+}
+
+.example-element-detail {
+  overflow: hidden;
+}
+
+.example-element-detail {
+  overflow: hidden;
+}
+
+tr.element-row:not(.expanded-row):active {
+  background: $colorControlBackground;
+}
+
+.dropdown-content {
+  padding-top: 35px;
+}
+
+.go_back {
+  padding-top: 55px; 
+  font-weight: bold; 
+  margin-top: 16px; 
+  text-align:center; 
+  display:block; 
+  color:#174A7C;
+}
+
+.table-column-top {
+  padding-top: 10px;
+}
+
+::ng-deep .matform-custom{
+  padding: 0 2px !important;
+}
+
+.required-color {
+  color: #f44336;
+}
+
+.text-area{
+  margin-top: 15px;
+}
+.required-tag, .required{
+  color: red;
+}
+.character-count{
+  float: right;
+  margin-top: -24px;
+}
+.app-sub-heading{
+  color: #174A7C;
+    font-weight: bold;
+    font-size: 18px ;
+    padding: 20px 0 15px 0;
+}
+::ng-deep {
+  .mat-expansion-panel:not([class*=mat-elevation-z]) {
+    box-shadow: none;
+  }
+  .expanded-row{
+    background-color: #EDF4FB !important;
+    font-weight: bold !important;
+  }
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: $colorControlBackground;
+    border-color: #CED4DA;
+  }
+  .mat-expansion-panel-body{
+    padding: 0;
+  }
+  .mat-expansion-panel-header-title {
+    color: #04537D;
+    font-size: 20px !important;
+    letter-spacing: 2px;
+  }
+  .mat-form-field{
+    width:100%;
+  }
+  .mat-table{
+    font-family: 'Open Sans' !important;
+    font-size: 14px;
+    width: 100%;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+    border-radius: 7px;
+    border: 1.5px solid #174A7C;
+  }
+  .mat-header-cell{
+  color: #04537D !important;
+  font-weight: 900;
+  border-top: none;
+  border-bottom: #1B365C 2px solid !important;
+  font-size: 15px;
+  }
+  .mat-header-row{
+    border-bottom: 2px solid #174A7C !important;
+  }
+  .mat-expansion-indicator::after {
+    color: #ED6053 !important;
+    height: 21.5px;
+    width: 21.5px;
+    top: 50%;
+
+  }
+}
+#referralTable{
+  
+  tr.element-row:not(.expanded-row):hover {
+    background: $colorControlBackground;
+  }
+  tr.example-detail-row {
+    height: 0;
+  }
+  .example-element-detail {
+    overflow: hidden;
+  }
+
+  tr.element-row:not(.expanded-row):active {
+    background: $colorControlBackground;
+  }
+
+
+  .borderless td, .borderless th {
+    border: none;
+  }
+}

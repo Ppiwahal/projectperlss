@@ -1,0 +1,90 @@
+.popup-header-container {
+  padding-left: 45px;
+  padding-right: 45px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  margin-left: 10px;
+}
+
+.mat-dialog-container {
+  padding: 0px;
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+  border-radius: 7px;
+  border: 2px solid #225282;
+}
+
+.popup-close-icon {
+  transform: scale(1.5);
+  cursor: pointer;
+  color: #8b99ac;
+}
+
+.note-container {
+  padding-top: 27px;
+  padding-bottom: 27px;
+  background-color: #f5f9fe;
+  padding-left: 45px;
+  padding-right: 45px;
+}
+
+.form-container {
+  padding: 54px 54px 54px 54px;
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+
+
+.required-class {
+  color: red;
+}
+.required-name {
+  color: green;
+}
+.question-container {
+  padding-top: 36px;
+  padding-bottom: 18px;
+}
+
+.radio-container {
+  padding-top: 4px;
+  margin-left: 7px;
+}
+
+#applicantName {
+  border: 2px solid;
+  border-color: #4d7e20;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+}
+::ng-deep .ng-dropdown-panel {
+  left: 0 !important;
+  right: 0 !important;
+  margin: 0 auto;
+}
+
+.required-name {
+  color: #547e1a;
+  font-family: "Open Sans";
+  font-size: 22px;
+  line-height: 27px;
+  font-weight: 700;
+}
+.notes {
+  border: 1px solid;
+  padding-top: 7px;
+  margin-top: 36px;
+  background-color: #f5f9fe;
+}
+.textStyle{
+  font-family: "Open Sans";;
+    font-size: 18px;
+    line-height: 23.5px;
+    font-weight: 400;
+    color: #0b0b0b;
+}

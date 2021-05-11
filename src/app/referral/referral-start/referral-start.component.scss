@@ -1,0 +1,90 @@
+@import '../../../colors.scss';
+
+.sub-heading {
+  font-family: "Open Sans";
+  letter-spacing: 50;
+  font-weight: bold;
+  font-size: 32px;
+  color: #174a7c;
+}
+
+
+.required {
+  float: right;
+  color: #ED6053;
+  font-family: "Open Sans";
+  margin-top: -20px;
+}
+
+.pageMargin{
+  padding-top: 10px;
+}
+.required-color {
+  color:  #ED6053;
+  padding-right: 5px;
+}
+// .pageMargin {
+//   padding-top: 0;
+// }
+// .checkbox{
+//   padding-left: 18px;
+// }
+.push-right-note{
+  padding-left: 54px;
+}
+.cardStyle {
+  background-color: $colorControlBackground;
+  border-top: 2px solid #4b7f1e;
+  color: #6E7073;
+  font-family: 'Open Sans';
+}
+.red{
+  color: #ed6053;
+}
+
+.red-icon {
+  color: #ed6053;
+  transform: scale(0.8);
+  display: inline-flex;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.red-icon-tooltip {
+  color: #ed6053;
+  transform: scale(0.8);
+  cursor: pointer;
+}
+.textArea{
+  width: 100%;
+}
+.clickHere{
+  cursor: pointer;
+}
+// .mat-checkbox .mat-label{
+//   font-family: 'Open Sans';
+// }
+
+
+// .button-container{
+//   padding-top: 36px;
+// }
+
+// ::ng-deep .line-height-txt{
+//   line-height:  20px;
+//   font-size: 0.9v
+// }
+
+
+// ::ng-deep .inside-tooltip{
+//   line-height: 15px;
+//   text-align: justify;
+//   background: #fff;
+//   border : 1px solid  #efeef0;
+//   color: gray !important;
+//   box-shadow: 0 0 10px gray;
+// }
+
+.chkSize{
+  width: 8vw;
+}

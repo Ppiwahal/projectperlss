@@ -1,0 +1,207 @@
+<div class="responsive">
+<div class="dropdown-content">
+  <form [formGroup]="createTaskForm" (ngSubmit)="referralListStatus()">
+    <div class="col-md-6" style="padding-left: 3px;">
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label>
+          <mat-label class="required-color">*</mat-label>Update Status
+       </mat-label>
+        <mat-select formControlName="refListStatusCd">
+          <mat-option value=''>Select an option</mat-option>
+          <mat-option *ngFor="let status of updateStatusCodes" value={{status.code}}>{{status.value}}</mat-option>
+       </mat-select>
+        <mat-error *ngIf="createTaskForm.get('refListStatusCd').hasError('required')">
+          {{customValidation.A1}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div  style="padding-bottom: 30px;" *ngIf="f.refListStatusCd.value === 'SLO'">
+      <div  class="col-md-6" style="padding-left: 3px;">
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>
+            <mat-label class="required-color">*</mat-label><strong>Select the Enrollment Group that you are interested in
+              for slot evaluation:</strong>
+          </mat-label>
+          <mat-select formControlName="intrstdEnrGroupCd">
+            <mat-option value=''>Select an option</mat-option>
+            <mat-option *ngFor="let enrollmentCode of enrollmentCodes" value={{enrollmentCode.code}}>
+              {{enrollmentCode.value}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="createTaskForm.get('intrstdEnrGroupCd').hasError('required')">
+            {{customValidation.A1}}</mat-error>
+       </mat-form-field>
+      </div>
+      
+      <table  class="col-md-8" aria-describedby style="border: 1px solid black;">
+        <tr>
+          <th id="Note" style="padding: 15px; color:black">
+            <strong>Note:</strong> This action will submit the request to re-evaluate Slot assignment. If we don't
+            have a slot <br>
+            available for the enrollment group selected, applicant will continue to stay on Referral List.
+          </th>
+       </tr>
+      </table>
+    </div>
+
+    <div class="col-md-6" style="padding-left: 3px;" *ngIf="f.refListStatusCd.value === 'REM'">
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label>
+          <mat-label class="required-color">*</mat-label>Select a Reason
+       </mat-label>
+        <mat-select formControlName="rmvlRsnCd">
+          <mat-option value=''>Select an option</mat-option>
+          <mat-option *ngFor="let reasonCode of reasonCodes" value={{reasonCode.name}}>
+            {{reasonCode.value}}</mat-option>
+       </mat-select>
+        <mat-error *ngIf="createTaskForm.get('rmvlRsnCd').hasError('required')">
+          {{customValidation.A1}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div style="padding-bottom: 25px;padding-left: 4px;" *ngIf="f.rmvlRsnCd.value === 'RR'" class="update-referral-list">
+      <table style="width: 100%;" aria-describedby mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="personauthorizedremoval">
+          <th id="authorized" mat-header-cell *matHeaderCellDef placeholder="Name">Person Authorized Removal</th>
+          <td class="table-column-top" mat-cell *matCellDef="let element">
+            <div class="matform-custom">
+              <mat-form-field style="padding-right: 15px;" appearance="outline">
+                <input formControlName="rmvlAuthName" matInput type="text">
+              </mat-form-field>
+            </div>
+          </td>
+       </ng-container>
+        <ng-container matColumnDef="relationship">
+          <th id="relationships" mat-header-cell *matHeaderCellDef>Relationship</th>
+          <td class="table-column-top" mat-cell *matCellDef="let element">
+            <div class="matform-custom">
+              <mat-form-field style="padding-right: 15px;" appearance="outline">
+                <mat-select formControlName="rmvlAuthReltshpCd" required>
+                  <mat-option value=''>Select an option</mat-option>
+                  <mat-option *ngFor="let relationshipCode of relationshipCodes" value={{relationshipCode.code}}>
+                      {{relationshipCode.value}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </td>
+       </ng-container>
+
+        <ng-container matColumnDef="dateandtime">
+          <th id="dateandtimes" mat-header-cell *matHeaderCellDef>Date and Time</th>
+          <td  class="table-column-top" mat-cell *matCellDef="let element">
+            <div class="matform-custom">
+              <mat-form-field style="padding-right: 15px;" appearance="outline">
+                <mat-label>Date and Time</mat-label>
+                <input matInput type="datetime-local" [max] ="today" [min]="minDate" formControlName="rmvlDtTime">
+              </mat-form-field>
+            </div>
+          </td>
+       </ng-container>
+
+        <ng-container matColumnDef="contactedby">
+          <th id="contactedbys" mat-header-cell *matHeaderCellDef>Type of Contact</th>
+          <td class="table-column-top" mat-cell *matCellDef="let element">
+            <div class="matform-custom">
+              <mat-form-field style="padding-right: 15px;" appearance="outline">
+                <mat-select formControlName="rmvlAuthCntctBy" required>
+                  <mat-option value=''>Select an option</mat-option>
+                  <mat-option *ngFor="let contactMethodCode of contactMethodCodes" value={{contactMethodCode.code}}>
+                      {{contactMethodCode.value}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </td>
+       </ng-container>
+
+       
+       <ng-container matColumnDef="typeofcontact">
+        <th id="typeofcontacts" mat-header-cell *matHeaderCellDef>Contacted By</th>
+        <td class="table-column-top" mat-cell *matCellDef="let element">
+          <div class="matform-custom">
+            <mat-form-field style="padding-right: 15px;" appearance="outline">
+              <input formControlName="rmvlAuthCntctTypeCd" matInput type="text">
+            </mat-form-field>
+          </div>
+        </td>
+     </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+
+    <div style="padding-bottom: 25px;padding-left: 4px;" *ngIf="f.rmvlRsnCd.value === 'UTC'" class="update-referral-list">
+      <table aria-describedby mat-table [dataSource]="secondtabledataSource" 
+       formArrayName="refListOutreachCntctVO" 
+       class="mat-elevation-z8">
+        <ng-container matColumnDef="contactattempt">
+          <th id="contactattempts" mat-header-cell *matHeaderCellDef>Contact Attempt</th>
+          <td style="padding-left: 60px;" mat-cell *matCellDef="let element">
+            {{element.id}}
+          </td>
+       </ng-container>
+        <ng-container matColumnDef="dateandtime">
+          <th id="dateandtimes" mat-header-cell *matHeaderCellDef>Date and Time</th>
+          <td [formGroupName]="index" class="table-column-top" mat-cell *matCellDef="let element; let index = index">
+            <div class="matform-custom">
+              <mat-form-field style="padding-right: 15px;" appearance="outline">
+                <mat-label>Date and Time</mat-label>
+                <input matInput type="datetime-local" [max] ="today" [min]="minDate" formControlName="cntctDtTime">
+              </mat-form-field>
+            </div>
+          </td>
+       </ng-container>
+        <ng-container matColumnDef="typeofcontact">
+          <th id="typeofcontacts" mat-header-cell *matHeaderCellDef>Type of Contact</th>
+          <td [formGroupName]="index" class="table-column-top" mat-cell *matCellDef="let element; let index = index">
+            <div class="matform-custom">
+              <mat-form-field style="padding-right: 15px;" appearance="outline">
+                <mat-select formControlName="cntctTypeCd">
+                  <mat-option value=''>Select an option</mat-option>
+                  <mat-option *ngFor="let contactMethodCode of contactMethodCodes" value={{contactMethodCode.code}}>
+                    {{contactMethodCode.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </td>
+       </ng-container>
+
+        <ng-container matColumnDef="contactedby">
+          <th id="contactedbys" mat-header-cell *matHeaderCellDef>Contacted By</th>
+          <td [formGroupName]="index" class="table-column-top" mat-cell *matCellDef="let element; let index = index">
+            <div class="matform-custom">
+              <mat-form-field style="padding-right: 15px;" appearance="outline">
+                <input matInput type="text" formControlName="cntctedBy">
+              </mat-form-field>
+            </div>
+           
+          </td>
+       </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsforsecondtable"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsforsecondtable;"></tr>
+      </table>
+    </div>
+     <div class="col-md-12">
+    <div class="text-area">
+      <mat-form-field appearance="outline">
+          <mat-label><span class="required">*</span>Comments</mat-label>
+          <textarea matInput class="note-textarea" #aplExpectOutcome maxlength="2000" formControlName="comments"></textarea>
+          <mat-error *ngIf="createTaskForm.get('comments').hasError('required')">
+            {{customValidation.A1}}</mat-error>
+       </mat-form-field>
+      <div class="character-count">
+          {{aplExpectOutcome.value.length}}/2000
+      </div>
+  </div>
+</div>
+    <div style="padding-top: 30px;">
+      <button mat-flat-button class="perlss-click-button">
+        SUBMIT
+      </button>
+    </div>
+  </form>
+</div>
+</div>

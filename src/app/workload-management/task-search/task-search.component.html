@@ -1,0 +1,125 @@
+<mat-divider style="margin: 50px 0 30px 0;"></mat-divider>
+<div class="wrapper">
+    
+    <div class="filter-wrapper">
+        <form  [formGroup]="taskSearch" (ngSubmit)="search()">
+            <mat-accordion>
+                <mat-expansion-panel (opened)="panelOpenState = true"
+                                     (closed)="panelOpenState = false">
+                  <mat-expansion-panel-header style="background-color: #f5f5f5">
+                    <mat-panel-title class="pannel-heading">
+                     Task Search
+                   </mat-panel-title>
+                 </mat-expansion-panel-header>
+                    <div class="queue-accordion">
+                            <mat-form-field appearance="outline">
+                              <mat-label>Search by Applicant Name, Date Of Birth, SSN, Person ID, County</mat-label>
+                              <input matInput formControlName="personSearch" [matAutocomplete]="auto" #applicantNameInput>
+                              <mat-autocomplete #auto="matAutocomplete" (optionSelected)='handleSelection($event.option.value)'>
+                                <mat-option class="select-hr" *ngFor="let option of personOptions" [value]="option">
+                                  <strong>Applicant Name:</strong>{{option.prsnDetail?.firstName}} {{option.prsnDetail?.lastName}},
+                                  <strong>Date of Birth:</strong>{{option.prsnDetail?.dobDt}},
+                                  <strong>SSN:</strong>{{option.prsnDetail?.ssn}},
+                                  <strong>Person Id:</strong>{{option.prsnDetail?.prsnId}},
+                                  <strong>County:</strong>{{option.prsnDetail?.prsnCountyName}}
+                               </mat-option>
+                             </mat-autocomplete>
+                              <button matTooltip="Clear Search" mat-button *ngIf="f.personSearch?.value" matSuffix mat-icon-button aria-label="Clear"
+                                (click)="f.personSearch.setValue(null)">
+                                <mat-icon>close</mat-icon>
+                           </button>
+                              <button mat-button *ngIf="personDisplayName" matSuffix mat-icon-button aria-label="Clear" (click)="personDisplayName=null">
+                                <mat-icon>close</mat-icon>
+                             </button>
+                           </mat-form-field>
+                          <div class="filter-dropdown">
+                            <div>
+                                <mat-form-field appearance="outline">
+                                  <mat-label>Select Task Queue</mat-label>
+                                      <mat-select formControlName="taskQueue">
+                                          <mat-option value=''>Select</mat-option>
+                                          <mat-option *ngFor = "let tq of  taskQueueData" value={{tq.code}}>{{tq.value}}</mat-option>
+                                     </mat-select>
+                                </mat-form-field>
+                           </div>
+                            <div>
+                              
+                              <mat-form-field appearance="outline">
+                                <mat-label>Module</mat-label>
+                                <mat-select formControlName="module">
+                                    <mat-option value=''> Select </mat-option>
+                                    <mat-option *ngFor = "let m of  dashBoardCodes" value={{m.code}}>{{m.value}}</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                    
+                          <div class="filter-dropdown">
+                            <div>
+                               
+                                <mat-form-field appearance="outline">
+                                  <mat-label>Record Type</mat-label>
+                                      <mat-select formControlName="recordType">
+                                        <mat-option value=''>Select</mat-option>
+                                        <mat-option *ngFor = "let rt of  recordTypeData" value={{rt.name}}>{{rt.value}}</mat-option>
+                                     </mat-select>
+                                </mat-form-field>
+                           </div>
+                            <div>
+                              
+                                <mat-form-field appearance="outline">
+                                  <mat-label>Record ID</mat-label>
+                                    <input matInput autocomplete="off" formControlName="recordId"/>
+                                </mat-form-field>
+                           </div>
+                         </div>
+                    
+                          <div class="filter-dropdown">
+                            <div>
+                             
+                                <mat-form-field appearance="outline">
+                                  <mat-label>Assigned User</mat-label>
+                                    <input matInput autocomplete="off" formControlName="assignUser"/>
+                                  <button type="button" mat-button matSuffix mat-icon-button (click)="showAssignUserDialog()">
+                                    <mat-icon>search</mat-icon>
+                                  </button>
+                                </mat-form-field>
+                           </div>
+                            <div>
+                              
+                                <mat-form-field appearance="outline">
+                                  <mat-label>Select Task Priority</mat-label>
+                                      <mat-select formControlName="taskPriority">
+                                        <mat-option value=''>Select</mat-option>
+                                        <mat-option *ngFor = "let tp of  taskPriorityData" value={{tp.code}}>{{tp.value}}</mat-option>
+                                     </mat-select>
+                                </mat-form-field>
+                           </div>
+                         </div>
+                          <div class="filter-dropdown">
+                            <div>
+                             
+                                <mat-form-field appearance="outline">
+                                  <mat-label>Person ID</mat-label>
+                                    <input matInput autocomplete="off" formControlName="personId"/>
+                                </mat-form-field>
+                           </div>
+                            <div>
+                              <mat-form-field appearance="outline">
+                                <mat-label>Due Date</mat-label>
+                                <input matInput [matDatepicker]="dueDate" formControlName="dueDate">
+                                <mat-datepicker-toggle matSuffix [for]="dueDate"></mat-datepicker-toggle>
+                                <mat-datepicker [startAt]="startDate"  #dueDate></mat-datepicker>
+                             </mat-form-field>
+                           </div>
+                         </div>
+                          <div>
+                            <button type="submit" mat-flat-button color="primary" class="custom-button">SEARCH</button>
+                         </div>
+                   </div>
+               </mat-expansion-panel>
+           </mat-accordion>
+       </form>
+   </div>
+</div>
+

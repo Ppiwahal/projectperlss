@@ -1,0 +1,50 @@
+<div class="pageMargin">
+  <mat-horizontal-stepper class="perlss-stepper" labelPosition="bottom" #stepper [linear]="isLinear"
+    [selectedIndex]="currentForm" class="{{ 'last-edited-step-' + currentForm }}">
+    <ng-template matStepperIcon="edit">
+      <mat-icon>done</mat-icon>
+    </ng-template>
+    <mat-step completed=false label="Start">
+      <div *ngIf="showAppealSelectAction; else elseBlock">
+        <app-appeal-start (completedStart)="selectedIndex($event)"></app-appeal-start>
+      </div>
+      <ng-template #elseBlock>
+        <app-appeal-select-action (showReconsiderations)="showReconsiderations($event)" [appellantInfoStatus]="appellantInfoStatus"
+          (navigateToStepper)="navigateToStepper($event)" [searchElement]="searchElement"></app-appeal-select-action>
+      </ng-template>
+    </mat-step>
+
+    <mat-step completed=false label="Appellant Details">
+      <app-appellant-details [appellantInfoStatus]="appellantInfoStatus" [appealIdSelectAction]="appealId"
+        (appealCreatedData)="appealCreated($event)" (completedAppellantDetails)="selectedIndex($event)"
+        [dataFromAppealStart]="dataFromAppealStart"></app-appellant-details>
+    </mat-step>
+
+    <mat-step completed=false label="Appeal Review">
+      <app-appeal-review [appellantInfoStatus]="appellantInfoStatus" (completedAppealReview)="selectedIndex($event)"
+        [appealId]="appealId" [passrRefrenceTableData]="passrRefrenceTableData"></app-appeal-review>
+    </mat-step>
+
+    <mat-step completed=false label="Onsite Assessment">
+      <app-appeal-onsite-assessment [appellantInfoStatus]="appellantInfoStatus"
+        (completedAppealOnsiteAssessment)="selectedIndex($event)" [appealReviewAplId]="appealReviewAplId"
+        [dataFromReview]="dataFromReview"></app-appeal-onsite-assessment>
+    </mat-step>
+
+    <mat-step completed=false label="Review of Onsite">
+      <app-appeals-review-of-onsite [appealReviewAplId]="appealReviewAplId">
+      </app-appeals-review-of-onsite>
+    </mat-step>
+
+    <mat-step completed=false label="Appeal Hearing">
+      <app-appeal-hearing [appellantInfoStatus]="appellantInfoStatus" [isShowReconsiderations]="isShowReconsiderations"
+        (backNextNavigationAppealHearing)="selectedIndex($event)" [appealId]="appealId"></app-appeal-hearing>
+    </mat-step>
+
+    <mat-step completed=false label="Appeal Resolution">
+      <app-appeal-resolution [appellantInfoStatus]="appellantInfoStatus" [appealId]="appealId"
+        [passrRefrenceTableData]="passrRefrenceTableData" (completedAppealOnsiteAssessment)="selectedIndex($event)">
+      </app-appeal-resolution>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>

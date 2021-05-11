@@ -1,0 +1,132 @@
+<div class="dialog">
+  <div class="header">
+      <h1>Person Search</h1>
+      <mat-icon (click)="closePopup()">highlight_off</mat-icon>
+  </div>
+    <div class="form">
+      <br>
+      <div class="row">
+          <div class="col-12">
+              <div class="validation-message perlss_page_content">
+                  <div class="txtclr">
+                      <p>Search by Applicant Name, Date Of Birth, SSN, Person ID, County</p>
+                  </div>
+                  <!-- <div class="form-group search">
+                      <input type="text" class="form-control" #personSearchInput (keypress)="validateInput($event)"
+                          (keyup)="onSearch($event.target.value)">
+                      <mat-icon [hidden]="!personSearchInput.value" (click)="personSearchInput.value = ''; onSearch('')">close
+                      </mat-icon>
+                  </div> -->
+                  <form [formGroup]="personSearch">
+                  <div  id="search">
+                      <mat-form-field appearance="outline">
+                        <!-- <mat-label>Search by Applicant Name, Date Of Birth, SSN, Person ID, County</mat-label> -->
+                        <input matInput formControlName="personDisplayName" autocomplete="off"  #personSearchInput (keypress)="validateInput($event)"
+                        (keyup)="onSearch($event.target.value)" placeholder="Search by Applicant Name, Date Of Birth, SSN, Person ID, County">
+                        <button mat-button *ngIf="personSearchInput.value" matSuffix mat-icon-button (click)="personSearchInput.value = ''; onSearch('');!isRowSelected">
+                           <mat-icon >close
+                          </mat-icon>
+                        </button>
+                      </mat-form-field>
+                    </div>
+                  <ng-container *ngIf="personSearchInput.value && dataSource && !isRowSelected">
+                      <table mat-table [dataSource]="dataSource.filteredData"
+                      [hidden]="isRowSelected">
+                          <ng-container matColumnDef="name">
+                              <th mat-header-cell *matHeaderCellDef>Name</th>
+                              <td mat-cell *matCellDef="let element">
+                                {{ element.prsnDetail.firstName }}
+                                {{ element.prsnDetail.lastName }}
+                              </td>
+                          </ng-container>
+                                 <ng-container matColumnDef="SSN">
+                              <th mat-header-cell *matHeaderCellDef>SSN</th>
+                              <td mat-cell *matCellDef="let element">{{ element.prsnDetail.ssn }}
+                              </td>
+                          </ng-container>
+                          <ng-container matColumnDef="DOB">
+                              <th mat-header-cell *matHeaderCellDef>Date of Birth</th>
+                              <td mat-cell *matCellDef="let element"> {{element.prsnDetail.dobDt| date: "MM/dd/yyyy" }}
+                              </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="Person ID">
+                              <th mat-header-cell *matHeaderCellDef>Person ID</th>
+                              <td mat-cell *matCellDef="let element"> {{ element.prsnDetail.prsnId }}
+                              </td>
+                          </ng-container>
+                          <ng-container matColumnDef="county">
+                              <th mat-header-cell *matHeaderCellDef>County</th>
+                              <td mat-cell *matCellDef="let element"> {{ element.prsnDetail.cntyCd }}
+                              </td>
+                          </ng-container>
+                          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                          <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+                              [ngClass]="{'highlight': selectedRow === element}" (click)="onrowSelect(element)" >
+                          </tr>
+                      </table>
+                  </ng-container>
+                </form>
+              </div>
+          </div>
+      </div>
+      <br>
+      <br>
+    </div>
+    <div *ngIf="isRowSelected">
+      <div class='txtclr hr2'><p>Person Details</p></div>
+      <div class="col-12 details" *ngIf="selectedRow">
+        <div class="col-6">
+          <mat-label>Name:  <span>{{selectedRow.prsnDetail.firstName}} {{ selectedRow.prsnDetail.lastName }}</span></mat-label><br>
+          <mat-label>Date of Birth: <span>{{selectedRow.prsnDetail.dobDt}}</span></mat-label><br>
+          <mat-label>age of Person: <span>{{ageFromDateOfBirthday(selectedRow.prsnDetail.dobDt)}} years old</span></mat-label><br>
+        </div>
+         <div class="col-6">
+          <mat-label>Last 4 of SSN:<span>{{ selectedRow.prsnDetail.ssn }}</span></mat-label><br>
+          <mat-label>Person ID:<span>{{ selectedRow.personId }}</span></mat-label><br>
+          <mat-label>County:<span> {{ selectedRow.prsnDetail.cntyCd }}</span></mat-label><br>
+          </div>
+        </div>
+        </div>
+
+<div class="accordions" *ngIf="isRowSelected">
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let record of records">
+      <mat-expansion-panel-header class="accordion" >
+        <mat-panel-title class="title">{{record.paeId}} <span>{{record.paeStatus}}</span></mat-panel-title>
+      </mat-expansion-panel-header>
+     <p>some data</p>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <br>
+  <br>
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let record of records">
+      <mat-expansion-panel-header class="accordion">
+        <mat-panel-title class="title">{{record.refId}} <span>{{record.refStatus}}</span></mat-panel-title>
+      </mat-expansion-panel-header>
+     <p>some data</p>
+    </mat-expansion-panel>
+  </mat-accordion>
+    <br>
+    <br>
+   <mat-accordion>
+    <mat-expansion-panel >
+      <mat-expansion-panel-header class="accordion" >
+        <mat-panel-title class="title" *ngFor="let appeals of appealsFound" >{{appeals.aplId}} <span>{{appeals.aplStatusCd}}</span></mat-panel-title>
+      </mat-expansion-panel-header>
+     <p>some data</p>
+    </mat-expansion-panel>
+  </mat-accordion>
+    <br>
+    <br>
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header class="accordion">
+        <mat-panel-title class="title">TMED ID not found</mat-panel-title>
+      </mat-expansion-panel-header>
+     <p>some data</p>
+    </mat-expansion-panel>
+  </mat-accordion>
+ </div>
+</div>

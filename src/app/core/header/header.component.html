@@ -1,0 +1,56 @@
+<div role="banner" class="header">
+  <div class="container-fullwidth">
+    <img
+      class="center-fit"
+      alt="PERLSS Division of TennCare Page Header"
+      src="../../../assets/images/header.png"
+      (click)="logo()"
+    />
+    <mat-icon class="build-info-icon" matTooltip="BUILD TIME: {{this.buildInformation?.BUILD_TIME}}
+    BUILD NUMBER: {{this.buildInformation?.BUILD_NUMBER}}
+    ENVIRONMENT : {{this.buildInformation?.ENVIRONMENT_NAME}}
+    PHASE NAME: {{this.phaseInformation?.phaseName}}">build</mat-icon>
+    <div *ngIf ="!extref">
+    <mat-icon
+      class="contact-icon"
+      [matMenuTriggerFor]="menu"
+      #menuTrigger="matMenuTrigger"
+      (mouseenter)="menuTrigger.openMenu()">person</mat-icon>
+    <mat-menu #menu="matMenu" [overlapTrigger]="false">
+      <span
+        style="font-size: 14px; color: #ed6053; cursor: pointer"
+        (mouseleave)="menuTrigger.closeMenu()">
+        <span style="margin-left: 10px" (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon><span style="margin-left: 3px; color: #174a7c">Logout</span>
+        </span>
+      </span>
+    </mat-menu>
+    </div>
+  </div>
+  <div class="container-fullwidth">
+    <div class="sub-nav-bar">
+      <div class="row">
+        <div class="col" id="perlss-welcome-text">Welcome!</div>
+        <div class="col text-right">
+          <!-- <button (click)="showError()">Show Error Page</button>-->
+          <!--  <mat-icon class="perlss-icon">assignment_ind</mat-icon>-->
+          <mat-icon *ngIf ="!extref"
+            class="perlss-icon ico-hov"
+            (click)="openPersonSearchDialog(element)"
+            >assignment_ind</mat-icon>
+          <mat-icon  *ngIf ="!extref"
+            class="perlss-icon ico-hov notifications-badge"
+            (click)="openNotificationPopup()"
+            [matBadge]="notificationsCount"
+            matBadgeSize="small"
+            >notifications<span class="pita"
+            ></span></mat-icon>
+          <mat-icon class="perlss-icon ico-hov" (click)="openDialog()"
+            >apps</mat-icon
+          >
+          <mat-icon class="perlss-icon ico-hov">local_printshop</mat-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

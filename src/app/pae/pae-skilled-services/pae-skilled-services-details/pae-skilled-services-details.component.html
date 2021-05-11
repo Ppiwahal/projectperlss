@@ -1,0 +1,20 @@
+<div class="pageMargin">
+  <div class="page-header-container">
+    <div class="row">
+      <div class="col-md-8">
+        <button mat-stroked-button type="button" (click)="switchKb()">Switch KB</button>
+      </div>
+      <div class="applicantName">{{applicantName}}</div>
+    </div>
+  </div>
+
+  <div class="details-container">
+    <div *ngIf="isKbProgram">
+      <app-pae-skilled-services-details-kb></app-pae-skilled-services-details-kb>
+    </div>
+
+    <div *ngIf="!isKbProgram">
+      <app-pae-skilled-services-details-other></app-pae-skilled-services-details-other>
+    </div>
+  </div>
+</div>

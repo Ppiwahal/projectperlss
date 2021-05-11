@@ -1,0 +1,31 @@
+div > .mat-form-field {
+  width: 100%;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.icon-width {
+  max-width: 225px;
+}
+
+.padding-textarea {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.example-radio-group {
+  margin-left: 5px;
+  margin-top: 5px;
+}
+
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.required{
+  font-size: 12px;
+  color: red;
+}

@@ -1,0 +1,48 @@
+
+::ng-deep .mat-form-field {
+    font-size: 12px;
+    width: 100%;
+}
+
+
+
+.flex-wrapper{
+    display: flex;
+    margin-top: 10px;
+}
+
+.flex-wrapper div{
+    width: 50%;
+    margin: 0 10px;
+}
+
+::ng-deep mat-label{
+    color: black;
+    font-size: 16px;
+}
+.icon{
+    margin-left: 45%;
+    position: relative;
+    margin-top: 4% !important;
+}
+.icon-style{
+    color: #04537D;
+    font-size: 24px;
+}
+.icon-lebel{
+    color: #04537D;
+    position: absolute;
+    width:180px;
+    margin-left: -34%;
+    font-size: 16px;
+    top: -12%;
+}
+
+.icon:hover{
+    cursor: pointer;
+}
+
+.icon-wrapper{
+    margin-top: 2%;
+}
+

@@ -1,0 +1,22 @@
+.text-align-right {
+    flex: 1;
+    text-align: right;
+    padding-right: 20px;
+  }
+
+  .mat-expansion-panel-header-title {
+    color: #04537D;
+    font-size: 22px;
+  }
+  
+  .mat-expansion-panel:not([class*=mat-elevation-z]) {
+    box-shadow: none;
+  }
+  
+  mat-expansion-panel{
+    padding-top: 15px;
+  }
+  
+  .mat-expansion-panel-header-description, .mat-expansion-indicator::after {
+    color: red !important;
+  }

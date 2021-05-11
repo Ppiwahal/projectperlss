@@ -1,0 +1,245 @@
+<div style="margin: 30px 40px 30px 40px;">
+  <div class="row" style="width: 100%; padding-bottom: 35px;">
+    <div class="col-md-8" style="width: 100% !important;">
+      <div class="document-sub-heading">
+        Applicant Information
+      </div>
+    </div>
+  </div>
+  <div class="applicant-information">
+    <div class="grid-container">
+      <div *ngIf="applicantInformation.firstName && applicantInformation.lastName">
+        <div class="row"><strong class="col-md-4 color-black">APPLICANT NAME:</strong>
+          <span class="col-md-4 color-black">{{applicantInformation.firstName}} {{applicantInformation.lastName}}</span>
+        </div>
+      </div>
+      <div *ngIf="applicantInformation.refId">
+        <div class="row"><strong class="col-md-4 color-black">REFERRAL ID:</strong><span
+            class="col-md-4 color-black">{{applicantInformation.refId}}</span>
+        </div>
+      </div>
+      <div *ngIf="applicantInformation.prsnId">
+        <div class="row"><strong class="col-md-4 color-black">PERSON ID:</strong><span
+            class="col-md-4 color-black">{{applicantInformation.prsnId}}</span>
+        </div>
+      </div>
+      <div *ngIf="applicantInformation.paeId">
+        <div class="row"><strong class="col-md-4 color-black">PAE ID:</strong><span
+            class="col-md-4 color-black">{{applicantInformation.paeId}}</span>
+        </div>
+      </div>
+      <div *ngIf="applicantInformation.dobDt">
+        <div class="row"><strong class="col-md-4 color-black">DATE OF BIRTH:</strong><span
+            class="col-md-4 color-black">{{applicantInformation.dobDt}}</span>
+        </div>
+      </div>
+      <div *ngIf="applicantInformation.paeStatus">
+        <div class="row"><strong class="col-md-4 color-black">PAE STATUS:</strong><span
+            class="col-md-4 color-black">{{applicantInformation.paeStatus}}</span>
+        </div>
+      </div>
+      <div *ngIf="applicantInformation.ssn">
+        <div class="row"><strong class="col-md-4 color-black">SSN:</strong><span
+            class="col-md-4 color-black">{{formatSSN(applicantInformation.ssn)}}</span>
+        </div>
+      </div>
+      <div *ngIf="applicantInformation.aplId">
+        <div class="row"><strong class="col-md-4 color-black">APPEAL ID:</strong><span
+            class="col-md-4 color-black">{{applicantInformation.aplId}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" style="width: 100%;margin:auto;margin-top: 40px;">
+    <div class="document-sub-heading">
+      Document Upload History
+    </div>
+    <mat-form-field style="width: 50%; margin-left: auto;" class="col-md-5" appearance="outline">
+      <mat-label>Search Filter</mat-label>
+      <input aria-label="search filter" matInput (keyup)="applyFilter($event)" placeholder="" #input>
+    </mat-form-field>
+  </div>
+  <table aria-hidden="true" mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8"
+    style="width: 100%;font-size: 14px;">
+    <ng-container matColumnDef="docType">
+      <th id="documentType" mat-header-cell *matHeaderCellDef class='table-th'>Document Type </th>
+      <td mat-cell class="table-td" *matCellDef="let element">{{element.docType}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ubloadDate">
+      <th id="uploadedDate" mat-header-cell *matHeaderCellDef class='table-th'>Upload Date</th>
+      <td mat-cell class="table-td" *matCellDef="let element">{{element.createdDt | date: 'MM/dd/yyyy'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="uploadedBy">
+      <th id="uploadedBy" mat-header-cell *matHeaderCellDef class='table-th'>Uploaded By </th>
+      <td mat-cell class="table-td" *matCellDef="let element">{{element.userName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="userAction">
+      <th id="userAction" mat-header-cell *matHeaderCellDef class='table-th'>User Action </th>
+      <td style="border-bottom:0px" (click)="$event.stopPropagation()" *matCellDef="let element">
+        <button (click)="viewDoc(element)" mat-flat-button color="primary" class="view-Button" style="font-size: 14px;">
+          <mat-icon>search</mat-icon><span>VIEW</span>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+        <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+
+          <div style="font-size: 14px;padding-left:25px">
+            <table aria-hidden="true" class="table table-borderless"
+              style="width: 60%;border: 0px;border-bottom:0px;text-align: left;">
+              <tr class="d-flex">
+                <td class="col-9" style="border-bottom:0px">
+                  <strong>Document Description: </strong><br /><br />
+                  {{element.docDesc}}
+                </td>
+                <td class="col-5" style="border-bottom:0px"></td>
+                <td class="col-3" style="border-bottom:0px; padding-top: 24px;">
+                  <mat-icon style="cursor: pointer;" (click)="navigateToReassignDoc(element)" class="required-color">
+                    import_export</mat-icon>
+                  <span style="cursor: pointer;" (click)="navigateToReassignDoc(element)"
+                    class="required-color-button"><strong
+                      style="text-decoration: underline; font-size: 16px;">Reassign</strong></span>
+                </td>
+                <td class="col-3" style="border-bottom:0px; padding-top: 24px;">
+                  <mat-icon class="required-color" (click)="deleteDoc(element)">delete_forever</mat-icon>
+                  <span style="cursor: pointer;" class="required-color-button" (click)="deleteDoc(element)"><strong
+                      style="text-decoration: underline; font-size: 16px;">Delete</strong></span>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="element-row"
+      [class.expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+  </table>
+
+  <div>
+    <mat-paginator [pageSizeOptions]="[ 10, 25, 50, 100]" *ngIf="data"></mat-paginator>
+  </div>
+
+  <div class="upload-document">
+    <mat-divider class="perlss-section-divider"></mat-divider>
+  </div>
+
+  <div class="row" style="width: 100%;margin:auto;margin-top: 30px;margin-bottom: 20px;">
+    <div class="document-sub-heading">
+      Upload a New Document
+    </div>
+  </div>
+  <div style="font-size: 12px;">Please select the document type and all the applicable document categories when you
+    upload a new document.</div>
+  <div *ngIf="dataToCard.length>0" class="row"
+    style="margin-top: 15px; margin-bottom: 15px; margin-left: 30px;">
+    <div style="width: 100%" *ngFor="let card of dataToCard">
+      <app-upload-document-card (cancelFromChild)="cancelFromChild($event)" (saveFromChild)="saveFromChild($event)"
+        [cardInput]="card"></app-upload-document-card>
+    </div>
+  </div>
+  <div *ngIf="isShowAddDocument" class="row" style="width: 100%;margin:auto;margin-top: 30px;margin-bottom: 20px;">
+    <div class="document-sub-heading col-md-7 required-color" style="font-size: 14px;">
+      <button style="border: none;background: white;color: #ed6053" (click)="toggleDisplay()">
+        <mat-icon style="font-size: 20px;">{{ isShow? 'remove_circle_outline': 'add_circle_outline' }}</mat-icon>
+        ADD NEW DOCUMENT
+      </button>
+    </div>
+  </div>
+  <div class="required-color" *ngIf="showAddBtnError">{{customValidation.A35}}</div>
+  <div style="margin: 30px;" *ngIf="isShow">
+    <form [formGroup]="myForm">
+      <div class="row">
+        <div style="padding-top: 20px 0px 10px 0px; margin-left: 15px; margin-bottom: 5px;">
+          <span class="required-color">* </span><span class="label-decoration">Select Document Type(s)</span>
+        </div>
+        <div class="col-md-12">
+          <ng-multiselect-dropdown style="width:100% !important;" name="docType"
+            [placeholder]="'Select Document Type(s)'" [settings]="documentSettings" [data]="documentStatus"
+            (onSelect)="onItemSelect()" (onDeSelect)="onItemDeSelect()" formControlName="docType">
+          </ng-multiselect-dropdown>
+          <div class="required-color error-handling-first" *ngIf="submitted && myForm.get('docType').hasError('required')">
+            {{customValidation.A1}}
+          </div>
+        </div>
+        <div style="padding-top: 20px 0px 10px 0px; margin-left: 15px; margin-top: 20px;">
+          <span A2="required-color">* </span><span class="label-decoration">Document Description</span>
+        </div>
+        <div class="col-md-12">
+          <mat-form-field appearance="outline">
+            <textarea matInput maxlength="2000" rows="2" formControlName="docDesc" placeholder=""></textarea>
+            <mat-hint align="end">{{myForm.controls.docDesc.value ? myForm.controls.docDesc.value.length : 0}} / 2000
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="required-color error-handling-second" *ngIf="(myForm.controls['docDesc'].touched || submitted) && myForm.get('docDesc').hasError('required')">{{customValidation.A1}}</div>
+        <div class="required-color error-handling-second" *ngIf="(myForm.controls['docDesc'].touched || submitted) && myForm.controls.docDesc.errors?.pattern">{{customValidation.A2}}</div>
+      </div>
+      <div style="padding-top: 20px 0px 10px 0px;">
+        <span class="required-color">* </span><span class="label-decoration">Upload Document</span>
+      </div>
+      <div class="fileDropContainer">
+        <div>
+          <div style="margin-top: 20px;">
+            <mat-icon class="required-color file_upload">cloud_upload</mat-icon>
+            <div style="font-weight: bold; margin-top: 5px;">Drag and Drop Files Here</div>
+            <div *ngIf="!isThirtyMB" class="smallLabel" style="margin-top: 0px;">(Maximum File Size is 2 MB)</div>
+            <div *ngIf="isThirtyMB" class="smallLabel" style="margin-top: 0px;">(Maximum File Size is 30 MB)</div>
+          </div>
+          <div style="margin-top: 20px;">
+            <button mat-flat-button class="uploadButton">Browse<input type="file"
+                accept=".tiff,.tif,.bmp,.jpeg,.pdf,.xlsx,.docx,.jpg" #fileDropRef id="fileDropRef"
+                (change)="fileBrowseHandler($event.target.files)" multiple /></button>
+          </div>
+          <div class="files-list">
+            <div class="single-file" *ngFor="let file of files; let i = index">
+              <span>
+                <strong>{{ file.name }}</strong>
+              </span>
+            </div>
+          </div>
+          <div *ngIf="fileError" class="required-color">
+            {{fileText}}
+          </div>
+          <div class="bottomText">
+            Acceptable document formats:<br>*.tiff,*.tif,*.bmp,*.jpeg,*.pdf,*.xlsx,*.docx
+          </div>
+        </div>
+      </div>
+      <div class="required-color" *ngIf="submitted && !fileError && documents?.length === 0">
+        {{customValidation.A14}}
+      </div>
+      <div class="upload-document" *ngIf="showFiles">
+        <div *ngFor="let file of files">
+          <span class="note-icons">
+            <mat-icon>description</mat-icon>
+          </span>
+          <span class="size">
+            {{ file.name }} {{ file.size / 1048576 | number : '1.2-2'}} MB
+          </span>
+          <span class="delete-icons" (click)="showDeleteConfirmDialog(file)">
+            <mat-icon>delete_forever</mat-icon>
+          </span>
+        </div>
+      </div>
+      <div class="row" style="padding-left: 16px;padding-top: 10px;">
+        <button mat-flat-button class="save-button" (click)="onSave()">SAVE</button>
+        <button mat-flat-button class="cancel" (click)="onCancel()">CANCEL</button>
+      </div>
+    </form>
+  </div>
+  <div *ngIf="dataToCard.length>0 || isShow" class="row" style="float: right;">
+    <button [disabled]="isDisableUpload" mat-flat-button color="primary" class="upload-Button"
+      (click)="uploadFile()">UPLOAD</button>
+  </div>
+</div>

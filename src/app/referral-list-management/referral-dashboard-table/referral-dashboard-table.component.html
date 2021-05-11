@@ -1,0 +1,108 @@
+<div class="wrapper" *ngIf="showTable">
+    <div class="header">
+        <div class="table-heading">
+            <p class="header-name">Search Result</p>
+       </div>
+        <div class="filter-field">
+            <mat-form-field appearance="outline">
+                <mat-label>Search Filter</mat-label>
+                <input matInput placeholder="" #input>
+            </mat-form-field>
+       </div>
+    </div>
+
+    <table aria-describedby mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+        <ng-container matColumnDef="personName">
+            <th mat-header-cell *matHeaderCellDef id="name">Person Name</th>
+            <td mat-cell *matCellDef="let element">{{element.personName}}</td>
+       </ng-container>
+        <ng-container matColumnDef="ssn">
+            <th mat-header-cell *matHeaderCellDef id="ssn">SSN</th>
+            <td mat-cell *matCellDef="let element">{{element.ssn}}</td>
+       </ng-container>
+        <ng-container matColumnDef="age">
+            <th mat-header-cell *matHeaderCellDef id="age">Age</th>
+            <td mat-cell *matCellDef="let element">{{element.age}}</td>
+       </ng-container>
+        <ng-container matColumnDef="referralId">
+            <th mat-header-cell *matHeaderCellDef id="rId">Referral ID</th>
+            <td mat-cell *matCellDef="let element">{{element.refId}}</td>
+       </ng-container>
+        <ng-container matColumnDef="intakeOutcome">
+            <th mat-header-cell *matHeaderCellDef id="intakeOutcome">Intake Outcome</th>
+            <td mat-cell *matCellDef="let element">{{getNameByCode(element.intakeOutcome,'IOC')}}</td>
+            
+       </ng-container>
+        <ng-container matColumnDef="annualOutreachDueDate">
+            <th mat-header-cell *matHeaderCellDef id="annualOutreach">Annual Outreach Due Date</th>
+            <td mat-cell *matCellDef="let element">{{element.annualOutreachDue | date: 'MM/dd/yyyy'}}</td>
+       </ng-container>
+
+        <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                <div class="example-element-detail"
+                    [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                    <div class="inside-table-wrapper">
+                        <div class="innerTable">
+                            <div>
+                                <mat-label><strong>Person ID</strong></mat-label>
+                                <p>{{element.personId}}</p>
+                            </div>
+                            <div>
+                                <mat-label><strong>Date Added</strong></mat-label>
+                                <p>{{element.dateAdded | date: 'MM/dd/yyyy'}}</p>
+                            </div>
+                            <div>
+                                <mat-label><strong>Assigned User</strong></mat-label>
+                                <p *ngIf="element.taskDetails && element.taskDetails.length>0">{{element.taskDetails[0]?.assignedUser}}</p>
+                            </div>
+                            <div >
+                                <mat-label><strong>Task Queue</strong></mat-label>
+                                <p *ngIf="element.taskDetails && element.taskDetails.length>0">{{getNameByCode(element.taskDetails[0]?.taskQueue,'TQ')}}</p>
+                            </div>
+                            <div>
+                                <mat-label><strong>Task Status</strong></mat-label>
+                                <p  *ngIf="element.taskDetails && element.taskDetails.length>0">{{getNameByCode(element.taskDetails[0]?.taskStatus,'TS')}}</p>
+                            </div>
+                        </div>
+                        <div class="innerTable">
+                            <div>
+                                <mat-label><strong>Date of Birth</strong></mat-label>
+                                <p>{{element.birthDate | date: 'MM/dd/yyyy'}}</p>
+                            </div>
+                            <div>
+                                <mat-label><strong>Referral List Status</strong></mat-label>
+                                <p>{{getNameByCode(element.refStatus,'RLS')}}</p>
+                            </div>
+                            <div>
+                                <mat-label><strong>Received in Queue</strong></mat-label>
+                                <p>{{(element.receivedQueue ? element.receivedQueue : "--")}}</p>
+                            </div>
+                            <div>
+                                <mat-label><strong>Task Completion</strong></mat-label>
+                                <p>{{element.taskCompletion}}</p>
+                            </div>
+                            <div>
+                                <P><button mat-stroked-button
+                                        routerLink="/ltss/referralListManagement/referralListdetails" [state]="{ data: element}">VIEW DETAILS</button></P>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+       </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row on-hover"
+            [class.active-class]="expandedElement === element"
+            [class.example-expanded-row]="expandedElement === element"
+            (click)="expandedElement = expandedElement === element ? null : element">
+       </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+    </table>
+    <mat-paginator [pageSize]="10"  [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
+
+<div *ngIf="showNoRecordsFound" class="norecords-found">
+    {{customValidation.D1}}
+</div>

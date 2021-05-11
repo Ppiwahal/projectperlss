@@ -1,0 +1,66 @@
+<div class="wrapper">
+    <div>
+        <p>Total number of bussiness days for onsite completion: 5</p>
+        <p>Total number of bussiness out of completion: 0</p>
+    </div>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z0">
+        <ng-container matColumnDef="onsiteReferralDate">
+          <th mat-header-cell *matHeaderCellDef id="refdate">Onsite Referral Date </th>
+          <td mat-cell *matCellDef="let element">{{element.onsiteReferralDate}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="onsiteDueDate">
+            <th mat-header-cell *matHeaderCellDef id="dueDate">Onsite Due Date </th>
+            <td mat-cell *matCellDef="let element">{{element.onsiteDueDate}} </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="onsiteStatus">
+            <th mat-header-cell *matHeaderCellDef id="onsiteStatus">Onsite Status </th>
+            <td mat-cell *matCellDef="let element">{{element.onsiteStatus}} </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="updatedDate">
+            <th mat-header-cell *matHeaderCellDef id="updatedDate">Updated Date </th>
+            <td mat-cell *matCellDef="let element">{{element.updatedDate}} </td>
+          </ng-container>
+      
+          
+          <ng-container matColumnDef="userActions">
+            <th mat-header-cell *matHeaderCellDef id="userActions">User Actions </th>
+            <td mat-cell *matCellDef="let element">
+                <span class="material-icons" (click)="cancel(element)" style="margin-left: 20%;">
+                    cancel
+                </span>
+            </td>
+          </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+    </table>  
+
+    <div style="width: 30%; margin-top: 30px;" *ngIf="false">
+        <div *ngIf="showOnlineDueDt; else elseBlock">
+            <mat-form-field appearance="outline">
+                <mat-label>Online Due Date </mat-label>
+                <input matInput [matDatepicker]="onlineDueDt">
+                <mat-datepicker-toggle matSuffix [for]="onlineDueDt"></mat-datepicker-toggle>
+                <mat-datepicker [startAt]="startDate" #onlineDueDt></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <ng-template #elseBlock>
+            <mat-form-field appearance="outline">
+                <mat-label><span class="required">*</span>Reason to Cancel Onsite?</mat-label>
+                    <mat-select>
+                        <mat-option value=''>Select </mat-option>
+                        <mat-option *ngFor = "let rs of  reasonToCancelOnsite" value={{rs.code}}>{{rs.value}}</mat-option>
+                    </mat-select>
+            </mat-form-field>
+        </ng-template>
+    </div>
+
+    <div style="margin-top: 30px;" *ngIf="false">
+        <button  mat-stroked-button  type="button" class="perlss-click-button">SAVE</button>
+    </div>
+      
+</div>
+

@@ -1,0 +1,36 @@
+
+.wrapper{
+    margin-top: 30px;
+}
+.radio-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    .example-radio-group{
+        display: flex;
+        flex-direction: column;
+        margin-top: 5px;
+        margin-left: 5px;
+        width: 1%;
+    }
+}
+.required{
+    color: red;
+}
+
+
+.check-list{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-left: 8px;
+}
+
+h5{
+    color: #547E1A;
+    font-weight: bold;
+}
+
+div > .mat-form-field {
+    width: 100%;
+}

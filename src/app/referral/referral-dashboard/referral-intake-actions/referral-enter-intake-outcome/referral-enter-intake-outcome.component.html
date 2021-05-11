@@ -1,0 +1,380 @@
+<div class="accordion-container">
+  <mat-accordion>
+    <mat-expansion-panel *ngIf="chmTypeCd || true" [expanded]="chmTypeCd">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Enter Intake Outcome
+        </mat-panel-title>
+        <mat-panel-title class="right-aligned">
+          <mat-icon *ngIf="!enterIntakeDataExists">add_circle_outline</mat-icon>
+          <mat-label *ngIf="!enterIntakeDataExists">&nbsp;&nbsp;ADD DETAILS</mat-label>
+          <mat-label *ngIf="enterIntakeDataExists">&nbsp;&nbsp;VIEW DETAILS</mat-label>
+          <mat-icon *ngIf="enterIntakeDataExists" class="check-green">offline_pin</mat-icon>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="accordion-content-container"
+           [ngClass]="(reasonForReassigmentDiv)?'disabledDiv':'accordion-content-container'">
+        <div [formGroup]="enterIntakeOutcomeForm" *ngIf="enterIntakeFormIntialize">
+          <div class="row">
+            <div class="col-md-12">
+              <mat-label><span class="required-color">*</span><strong>Were you able to complete the intake visit?
+              </strong></mat-label>
+            </div>
+          </div>
+          <mat-error
+            *ngIf="getEnterIntakeOutcomeParentForm().visitCompleteSw.hasError('required') && enterIntakeSubmitted">
+            {{customValidation.A1}}
+          </mat-error>
+
+          <mat-radio-group formControlName="visitCompleteSw" aria-label="Select an option"
+                           (change)="onIntakeVisitCompletion($event)">
+            <div class="row">
+              <div class="col-md-12">
+                <mat-radio-button value="Y" name="yes">
+                  <span>Yes</span>
+                </mat-radio-button>
+                <br>
+                <mat-radio-button value="N" name="no">
+                  <span>No</span>
+                </mat-radio-button>
+              </div>
+            </div>
+          </mat-radio-group>
+          <ng-container *ngIf="completedIntakeVisit && getEnterIntakeOutcomeParentForm().visitCompleteSw.value === 'Y'">
+            <div class="row">
+              <div class="col-md-6 ">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-label><span class="required-color">*</span>Date Intake Visit Completed</mat-label>
+                  <input matInput placeholder="mm/dd/yyyy" [matDatepicker]="intakeVisitComptdDt" [min]="minDate" [max]="maxDate"
+                         formControlName="intakeVisitComptdDt">
+                  <mat-datepicker-toggle matSuffix [for]="intakeVisitComptdDt"></mat-datepicker-toggle>
+                  <mat-datepicker #intakeVisitComptdDt></mat-datepicker>
+                  <mat-error
+                    *ngIf="getEnterIntakeOutcomeParentForm().intakeVisitComptdDt.errors?.datePriorToInitialDate && proceedToIntakeOutcome">
+                    {{customValidation.A6}}
+                  </mat-error>
+                  <mat-error
+                    *ngIf="getEnterIntakeOutcomeParentForm().intakeVisitComptdDt.errors?.required && proceedToIntakeOutcome">
+                    {{customValidation.A1}}
+                  </mat-error>
+                  <!-- <mat-error
+                    *ngIf="enterIntakeOutcomeForm.get('intakeVisitComptdDt').errors?.required && (enterIntakeOutcomeForm().get('intakeVisitComptdDt').touched || enterIntakeOutcomeForm.get('intakeVisitComptdDt').dirty)">
+                    {{customValidation.A1}}
+                  </mat-error> -->
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" style="width: 100%;" >
+                  <mat-label><span class="required-color">*</span>Type of contact</mat-label>
+                  <mat-select placeholder="Type of contact" formControlName="typeOfCntctCd" >
+                    <mat-option [value]="">None</mat-option>
+                    <mat-option *ngFor="let option of CONTACT_METHOD" [value]="option.code">{{option.value}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error
+                    *ngIf="getEnterIntakeOutcomeParentForm().typeOfCntctCd.errors?.required && proceedToIntakeOutcome">
+                    {{customValidation.A1}}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div *ngIf="completedIntakeVisit && getEnterIntakeOutcomeParentForm().visitCompleteSw.value === 'Y'"
+           class='buttonBar'>
+              <button mat-flat-button color="primary" (click)="intakeOutcome()" *ngIf="enableButton" class="perlss-click-button">PROCEED TO INTAKE OUTCOME</button>
+			  <mat-spinner *ngIf="showSpinner" class="chkMargin" [diameter]="24" color="warn" mode="indeterminate"></mat-spinner>
+            </div>
+
+
+          </ng-container>
+
+          <ng-container *ngIf="!completedIntakeVisit && getEnterIntakeOutcomeParentForm().visitCompleteSw.value === 'N'">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-label>
+                    <mat-label class="required-color"><sup>*</sup></mat-label>Provide a reason
+                  </mat-label>
+                  <mat-select matNativeControl formControlName="rsnCd" (selectionChange)="onProvideAReasonChange($event)">
+                    <mat-option *ngFor="let incompleteIntakeVisit of INTAKE_VISIT_INCOMPLETE_ENDED"
+                                [value]="incompleteIntakeVisit.code">
+                      {{incompleteIntakeVisit.value}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-error *ngIf="getEnterIntakeOutcomeParentForm().rsnCd.hasError('required') && enterIntakeSubmitted">
+                  {{customValidation.A1}}
+                </mat-error>
+              </div>
+            </div>
+
+            <div class="tableContainer" *ngIf ="unableToReachFlag">
+              <table id="intakeContactTable">
+                <thead>
+                <tr>
+                  <th id="contactAttempt">
+                    Contact Attempt
+                  </th>
+                  <th id="dateAndTime">
+                    Date and Time
+                  </th>
+                  <th id="typeOfContact">
+                    Type Of Contact
+                  </th>
+                  <th id="contactedBy">
+                    Contacted By
+                  </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr [formGroup]="contactAttemptOneForm">
+                  <td>1</td>
+                  <td>
+                    <mat-form-field appearance="outline" style="width: 70% !important;">
+                      <mat-label><span class="required-color">*</span>Date and time</mat-label>
+                      <input matInput [ngxMatDatetimePicker]="picker1" placeholder="MM/DD/YYYY"
+                             formControlName="cntctDtTime" >
+                      <mat-datepicker-toggle matSuffix [for]="picker1">
+                      </mat-datepicker-toggle>
+                      <ngx-mat-datetime-picker #picker1 [showSeconds]='false' [enableMeridian]='true'
+                                               [stepMinute]='15' [defaultTime]='[12,00,00]'>
+                      </ngx-mat-datetime-picker>
+                      <mat-error
+                        *ngIf="contactAttemptOneForm.get('cntctDtTime').errors?.datePriorToInitialDate || enterIntakeSubmitted">
+                        {{customValidation.A6}}
+                      </mat-error>
+                      <mat-error
+                        *ngIf="contactAttemptOneForm.get('cntctDtTime').errors?.required && (contactAttemptOneForm.get('cntctDtTime').touched || enterIntakeSubmitted)">
+                        {{customValidation.A1}}
+                      </mat-error>
+                    </mat-form-field>
+                  </td>
+
+                  <td>
+                    <mat-form-field appearance="outline" style="width: 70%;">
+                      <mat-label><span class="required-color">*</span>Type of contact</mat-label>
+                      <mat-select placeholder="Type of contact" formControlName="cntctTypeCd">
+                        <mat-option [value]="">None</mat-option>
+                        <mat-option *ngFor="let option of CONTACT_METHOD" [value]="option.code">{{option.value}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error
+                        *ngIf="contactAttemptOneForm.get('cntctTypeCd').errors?.required && (contactAttemptOneForm.get('cntctTypeCd').touched || enterIntakeSubmitted)">
+                        {{customValidation.A1}}
+                      </mat-error>
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field appearance="outline" style="width: 70%;">
+                      <mat-label><sup>
+                        <mat-label class="required-color">*</mat-label>
+                      </sup>Contacted by</mat-label>
+                      <input matInput formControlName="cntctdBy" placeholder="Contacted by"
+                             [ngClass]="{ 'is-invalid': getTableRowOneForm().cntctdBy.touched && getTableRowOneForm().cntctdBy.errors }">
+                    </mat-form-field>
+                    <mat-error *ngIf="getTableRowOneForm().cntctdBy.errors !== null">
+                      <mat-error
+                        *ngIf="getTableRowOneForm().cntctdBy.errors.maxLength == null && !getTableRowOneForm().cntctdBy.errors?.invalid && !getTableRowOneForm().cntctdBy.errors.required">
+                        Cannot exceed 25 characters</mat-error>
+                      <mat-error
+                        *ngIf="(getTableRowOneForm().cntctdBy.touched || enterIntakeSubmitted) && getTableRowOneForm().cntctdBy.errors.required">
+                        {{customValidation.A1}}</mat-error>
+                      <mat-error
+                        *ngIf="(getTableRowOneForm().cntctdBy.errors?.invalid || enterIntakeSubmitted) && !getTableRowOneForm().cntctdBy.errors.required">
+                        {{customValidation.A2}}</mat-error>
+                    </mat-error>
+                  </td>
+
+                </tr>
+                <tr [formGroup]="contactAttemptTwoForm">
+                  <td>2</td>
+                  <td>
+                    <mat-form-field appearance="outline" style="width: 70% !important;">
+                      <mat-label><span class="required-color">*</span>Date and time</mat-label>
+                      <input matInput [ngxMatDatetimePicker]="picker2" placeholder="MM/DD/YYYY"
+                             formControlName="cntctDtTime">
+                      <mat-datepicker-toggle matSuffix [for]="picker2">
+                      </mat-datepicker-toggle>
+                      <ngx-mat-datetime-picker #picker2 [showSeconds]='false' [enableMeridian]='true'
+                                               [stepMinute]='15' [defaultTime]='[12,00,00]'>
+                      </ngx-mat-datetime-picker>
+                      <mat-error *ngIf="contactAttemptTwoForm.get('cntctDtTime').errors?.datePriorToInitialDate">
+                        {{customValidation.A6}}
+                      </mat-error>
+                      <mat-error
+                        *ngIf="contactAttemptTwoForm.get('cntctDtTime').errors?.required && (contactAttemptTwoForm.get('cntctDtTime').touched || enterIntakeSubmitted)">
+                        {{customValidation.A1}}
+                      </mat-error>
+                    </mat-form-field>
+                  </td>
+
+                  <td>
+                    <mat-form-field appearance="outline" style="width: 70%;">
+                      <mat-label><span class="required-color">*</span>Type of contact</mat-label>
+                      <mat-select placeholder="Type of contact" formControlName="cntctTypeCd">
+                        <mat-option [value]="">None</mat-option>
+                        <mat-option *ngFor="let option of CONTACT_METHOD" [value]="option.code">{{option.value}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error
+                        *ngIf="contactAttemptTwoForm.get('cntctTypeCd').errors?.required && (contactAttemptTwoForm.get('cntctTypeCd').touched || enterIntakeSubmitted)">
+                        {{customValidation.A1}}
+                      </mat-error>
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field appearance="outline" style="width: 70%;">
+                      <mat-label><sup>
+                        <mat-label class="required-color">*</mat-label>
+                      </sup>Contacted by</mat-label>
+                      <input matInput formControlName="cntctdBy" placeholder="Contacted by"
+                             [ngClass]="{ 'is-invalid': getTableRowTwoForm().cntctdBy.touched && getTableRowTwoForm().cntctdBy.errors }">
+                    </mat-form-field>
+                    <mat-error *ngIf="getTableRowTwoForm().cntctdBy.errors !== null">
+                      <mat-error
+                        *ngIf="getTableRowTwoForm().cntctdBy.errors.maxLength == null && !getTableRowTwoForm().cntctdBy.errors?.invalid && !getTableRowTwoForm().cntctdBy.errors.required">
+                        Cannot exceed 25 characters</mat-error>
+                      <mat-error
+                        *ngIf="(getTableRowTwoForm().cntctdBy.touched || enterIntakeSubmitted) && getTableRowTwoForm().cntctdBy.errors.required">
+                        {{customValidation.A1}}</mat-error>
+                      <mat-error
+                        *ngIf="(getTableRowTwoForm().cntctdBy.errors?.invalid || enterIntakeSubmitted) && !getTableRowTwoForm().cntctdBy.errors.required">
+                        {{customValidation.A2}}</mat-error>
+                    </mat-error>
+                  </td>
+                </tr>
+
+                <tr [formGroup]="contactAttemptThreeForm">
+                  <td>3</td>
+                  <td>
+                    <mat-form-field appearance="outline" style="width: 70% !important;">
+                      <mat-label><span class="required-color">*</span>Date and time</mat-label>
+                      <input matInput [ngxMatDatetimePicker]="picker3" placeholder="MM/DD/YYYY"
+                             formControlName="cntctDtTime">
+                      <mat-datepicker-toggle matSuffix [for]="picker3">
+                      </mat-datepicker-toggle>
+                      <ngx-mat-datetime-picker #picker3 [showSeconds]='false' [enableMeridian]='true'
+                                               [stepMinute]='15' [defaultTime]='[12,00,00]'>
+                      </ngx-mat-datetime-picker>
+                      <mat-error *ngIf="contactAttemptThreeForm.get('cntctDtTime').errors?.datePriorToInitialDate">
+                        {{customValidation.A6}}
+                      </mat-error>
+                      <mat-error
+                        *ngIf="contactAttemptThreeForm.get('cntctDtTime').errors?.required && (contactAttemptThreeForm.get('cntctDtTime').touched || enterIntakeSubmitted)">
+                        {{customValidation.A1}}
+                      </mat-error>
+                    </mat-form-field>
+                  </td>
+
+                  <td>
+                    <mat-form-field appearance="outline" style="width: 70%;">
+                      <mat-label><span class="required-color">*</span>Type of contact</mat-label>
+                      <mat-select placeholder="Type of contact" formControlName="cntctTypeCd">
+                        <mat-option [value]="">None</mat-option>
+                        <mat-option *ngFor="let option of CONTACT_METHOD" [value]="option.code">{{option.value}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error
+                        *ngIf="contactAttemptThreeForm.get('cntctTypeCd').errors?.required && (contactAttemptThreeForm.get('cntctTypeCd').touched || enterIntakeSubmitted)">
+                        {{customValidation.A1}}
+                      </mat-error>
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <mat-form-field appearance="outline" style="width: 70%;">
+                      <mat-label><sup>
+                        <mat-label class="required-color">*</mat-label>
+                      </sup>Contacted by</mat-label>
+                      <input matInput formControlName="cntctdBy" placeholder="Contacted by"
+                             [ngClass]="{ 'is-invalid': getTableRowThreeForm().cntctdBy.touched && getTableRowThreeForm().cntctdBy.errors }">
+                    </mat-form-field>
+                    <mat-error *ngIf="getTableRowThreeForm().cntctdBy.errors !== null">
+                      <mat-error
+                        *ngIf="getTableRowThreeForm().cntctdBy.errors.maxLength == null && !getTableRowThreeForm().cntctdBy.errors?.invalid && !getTableRowThreeForm().cntctdBy.errors.required">
+                        Cannot exceed 25 characters</mat-error>
+                      <mat-error
+                        *ngIf="(getTableRowThreeForm().cntctdBy.touched || enterIntakeSubmitted) && getTableRowThreeForm().cntctdBy.errors.required">
+                        {{customValidation.A1}}</mat-error>
+                      <mat-error
+                        *ngIf="(getTableRowThreeForm().cntctdBy.errors?.invalid || enterIntakeSubmitted) && !getTableRowThreeForm().cntctdBy.errors.required">
+                        {{customValidation.A2}}</mat-error>
+                    </mat-error>
+                  </td>
+                </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+            <!-- <div class="tableContainer">
+              <table id="fileUpload" aria-describedBy="false" class="mat-elevation-z6">
+                <col span="1" class="wider">
+                <tr>
+                  <th id="supportingDocumentation" class="left">Supporting Documentation</th>
+                  <th id="icon"></th>
+                </tr>
+                <tr>
+                  <td class="left">Mailed Letter</td>
+                  <td>
+                    <mat-icon class="upload-icon">backup</mat-icon>
+                  </td>
+                </tr>
+              </table>
+            </div> -->
+
+            <div class="docTable" *ngIf="documents">
+              <div class="title">Supporting Documentation</div>
+              <div *ngFor="let docLink of documents, let i = index">
+                <ng-container *ngIf="docLink.saved">
+                  <label [ngClass]="{'req': docLink.required}" [attr.index]='i' class="asLink"
+                  >{{docLink.title}}</label>
+                </ng-container>
+                <ng-container *ngIf="!docLink.saved">
+                  <label [ngClass]="{'req': docLink.required}">{{docLink.title}}</label>
+                </ng-container>
+                <div>
+                  <!-- <div class="available">
+                    <label *ngIf="docLink.type == 'cloud' && !docLink.saved && docLink.showUnavailable" class="done"
+                           [ngClass]="{'checked': docLink.unAvailable}" [attr.index]='i'
+                         >
+                      <span class="check">
+                        <mat-icon>done</mat-icon>
+                      </span><span>Not Available</span>
+                    </label>&nbsp;
+                  </div> -->
+                  <div class="linkItem">
+                    <div class="popupLink" *ngIf="docLink.type == 'popup' && !docLink.saved" [attr.index]='i'
+                    >Fill E-form</div>
+                    <mat-icon class="green" *ngIf="docLink.saved">done</mat-icon>
+                    <label (click)=docLinkCloudLoad($event)  [attr.index]='i'
+                           *ngIf="docLink.type == 'cloud' && !docLink.saved && !docLink.unAvailable">
+                      <mat-icon class="blue">backup</mat-icon>
+                    </label>
+                    <mat-icon *ngIf="docLink.type == 'cloud' && !docLink.saved && docLink.unAvailable" class="grey">
+                      backup</mat-icon>&nbsp;
+                  </div>
+                  <div class="delete">
+                    <label [attr.index]='i'>
+                      <mat-icon class="red" *ngIf="docLink.saved">delete</mat-icon>
+                    </label>&nbsp;
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <!-- <button mat-stroked-button type="button"
+                        [disabled]="contactAttemptThreeForm.invalid ||contactAttemptOneForm.invalid || contactAttemptTwoForm.invalid"
+                        [ngClass]="(contactAttemptThreeForm.invalid ||contactAttemptOneForm.invalid || contactAttemptTwoForm.invalid)
+                ?'disabledButton':'perlss-click-button'" (click)="enterIntakeOutcomeSubmit()">SUBMIT</button> -->
+                <button mat-stroked-button type="button" class="perlss-click-button" (click)="enterIntakeOutcomeSubmit()">SUBMIT</button>
+              </div>
+            </div>
+          </ng-container>
+          
+        </div>
+      </div>
+
+      
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

@@ -1,0 +1,63 @@
+.text-align-right {
+    flex: 1;
+    text-align: right;
+    padding-right: 20px;
+  }
+  .list-wrapper{
+      display: flex;
+      div{
+          width: 40%;
+          margin-right: 10%;
+      }
+  }
+
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 25px;
+  }
+  li{
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 0;
+      font-size: 16px;
+  }
+  .nurse-table{
+      margin-bottom: 25px;
+      margin-top: 30px;
+  }
+  .character-count{
+    float: right;
+    margin-top: -24px;
+  }
+  .text-area{
+      margin-top: 25px;
+  }
+  .required{
+      color: red;
+  }
+
+  .row-dropdown{
+    margin-top: 25px;
+    display: flex;
+    div{
+        width: 40%;
+        margin-right: 10%;
+    }
+}
+
+.icon-style{
+    margin-left: 30px;
+    position: relative;
+    font-weight: bold;
+    color: #1B365D;
+    span{
+        position: absolute;
+        top: -6px;
+        left: -30px;
+    }
+}
+  
+table tr:last-child td {
+    border-bottom: 1px solid #1B365D;
+  }

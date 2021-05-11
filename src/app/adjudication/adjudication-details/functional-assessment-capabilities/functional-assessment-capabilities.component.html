@@ -1,0 +1,44 @@
+<div style="padding-top: 25px;"></div>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <ng-container matColumnDef="select">
+    <th style="border-bottom: 3px solid #1B365D;" mat-header-cell *matHeaderCellDef>
+    </th>
+  </ng-container>
+  <ng-container matColumnDef="functionalmeasure">
+    <th mat-header-cell *matHeaderCellDef>Functional Measure</th>
+    <td mat-cell *matCellDef="let element">{{element.functionalmeasure}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="submitterresponse">
+    <th mat-header-cell *matHeaderCellDef>Submitter Response</th>
+    <td mat-cell *matCellDef="let element">
+      <mat-form-field appearance="outline" style="width: 100%; height: 50%;">
+        <mat-select>
+            <mat-option value="{{element.submitterresponse}}">Never</mat-option>
+       </mat-select>
+      </mat-form-field>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  <div>
+    <mat-label><b>Comments</b></mat-label>
+    <div>
+      <textarea style="width: 100%;" #notesInput id="notesInput" maxlength="2000" rows="5" cols="45"></textarea>
+    </div>
+</div>
+</table>
+<br>
+
+<br>
+<div class="row">
+  <div class="col-md-12">
+    <button type="button" mat-flat-button color="primary" class="perlss-click-button"
+      >Save</button>
+      <button type="button" mat-flat-button color="primary" class="perlss-click-button" style="margin-left:10px"
+        >CANCEL</button>
+  </div>
+</div>
+<br>

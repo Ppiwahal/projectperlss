@@ -1,0 +1,66 @@
+<div class="notification-details-container">
+  <div class="detail-header">
+    <div class="header-item1">
+      <h4>Notification</h4>
+    </div>
+
+    <div class="header-item2">
+      <mat-icon (click)="closePopup()">highlight_off</mat-icon>
+    </div>
+  </div>
+  <mat-divider class="perlss-horizontal-divider"></mat-divider>
+
+  <div class="received-time">
+    Notification Received <br />{{ details?.createdDate | date: "MM:DD:YYYY" }}
+  </div>
+  <div class="notification-name inDetails">
+    {{ data.notification.notificationName }}
+  </div>
+  <div *ngIf="details?.notificationComments" class="details">
+    {{ details?.notificationComments }}
+  </div>
+  <div class="task" >
+    <div *ngIf="data.notification.aplId">
+      <b>Appeal ID:</b> {{ data.notification.aplId }}
+    </div>
+    <div *ngIf="data.notification.enrId">
+      <b>Enrollment ID:</b> {{ data.notification.enrId }}
+    </div>
+    <div *ngIf="data.notification.mergedPrsnId">
+      <b>Merge Person ID</b>
+      {{ data.notification.mergedPrsnId }}
+    </div>
+    <div *ngIf="data.notification.paeId">
+      <b>PAE ID:</b> {{ data.notification.paeId }}
+    </div>
+    <div *ngIf="data.notification.refId">
+      <b>Referral ID:</b> {{ data.notification.refId }}
+    </div>
+    <div *ngIf="data.notification.trnstnId">
+      <b>Transactiion ID</b>
+      {{ data.notification.trnstnId }}
+    </div>
+  </div>
+</div>
+<div class="comments">{{ details?.staticComments }}</div>
+<div *ngIf="details?.document" class="doc">
+  <div  class="viewDoc">View Document</div>
+  <mat-divider class="perlss-horizontal-divider"></mat-divider>
+  <div class="view-document">
+    <div class="doc-icon">
+      <mat-icon>description</mat-icon>
+    </div>
+
+<div  id="op" class="document-url" (click)="openDoc(file)">
+  <!-- <pdf-viewer
+  [src]="file"
+  [render-text]="true"
+  style="display: block;"></pdf-viewer> -->
+    <a id="openDoc"
+      target="_blank"
+     >   {{ data.notification.notificationName }}
+        </a>
+      </div>
+</div>
+
+</div>

@@ -1,0 +1,104 @@
+<form [formGroup]="myForm">
+  <div class="pageMargin">
+    <div class="row" >
+      <div class="col-md-12">
+      <div class="applicantName">{{applicantName}}</div>
+    </div>
+      <!-- <div id="applicantName"><b>APPLICANT NAME:</b>&nbsp;&nbsp;&nbsp;  Jessica Jones</div> -->
+    </div>
+    <div class="applicant-sub-heading">
+      Hospice Care
+    </div>
+
+    <div style="width: 95%;">
+      <div class="question-container">
+        <div class="row">
+          <div class="col-md-12">
+            <label id="example-radio-group-label" style="text-indent: -9px;">
+              <mat-label class="required-color">*</mat-label>
+              Is the applicant currently enrolled in hospice care?
+            </label>
+          </div>
+       </div>
+      </div>
+
+      <div class="radio-option-container">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-radio-group formControlName="aplcntEnrolHospicareSw">
+              <div *ngIf="getFormData().aplcntEnrolHospicareSw.hasError('required') && 
+                      (getFormData().aplcntEnrolHospicareSw.touched || submitted)" id="positioning">
+                <mat-error>{{customValidation.A1}}</mat-error>
+              </div>
+              <div>
+                <mat-radio-button value="Y">Yes</mat-radio-button>
+              </div>
+              <div>
+                <mat-radio-button value="N">No</mat-radio-button>
+              </div>
+            </mat-radio-group>
+          </div>
+       </div>
+      </div>
+
+      <mat-divider class="perlss-section-divider"></mat-divider>
+
+      <div class="applicant-sub-heading">
+        Health Circumstance
+      </div>
+
+      <div class="question-container">
+        <div class="row">
+          <div class="col-md-12">
+            <label id="example-radio-group-label" style="text-indent: -18px;">
+              <mat-label class="required-color">*</mat-label>
+              Has the applicant experienced or is the applicant expected to experience a decline in health 
+              circumstances as described below?
+            </label>
+          </div>
+       </div>
+        <div id="positioning2">
+          <mat-error *ngIf="(!decHealthSelected && !decHealthNoneSelected) && submitted">{{customValidation.A1}}</mat-error>
+          <mat-error *ngIf="(decHealthSelected && decHealthNoneSelected)">{{customValidation.A26}}</mat-error>
+       </div>
+      </div>
+  
+      <div class="chkboxContainer">
+        <div>
+          <mat-checkbox formControlName="rapidProgsiveDecSw" (change)="onDeclineHealth($event)">Rapid progressive decline
+            expected with marketly shortened expectancy in childhood 
+          </mat-checkbox>
+       </div>
+        <div>
+          <mat-checkbox class="checkbox-element" formControlName="slowProgsiveDecSw" (change)="onDeclineHealth($event)">
+            Slower progressive decline in some body functions expected over several years 
+          </mat-checkbox>
+       </div>
+        <div>
+          <mat-checkbox class="checkbox-element" formControlName="notApplicableSw" (change)="onNoneSelected($event)">
+            Not applicable
+          </mat-checkbox>
+       </div>
+       <div>
+      <!-- <mat-error *ngIf="decHealthSelected && decHealthNoneSelected">{{customValidation.A26}}</mat-error> -->
+       </div>
+      </div>
+
+
+      <div class="row" style="margin-left: 5px; padding-top: 50px;">
+        <div class="col-md-2" style="text-align: left;">
+          <button type="button" mat-flat-button color="primary" style="font-size: 20px; padding: 12px 20px;"
+            class="perlss-click-button-white" (click)="goBack()">BACK</button>
+       </div>
+        <div class="col-md-4" style="text-align: left;">
+          <button mat-flat-button color="primary" style="font-size: 20px; padding: 12px 20px;"
+            class="perlss-click-button-white-noborder" type="button" (click)="saveAndExit()">SAVE AND EXIT</button>
+       </div>
+        <div class="col-md-6" style="text-align: right;">
+          <button mat-flat-button color="primary" style="font-size: 20px;  padding: 12px 20px;"
+            class="perlss-click-button" (click)="next()">NEXT</button>
+       </div>
+      </div>  
+    </div>
+  </div>
+</form>

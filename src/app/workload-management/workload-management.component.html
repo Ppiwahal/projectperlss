@@ -1,0 +1,13 @@
+<div class="pageMargin">
+    <app-overall-task-performance [overAllTaskData]="dataToOverAllTask" [taskPerformanceDetails]="responseFromBackend">
+    </app-overall-task-performance>
+    <app-pending-task [buttonNames]="buttonNamestoPendingTask" [pendingTaskData]="datatToPendingTask"
+        (pendingTaskDataTable)="pendingTaskDataTable($event)">
+    </app-pending-task>
+    <app-task-search (emitTaskSearch)="taskSearch($event)" [taskQueueData]="taskQueue" [moduleData]="module"
+        [dashBoardCodes]="dashBoardCodes" [recordTypeData]="recordType" [taskPriorityData]="taskPriority">
+    </app-task-search>
+    <app-task-result-table [taskResultTableData]="taskResultTableData" [taskQueueCodes]="taskQueueCodes"
+        [taskStatusCodes]="taskStatusCodes" [taskPiorityCodes]="taskPiorityCodes" [searchSelected]="searchSelected">
+    </app-task-result-table>
+</div>

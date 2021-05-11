@@ -1,0 +1,30 @@
+<div class="main-wrapper">
+    <div class="heading">
+        <div>
+            <p class="header"> Edit Assessor</p>
+       </div>
+        <div>
+          <span class="close-icon" style="cursor: pointer;">
+              <mat-icon (click)=closeDialog()>highlight_off</mat-icon>
+          </span>
+       </div>
+    </div>
+<mat-divider></mat-divider>
+    <div class="content">
+        <div>
+            <app-edit-assessor [statusDropDownValues]="statusOptions"
+                [editAssessorData]="editAssessorData"
+                [credentialOptions]="credentialOptions"
+                [entityData]="entityData"
+                (updateAssessorDataCallback)="updateAccessorData($event)"></app-edit-assessor>
+       </div>
+        <div>
+            <app-assessor-history  
+            [assessorHistoryData]="assessorHistoryData"
+            [credentialOptions]="credentialOptions"
+            [statusOptions]="statusOptions"></app-assessor-history>
+       </div>
+    </div>
+</div>
+
+

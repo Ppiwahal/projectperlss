@@ -1,0 +1,362 @@
+<div style="padding-top: 30px; width: 92%; padding-left: 50px;">
+  <div class="container" [formGroup]="adjSummaryForm">
+    <div class="row" style="padding: 10px;">
+      <div class="col-md-12">
+        <mat-label><b>Summary:</b></mat-label>
+      </div>
+    </div>
+    <div *ngIf="erlGrpCd === 'CG1'">
+      <div class="row" style="padding: 10px;" *ngIf="!getAdjSummaryFormData()?.lvl2EffDt?.value">
+        <div class="col-md-6">
+          <mat-label><b>PASRR - Level 1 Decision Date: </b></mat-label>
+        </div>
+        <div class="col-md-6">
+          <mat-label *ngIf="getAdjSummaryFormData()?.lvl1DcsnDt?.value">{{getAdjSummaryFormData()?.lvl1DcsnDt?.value }}
+          </mat-label>
+          <mat-label *ngIf="!getAdjSummaryFormData()?.lvl1DcsnDt?.value">---</mat-label>
+        </div>
+      </div>
+      <div class="row" style="padding: 10px;" *ngIf="getAdjSummaryFormData()?.lvl2EffDt?.value">
+        <div class="col-md-6">
+          <mat-label><b>PASRR - Level 2 Effective Date: </b></mat-label>
+        </div>
+        <div class="col-md-6">
+          <mat-label *ngIf="getAdjSummaryFormData()?.lvl2EffDt?.value">{{getAdjSummaryFormData()?.lvl2EffDt?.value |
+            date:'MM/dd/yyyy'}}</mat-label>
+        </div>
+      </div>
+      <div class="row" style="padding: 10px;" *ngIf="getAdjSummaryFormData()?.lvl2EndDt?.value">
+        <div class="col-md-6">
+          <mat-label><b>PASRR - Level 2 End Date: </b></mat-label>
+        </div>
+        <div class="col-md-6">
+          <mat-label>{{getAdjSummaryFormData()?.lvl2EndDt?.value | date:'MM/dd/yyyy'}}</mat-label>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="padding: 10px;">
+      <div class="col-md-6">
+        <mat-label><b>PAE Submission Date: </b></mat-label>
+      </div>
+      <div class="col-md-6">
+        <mat-label *ngIf="getAdjSummaryFormData()?.paeSubmissionDt?.value">
+          {{getAdjSummaryFormData()?.paeSubmissionDt?.value | date:'MM/dd/yyyy'}}</mat-label>
+        <mat-label *ngIf="!getAdjSummaryFormData()?.paeSubmissionDt?.value">---</mat-label>
+      </div>
+    </div>
+    <div class="row" style="padding: 10px;"
+      *ngIf="erlGrpCd === 'CG1' || erlGrpCd === 'PACE' || erlGrpCd === 'ICF' || erlGrpCd === 'CAC'">
+      <div class="col-md-6">
+        <mat-label><b>MD Certification Date: </b></mat-label>
+      </div>
+      <div class="col-md-6">
+        <mat-label *ngIf="getAdjSummaryFormData()?.nulmdcertificationDtl?.value">
+          {{getAdjSummaryFormData()?.nulmdcertificationDtl?.value}}</mat-label>
+        <mat-label *ngIf="!getAdjSummaryFormData()?.nulmdcertificationDtl?.value">---</mat-label>
+      </div>
+    </div>
+    <div class="row" style="padding: 10px;">
+      <div class="col-md-6">
+        <mat-label><b>PAE Certification Date: </b></mat-label>
+      </div>
+      <div class="col-md-6">
+        <mat-label *ngIf="getAdjSummaryFormData()?.paeCertificationDt?.value">
+          {{getAdjSummaryFormData()?.paeCertificationDt?.value | date:'MM/dd/yyyy'}}</mat-label>
+        <mat-label *ngIf="!getAdjSummaryFormData()?.paeCertificationDt?.value">---</mat-label>
+      </div>
+    </div>
+    <div *ngIf="!(erlGrpCd === 'ICF') && !(erlGrpCd === 'CAC')">
+      <div class="row" style="padding: 10px;">
+        <div class="col-md-6">
+          <mat-label><b>Adjudicated Acuity Score: </b></mat-label>
+        </div>
+        <div class="col-md-6">
+          <mat-label *ngIf="getAdjSummaryFormData()?.auditAcuityScoreNum?.value">
+            {{getAdjSummaryFormData()?.auditAcuityScoreNum?.value}}</mat-label>
+          <mat-label *ngIf="!getAdjSummaryFormData()?.auditAcuityScoreNum?.value">---</mat-label>
+        </div>
+      </div>
+      <div class="row" style="padding: 10px;"
+        *ngIf="getAdjSummaryFormData()?.skilledServiceDateList !== null && getAdjSummaryFormData()?.skilledServiceDateList.length >= 1">
+        <div class="col-md-6">
+          <mat-label><b>Skilled Services:</b></mat-label>
+        </div>
+        <div class="col-md-6">
+          <mat-label *ngFor="let item of (skilledServiceDateList || [])">{{item.srvcNameCd}} ({{item.rqstEffDt |
+            date:'MM/dd/yyyy'}} - {{item.rqstEndDt | date:'MM/dd/yyyy'}})
+            <br />
+          </mat-label>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="padding: 10px;" *ngIf="getAdjSummaryFormData()?.ltssSftyDcsnCd?.value">
+      <div class="col-md-6">
+        <mat-label><b>LTSS Safety Decision:</b></mat-label>
+      </div>
+      <div class="col-md-6">
+        <mat-label>{{getAdjSummaryFormData()?.ltssSftyDcsnCd?.value}}</mat-label>
+      </div>
+    </div>
+  </div>
+  <form [formGroup]="adjDscnForm">
+    <div class="row" style="padding-left:15px; padding-top:45px;">
+      <div class="col-md-8">
+        <mat-form-field appearance="outline" style="width: 80%;">
+          <mat-label>
+            <mat-label class="required-class">*</mat-label>Enrollment Group
+          </mat-label>
+          <mat-select formControlName="enrollGrpCd" (selectionChange)="onEnrChange($event)" [disabled]="adjStatusCd === 'CO'">
+            <mat-option *ngFor="let e of enrollmentGroupCodes" [value]="e.code">{{e.value}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="getAdjFormData()?.enrollGrpCd?.errors != null || submitted">
+            <mat-error *ngIf="getAdjFormData()?.enrollGrpCd?.errors?.required">
+              {{customValidation.A1}}
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div *ngIf="sltChangeSw" class="row" style="padding-left:30px; padding-top:30px;">
+      <div class="note">
+        <label style="color:rgb(226, 57, 6)">NOTE: </label>
+        Enrollment Group selected is different from what was requested on PAE. If this requires an
+        update to slot assignment, corresponding unit will be notified to update slot
+        status.
+      </div>
+    </div>
+
+    <div class="row" style="padding-left:15px; padding-top:30px;">
+      <div class="col-md-8">
+        <mat-form-field appearance="outline" style="width: 80%;">
+          <mat-label>
+            <mat-label class="required-class">*</mat-label>Adjudication Decision
+          </mat-label>
+          <mat-select formControlName="locDcsnCd" (selectionChange)="onLocCdChange($event)" [disabled]="adjStatusCd === 'CO'">
+            <mat-option *ngFor="let a of adjOptions" [value]="a.code">{{a.value}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="getAdjFormData()?.locDcsnCd.errors != null || submitted">
+            <mat-error *ngIf="adjDscnForm.get('locDcsnCd').errors?.required">
+              {{customValidation.A1}}
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <!-- <div style="padding-left:60px; padding-top:30px;">
+      <mat-divider></mat-divider>
+      <div class="user-role-heading">Recertification</div>
+      <div class="row" style="padding-top:30px;">
+        <div class="col-md-8">
+          <mat-form-field appearance="outline" style="width: 80%;">
+            <mat-label>
+              <mat-label class="required-class">*</mat-label>Recertification Status
+            </mat-label>
+            <mat-select formControlName="recrtfctStatus">
+              <mat-option *ngFor="let r of recertStatus" [value]="r.code">{{r.value}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md-12" style="padding-top:30px">
+        <mat-radio-group aria-labelledby="example-radio-group-label">
+          <mat-label class="required-class">*</mat-label>Would you like to waive recertification fot the applicant?
+          <br />
+          <mat-radio-button value="Y" (change)="onRectificationChange($event)">Yes</mat-radio-button>
+          <br />
+          <mat-radio-button value="N" (change)="onRectificationChange($event)">No</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="col-md-5" style="width: 100%; margin-right: 75px; padding-top:30px;">
+        <mat-form-field appearance="fill">
+          <mat-label>
+            <mat-label class="required-class">*</mat-label>Recertification Due Date
+          </mat-label>
+          <input formControlName="recrtfctnDueDt" matInput [matDatepicker]="picker2" [min]="minDate">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+          <mat-error *ngIf="getAdjFormData()?.recrtfctnDueDt?.errors != null || submitted">
+            <mat-error *ngIf="adjDscnForm.get('recrtfctnDueDt').errors?.required">
+              {{customValidation.A1}}
+            </mat-error>
+            <mat-error *ngIf="getAdjFormData().recrtfctnDueDt.errors?.matDatepickerMax">
+              {{customValidation.A5}}
+            </mat-error>
+            <mat-error *ngIf="getAdjFormData().recrtfctnDueDt.errors?.matDatepickerMin">{{customValidation.A6}}
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div> -->
+    <div *ngIf="getAdjFormData()?.locDcsnCd?.value === 'DNF' && isECF" class="row"
+      style="padding-left:15px; padding-top:30px;">
+      <div class="col-md-8">
+        <mat-form-field appearance="outline" style="width: 80%;">
+          <mat-label>
+            <mat-label class="required-class">*</mat-label>Target Population Diagnosis
+          </mat-label>
+          <mat-select formControlName="trgtPopCd" (selectionChange)="ontargetPopulationChange($event)" [disabled]="adjStatusCd === 'CO'">
+            <mat-option *ngFor="let t of targetPopulatinodiaDiagonosis" [value]="t.code">{{t.value}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="getAdjFormData()?.trgtPopCd?.errors != null || submitted">
+            <mat-error *ngIf="adjDscnForm.get('trgtPopCd').errors?.required">
+              {{customValidation.A1}}
+            </mat-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div
+      *ngIf="(getAdjFormData()?.enrollGrpCd?.value === 'CG1' || getAdjFormData()?.enrollGrpCd?.value === 'CG2') && getAdjFormData()?.locDcsnCd?.value === 'DNF'"
+      class="row" style="padding-left:15px; padding-top:40px;">
+      <div class="col-md-8">
+        <mat-label>
+          <mat-label class="required-class">*</mat-label>Target Population Choices
+        </mat-label>
+        <div style="padding-top:10px">
+          <div *ngFor="let item of targetPopulatinoChoices">
+            <input type="checkbox" value="{{item.name}}" [disabled]="adjStatusCd === 'CO'" [checked]="item.isSelected" (change)="isCheckboxSelected(item)"
+              style="margin-right:10px;">{{item.value}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6" style="padding-top:30px; padding-left:15px; padding-bottom:15px;"
+      *ngIf="adjDscnForm.controls.locDcsnCd.value === 'DNF'">
+      <button [disabled]="adjStatusCd === 'CO'" mat-stroked-button color="primary" (click)="openPopUp(1)"
+        style="font-size: 15px; line-height: 37px !important; padding-left: 20px; padding-right: 20px;">SUBMITTER
+        CLARIFICATION (S)</button>
+    </div>
+
+    <div class="row"
+      *ngIf="isDenied && (!(adjDscnForm.controls.locDcsnCd.value === 'FAC' && getAdjFormData()?.enrollGrpCd?.value === 'CG1') && !(adjDscnForm.controls.locDcsnCd.value === 'FAC' && getAdjFormData()?.enrollGrpCd?.value === 'CG2') && !(adjDscnForm.controls.locDcsnCd.value === 'FAC' && getAdjFormData()?.enrollGrpCd?.value === 'PACE'))"
+      style="padding-left:15px; padding-top:30px;">
+      <div class="col-md-6" style="padding-bottom:10px">
+        <button [disabled]="adjStatusCd === 'CO'" mat-stroked-button color="primary" (click)="openDenialPopup()"
+          style="font-size: 15px; line-height: 37px !important; padding-left: 20px; padding-right: 20px;">SELECT DENIAL
+          REASONS (S)</button>
+      </div>
+    </div>
+    <!-- <div class="col-md-6" style="padding-left:15px; padding-top:30px;">
+      Suggested PAE Effective Date:
+      <br />
+      {{getAdjSummaryFormData()?.paeSubmissionDt?.value}}
+    </div> -->
+    <div>
+      <div class="row" style="padding-left:15px; padding-top:30px;">
+        <div class="col-md-5" style="width: 100%; margin-right: 75px">
+          <mat-form-field appearance="outline">
+            <mat-label>
+              <mat-label class="required-class">*</mat-label>PAE Effective Date
+            </mat-label>
+            <input [disabled]="adjStatusCd === 'CO'" formControlName="paeEffDt" matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="getAdjFormData()?.paeEffDt?.errors != null || submitted">
+              <mat-error *ngIf="adjDscnForm.get('paeEffDt').errors?.required">
+                {{customValidation.A1}}
+              </mat-error>
+              <mat-error *ngIf="getAdjFormData().paeEffDt.errors?.matDatepickerMax">{{customValidation.A5}}
+              </mat-error>
+              <mat-error *ngIf="getAdjFormData().paeEffDt.errors?.matDatepickerMin">{{customValidation.A6}}
+              </mat-error>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-5"
+          *ngIf="getAdjFormData().locDcsnCd.value === 'NED' || getAdjFormData().locDcsnCd.value === 'NEP' || getAdjFormData().locDcsnCd.value === 'NSE' || getAdjFormData().locDcsnCd.value === 'DWE'"
+          style="width: 100%;">
+          <mat-form-field appearance="outline">
+            <mat-label>
+              <mat-label class="required-class">*</mat-label>PAE End Date
+            </mat-label>
+            <input disabled="adjStatusCd === 'CO'" matInput formControlName="paeEndDt" [matDatepicker]="picker1" [min]="minDate" [max]="paeEndMaxDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+            <mat-error *ngIf="getAdjFormData()?.paeEndDt?.errors != null || submitted">
+              <mat-error *ngIf="adjDscnForm.get('paeEndDt').errors?.required">
+                {{customValidation.A1}}
+              </mat-error>
+              <mat-error *ngIf="getAdjFormData().paeEndDt.errors?.matDatepickerMax">{{customValidation.A5}}
+              </mat-error>
+              <mat-error *ngIf="getAdjFormData().paeEndDt.errors?.matDatepickerMin">{{customValidation.A6}}
+              </mat-error>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div *ngIf="getAdjFormData()?.enrollGrpCd?.value === 'EC6'">
+        <div class="row" style="padding-left:15px; padding-top:30px;">
+          <div class="col-md-12">
+            <mat-radio-group aria-labelledby="example-radio-group-label">
+              <mat-label class="required-class">*</mat-label>Would you like to request a SIS Assessment?
+              <br />
+              <mat-radio-button value="Y" (change)="onSisChange($event)">Yes</mat-radio-button>
+              <br />
+              <mat-radio-button value="N" (change)="onSisChange($event)">No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <div *ngIf="getAdjFormData()?.sisAssmntReqSw?.value === 'N'" class="row"
+          style="padding-top:30px; padding-left:15px;">
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" style="width: 80%;">
+              <mat-label>
+                <mat-label class="required-class">*</mat-label>Level of Need
+              </mat-label>
+              <mat-select formControlName="sisLvlOfNeedCd"   [disabled]="adjStatusCd === 'CO'">
+                <mat-option *ngFor="let l of levelOfNeed" [value]="l.code">{{l.value}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="getAdjFormData()?.sisLvlOfNeedCd?.errors != null || submitted">
+                <mat-error *ngIf="adjDscnForm.get('sisLvlOfNeedCd').errors?.required">
+                  {{customValidation.A1}}
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div style="padding-left:60px; padding-top:30px">
+      <div class="crlon">
+        <div class="title">
+          Change REquest - Level of Need
+        </div>
+        <div class="content">
+          Content
+        </div>
+      </div>
+    </div> -->
+    <div style="padding-left:15px; padding-top:30px;">
+      <mat-form-field appearance="outline" style="width: 600px;">
+        <mat-label>
+          <mat-label class="required-class">*</mat-label>Comments:
+        </mat-label>
+        <textarea disabled="adjStatusCd === 'CO'" formControlName="comments" matInput #comments maxlength="2000"></textarea>
+        <mat-hint style="float:right"> {{comments.value.length}}/2000</mat-hint>
+        <mat-error *ngIf="getAdjFormData()?.comments?.errors != null || submitted">
+          <mat-error *ngIf="adjDscnForm.get('comments').errors?.required">
+            {{customValidation.A1}}
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="row" *ngIf="!fromChangeManagement"style="padding-left: 15px; padding-top: 30px">
+      <div class="col-md-6">
+        <button type="button" [disabled]="displaySpinner || !adjDscnForm.valid || adjStatusCd === 'CO'" mat-flat-button color="primary"
+          class="perlss-click-button" (click)="saveAdjDscn()">SUBMIT<mat-progress-spinner *ngIf="displaySpinner"
+            class="example-margin" [color]="color" [mode]="mode" [value]="value" [diameter]="20"
+            style="margin-left:25px; margin-top:-28px">
+          </mat-progress-spinner></button>
+      </div>
+    </div>
+  </form>
+
+  <!-- <br>
+	<button type="button" mat-flat-button color="primary" class="perlss-click-button"
+  (click)="openPopUp(1)">SUBMITTER_CLARIFICATION_DENIAL</button> &nbsp;
+	<button type="button" mat-flat-button color="primary" class="perlss-click-button"
+  (click)="openPopUp(2)">SUBMITTER_CLARIFICATION_10DAY</button> &nbsp;
+	<button type="button" mat-flat-button color="primary" class="perlss-click-button"
+  (click)="openPopUp(3)">SUBMITTER_CLARIFICATION_TECH</button> &nbsp; -->
+</div>

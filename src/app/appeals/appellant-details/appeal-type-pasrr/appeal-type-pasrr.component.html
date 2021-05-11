@@ -1,0 +1,97 @@
+<div class="content-wrapper">
+    <form [formGroup]="appealTypeForm">
+        <div class="flex-wrapper">
+            <div>
+                <mat-form-field appearance="outline">
+                    <mat-label><span class="required">*</span>PASRR Reason</mat-label>
+                    <mat-select formControlName="pasrrReason" (selectionChange)="submitAppealType(appealTypeForm.value, appealTypeForm)">
+                        <mat-option value=''>Select an option</mat-option>
+                        <mat-option *ngFor = "let e of  pasrrReason" value={{e.name}}>{{e.value}} </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="f().pasrrReason.errors !== null">
+                        <mat-error *ngIf="f().pasrrReason.touched || f().pasrrReason.errors.required">
+                          {{customValidation.A1}}</mat-error>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                  <mat-form-field appearance="outline">
+                    <mat-label><span class="required">*</span>Payor Source</mat-label>
+                    <mat-select formControlName="payorSource" (selectionChange)="submitAppealType(appealTypeForm.value, appealTypeForm)">
+                        <mat-option value=''>Select an option</mat-option>
+                        <mat-option *ngFor = "let p of  payorSource" value={{p.code}}>{{p.value}} </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="f().payorSource.errors !== null">
+                        <mat-error *ngIf="f().payorSource.touched || f().payorSource.errors.required">
+                          {{customValidation.A1}}</mat-error>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="flex-wrapper">
+            <div>
+                <mat-form-field appearance="outline">
+                  <mat-label><span class="required">*</span>PASRR Adverse Action Reason</mat-label>
+                  <mat-select formControlName="pasrrActionReason" (selectionChange)="submitAppealType(appealTypeForm.value, appealTypeForm)">
+                    <mat-option value=''>Select an option</mat-option>
+                      <mat-option *ngFor = "let p of  pasrrAdverseReason" value={{p.name}}>{{p.value}} </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="f().pasrrActionReason.errors !== null">
+                    <mat-error *ngIf="f().pasrrActionReason.touched || f().pasrrActionReason.errors.required">
+                      {{customValidation.A1}}</mat-error>
+                </mat-error>
+              </mat-form-field>
+          </div>
+            <div>
+                <mat-form-field appearance="outline">
+                    <mat-label><span class="required">*</span>PASRR Adverse Action Date</mat-label>
+                    <input matInput [max]="maxDate" [matDatepicker]="pasrrActionDate" 
+                    formControlName="pasrrActionDate" autocomplete="off" 
+                    (dateChange)="submitAppealType(appealTypeForm.value, appealTypeForm)" placeholder="Select a Date">
+                    <mat-datepicker-toggle matSuffix [for]="pasrrActionDate"></mat-datepicker-toggle>
+                    <mat-datepicker #pasrrActionDate></mat-datepicker>
+                    <mat-error *ngIf="f().pasrrActionDate.errors !== null">
+                        <mat-error *ngIf="(f().pasrrActionDate.touched || f().pasrrActionDate.errors.required) && f().pasrrActionDate.errors.matDatepickerMax == undefined">
+                           {{customValidation.A1}}</mat-error>
+                           <mat-error *ngIf="f().pasrrActionDate.errors.matDatepickerMax">{{customValidation.A5}}</mat-error>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="flex-wrapper">
+            <div>
+                <mat-form-field appearance="outline">
+                    <mat-label><span class="required">*</span>Client ID</mat-label>
+                    <input matInput autocomplete="off" formControlName="clientId" maxlength="20" (keyup)="submitAppealType(appealTypeForm.value, appealTypeForm)"/>
+                    <mat-error *ngIf="f().clientId.errors !== null">
+                        <mat-error *ngIf="f().clientId.touched">
+                            <mat-error *ngIf="f().clientId.errors.required">
+                                {{customValidation.A1}}
+                            </mat-error>
+                            <mat-error *ngIf="f().clientId.errors.pattern">
+                                Must contain only Alpanumeric
+                            </mat-error>
+                          </mat-error>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="outline">
+                    <mat-label><span class="required">*</span>Episode ID</mat-label>
+                    <input matInput autocomplete="off" maxlength="20" formControlName="episodeId" (keyup)="submitAppealType(appealTypeForm.value, appealTypeForm)"/>
+                    <mat-error *ngIf="f().episodeId.errors !== null">
+                        <mat-error *ngIf="f().episodeId.touched">
+                            <mat-error *ngIf="f().episodeId.errors.required">
+                                {{customValidation.A1}}
+                            </mat-error>
+                            <mat-error *ngIf="f().episodeId.errors.pattern">
+                                Must contain only Alpanumeric
+                            </mat-error>
+                          </mat-error>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+   
+</div>

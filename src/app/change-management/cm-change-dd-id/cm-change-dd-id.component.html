@@ -1,0 +1,72 @@
+<div class="responsive">
+    <div class="form">
+      <div class="scroller">
+        <app-change-management-common>
+          <div>
+            <form [formGroup]="myForm" [ngClass]="{'submitted': submitted}">
+            <div class="w100">
+              <table class="activityTable">
+                <thead>
+                  <tr class="">
+                    <th class="btl-radius w-50">Form Type</th>
+                    <th class="btr-radius w-50">Status</th>
+                  </tr>
+                </thead>
+                <tbody class="tight">
+                  <tr>
+                    <td class="bb bt bb-db pl-4">Life Skills Assessment (LSA)</td>
+                    <td class="bb bt bb-db">
+                      <div class="float-left" *ngIf="ismedUploaded">
+  
+                        <mat-icon class="button-icon blue"> file_upload
+                        </mat-icon>
+  
+                        <span style="cursor:pointer;"
+                          class="mat-input-element">add
+                          more</span>
+                      </div>
+                      <mat-icon class="button-icon green mr-13"
+                        *ngIf="ismedUploaded"> done </mat-icon>
+                      <mat-icon style="cursor:pointer;"*ngIf="!ismedUploaded"
+                        class="button-icon blue">cloud_upload</mat-icon>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="bb bt bb-db pl-4">IQ Test Results</td>
+                    <td class="bb bt bb-db">
+                      <div class="float-left" *ngIf="ismedUploaded">
+  
+                        <mat-icon class="button-icon blue"> file_upload
+                        </mat-icon>
+  
+                        <span style="cursor:pointer;"
+                          class="mat-input-element">add
+                          more</span>
+                      </div>
+                      <mat-icon class="button-icon green mr-13"
+                        *ngIf="ismedUploaded"> done </mat-icon>
+                      <mat-icon style="cursor:pointer;"*ngIf="!ismedUploaded"
+                        class="button-icon blue">cloud_upload</mat-icon>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="w80"><div class="textArea">
+              <mat-label class="req">Comments</mat-label>
+              <textarea formControlName="commentTxt"></textarea>
+              <mat-error *ngIf="controlError('commentTxt')">{{errorText['commentTxt']}}</mat-error>
+              <p>{{getControl('commentTxt').value.length}}/2000</p>
+            </div></div>
+            <div>
+              <div>
+                <button  class="panelButtons" type="submit" mat-flat-button color="primary" class="perlss-click-button"
+                  (click)="save()">SUBMIT</button>
+              </div>
+            </div>
+            </form>
+          </div>
+        </app-change-management-common>
+      </div>
+    </div>
+  </div>

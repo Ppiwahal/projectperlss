@@ -1,0 +1,91 @@
+.required {
+  color: #EE3524;
+  font-size: 12px;
+  justify-content: flex-end;
+  display: flex;
+  margin-top: -39px;
+}
+
+.wrapper {
+  width:590px;
+  margin: 0 auto;
+  padding-bottom: 50px;
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.center-box {
+  justify-content: center !important;
+}
+
+.mat-icon {
+  font-size: 150px;
+  color:#ED6053;
+  text-align: center;
+}
+.icon-style{
+  justify-content: center;
+  display: flex;
+  flex: 1;
+}
+
+.user-role-heading{
+color: #4D7E20;
+font-size: 24px;
+font-weight: bold;
+}
+
+
+.box{
+border: 2px solid #174A7C;
+text-align: center;
+width: 40%;
+}
+
+.create-box{
+border: 2px solid #174A7C;
+text-align: center;
+width: 40%;
+cursor: pointer;
+}
+
+.box div{
+border-bottom: 2px solid #174A7C;
+padding: 10px;
+font-size: 16px;
+font-weight: bold;
+background-color: #CDDDF4;
+}
+.status-name{
+margin-top: 25px;
+font-size: 16px;
+font-weight: bold;
+}
+
+.create-status-name{
+margin-top: 40px;
+}
+
+.status{
+font-weight: bold;
+font-size: 30px;
+cursor: pointer;
+&:active, &:focus {
+  border: none;
+  outline: none;
+}
+text-decoration: underline;
+}
+
+.create-status{
+font-weight: bold;
+font-size: 20px;
+padding-top: 45px;
+cursor: pointer;
+&:active, &:focus {
+  border: none;
+  outline: none;
+}
+}

@@ -1,0 +1,54 @@
+<div class="responsive">
+    <div class="form">
+      <div class="scroller">
+        <app-change-management-common>
+          <div>
+            <form [formGroup]="myForm" [ngClass]="{'submitted': submitted}">
+              <div class="w80" *ngIf="selectedMenu == 'EC4' || selectedMenu == 'EC5' || selectedMenu == 'EC6' || selectedMenu == 'EC7' || selectedMenu == 'EC8'">
+                <mat-form-field appearance="outline">
+                  <mat-label class="req">Withdraw Reason</mat-label>
+                  <mat-select formControlName="withdrawRsnCd" >
+                    <mat-option value='FIN'>There is a concern related to financial eligibility or responsibility</mat-option>
+                    <mat-option value='SER'>There is a concern related to the services you want or need</mat-option>
+                    <mat-option value='NTP'>There is a concern that you are not in the population intended to be served by the requested program</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-error *ngIf="controlError('withdrawRsnCd')">{{errorText['disenrollmentType']}}</mat-error>
+              </div>
+              <div class="DocSummary" *ngIf="selectedMenu == 'EC4' || selectedMenu == 'EC5' || selectedMenu == 'EC6' || selectedMenu == 'EC7' || selectedMenu == 'EC8'">
+                <h3>Addtional Documents</h3>
+                <table class="activityTable">
+                    <thead>
+                        <tr class="">
+                            <th class="btl-radius w-50">Form Type</th>
+                            <th class="btr-radius w-50">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tight">
+                        <tr>
+                            <td class="bb ">ECF Withdrawal Form</td>
+                            <td class="bb">
+                                <mat-icon style="cursor:pointer;" class="button-icon blue">
+                                    cloud_upload</mat-icon>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table></div>
+                <div class="w80"><div class="textArea">
+                  <mat-label class="req">Comments</mat-label>
+                  <textarea formControlName="commentTxt"></textarea>
+                  <mat-error *ngIf="controlError('commentTxt')">{{errorText['commentTxt']}}</mat-error>
+                  <p>{{getControl('commentTxt').value.length}}/2000</p>
+                </div></div>
+                <div>
+                  <div >
+                    <button  class="panelButtons" type="submit" mat-flat-button color="primary" class="perlss-click-button"
+                      (click)="save()">SUBMIT</button>
+                  </div>
+                </div>
+            </form>
+          </div>
+        </app-change-management-common>
+      </div>
+    </div>
+  </div>

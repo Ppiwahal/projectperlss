@@ -1,0 +1,124 @@
+<div class="pageMargin">
+    <div class="row-header select-role-heading">
+        <span class="col-lg-9 dialog-heading">
+        Select Role
+        </span>
+      </div>
+      <form [formGroup]="taskQueueForm">
+        <div style="margin-top: 45px">
+          <div class="row">
+            <div class="col-md-5">
+                <strong style="color: black;">Entity Type</strong>
+              <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-select formControlName="entityType" (selectionChange)="OnEntityTypeChange()" >
+                  <mat-option value=''>Select an option</mat-option>
+                  <mat-option *ngFor="let entityType of  entityTypes" [value]=entityType>{{entityType.value}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="offset-1 col-md-5">
+                <strong style="color: black;">Entity</strong>
+              <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-select formControlName="entity" (selectionChange)="OnEntityChange()" >
+                  <mat-option value=''>Select an option</mat-option>
+                  <mat-option *ngFor="let item of  entities" [value]=item>{{item.entityName}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+      
+          <div class="row secondary-data-content">
+              <div class="col-md-5">
+                <strong style="color: black;">User Role</strong>
+              <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-select formControlName="userRole" >
+                  <mat-option value=''>Select an option</mat-option>
+                  <mat-option *ngFor="let item of  userRole" [value]=item>{{item.roleName}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+      
+        </div>
+        <div class="save-button">
+          <button type="submit"mat-flat-button color="primary" class="perlss-click-button" (click)="executeSearch()">RETRIEVE</button>
+        </div>
+        
+        <mat-divider class="perlss-section-divider"></mat-divider>
+
+        <div *ngIf="isShowList">
+          <div class="row-header select-role-heading">
+            <span class="col-lg-9 dialog-heading">
+            Map Task Queues - {{f.userRole.value.roleName}}
+            </span>
+          </div>
+          <div class="row" style="padding-top: 10px;">
+            <div class="col-12">
+              <div class="row">
+                <div class="col-4 offset-8 search">
+                  <span>
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                      <mat-label>Search Filter</mat-label>
+                      <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
+                    </mat-form-field>
+                  </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-8">
+                  <div>
+                    <div class="custom-table">
+                      <table aria-describedby mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8"
+                        style="width: 100%;">
+                        <ng-container matColumnDef="functionName">
+                          <th id="functionNames" mat-header-cell *matHeaderCellDef class='table-th'>Task Queue Name </th>
+                          <td mat-cell *matCellDef="let element">{{element.taskName}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="moduleCd">
+                          <th id="moduleCd" mat-header-cell *matHeaderCellDef class='table-th'>Module </th>
+                          <td mat-cell *matCellDef="let element">{{getNameByCode(element.dashboardCd,'DC')}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="isAssigned">
+                          <th id="isAssigned" mat-header-cell *matHeaderCellDef class='table-th'>Assignment</th>
+                          <td mat-cell *matCellDef="let element">
+                            <button mat-flat-button class="perlss-click-button grid-btn" *ngIf="!element.isAssigned"
+                            (click)="toggleAccess(element, 'ADD')">ADD</button>
+                            <button mat-flat-button class="perlss-click-button-white grid-btn" *ngIf="element.isAssigned"
+                            (click)="toggleAccess(element, 'REMOVE')">REMOVE</button>
+                          </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="element-row">
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                  <div>
+                    <mat-paginator [pageSizeOptions]="[10,20,25, 100]"></mat-paginator>
+                  </div>
+                </div>
+                <div class="offset-1 col-3">
+                  <div>
+                    <div>
+                      <label class="paddingmodule"><strong>By Module</strong></label>
+                      <div class="moduleFilter" *ngFor="let item of ELEMENT_DASHBOARD_DATA;let indexofelement=index;">
+                        <button mat-flat-button color="primary" [ngClass]="{'active': queuetabindex===indexofelement}"
+                class="perlss-click-button-white d-btn-filter"
+                (click)="filterFunction(item.code,indexofelement)">{{item.value}}</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        
+          </div>
+          <div class="save-button">
+            <button mat-flat-button color="primary" class="perlss-click-button"  (click)="onSave()" >SAVE</button>
+          </div>
+        </div>
+      </form>
+</div>

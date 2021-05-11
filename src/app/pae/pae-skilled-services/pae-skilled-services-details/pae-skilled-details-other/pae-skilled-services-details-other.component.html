@@ -1,0 +1,1289 @@
+<div class="heading-container">
+  <div class="row">
+    <div class="col-md-12">
+      <h4>Skilled Nursing & Rehabilitative Services</h4>
+   </div>
+ </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <mat-label>Please add all the applicable services below and the frequency needed.</mat-label>
+   </div>
+ </div>
+</div>
+
+<div class="accordion-form-group-container">
+
+  <div class="accordion-container">
+    <mat-accordion>
+      <mat-expansion-panel #mep="matExpansionPanel">
+        <mat-expansion-panel-header class = "specific-classAcc">
+          <mat-panel-title (opened)="openedAccordion('WCS')">
+            Wound Care for Stage 3 or 4 Decubitus
+         </mat-panel-title>
+          <mat-panel-title class="right-aligned">
+            <mat-icon *ngIf="!woundcareDataExists">add_circle_outline</mat-icon>
+            <mat-label *ngIf="!woundcareDataExists">&nbsp;&nbsp;ADD DETAILS</mat-label>
+            <mat-label style="padding-right:25px;" *ngIf="woundcareDataExists" >&nbsp;&nbsp;VIEW DETAILS</mat-label>
+            
+         </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="accordion-content-container">
+          <div class="note-container">
+            <mat-label>
+              <strong>Supporting Document(s):</strong>
+              <br>Physician’s order and Wound Assessment (describing characteristics and
+              measurements)</mat-label>
+         </div>
+          <div [formGroup]="sectionType1">
+            <div class="date-container">
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field appearance="outline">
+                    <mat-label>
+                      <mat-label class="required-color">*</mat-label>Requested Start Date
+                   </mat-label>
+                    <input matInput [matDatepicker]="WCSstart" id = "rqstdStartDt" formControlName="rqstdStartDt" [min]="minDate? minDate : startDate">
+                    <mat-datepicker-toggle matSuffix [for]="WCSstart"></mat-datepicker-toggle>
+                    <mat-datepicker [startAt]="startDate" #WCSstart></mat-datepicker>
+                    <mat-error *ngIf="sectionType1.controls.rqstdStartDt.errors != null">
+                      <mat-error *ngIf="sectionType1.controls.rqstdStartDt.hasError('required') && (sectionType1.controls.rqstdStartDt.touched || submitted)">
+                        {{customValidation.A1}}
+                     </mat-error>
+                      <mat-error
+                        *ngIf="sectionType1.controls.rqstdStartDt.errors?.matDatepickerMin  && (sectionType1.controls.rqstdStartDt.touched || sectionType1.controls.rqstdStartDt.dirty)">
+                        {{customValidation.A6}}
+                     </mat-error>
+                   </mat-error>
+                 </mat-form-field>
+               </div>
+                <div class="col-md-6">
+                  <mat-form-field appearance="outline">
+                    <mat-label>
+                      <mat-label class="required-color">*</mat-label>Requested End Date
+                   </mat-label>
+                    <input matInput [matDatepicker]="WCSend" id = "rqstdEndDt" formControlName="rqstdEndDt" [min]="minDate? minDate : startDate">
+                    <mat-datepicker-toggle matSuffix [for]="WCSend"></mat-datepicker-toggle>
+                    <mat-datepicker [startAt]="startDate" #WCSend></mat-datepicker>
+                    <mat-error *ngIf="sectionType1.controls.rqstdEndDt.errors != null">
+                      <mat-error *ngIf="sectionType1.controls.rqstdEndDt.hasError('required')">
+                        {{customValidation.A1}}
+                     </mat-error>
+                      <mat-error
+                        *ngIf="sectionType1.controls.rqstdEndDt.errors.matDatepickerMin  && (sectionType1.controls.rqstdEndDt.touched && sectionType1.controls.rqstdEndDt.dirty)">
+                        {{customValidation.A6}}</mat-error>
+                   </mat-error>
+                 </mat-form-field>
+               </div>
+             </div>
+           </div>
+         </div>
+          <div>
+            <button mat-stroked-button type="button" (click) = " openedAccordion('WCS')" 
+            class="expandable-row-button" *ngIf="!woundcareDataExists" >SAVE</button>
+            <button mat-stroked-button type="button" 
+            class="expandable-row-button" *ngIf="woundcareDataExists" (click) = "editAccordion('WCS')">EDIT</button>&nbsp;&nbsp;
+            <button class = "border-less" *ngIf="!woundcareDataExists" (click) = "mep.expanded = false; cancelAccordion()" >CANCEL</button>
+            <!-- <button mat-stroked-button type="button" *ngIf="woundcareDataExists" class="expandable-row-button" style = "float:right" (click) = "deleteAccordion('WCS')">DELETE</button> -->
+            <button mat-stroked-button type="button" *ngIf="(sectionType1.controls.rqstdEndDt.value !== null && sectionType1.controls.rqstdStartDt.value !== null && woundcareDataExists)" class="expandable-row-button" style = "float:right" (click) = "deleteAccordion('WCS')">DELETE</button>
+          </div>
+
+       </div>
+     </mat-expansion-panel>
+   </mat-accordion>
+ </div>
+
+  <div class="accordion-container">
+    <mat-accordion>
+      <mat-expansion-panel #mea="matExpansionPanel">
+        <mat-expansion-panel-header class = "specific-classAcc">
+          <mat-panel-title (opened)="openedAccordion('OWC')">
+            Other Wound Care (i.e., infected or dehisced wounds)
+         </mat-panel-title>
+          <mat-panel-title class="right-aligned">
+            <mat-icon *ngIf="!otherWoundcareDataExists">add_circle_outline</mat-icon>
+            <mat-label *ngIf="!otherWoundcareDataExists">&nbsp;&nbsp;ADD DETAILS</mat-label>
+            <mat-label style="padding-right:25px;" *ngIf="otherWoundcareDataExists" >&nbsp;&nbsp;VIEW DETAILS</mat-label>
+            
+         </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="accordion-content-container">
+          <div class="note-container">
+            <mat-label>
+              <strong>Supporting Document(s):</strong>
+              <br>Physician’s order and Wound Assessment (describing characteristics and
+              measurements)</mat-label>
+         </div>
+          <div [formGroup]="sectionType2">
+          <div class="date-container">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested Start Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="OWCstart" formControlName="rqstdStartDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="OWCstart"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #OWCstart></mat-datepicker>
+                  <mat-error *ngIf="sectionType2.controls.rqstdStartDt.errors != null">
+                    <mat-error *ngIf="sectionType2.controls.rqstdStartDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType2.controls.rqstdStartDt.errors?.matDatepickerMin  && (sectionType2.controls.rqstdStartDt.touched || sectionType2.controls.rqstdStartDt.dirty)">
+                      {{customValidation.A6}}
+                   </mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested End Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="OWCEnd" formControlName="rqstdEndDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="OWCEnd"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #OWCEnd></mat-datepicker>
+                  <mat-error *ngIf="sectionType2.controls.rqstdEndDt.errors != null">
+                    <mat-error *ngIf="sectionType2.controls.rqstdEndDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType2.controls.rqstdEndDt.errors.matDatepickerMin  && (sectionType2.controls.rqstdEndDt.touched && sectionType2.controls.rqstdEndDt.dirty)">
+                      {{customValidation.A6}}</mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+           </div>
+         </div>
+         </div>
+          <div>
+            <button mat-stroked-button type="button" (click) = " openedAccordion('OWC')" 
+            class="expandable-row-button" *ngIf="!otherWoundcareDataExists" >SAVE</button>
+            <button mat-stroked-button type="button" 
+            class="expandable-row-button" *ngIf="otherWoundcareDataExists" (click) = "editAccordion('OWC')">EDIT</button>&nbsp;&nbsp;
+            <button class = "border-less" *ngIf="!otherWoundcareDataExists" (click) = "mea.expanded = false;">CANCEL</button>
+            <!-- <button mat-stroked-button type="button" *ngIf="otherWoundcareDataExists" class="expandable-row-button" style = "float:right"  (click) = "deleteAccordion('OWC')">DELETE</button> -->
+            <button mat-stroked-button type="button" *ngIf="(sectionType2.controls.rqstdEndDt.value !== null && sectionType2.controls.rqstdStartDt.value !== null)" class="expandable-row-button" style = "float:right"  (click) = "deleteAccordion('OWC')">DELETE</button>
+           
+         </div>
+
+       </div>
+     </mat-expansion-panel>
+   </mat-accordion>
+ </div>
+
+  <div class="accordion-container">
+    <mat-accordion>
+      <mat-expansion-panel #mes="matExpansionPanel">
+        <mat-expansion-panel-header class = "specific-classAcc">
+          <mat-panel-title (opened)="openedAccordion('ISS')">
+            Injections, sliding scale insulin
+         </mat-panel-title>
+          <mat-panel-title class="right-aligned">
+            <mat-icon *ngIf="!injectionDataExists">add_circle_outline</mat-icon>
+            <mat-label *ngIf="!injectionDataExists">&nbsp;&nbsp;ADD DETAILS</mat-label>
+            <mat-label style="padding-right:25px;" *ngIf="injectionDataExists">&nbsp;&nbsp;VIEW DETAILS</mat-label>
+           
+         </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="accordion-content-container">
+          <div class="note-container">
+            <mat-label>
+              <strong>Supporting Document(s):</strong>
+              <br>Physician’s order for Sliding Scale protocol and Blood Glucose Monitoring Log</mat-label>
+         </div>
+          <div [formGroup]="sectionType3" >
+          <div class="date-container">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested Start Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="ISSstart" formControlName="rqstdStartDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="ISSstart"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #ISSstart></mat-datepicker>
+                  <mat-error *ngIf="sectionType3.controls.rqstdStartDt.errors != null">
+                    <mat-error *ngIf="sectionType3.controls.rqstdStartDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType3.controls.rqstdStartDt.errors?.matDatepickerMin  && (sectionType3.controls.rqstdStartDt.touched || sectionType3.controls.rqstdStartDt.dirty)">
+                      {{customValidation.A6}}
+                   </mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested End Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="ISCIend" formControlName="rqstdEndDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="ISCIend"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #ISCIend></mat-datepicker>
+                  <mat-error *ngIf="sectionType3.controls.rqstdEndDt.errors != null">
+                    <mat-error *ngIf="sectionType3.controls.rqstdEndDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType3.controls.rqstdEndDt.errors.matDatepickerMin  && (sectionType3.controls.rqstdEndDt.touched && sectionType3.controls.rqstdEndDt.dirty)">
+                      {{customValidation.A6}}</mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+           </div>
+         </div>
+       </div>
+
+          <div>
+            <button mat-stroked-button type="button" class="expandable-row-button" *ngIf="!injectionDataExists"
+            (click) = "openedAccordion('ISS')">SAVE</button>
+            <button mat-stroked-button type="button" 
+            class="expandable-row-button" *ngIf="injectionDataExists" (click) = "editAccordion('ISS')">EDIT</button>&nbsp;&nbsp;
+            <button class = "border-less" *ngIf="!injectionDataExists" (click) = "mes.expanded = false;">CANCEL</button>
+            <button mat-stroked-button type="button"  *ngIf="(sectionType3.controls.rqstdEndDt.value !== null && sectionType3.controls.rqstdStartDt.value !== null)" class="expandable-row-button" style = "float:right"  (click) = "deleteAccordion('ISS')">DELETE</button>
+         </div>
+
+       </div>
+     </mat-expansion-panel>
+   </mat-accordion>
+ </div>
+
+  <div class="accordion-container">
+    <mat-accordion>
+      <mat-expansion-panel #meb="matExpansionPanel">
+        <mat-expansion-panel-header class = "specific-classAcc">
+          <mat-panel-title (opened)="openedAccordion('IOT')">
+            Injections, other: IV, IM
+         </mat-panel-title>
+          <mat-panel-title class="right-aligned">
+            <mat-icon *ngIf="!injectionOtherDataExists">add_circle_outline</mat-icon>
+            <mat-label *ngIf="!injectionOtherDataExists">&nbsp;&nbsp;ADD DETAILS</mat-label>
+            <mat-label style="padding-right:25px;" *ngIf="injectionOtherDataExists">&nbsp;&nbsp;VIEW DETAILS</mat-label>
+         </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="accordion-content-container">
+          <div class="note-container">
+            <mat-label>
+              <strong>Supporting Document(s):</strong>
+              <br>Physician’s Orders – Specify Frequency and Duration</mat-label>
+         </div>
+
+          <div [formGroup]="sectionType4" >
+          <div class="date-container">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested Start Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="IOTstart" formControlName="rqstdStartDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="IOTstart"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #IOTstart></mat-datepicker>
+                  <mat-error *ngIf="sectionType4.controls.rqstdStartDt.errors != null">
+                    <mat-error *ngIf="sectionType4.controls.rqstdStartDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType4.controls.rqstdStartDt.errors?.matDatepickerMin  && (sectionType4.controls.rqstdStartDt.touched || sectionType4.controls.rqstdStartDt.dirty)">
+                      {{customValidation.A6}}
+                   </mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested End Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="IOTend" formControlName="rqstdEndDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="IOTend"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #IOTend></mat-datepicker>
+                  <mat-error *ngIf="sectionType4.controls.rqstdEndDt.errors != null">
+                    <mat-error *ngIf="sectionType4.controls.rqstdEndDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType4.controls.rqstdEndDt.errors.matDatepickerMin  && (sectionType4.controls.rqstdEndDt.touched && sectionType4.controls.rqstdEndDt.dirty)">
+                      {{customValidation.A6}}</mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+           </div>
+         </div>
+       </div>
+
+          <div>
+            <button mat-stroked-button type="button" class="expandable-row-button" *ngIf="!injectionOtherDataExists"
+            (click) = "openedAccordion('IOT')">SAVE</button>
+            <button mat-stroked-button type="button" 
+            class="expandable-row-button" *ngIf="injectionOtherDataExists" (click) = "editAccordion('IOT')">EDIT</button>&nbsp;&nbsp;
+            <button class = "border-less" *ngIf="!injectionOtherDataExists" (click) = "meb.expanded = false;">CANCEL</button>
+            <button mat-stroked-button type="button" *ngIf="(sectionType4.controls.rqstdEndDt.value !== null && sectionType4.controls.rqstdStartDt.value !== null)" class="expandable-row-button" style = "float:right" (click) = "deleteAccordion('IOT')">DELETE</button>
+         </div>
+
+       </div>
+     </mat-expansion-panel>
+   </mat-accordion>
+ </div>
+
+  <div class="accordion-container">
+    <mat-accordion>
+      <mat-expansion-panel #mec="matExpansionPanel">
+        <mat-expansion-panel-header class = "specific-classAcc">
+          <mat-panel-title (opened)="openedAccordion('INT')">
+            Intravenous fluid administration
+         </mat-panel-title>
+          <mat-panel-title class="right-aligned">
+            <mat-icon *ngIf="!intFluidDataExists">add_circle_outline</mat-icon>
+            <mat-label *ngIf="!intFluidDataExists">&nbsp;&nbsp;ADD DETAILS</mat-label>
+            <mat-label style="padding-right:25px;" *ngIf="intFluidDataExists">&nbsp;&nbsp;VIEW DETAILS</mat-label>
+            
+         </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="accordion-content-container">
+          <div class="note-container">
+            <mat-label>
+              <strong>Supporting Document(s):</strong>
+              <br>Physician’s Orders – Specify Frequency and Duration</mat-label>
+         </div>
+          <div [formGroup]="sectionType5" >
+          <div class="date-container">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested Start Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="IFAstart" formControlName="rqstdStartDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="IFAstart"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #IFAstart></mat-datepicker>
+                  <mat-error *ngIf="sectionType5.controls.rqstdStartDt.errors != null">
+                    <mat-error *ngIf="sectionType5.controls.rqstdStartDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType5.controls.rqstdStartDt.errors?.matDatepickerMin  && (sectionType5.controls.rqstdStartDt.touched || sectionType5.controls.rqstdStartDt.dirty)">
+                      {{customValidation.A6}}
+                   </mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested End Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="IFAend" formControlName="rqstdEndDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="IFAend"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #IFAend></mat-datepicker>
+                  <mat-error *ngIf="sectionType5.controls.rqstdEndDt.errors != null">
+                    <mat-error *ngIf="sectionType5.controls.rqstdEndDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType5.controls.rqstdEndDt.errors.matDatepickerMin  && (sectionType5.controls.rqstdEndDt.touched && sectionType5.controls.rqstdEndDt.dirty)">
+                      {{customValidation.A6}}</mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+           </div>
+         </div>
+       </div>
+
+          <div>
+            <button mat-stroked-button type="button" class="expandable-row-button" *ngIf="!intFluidDataExists"
+            (click) = "openedAccordion('INT')">SAVE</button>
+            <button mat-stroked-button type="button" 
+            class="expandable-row-button" *ngIf="intFluidDataExists" (click) = "editAccordion('INT')">EDIT</button>&nbsp;&nbsp;
+            <button class = "border-less" *ngIf="!intFluidDataExists" (click) = "mec.expanded = false;"  >CANCEL</button>
+            <button mat-stroked-button type="button" *ngIf="(sectionType5.controls.rqstdEndDt.value !== null && sectionType5.controls.rqstdStartDt.value !== null)"  class="expandable-row-button" style = "float:right" (click) = "deleteAccordion('INT')">DELETE</button>
+         </div>
+
+       </div>
+     </mat-expansion-panel>
+   </mat-accordion>
+ </div>
+
+  <div class="accordion-container">
+    <mat-accordion>
+      <mat-expansion-panel #med="matExpansionPanel">
+        <mat-expansion-panel-header class = "specific-classAcc">
+          <mat-panel-title (opened)="openedAccordion('ISP')">
+            Isolation precautions
+         </mat-panel-title>
+          <mat-panel-title class="right-aligned">
+            <mat-icon *ngIf="!isolationPreDataExists">add_circle_outline</mat-icon>
+            <mat-label *ngIf="!isolationPreDataExists">&nbsp;&nbsp;ADD DETAILS</mat-label>
+            <mat-label style="padding-right:25px;" *ngIf="isolationPreDataExists">&nbsp;&nbsp;VIEW DETAILS</mat-label>
+           
+         </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="accordion-content-container">
+          <div class="note-container">
+            <mat-label>
+              <strong>Supporting Document(s):</strong>
+              <br> Lab report with organism and diagnosis to support isolation</mat-label>
+         </div>
+          <div [formGroup]="sectionType6">
+          <div class="date-container">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested Start Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="IPstart" formControlName="rqstdStartDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="IPstart"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #IPstart></mat-datepicker>
+                  <mat-error *ngIf="sectionType6.controls.rqstdStartDt.errors != null">
+                    <mat-error *ngIf="sectionType6.controls.rqstdStartDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType6.controls.rqstdStartDt.errors?.matDatepickerMin  && (sectionType6.controls.rqstdStartDt.touched || sectionType6.controls.rqstdStartDt.dirty)">
+                      {{customValidation.A6}}
+                   </mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested End Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="IPend" formControlName="rqstdEndDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="IPend"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #IPend></mat-datepicker>
+                  <mat-error *ngIf="sectionType6.controls.rqstdEndDt.errors != null">
+                    <mat-error *ngIf="sectionType6.controls.rqstdEndDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType6.controls.rqstdEndDt.errors.matDatepickerMin  && (sectionType6.controls.rqstdEndDt.touched && sectionType6.controls.rqstdEndDt.dirty)">
+                      {{customValidation.A6}}</mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+           </div>
+         </div>
+         </div>
+
+          <div>
+            <button mat-stroked-button type="button" class="expandable-row-button" *ngIf="!isolationPreDataExists"
+            (click) = "openedAccordion('ISP')">SAVE</button>
+            <button mat-stroked-button type="button" 
+            class="expandable-row-button" *ngIf="isolationPreDataExists" (click) = "editAccordion('ISP')" >EDIT</button>&nbsp;&nbsp;
+            <button class = "border-less" *ngIf="!isolationPreDataExists"  (click) = "med.expanded = false;">CANCEL</button>
+            <button mat-stroked-button type="button" *ngIf="(sectionType6.controls.rqstdEndDt.value !== null && sectionType6.controls.rqstdStartDt.value !== null)" class="expandable-row-button" style = "float:right" (click) = "deleteAccordion('ISP')">DELETE</button>
+         </div>
+
+       </div>
+     </mat-expansion-panel>
+   </mat-accordion>
+ </div>
+
+  <div class="accordion-container">
+    <mat-accordion>
+      <mat-expansion-panel #mee="matExpansionPanel">
+        <mat-expansion-panel-header class = "specific-classAcc">
+          <mat-panel-title (opened)="openedAccordion('OCT')">
+            Occupational Therapy by OT or OT assistant
+         </mat-panel-title>
+          <mat-panel-title class="right-aligned">
+            <mat-icon *ngIf="!occTherapyDataExists">add_circle_outline</mat-icon>
+            <mat-label *ngIf="!occTherapyDataExists">&nbsp;&nbsp;ADD DETAILS</mat-label>
+            <mat-label style="padding-right:25px;" *ngIf="occTherapyDataExists">&nbsp;&nbsp;VIEW DETAILS</mat-label>
+            
+         </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="accordion-content-container">
+          <div class="note-container">
+            <mat-label>
+              <strong>Supporting Document(s):</strong>
+              <br>Physician’s Orders and OT Evaluation – Specify Frequency, Duration, and Diagnosis</mat-label>
+         </div>
+          <div [formGroup]="sectionType7" >
+          <div class="date-container">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested Start Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="OTstart" formControlName="rqstdStartDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="OTstart"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #OTstart></mat-datepicker>
+                  <mat-error *ngIf="sectionType7.controls.rqstdStartDt.errors != null">
+                    <mat-error *ngIf="sectionType7.controls.rqstdStartDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType7.controls.rqstdStartDt.errors?.matDatepickerMin  && (sectionType7.controls.rqstdStartDt.touched || sectionType7.controls.rqstdStartDt.dirty)">
+                      {{customValidation.A6}}
+                   </mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested End Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="OTend" formControlName="rqstdEndDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="OTend"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #OTend></mat-datepicker>
+                  <mat-error *ngIf="sectionType7.controls.rqstdEndDt.errors != null">
+                    <mat-error *ngIf="sectionType7.controls.rqstdEndDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType7.controls.rqstdEndDt.errors.matDatepickerMin  && (sectionType7.controls.rqstdEndDt.touched && sectionType7.controls.rqstdEndDt.dirty)">
+                      {{customValidation.A6}}</mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+           </div>
+         </div>
+       </div>
+
+          <div>
+            <button mat-stroked-button type="button" class="expandable-row-button"*ngIf="!occTherapyDataExists"
+            (click) = "openedAccordion('OCT')">SAVE</button>
+            <button mat-stroked-button type="button" 
+            class="expandable-row-button" *ngIf="occTherapyDataExists" (click) = "editAccordion('OCT')">EDIT</button>&nbsp;&nbsp;
+            <button class = "border-less" *ngIf="!occTherapyDataExists" (click) = "mee.expanded = false;">CANCEL</button>
+            <button mat-stroked-button type="button" *ngIf="(sectionType7.controls.rqstdEndDt.value !== null && sectionType7.controls.rqstdStartDt.value !== null)" class="expandable-row-button" style = "float:right"  (click) = "deleteAccordion('OCT')">DELETE</button>
+         </div>
+         </div>
+
+     </mat-expansion-panel>
+   </mat-accordion>
+ </div>
+
+  <div class="accordion-container">
+    <mat-accordion>
+      <mat-expansion-panel #mef="matExpansionPanel">
+        <mat-expansion-panel-header class = "specific-classAcc">
+          <mat-panel-title (opened)="openedAccordion('PHT')">
+            Physical Therapy by PT or PT assistant
+         </mat-panel-title>
+          <mat-panel-title class="right-aligned">
+            <mat-icon *ngIf="!phyTherapyDataExists">add_circle_outline</mat-icon>
+            <mat-label *ngIf="!phyTherapyDataExists">&nbsp;&nbsp;ADD DETAILS</mat-label>
+            <mat-label style="padding-right:25px;" *ngIf="phyTherapyDataExists">&nbsp;&nbsp;VIEW DETAILS</mat-label>
+           
+         </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="accordion-content-container">
+          <div class="note-container">
+            <mat-label>
+              <strong>Supporting Document(s):</strong>
+              <br>Physician’s Orders and PT Evaluation – Specify Frequency, Duration, and Diagnosis</mat-label>
+         </div>
+          <div [formGroup]="sectionType8">
+          <div class="date-container">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested Start Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="PTstart" formControlName="rqstdStartDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="PTstart"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #PTstart></mat-datepicker>
+                  <mat-error *ngIf="sectionType8.controls.rqstdStartDt.errors != null">
+                    <mat-error *ngIf="sectionType8.controls.rqstdStartDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType8.controls.rqstdStartDt.errors?.matDatepickerMin  && (sectionType8.controls.rqstdStartDt.touched || sectionType8.controls.rqstdStartDt.dirty)">
+                      {{customValidation.A6}}
+                   </mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested End Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="PTend" formControlName="rqstdEndDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="PTend"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #PTend></mat-datepicker>
+                  <mat-error *ngIf="sectionType8.controls.rqstdEndDt.errors != null">
+                    <mat-error *ngIf="sectionType8.controls.rqstdEndDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType8.controls.rqstdEndDt.errors.matDatepickerMin  && (sectionType8.controls.rqstdEndDt.touched && sectionType8.controls.rqstdEndDt.dirty)">
+                      {{customValidation.A6}}</mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+           </div>
+         </div>
+       </div>
+
+          <div>
+            <button mat-stroked-button type="button" class="expandable-row-button"*ngIf="!phyTherapyDataExists"
+            (click) = "openedAccordion('PHT')">SAVE</button>
+            <button mat-stroked-button type="button" 
+            class="expandable-row-button" *ngIf="phyTherapyDataExists" (click) = "editAccordion('PHT')" >EDIT</button>&nbsp;&nbsp;
+            <button class = "border-less" *ngIf="!phyTherapyDataExists" (click) = "mef.expanded = false;">CANCEL</button>
+            <button mat-stroked-button type="button" *ngIf="(sectionType8.controls.rqstdEndDt.value !== null && sectionType8.controls.rqstdStartDt.value !== null)" class="expandable-row-button" style = "float:right" (click) = "deleteAccordion('PHT')">DELETE</button>
+         </div>
+
+       </div>
+     </mat-expansion-panel>
+   </mat-accordion>
+ </div>
+
+  <div class="accordion-container">
+    <mat-accordion>
+      <mat-expansion-panel #meg="matExpansionPanel">
+        <mat-expansion-panel-header class = "specific-classAcc">
+          <mat-panel-title (opened)="openedAccordion('TCO')" >
+            Teaching Catheter/Ostomy care
+         </mat-panel-title>
+          <mat-panel-title class="right-aligned">
+            <mat-icon *ngIf="!teaCathDataExists">add_circle_outline</mat-icon>
+            <mat-label *ngIf="!teaCathDataExists">&nbsp;&nbsp;ADD DETAILS</mat-label>
+            <mat-label style="padding-right:25px;" *ngIf="teaCathDataExists">&nbsp;&nbsp;VIEW DETAILS</mat-label>
+           
+         </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="accordion-content-container">
+          <div class="note-container">
+            <mat-label>
+              <strong>Supporting Document(s):</strong>
+              <br>Skilling for new catheter/Ostomy only – Specify teaching plan</mat-label>
+         </div>
+          <div [formGroup]="sectionType9">
+          <div class="date-container">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested Start Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="TCOCstart" formControlName="rqstdStartDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="TCOCstart"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #TCOCstart></mat-datepicker>
+                  <mat-error *ngIf="sectionType9.controls.rqstdStartDt.errors != null">
+                    <mat-error *ngIf="sectionType9.controls.rqstdStartDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType9.controls.rqstdStartDt.errors?.matDatepickerMin  && (sectionType9.controls.rqstdStartDt.touched || sectionType9.controls.rqstdStartDt.dirty)">
+                      {{customValidation.A6}}
+                   </mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested End Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="TCOCend" formControlName="rqstdEndDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="TCOCend"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #TCOCend></mat-datepicker>
+                  <mat-error *ngIf="sectionType9.controls.rqstdEndDt.errors != null">
+                    <mat-error *ngIf="sectionType9.controls.rqstdEndDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType9.controls.rqstdEndDt.errors.matDatepickerMin  && (sectionType9.controls.rqstdEndDt.touched && sectionType9.controls.rqstdEndDt.dirty)">
+                      {{customValidation.A6}}</mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+           </div>
+         </div>
+       </div>
+
+          <div>
+            <button mat-stroked-button type="button" class="expandable-row-button"*ngIf="!teaCathDataExists"
+            (click) = "openedAccordion('TCO')">SAVE</button>
+            <button mat-stroked-button type="button" 
+            class="expandable-row-button" *ngIf="teaCathDataExists" (click) = "editAccordion('TCO')">EDIT</button>&nbsp;&nbsp;
+            <button class = "border-less" *ngIf="!teaCathDataExists" (click) = "meg.expanded = false;">CANCEL</button>
+            <button mat-stroked-button type="button" *ngIf="(sectionType9.controls.rqstdEndDt.value !== null && sectionType9.controls.rqstdStartDt.value !== null)" class="expandable-row-button" style = "float:right" (click) = "deleteAccordion('TCO')">DELETE</button>
+         </div>
+
+       </div>
+     </mat-expansion-panel>
+   </mat-accordion>
+ </div>
+
+  <div class="accordion-container">
+    <mat-accordion>
+      <mat-expansion-panel #meh="matExpansionPanel">
+        <mat-expansion-panel-header class = "specific-classAcc">
+          <mat-panel-title (opened)="openedAccordion('TSI')" >
+            Teaching self-injection
+         </mat-panel-title>
+          <mat-panel-title class="right-aligned">
+            <mat-icon *ngIf="!teaSelfDataExists">add_circle_outline</mat-icon>
+            <mat-label *ngIf="!teaSelfDataExists">&nbsp;&nbsp;ADD DETAILS</mat-label>
+            <mat-label style="padding-right:25px;" *ngIf="teaSelfDataExists">&nbsp;&nbsp;VIEW DETAILS</mat-label>
+            
+         </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="accordion-content-container">
+          <div class="note-container">
+            <mat-label>
+              <strong>Supporting Document(s):</strong>
+              <br> Skilling for new diabetics only – Specify teaching plan</mat-label>
+         </div>
+          <div [formGroup]="sectionType10">
+          <div class="date-container">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested Start Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="TSIstart" formControlName="rqstdStartDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="TSIstart"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #TSIstart></mat-datepicker>
+                  <mat-error *ngIf="sectionType10.controls.rqstdStartDt.errors != null">
+                    <mat-error *ngIf="sectionType10.controls.rqstdStartDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType10.controls.rqstdStartDt.errors?.matDatepickerMin  && (sectionType10.controls.rqstdStartDt.touched || sectionType10.controls.rqstdStartDt.dirty)">
+                      {{customValidation.A6}}
+                   </mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested End Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="TSIend" formControlName="rqstdEndDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="TSIend"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #TSIend></mat-datepicker>
+                  <mat-error *ngIf="sectionType10.controls.rqstdEndDt.errors != null">
+                    <mat-error *ngIf="sectionType10.controls.rqstdEndDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType10.controls.rqstdEndDt.errors.matDatepickerMin  && (sectionType10.controls.rqstdEndDt.touched && sectionType10.controls.rqstdEndDt.dirty)">
+                      {{customValidation.A6}}</mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+           </div>
+         </div>
+       </div>
+
+          <div>
+            <button mat-stroked-button type="button" class="expandable-row-button"*ngIf="!teaSelfDataExists"
+            (click) = "openedAccordion('TSI')">SAVE</button>
+            <button mat-stroked-button type="button" 
+            class="expandable-row-button" *ngIf="teaSelfDataExists" (click) = "editAccordion('TSI')">EDIT</button>&nbsp;&nbsp;
+            <button class = "border-less" *ngIf="!teaSelfDataExists"  (click) = "meh.expanded = false;">CANCEL</button>
+            <button mat-stroked-button type="button"  *ngIf="(sectionType10.controls.rqstdEndDt.value !== null && sectionType10.controls.rqstdStartDt.value !== null)" class="expandable-row-button" style = "float:right" (click) = "deleteAccordion('TSI')">DELETE</button>
+         </div>
+
+       </div>
+     </mat-expansion-panel>
+   </mat-accordion>
+ </div>
+
+  <div class="accordion-container">
+    <mat-accordion>
+      <mat-expansion-panel #mei="matExpansionPanel">
+        <mat-expansion-panel-header class = "specific-classAcc">
+          <mat-panel-title (opened)="openedAccordion('TPN')" >
+            Total Parenteral nutrition
+         </mat-panel-title>
+          <mat-panel-title class="right-aligned">
+            <mat-icon *ngIf="!parNutritionDataExists">add_circle_outline</mat-icon>
+            <mat-label *ngIf="!parNutritionDataExists">&nbsp;&nbsp;ADD DETAILS</mat-label>
+            <mat-label style="padding-right:25px;" *ngIf="parNutritionDataExists" >&nbsp;&nbsp;VIEW DETAILS</mat-label>
+         </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="accordion-content-container">
+          <div class="note-container">
+            <mat-label>
+              <strong>Supporting Document(s):</strong>
+              <br>Physician’s order </mat-label>
+         </div>
+          <div [formGroup]="sectionType11">
+          <div class="date-container">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested Start Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="TPNstart" formControlName="rqstdStartDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="TPNstart"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #TPNstart></mat-datepicker>
+                  <mat-error *ngIf="sectionType11.controls.rqstdStartDt.errors != null">
+                    <mat-error *ngIf="sectionType11.controls.rqstdStartDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType11.controls.rqstdStartDt.errors?.matDatepickerMin  && (sectionType11.controls.rqstdStartDt.touched || sectionType11.controls.rqstdStartDt.dirty)">
+                      {{customValidation.A6}}
+                   </mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested End Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="TPNend" formControlName="rqstdEndDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="TPNend"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #TPNend></mat-datepicker>
+                  <mat-error *ngIf="sectionType11.controls.rqstdEndDt.errors != null">
+                    <mat-error *ngIf="sectionType11.controls.rqstdEndDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType11.controls.rqstdEndDt.errors.matDatepickerMin  && (sectionType11.controls.rqstdEndDt.touched && sectionType11.controls.rqstdEndDt.dirty)">
+                      {{customValidation.A6}}</mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+           </div>
+         </div>
+       </div>
+
+          <div>
+            <button mat-stroked-button type="button" class="expandable-row-button"*ngIf="!parNutritionDataExists"
+            (click) = "openedAccordion('TPN')">SAVE</button>
+            <button mat-stroked-button type="button" 
+            class="expandable-row-button" *ngIf="parNutritionDataExists" (click) = "editAccordion('TPN')" >EDIT</button>&nbsp;&nbsp;
+            <button class = "border-less" *ngIf="!parNutritionDataExists" (click) = "mei.expanded = false;">CANCEL</button>
+            <button mat-stroked-button type="button" *ngIf="(sectionType11.controls.rqstdEndDt.value !== null && sectionType11.controls.rqstdStartDt.value !== null)" class="expandable-row-button" style = "float:right" (click) = "deleteAccordion('TPN')">DELETE</button>
+         </div>
+
+       </div>
+     </mat-expansion-panel>
+   </mat-accordion>
+ </div>
+
+  <div class="accordion-container">
+    <mat-accordion>
+      <mat-expansion-panel #mej="matExpansionPanel">
+        <mat-expansion-panel-header class = "specific-classAcc">
+          <mat-panel-title (opened)="openedAccordion('TFE')" >
+            Tube feeding, enteral
+         </mat-panel-title>
+          <mat-panel-title class="right-aligned">
+            <mat-icon *ngIf="!tubeFeedingDataExists">add_circle_outline</mat-icon>
+            <mat-label *ngIf="!tubeFeedingDataExists">&nbsp;&nbsp;ADD DETAILS</mat-label>
+            <mat-label style="padding-right:25px;" *ngIf="tubeFeedingDataExists">&nbsp;&nbsp;VIEW DETAILS</mat-label>
+            
+         </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="accordion-content-container">
+          <div class="note-container">
+            <mat-label>
+              <strong>Supporting Document(s):</strong>
+              <br>Physician’s order </mat-label>
+         </div>
+          <div [formGroup]="sectionType12">
+          <div class="date-container">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested Start Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="TFEstart" formControlName="rqstdStartDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="TFEstart"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #TFEstart></mat-datepicker>
+                  <mat-error *ngIf="sectionType12.controls.rqstdStartDt.errors != null">
+                    <mat-error *ngIf="sectionType12.controls.rqstdStartDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType12.controls.rqstdStartDt.errors?.matDatepickerMin  && (sectionType12.controls.rqstdStartDt.touched || sectionType12.controls.rqstdStartDt.dirty)">
+                      {{customValidation.A6}}
+                   </mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested End Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="TFEend" formControlName="rqstdEndDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="TFEend"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #TFEend></mat-datepicker>
+                  <mat-error *ngIf="sectionType12.controls.rqstdEndDt.errors != null">
+                    <mat-error *ngIf="sectionType12.controls.rqstdEndDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType12.controls.rqstdEndDt.errors.matDatepickerMin  && (sectionType12.controls.rqstdEndDt.touched && sectionType12.controls.rqstdEndDt.dirty)">
+                      {{customValidation.A6}}</mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+           </div>
+         </div>
+         </div>
+
+          <div>
+            <button mat-stroked-button type="button" class="expandable-row-button"*ngIf="!tubeFeedingDataExists"
+            (click) = "openedAccordion('TFE')">SAVE</button>
+            <button mat-stroked-button type="button" 
+            class="expandable-row-button" *ngIf="tubeFeedingDataExists" (click) = "editAccordion('TFE')" >EDIT</button>&nbsp;&nbsp;
+            <button class = "border-less" *ngIf="!tubeFeedingDataExists" (click) = "mej.expanded = false;">CANCEL</button>
+            <button mat-stroked-button type="button" *ngIf="(sectionType12.controls.rqstdEndDt.value !== null && sectionType12.controls.rqstdStartDt.value !== null)" class="expandable-row-button" style = "float:right" (click) = "deleteAccordion('TFE')">DELETE</button>
+         </div>
+
+       </div>
+     </mat-expansion-panel>
+   </mat-accordion>
+ </div>
+
+  <div class="accordion-container">
+    <mat-accordion>
+      <mat-expansion-panel #mek="matExpansionPanel">
+        <mat-expansion-panel-header class = "specific-classAcc">
+          <mat-panel-title (opened)="openedAccordion('PED')" >
+            Peritoneal Dialysis
+         </mat-panel-title>
+          <mat-panel-title class="right-aligned">
+            <mat-icon *ngIf="!perDialysisDataExists">add_circle_outline</mat-icon>
+            <mat-label *ngIf="!perDialysisDataExists">&nbsp;&nbsp;ADD DETAILS</mat-label>
+            <mat-label style="padding-right:25px;" *ngIf="perDialysisDataExists">&nbsp;&nbsp;VIEW DETAILS</mat-label>
+            
+         </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="accordion-content-container">
+          <div class="note-container">
+            <mat-label>
+              <strong>Supporting Document(s):</strong>
+              <br>Physician’s order</mat-label>
+         </div>
+          <div [formGroup]="sectionType13">
+          <div class="date-container">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested Start Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="PDstart" formControlName="rqstdStartDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="PDstart"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #PDstart></mat-datepicker>
+                  <mat-error *ngIf="sectionType13.controls.rqstdStartDt.errors != null">
+                    <mat-error *ngIf="sectionType13.controls.rqstdStartDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType13.controls.rqstdStartDt.errors?.matDatepickerMin  && (sectionType13.controls.rqstdStartDt.touched || sectionType13.controls.rqstdStartDt.dirty)">
+                      {{customValidation.A6}}
+                   </mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested End Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="PDend" formControlName="rqstdEndDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="PDend"></mat-datepicker-toggle>
+                  <mat-datepicker #PDend></mat-datepicker>
+                  <mat-error *ngIf="sectionType13.controls.rqstdEndDt.errors != null">
+                    <mat-error *ngIf="sectionType13.controls.rqstdEndDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType13.controls.rqstdEndDt.errors.matDatepickerMin  && (sectionType13.controls.rqstdEndDt.touched && sectionType13.controls.rqstdEndDt.dirty)">
+                      {{customValidation.A6}}</mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+           </div>
+         </div>
+       </div>
+
+          <div>
+            <button mat-stroked-button type="button" class="expandable-row-button"*ngIf="!perDialysisDataExists"
+            (click) = "openedAccordion('PED')">SAVE</button>
+            <button mat-stroked-button type="button" 
+            class="expandable-row-button" *ngIf="perDialysisDataExists" (click) = "editAccordion('PED')">EDIT</button>&nbsp;&nbsp;
+            <button class = "border-less" *ngIf="!perDialysisDataExists"  (click) = "mek.expanded = false;">CANCEL</button>
+            <button mat-stroked-button type="button" *ngIf="(sectionType13.controls.rqstdEndDt.value !== null && sectionType13.controls.rqstdStartDt.value !== null)" class="expandable-row-button" style = "float:right" (click) = "deleteAccordion('PED')">DELETE</button>
+         </div>
+
+       </div>
+     </mat-expansion-panel>
+   </mat-accordion>
+ </div>
+
+  <div class="accordion-container">
+    <mat-accordion>
+      <mat-expansion-panel #mel="matExpansionPanel">
+        <mat-expansion-panel-header class = "specific-classAcc">
+          <mat-panel-title (opened)="openedAccordion('PCA')" >
+            PCA Pump
+         </mat-panel-title>
+          <mat-panel-title class="right-aligned">
+            <mat-icon *ngIf="!pcaPumpDataExists">add_circle_outline</mat-icon>
+            <mat-label *ngIf="!pcaPumpDataExists">&nbsp;&nbsp;ADD DETAILS</mat-label>
+            <mat-label style="padding-right:25px;" *ngIf="pcaPumpDataExists">&nbsp;&nbsp;VIEW DETAILS</mat-label>
+            
+         </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="accordion-content-container">
+          <div class="note-container">
+            <mat-label>
+              <strong>Supporting Document(s):</strong>
+              <br>Physician’s order </mat-label>
+         </div>
+          <div [formGroup]="sectionType14" >
+          <div class="date-container">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested Start Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="PCAPstart" formControlName="rqstdStartDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="PCAPstart"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #PCAPstart></mat-datepicker>
+                  <mat-error *ngIf="sectionType14.controls.rqstdStartDt.errors != null">
+                    <mat-error *ngIf="sectionType14.controls.rqstdStartDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType14.controls.rqstdStartDt.errors?.matDatepickerMin  && (sectionType14.controls.rqstdStartDt.touched || sectionType14.controls.rqstdStartDt.dirty)">
+                      {{customValidation.A6}}
+                   </mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested End Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="PCAPend" formControlName="rqstdEndDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="PCAPend"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #PCAPend></mat-datepicker>
+                  <mat-error *ngIf="sectionType14.controls.rqstdEndDt.errors != null">
+                    <mat-error *ngIf="sectionType14.controls.rqstdEndDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType14.controls.rqstdEndDt.errors.matDatepickerMin  && (sectionType14.controls.rqstdEndDt.touched && sectionType14.controls.rqstdEndDt.dirty)">
+                      {{customValidation.A6}}</mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+           </div>
+         </div>
+       </div>
+
+          <div>
+            <button mat-stroked-button type="button" class="expandable-row-button"*ngIf="!pcaPumpDataExists"
+            (click) = "openedAccordion('PCA')">SAVE</button>
+            <button mat-stroked-button type="button" 
+            class="expandable-row-button" *ngIf="pcaPumpDataExists" (click) = "editAccordion('PCA')" >EDIT</button>&nbsp;&nbsp;
+            <button class = "border-less" *ngIf="!pcaPumpDataExists" (click) = "mel.expanded = false;">CANCEL</button>
+            <button mat-stroked-button type="button"  *ngIf="(sectionType14.controls.rqstdEndDt.value !== null && sectionType14.controls.rqstdStartDt.value !== null)" class="expandable-row-button" style = "float:right"  (click) = "deleteAccordion('PCA')">DELETE</button>
+         </div>
+
+       </div>
+     </mat-expansion-panel>
+   </mat-accordion>
+ </div>
+
+  <div class="accordion-container">
+    <mat-accordion>
+      <mat-expansion-panel #mem="matExpansionPanel">
+        <mat-expansion-panel-header class = "specific-classAcc">
+          <mat-panel-title (opened)="openedAccordion('TRS')" >
+            Tracheostomy requiring suctioning
+         </mat-panel-title>
+          <mat-panel-title class="right-aligned">
+            <mat-icon *ngIf="!tracheostomyDataExists">add_circle_outline</mat-icon>
+            <mat-label *ngIf="!tracheostomyDataExists">&nbsp;&nbsp;ADD DETAILS</mat-label>
+            <mat-label style="padding-right:25px;" *ngIf="tracheostomyDataExists">&nbsp;&nbsp;VIEW DETAILS</mat-label>
+           
+         </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="accordion-content-container">
+          <div class="note-container">
+            <mat-label>
+              <strong>Supporting Document(s):</strong>
+              <br>Physician’s Orders, including date of tracheostomy and documentation of frequency of suctioning required, if applicable</mat-label>
+         </div>
+          <div [formGroup]="sectionType15" >
+          <div class="date-container">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested Start Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="TRSstart" formControlName="rqstdStartDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="TRSstart"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #TRSstart></mat-datepicker>
+                  <mat-error *ngIf="sectionType15.controls.rqstdStartDt.errors != null">
+                    <mat-error *ngIf="sectionType15.controls.rqstdStartDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType15.controls.rqstdStartDt.errors?.matDatepickerMin  && (sectionType15.controls.rqstdStartDt.touched || sectionType15.controls.rqstdStartDt.dirty)">
+                      {{customValidation.A6}}
+                   </mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested End Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="TRSend" formControlName="rqstdEndDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="TRSend"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #TRSend></mat-datepicker>
+                  <mat-error *ngIf="sectionType15.controls.rqstdEndDt.errors != null">
+                    <mat-error *ngIf="sectionType15.controls.rqstdEndDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType15.controls.rqstdEndDt.errors.matDatepickerMin  && (sectionType15.controls.rqstdEndDt.touched && sectionType15.controls.rqstdEndDt.dirty)">
+                      {{customValidation.A6}}</mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+           </div>
+         </div>
+       </div>
+
+          <div>
+            <button mat-stroked-button type="button" class="expandable-row-button"*ngIf="!tracheostomyDataExists"
+            (click) = "openedAccordion('TRS')">SAVE</button>
+            <button mat-stroked-button type="button" 
+            class="expandable-row-button" *ngIf="tracheostomyDataExists" (click) = "editAccordion('TRS')" >EDIT</button>&nbsp;&nbsp;
+            <button class = "border-less" *ngIf="!tracheostomyDataExists" (click) = "mem.expanded = false;">CANCEL</button>
+            <button mat-stroked-button type="button" *ngIf="(sectionType15.controls.rqstdEndDt.value !== null && sectionType15.controls.rqstdStartDt.value !== null)"  class="expandable-row-button" style = "float:right" (click) = "deleteAccordion('TRS')">DELETE</button>
+         </div>
+
+       </div>
+     </mat-expansion-panel>
+   </mat-accordion>
+ </div>
+
+  <div class="accordion-container">
+    <mat-accordion>
+      <mat-expansion-panel #men="matExpansionPanel">
+        <mat-expansion-panel-header class = "specific-classAcc">
+          <mat-panel-title (opened)="openedAccordion('VNT')" >
+            Ventilator
+         </mat-panel-title>
+          <mat-panel-title class="right-aligned">
+            <mat-icon *ngIf="!ventilatorDataExists">add_circle_outline</mat-icon>
+            <mat-label *ngIf="!ventilatorDataExists">&nbsp;&nbsp;ADD DETAILS</mat-label>
+            <mat-label style="padding-right:25px;" *ngIf="ventilatorDataExists">&nbsp;&nbsp;VIEW DETAILS</mat-label>
+           
+         </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="accordion-content-container">
+          <div class="note-container">
+            <mat-label>
+              <strong>Supporting Document(s):</strong>
+              <br>Physician’s order </mat-label>
+         </div>
+          <div [formGroup]="sectionType16" >
+          <div class="date-container">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested Start Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="VENTstart" formControlName="rqstdStartDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="VENTstart"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #VENTstart></mat-datepicker>
+                  <mat-error *ngIf="sectionType16.controls.rqstdStartDt.errors != null">
+                    <mat-error *ngIf="sectionType16.controls.rqstdStartDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType16.controls.rqstdStartDt.errors?.matDatepickerMin  && (sectionType16.controls.rqstdStartDt.touched || sectionType16.controls.rqstdStartDt.dirty)">
+                      {{customValidation.A6}}
+                   </mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Requested End Date
+                 </mat-label>
+                  <input matInput [matDatepicker]="VENTend" formControlName="rqstdEndDt" [min]="minDate? minDate : startDate">
+                  <mat-datepicker-toggle matSuffix [for]="VENTend"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #VENTend></mat-datepicker>
+                  <mat-error *ngIf="sectionType16.controls.rqstdEndDt.errors != null">
+                    <mat-error *ngIf="sectionType16.controls.rqstdEndDt.hasError('required')">
+                      {{customValidation.A1}}
+                   </mat-error>
+                    <mat-error
+                      *ngIf="sectionType16.controls.rqstdEndDt.errors.matDatepickerMin  && (sectionType16.controls.rqstdEndDt.touched && sectionType16.controls.rqstdEndDt.dirty)">
+                      {{customValidation.A6}}</mat-error>
+                 </mat-error>
+               </mat-form-field>
+             </div>
+           </div>
+         </div>
+       </div>
+
+          <div>
+            <button mat-stroked-button type="button" class="expandable-row-button"*ngIf="!ventilatorDataExists"
+            (click) = "openedAccordion('VNT')">SAVE</button>
+            <button mat-stroked-button type="button" 
+            class="expandable-row-button" *ngIf="ventilatorDataExists" (click) = "editAccordion('VNT')" >EDIT</button>&nbsp;&nbsp;
+            <button class = "border-less" *ngIf="!ventilatorDataExists" (click) = "men.expanded = false;">CANCEL</button>
+            <button mat-stroked-button type="button" *ngIf="(sectionType16.controls.rqstdEndDt.value !== null && sectionType16.controls.rqstdStartDt.value !== null)" class="expandable-row-button" style = "float:right"  (click) = "deleteAccordion('VNT')">DELETE</button>
+         </div>
+
+       </div>
+     </mat-expansion-panel>
+   </mat-accordion>
+ </div>
+</div>
+
+
+<div style="padding: 50px 0px 0px 0px;"class="buttonBar">
+    <button mat-flat-button type="button" class="perlss-click-button-white" (click)="goBack()">BACK</button>
+    <button mat-flat-button color="primary" class="perlss-click-button-white-noborder" (click)="saveAndExit()"><span
+        class="hoverClass">SAVE AND EXIT</span></button>
+      <button mat-flat-button color="primary" class="perlss-click-button" (click)="next()">NEXT</button>
+</div>

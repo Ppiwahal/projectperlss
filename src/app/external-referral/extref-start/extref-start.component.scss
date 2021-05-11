@@ -1,0 +1,94 @@
+@import '../../../colors.scss';
+
+  .subheading{
+  font-family: "Open Sans";
+    letter-spacing: 50;
+    font-weight: bold;
+    font-size: 32px;
+    color: #174a7c;
+  }
+  .required {
+    float: right;
+    color: #ED6053;
+    font-family: "Open Sans";
+    margin-top: -20px;
+  }
+  .cardStyle {
+    background-color: $colorControlBackground;
+    border-top: 2px solid #4b7f1e;
+    color: #6E7073;
+    font-family: 'Open Sans';
+  }
+  .push-right-note{
+    padding-left: 54px;
+  }
+  .red-icon {
+    color: #ed6053;
+    transform: scale(0.8);
+    display: inline-flex;
+    vertical-align: middle;
+    cursor: pointer;
+  }
+ 
+  .required-color {
+    color:  #ED6053;
+  }
+  .red{
+    color: #ed6053;
+  }
+  .footermainText{
+    font-weight: bold;
+    font-family: Open Sans;
+    color: #1B365D;
+    font-size: 12px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .footerText{
+    font-family: Open Sans;
+    color: #1B365D;
+    font-size: 10px;
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  .margin{
+    margin-top:10px;
+  }
+
+  .text-area{
+    margin-top: 15px;
+  }
+  .character-count{
+    float: right;
+    margin-top: -14px;
+  }
+  .clickHere{
+    cursor: pointer;
+  }
+  .floatChildren{
+  margin-top: 20px;
+  }
+  // .checkbox{
+  //   padding-left: 16px;
+  //   margin-top: 10px;
+
+  // }
+  // .checkbox-padding{
+  //   padding-left: 16px;
+  // }
+  .notes-margin{
+    margin-left: 30px;
+  }
+  .divider-margin{
+    margin-bottom: 10px;
+  }
+  .mat-checkbox{
+  margin-top: 10px;
+  }
+  ::ng-deep .mat-checkbox-inner-container {
+    height: 25px !important;
+    width: 25px !important;
+  }
+
+  

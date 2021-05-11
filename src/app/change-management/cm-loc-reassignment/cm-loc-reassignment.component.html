@@ -1,0 +1,472 @@
+<div class="responsive">
+  <div class="form">
+    <div class="scroller">
+      <app-change-management-common>
+        <div>
+          <form [formGroup]="myForm" [ngClass]="{'submitted': submitted}" *ngIf ="this.enrollmentGroup === 'PACE'">
+            <div class="w30">
+              <mat-form-field appearance="outline">
+                <mat-label class="req">Reassessment Date</mat-label>
+                <input matInput [matDatepicker]="effectiveDatePicker"
+                  formControlName="reassmntDt"
+                  (keydown)="dateFilter($event)">
+                <mat-datepicker-toggle matSuffix [for]="effectiveDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #effectiveDatePicker></mat-datepicker>
+              </mat-form-field>
+              <mat-error *ngIf="controlError('reassmntDt')">{{errorText['reassmntDt']}}</mat-error>
+            </div>
+            <div class="w40">
+              <mat-form-field appearance="outline">
+                <mat-label class="req">Reassessment Outcome</mat-label>
+                <mat-select formControlName="reassmntOutcomeCd">
+                  <mat-option value='C'>Change in LOC</mat-option>
+                  <mat-option value='NC'>No change in LOC</mat-option>
+                  <mat-option value='NO'>No longer meets LOC</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-error *ngIf="controlError('reassmntOutcomeCd')">{{errorText['reassmntOutcomeCd']}}</mat-error>
+            </div>
+            <div class="w80">
+              <table class="activityTable">
+                <thead>
+                  <tr class="">
+                    <th class="btl-radius w-50">Form Type</th>
+                    <th class="btr-radius w-50">Status</th>
+                  </tr>
+                </thead>
+                <tbody class="tight">
+                  <tr>
+                    <td class="bb bt bb-db pl-4">Annual LOC Reassessment Form</td>
+                    <td class="bb bt bb-db">
+                      <div class="float-left" *ngIf="ismedUploaded">
+
+                        <mat-icon class="button-icon blue"> file_upload
+                        </mat-icon>
+
+                        <span style="cursor:pointer;" (click)="uploadDocument()"
+                          class="mat-input-element">add
+                          more</span>
+                      </div>
+                      <mat-icon class="button-icon green mr-13"
+                        *ngIf="ismedUploaded"> done </mat-icon>
+                      <mat-icon style="cursor:pointer;"*ngIf="!ismedUploaded"
+                        (click)="uploadDocument()"
+                        class="button-icon blue">cloud_upload</mat-icon>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="bb bt bb-db pl-4">DIDD Annual Reevaluation of LOC Form</td>
+                    <td class="bb bt bb-db">
+                      <div class="float-left" *ngIf="ismedUploaded">
+
+                        <mat-icon class="button-icon blue"> file_upload
+                        </mat-icon>
+
+                        <span style="cursor:pointer;" (click)="uploadDocument()"
+                          class="mat-input-element">add
+                          more</span>
+                      </div>
+                      <mat-icon class="button-icon green mr-13"
+                        *ngIf="ismedUploaded"> done </mat-icon>
+                      <mat-icon style="cursor:pointer;"*ngIf="!ismedUploaded"
+                        (click)="uploadDocument()"
+                        class="button-icon blue">cloud_upload</mat-icon>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="row">
+              <div class="w80">
+                <mat-card class="cardStyle">
+                  <strong>Note:</strong>  Note: Your updated reassessment due date will be less then 365 days from current reassessment due date.
+               </mat-card>
+             </div>
+           </div>
+            <div class="w80"><div class="textArea">
+                <mat-label class="req">Comments</mat-label>
+                <textarea formControlName="commentTxt"></textarea>
+                <mat-error *ngIf="controlError('commentTxt')">{{errorText['commentTxt']}}</mat-error>
+                <p>{{getControl('commentTxt').value.length}}/2000</p>
+              </div></div>
+
+              <div>
+                <div>
+                  <button  class="panelButtons" type="submit" mat-flat-button color="primary" class="perlss-click-button"
+                    (click)="save()">SUBMIT</button>
+                </div>
+              </div>
+          </form>
+        </div>
+        <div>
+          <form [formGroup]="myForm" [ngClass]="{'submitted': submitted}" 
+          *ngIf ="this.enrollmentGroup === 'EC4' || this.enrollmentGroup === 'EC5' || this.enrollmentGroup === 'EC6' || this.enrollmentGroup === 'EC7'">
+            <div class="w30">
+              <mat-form-field appearance="outline">
+                <mat-label class="req">Reassessment Date</mat-label>
+                <input matInput [matDatepicker]="effectiveDatePicker"
+                  formControlName="reassmntDt"
+                  (keydown)="dateFilter($event)">
+                <mat-datepicker-toggle matSuffix [for]="effectiveDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #effectiveDatePicker></mat-datepicker>
+              </mat-form-field>
+              <mat-error *ngIf="controlError('reassmntDt')">{{errorText['reassmntDt']}}</mat-error>
+            </div>
+            <div class="w40">
+              <mat-form-field appearance="outline" class="borderChk">
+                <mat-label class="req">Current Acuity Score</mat-label>
+                <input matInput formControlName="currAcuityScore" placeholder="Current Acuity Score" maxlength="45">
+                <mat-error *ngIf="(getFormData().currAcuityScore.touched || submitted) && getFormData().currAcuityScore.hasError('required') && getFormData().currAcuityScore.hasError('required')">
+                    {{customValidation.A11}}
+                </mat-error>
+                <mat-error
+                    *ngIf="getFormData().currAcuityScore.errors?.invalidName && !getFormData().currAcuityScore.errors.required">
+                    {{customValidation.A2}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+          <div id="chkStyle">
+            <mat-radio-group aria-labelledby="example-radio-group-label" formControlName="reqHcbsSw">
+              <mat-label  class="req">Does the member continue to require Home and Community Based Services (HCBS)?</mat-label>
+              <mat-error
+                *ngIf="getFormData().reqHcbsSw.hasError('required') && (getFormData().reqHcbsSw.touched)"
+                class="error">{{customValidation.A1}}</mat-error>
+              <div class="styl"><mat-radio-button value="Y">Yes</mat-radio-button></div>
+              <div id="leftMgn"><mat-radio-button value="N">No</mat-radio-button> </div>
+            </mat-radio-group>
+          </div>
+          <div id="chkStyle">
+            <mat-radio-group aria-labelledby="example-radio-group-label" formControlName="idLmtnSw">
+              <mat-label  class="req">Does the member with ID have limitations in two (2) or more adaptive skill areas consistent 
+                with the previously performed Life Skills Assessment?</mat-label>
+              <mat-error
+                *ngIf="getFormData().idLmtnSw.hasError('required') && (getFormData().idLmtnSw.touched)"
+                class="error">{{customValidation.A1}}</mat-error>
+              <div class="styl"><mat-radio-button value="Y">Yes</mat-radio-button></div>
+              <div id="leftMgn"><mat-radio-button value="N">No</mat-radio-button> </div>
+            </mat-radio-group>
+          </div>
+          <div id="chkStyle">
+            <mat-radio-group aria-labelledby="example-radio-group-label" formControlName="safetyDetermnReqSw">
+              <mat-label  class="req">Does member continue to meet Safety Determination Criteria as previously approved by 
+                TennCare in a Safety Determination Request?</mat-label>
+              <mat-error
+                *ngIf="getFormData().safetyDetermnReqSw.hasError('required') && (getFormData().safetyDetermnReqSw.touched)"
+                class="error">{{customValidation.A1}}</mat-error>
+              <div class="styl"><mat-radio-button value="Y">Yes</mat-radio-button></div>
+              <div id="leftMgn"><mat-radio-button value="N">No</mat-radio-button> </div>
+            </mat-radio-group>
+          </div>
+            <div class="w80">
+              <table class="activityTable">
+                <thead>
+                  <tr class="">
+                    <th class="btl-radius w-50">Form Type</th>
+                    <th class="btr-radius w-50">Status</th>
+                  </tr>
+                </thead>
+                <tbody class="tight">
+                  <tr>
+                    <td class="bb bt bb-db pl-4">Annual LOC Reassessment Form</td>
+                    <td class="bb bt bb-db">
+                      <div class="float-left" *ngIf="ismedUploaded">
+
+                        <mat-icon class="button-icon blue"> file_upload
+                        </mat-icon>
+
+                        <span style="cursor:pointer;" (click)="uploadDocument()"
+                          class="mat-input-element">add
+                          more</span>
+                      </div>
+                      <mat-icon class="button-icon green mr-13"
+                        *ngIf="ismedUploaded"> done </mat-icon>
+                      <mat-icon style="cursor:pointer;"*ngIf="!ismedUploaded"
+                        (click)="uploadDocument()"
+                        class="button-icon blue">cloud_upload</mat-icon>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="row">
+              <div class="w80">
+                <mat-card class="cardStyle">
+                  <strong>Note:</strong>  Note: Your updated reassessment due date will be less then 365 days from current reassessment due date.
+               </mat-card>
+             </div>
+           </div>
+            <div class="w80"><div class="textArea">
+                <mat-label class="req">Comments</mat-label>
+                <textarea formControlName="commentTxt"></textarea>
+                <mat-error *ngIf="controlError('commentTxt')">{{errorText['commentTxt']}}</mat-error>
+                <p>{{getControl('commentTxt').value.length}}/2000</p>
+              </div></div>
+
+              <div>
+                <div>
+                  <button  class="panelButtons" type="submit" mat-flat-button color="primary" class="perlss-click-button"
+                    (click)="save()">SUBMIT</button>
+                </div>
+              </div>
+          </form>
+        </div>
+        <div>
+          <form [formGroup]="myForm" [ngClass]="{'submitted': submitted}" *ngIf ="this.enrollmentGroup === 'KKB'">
+            <div class="w30">
+              <mat-form-field appearance="outline">
+                <mat-label class="req">Reassessment Date</mat-label>
+                <input matInput [matDatepicker]="effectiveDatePicker"
+                  formControlName="reassmntDt"
+                  (keydown)="dateFilter($event)">
+                <mat-datepicker-toggle matSuffix [for]="effectiveDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #effectiveDatePicker></mat-datepicker>
+              </mat-form-field>
+              <mat-error *ngIf="controlError('reassmntDt')">{{errorText['reassmntDt']}}</mat-error>
+            </div>
+            <div id="chkStyle">
+              <mat-radio-group aria-labelledby="example-radio-group-label" formControlName="paeRvwSw">
+                <mat-label  class="req">Did you review the current PAE in its entirety? </mat-label>
+                <mat-error
+                  *ngIf="getFormData().paeRvwSw.hasError('required') && (getFormData().paeRvwSw.touched)"
+                  class="error">{{customValidation.A1}}</mat-error>
+                <div class="styl"><mat-radio-button value="Y">Yes</mat-radio-button></div>
+                <div id="leftMgn"><mat-radio-button value="N">No</mat-radio-button> </div>
+              </mat-radio-group>
+            </div>
+            <div id="chkStyle">
+              <mat-radio-group aria-labelledby="example-radio-group-label" formControlName="applcntCntctSw">
+                <mat-label  class="req">Have you had contact with the applicant/member regarding the change?</mat-label>
+                <mat-error
+                  *ngIf="getFormData().applcntCntctSw.hasError('required') && (getFormData().applcntCntctSw.touched)"
+                  class="error">{{customValidation.A1}}</mat-error>
+                <div class="styl"><mat-radio-button value="Y">Yes</mat-radio-button></div>
+                <div id="leftMgn"><mat-radio-button value="N">No</mat-radio-button> </div>
+              </mat-radio-group>
+            </div>
+            <div id="chkStyle">
+              <mat-radio-group aria-labelledby="example-radio-group-label" formControlName="locImpactSw">
+                <mat-label  class="req">Are there any changes that would impact the LOC determination?</mat-label>
+                <mat-error
+                  *ngIf="getFormData().locImpactSw.hasError('required') && (getFormData().locImpactSw.touched)"
+                  class="error">{{customValidation.A1}}</mat-error>
+                <div class="styl"><mat-radio-button value="Y">Yes</mat-radio-button></div>
+                <div id="leftMgn"><mat-radio-button value="N">No</mat-radio-button> </div>
+              </mat-radio-group>
+            </div>
+            <div id="chkStyle">
+              <mat-radio-group aria-labelledby="example-radio-group-label" formControlName="partaImpactSw">
+                <mat-label  class="req">Are there any changes that would impact the Part A Prioritization score?</mat-label>
+                <mat-error
+                  *ngIf="getFormData().partaImpactSw.hasError('required') && (getFormData().partaImpactSw.touched)"
+                  class="error">{{customValidation.A1}}</mat-error>
+                <div class="styl"><mat-radio-button value="Y">Yes</mat-radio-button></div>
+                <div id="leftMgn"><mat-radio-button value="N">No</mat-radio-button> </div>
+              </mat-radio-group>
+            </div>
+            <div class="w80">
+              <table class="activityTable">
+                <thead>
+                  <tr class="">
+                    <th class="btl-radius w-50">Form Type</th>
+                    <th class="btr-radius w-50">Status</th>
+                  </tr>
+                </thead>
+                <tbody class="tight">
+                  <tr>
+                    <td class="bb bt bb-db pl-4">PAE Supporting Documents</td>
+                    <td class="bb bt bb-db">
+                      <div class="float-left" *ngIf="ismedUploaded">
+
+                        <mat-icon class="button-icon blue"> file_upload
+                        </mat-icon>
+
+                        <span style="cursor:pointer;" (click)="uploadDocument()"
+                          class="mat-input-element">add
+                          more</span>
+                      </div>
+                      <mat-icon class="button-icon green mr-13"
+                        *ngIf="ismedUploaded"> done </mat-icon>
+                      <mat-icon style="cursor:pointer;"*ngIf="!ismedUploaded"
+                        (click)="uploadDocument()"
+                        class="button-icon blue">cloud_upload</mat-icon>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="row">
+              <div class="w80">
+                <mat-card class="cardStyle">
+                  <strong>Note:</strong>  Note: Your updated reassessment due date will be less then 365 days from current reassessment due date.
+               </mat-card>
+             </div>
+           </div>
+            <div class="w80"><div class="textArea">
+                <mat-label class="req">Comments</mat-label>
+                <textarea formControlName="commentTxt"></textarea>
+                <mat-error *ngIf="controlError('commentTxt')">{{errorText['commentTxt']}}</mat-error>
+                <p>{{getControl('commentTxt').value.length}}/2000</p>
+              </div></div>
+
+              <div>
+                <div>
+                  <button  class="panelButtons" type="submit" mat-flat-button color="primary" class="perlss-click-button"
+                    (click)="save()">SUBMIT</button>
+                </div>
+              </div>
+          </form>
+        </div>
+        <div>
+          <form [formGroup]="myForm" [ngClass]="{'submitted': submitted}" *ngIf ="this.enrollmentGroup === 'CG1'">
+            <div class="w30">
+              <mat-form-field appearance="outline">
+                <mat-label class="req">Reassessment Date</mat-label>
+                <input matInput [matDatepicker]="effectiveDatePicker"
+                  formControlName="reassmntDt"
+                  (keydown)="dateFilter($event)">
+                <mat-datepicker-toggle matSuffix [for]="effectiveDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #effectiveDatePicker></mat-datepicker>
+              </mat-form-field>
+              <mat-error *ngIf="controlError('reassmntDt')">{{errorText['reassmntDt']}}</mat-error>
+            </div>
+            <div class="w40">
+              <mat-form-field appearance="outline">
+                <mat-label class="req">Reassessment Outcome</mat-label>
+                <mat-select formControlName="reassmntOutcomeCd">
+                  <mat-option value='C'>Change in LOC</mat-option>
+                  <mat-option value='NC'>No change in LOC</mat-option>
+                  <mat-option value='NO'>No longer meets LOC</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-error *ngIf="controlError('reassmntOutcomeCd')">{{errorText['reassmntOutcomeCd']}}</mat-error>
+            </div>
+            <div class="w40">
+              <mat-form-field appearance="outline" class="borderChk">
+                <mat-label class="req">Number of Functional Deficits</mat-label>
+                <input matInput formControlName="noOfFunctnlDeficits" placeholder="Alias Last Name" maxlength="45">
+                <mat-error *ngIf="(getFormData().noOfFunctnlDeficits.touched) && getFormData().noOfFunctnlDeficits.hasError('required') && getFormData().noOfFunctnlDeficits.hasError('required')">
+                    {{customValidation.A11}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div id="chkStyle">
+              <mat-radio-group aria-labelledby="example-radio-group-label" formControlName="dailyNursingCareSw">
+                <mat-label  class="req">Care in a Nursing Facility is expected to improve or ameliorate the individual’s physical or mental condition, 
+                  to prevent deterioration in health status, or to delay progression of a disease or disability.</mat-label>
+                <mat-error
+                  *ngIf="getFormData().dailyNursingCareSw.hasError('required') && (getFormData().dailyNursingCareSw.touched)"
+                  class="error">{{customValidation.A1}}</mat-error>
+                <div class="styl"><mat-radio-button value="Y">Yes</mat-radio-button></div>
+                <div id="leftMgn"><mat-radio-button value="N">No</mat-radio-button> </div>
+              </mat-radio-group>
+            </div>
+            <div id="chkStyle">
+              <mat-radio-group aria-labelledby="example-radio-group-label" formControlName="physOrderNfSw">
+                <mat-label  class="req">There is a Physician’s Order for continued Nursing Facility Services.</mat-label>
+                <mat-error
+                  *ngIf="getFormData().physOrderNfSw.hasError('required') && (getFormData().physOrderNfSw.touched)"
+                  class="error">{{customValidation.A1}}</mat-error>
+                <div class="styl"><mat-radio-button value="Y">Yes</mat-radio-button></div>
+                <div id="leftMgn"><mat-radio-button value="N">No</mat-radio-button> </div>
+              </mat-radio-group>
+            </div>
+            <div id="chkStyle">
+              <mat-radio-group aria-labelledby="example-radio-group-label" formControlName="partaImpactSw">
+                <mat-label  class="req">Member has a physical or mental condition, disability, or impairment that, as a practical matter, requires daily
+                  inpatient nursing care.</mat-label>
+                <mat-error
+                  *ngIf="getFormData().partaImpactSw.hasError('required') && (getFormData().partaImpactSw.touched)"
+                  class="error">{{customValidation.A1}}</mat-error>
+                <div class="styl"><mat-radio-button value="Y">Yes</mat-radio-button></div>
+                <div id="leftMgn"><mat-radio-button value="N">No</mat-radio-button> </div>
+              </mat-radio-group>
+            </div>
+            <div class="w40">
+              <mat-form-field appearance="outline" class="borderChk">
+                <mat-label class="req">Specify diagnoses/conditions</mat-label>
+                <input matInput formControlName="specificCondDesc" placeholder="Alias Last Name" maxlength="45">
+                <mat-error *ngIf="(getFormData().specificCondDesc.touched) && getFormData().specificCondDesc.hasError('required') && getFormData().specificCondDesc.hasError('required')">
+                    {{customValidation.A11}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div id="chkStyle">
+              <mat-radio-group aria-labelledby="example-radio-group-label" formControlName="reqHcbsSw">
+                <mat-label  class="req">HCBS is required in order to allow the member to continue living safely in the home or community-based setting
+                  and to prevent or delay placement in a nursing facility.</mat-label>
+                <mat-error
+                  *ngIf="getFormData().reqHcbsSw.hasError('required') && (getFormData().reqHcbsSw.touched)"
+                  class="error">{{customValidation.A1}}</mat-error>
+                <div class="styl"><mat-radio-button value="Y">Yes</mat-radio-button></div>
+                <div id="leftMgn"><mat-radio-button value="N">No</mat-radio-button> </div>
+              </mat-radio-group>
+            </div>
+            <div class="w80">
+              <table class="activityTable">
+                <thead>
+                  <tr class="">
+                    <th class="btl-radius w-50">Form Type</th>
+                    <th class="btr-radius w-50">Status</th>
+                  </tr>
+                </thead>
+                <tbody class="tight">
+                  <tr>
+                    <td class="bb bt bb-db pl-4">PAE Supporting Documents</td>
+                    <td class="bb bt bb-db">
+                      <div class="float-left" *ngIf="ismedUploaded">
+
+                        <mat-icon class="button-icon blue"> file_upload
+                        </mat-icon>
+
+                        <span style="cursor:pointer;" (click)="uploadDocument()"
+                          class="mat-input-element">add
+                          more</span>
+                      </div>
+                      <mat-icon class="button-icon green mr-13"
+                        *ngIf="ismedUploaded"> done </mat-icon>
+                      <mat-icon style="cursor:pointer;"*ngIf="!ismedUploaded"
+                        (click)="uploadDocument()"
+                        class="button-icon blue">cloud_upload</mat-icon>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="bb bt bb-db pl-4">DIDD Annual Reevaluation of LOC Form</td>
+                    <td class="bb bt bb-db">
+                      <div class="float-left" *ngIf="ismedUploaded">
+
+                        <mat-icon class="button-icon blue"> file_upload
+                        </mat-icon>
+
+                        <span style="cursor:pointer;" (click)="uploadDocument()"
+                          class="mat-input-element">add
+                          more</span>
+                      </div>
+                      <mat-icon class="button-icon green mr-13"
+                        *ngIf="ismedUploaded"> done </mat-icon>
+                      <mat-icon style="cursor:pointer;"*ngIf="!ismedUploaded"
+                        (click)="uploadDocument()"
+                        class="button-icon blue">cloud_upload</mat-icon>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="w80"><div class="textArea">
+                <mat-label class="req">Comments</mat-label>
+                <textarea formControlName="commentTxt"></textarea>
+                <mat-error *ngIf="controlError('commentTxt')">{{errorText['commentTxt']}}</mat-error>
+                <p>{{getControl('commentTxt').value.length}}/2000</p>
+              </div></div>
+
+              <div>
+                <div>
+                  <button  class="panelButtons" type="submit" mat-flat-button color="primary" class="perlss-click-button"
+                    (click)="save()">SUBMIT</button>
+                </div>
+              </div>
+          </form>
+        </div>
+      </app-change-management-common>
+    </div>
+  </div>
+</div>

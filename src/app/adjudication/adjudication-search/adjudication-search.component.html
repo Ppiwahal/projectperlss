@@ -1,0 +1,332 @@
+<div class="pageMargin">
+<div class="row" (click)="toggleDropDown('additonalFilterCriteria')" >
+    <mat-toolbar class= "adjudication-dropdown-heading" color="gray">
+      <h1>
+        Additional Adjudication Filter Criteria
+      </h1>
+      <span id="dropDownIcon">
+        <div style="float: right;">
+          <mat-icon class="large material-icons" style="font-size: 55px; color: #ED6053;" *ngIf="isAdditonalFilterCriteriaDropDownToggled" >
+            expand_more
+          </mat-icon>
+          <mat-icon class="large material-icons" style="font-size: 55px; color: #ED6053;" *ngIf="!isAdditonalFilterCriteriaDropDownToggled">
+            expand_less
+          </mat-icon>
+       </div>
+      </span>
+    </mat-toolbar>
+</div>
+
+
+
+<div style="width: 80%;" *ngIf="isAdditonalFilterCriteriaDropDownToggled" >
+  <form [formGroup]="myForm" (ngSubmit)="displayTableToggle()">
+    <div class="adjudication-sub-desciption">Please use the criteria below to search by person details or adjudication details.</div>
+    
+    <div class="row" id="person">
+      <label style = "padding-left: 0.7em;"><b>Person Search</b></label>
+      <mat-form-field appearance="outline">
+        <input matInput formControlName="person" placeholder="Search by Applicant Name, Date Of Birth, SSN, Person ID, County">
+      </mat-form-field>
+    </div>
+    
+    <div class="row">
+      <div class="col">
+        <label style = "padding-left: 0.7em;"><b>PAE ID</b></label>
+        <mat-form-field appearance="outline">
+          <mat-label>PAE ID</mat-label>
+          <input matInput formControlName="paeid" placeholder="Enter PAE ID">
+          <mat-error *ngIf="!myForm.controls['paeid'].valid && myForm.controls['paeid'].touched">
+            {{ checkPAE() }}
+          </mat-error>
+       </mat-form-field>
+      </div>
+      <div class="col">
+        <label style = "padding-left: 0.7em;"><b>Assigned User</b></label>
+        <mat-form-field appearance="outline">
+          <mat-label>Assigned User</mat-label>
+          <input matInput formControlName="assignedUser" placeholder="Enter User ID">
+       </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label style = "padding-left: 0.7em;"><b>PAE Submission Date</b></label>
+        <mat-form-field appearance="outline">
+          <mat-label>PAE Submission Date</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input matInput matStartDate formControlName="paeSubmisstionFromDate" placeholder="Start date">
+            <input matInput matEndDate formControlName="paeSubmisstionToDate" placeholder="End date">
+          </mat-date-range-input>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+       </mat-form-field>
+      </div>
+      <div class="col">
+        <label style = "padding-left: 0.7em;"><b>Adjudication Due</b></label>
+        <mat-form-field appearance="outline">
+          <mat-label>Adjudication Due</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let row of adjudictionDueRt" [value]="row.code">
+              {{row.description}}
+            </mat-option>
+          </mat-select>
+       </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label style = "padding-left: 0.7em;"><b>Enrollment Group</b></label>
+        <mat-form-field appearance="outline">
+          <mat-label>Enrollment Group</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let row of enrollmentGroupRt" [value]="row.code">
+              {{row.description}}
+            </mat-option>
+          </mat-select>
+       </mat-form-field>
+      </div>
+      <div class="col">
+        <label style = "padding-left: 0.7em;"><b>Adjudication Status</b></label>
+        <mat-form-field appearance="outline">
+          <mat-label>Adjudication Status</mat-label>
+            <mat-select>
+            <mat-option *ngFor="let row of adjudicationStatusRt" [value]="row.code">
+              {{row.description}}
+            </mat-option>
+          </mat-select>
+       </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col">
+          <label style = "padding-left: 0.7em;"><b>Queue Name</b></label>
+          <mat-form-field appearance="outline">
+            <mat-label>Queue Name</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let row of taskQueueRt" [value]="row.code">
+                {{row.description}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+       </div>
+        <div class="col">
+          <label style = "padding-left: 0.7em;"><b>Task Status</b></label>
+          <mat-form-field appearance="outline">
+            <mat-label>Task Status</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let row of taskStatusRt" [value]="row.code">
+                {{row.description}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+       </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label style = "padding-left: 0.7em;"><b>Applicant Age</b></label>
+          <mat-form-field appearance="outline">
+            <mat-label>1-20</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let row of applicantAgeRt" [value]="row.code">
+                {{row.description}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+       </div>
+        <div class="col">
+          <label style = "padding-left: 0.7em;"><b>Acuity Score</b></label>
+          <mat-form-field appearance="outline">
+            <mat-label>1-8</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let row of acuityScoreRt" [value]="row.code">
+                {{row.description}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+       </div>
+      </div>
+    <div class="row">
+      <!-- <div class="col">
+        <button mat-flat-button color="primary" (click)="displayTableToggle()">Search</button>
+      </div>-->
+      <div class="col-md-12">
+        <button type="submit" 
+        mat-flat-button color="primary" 
+        class="perlss-click-button">SEARCH</button>
+      </div>
+    </div>
+    </form>
+
+</div>
+
+
+<!-- <div *ngIf="isSearchClicked">
+  <br>
+  <hr class="perlss-horizontal-divider">
+  <div class="applicant-sub-heading" style="color: orangered; font-weight: bold;" >
+    Search Results
+  </div>
+ 
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z3" >
+    <ng-container matColumnDef="person">
+      <th mat-header-cell *matHeaderCellDef>Person Name</th>
+      <td mat-cell *matCellDef="let adjudication">{{adjudication.person}}</td>
+    </ng-container>
+  
+    <ng-container matColumnDef="ssn">
+      <th mat-header-cell *matHeaderCellDef>SSN</th>
+      <td mat-cell *matCellDef="let adjudication">{{adjudication.ssn}}</td>
+    </ng-container>
+  
+    <ng-container matColumnDef="paeId">
+      <th mat-header-cell *matHeaderCellDef>PAE ID</th>
+      <td mat-cell *matCellDef="let adjudication">{{adjudication.paeId}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="enrollmentGroup">
+      <th mat-header-cell *matHeaderCellDef>Enrollment Group</th>
+      <td mat-cell *matCellDef="let adjudication">{{adjudication.enrollmentGroup}}</td>
+    </ng-container>
+  
+    <ng-container matColumnDef="adjudicationStatus">
+      <th mat-header-cell *matHeaderCellDef>Adjudication Status</th>
+      <td mat-cell *matCellDef="let adjudication">{{adjudication.adjudicationStatus}}</td>
+    </ng-container>
+  
+    <ng-container matColumnDef="adjudicationDueDate">
+      <th mat-header-cell *matHeaderCellDef>Adjudication Due Date</th>
+      <td mat-cell *matCellDef="let adjudication">{{adjudication.adjudicationDueDate}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="details">
+      <th mat-header-cell *matHeaderCellDef >Click for Details</th>
+      <td mat-cell *matCellDef="let adjudication; let row"><mat-icon class="perlss-audit-detail-icon"  (click) = selectAdjudicationRow(row)>info</mat-icon></td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="adjudicationSearchRes"></tr>
+    <tr mat-row *matRowDef="let row; columns: adjudicationSearchRes;"></tr>
+  </table>
+</div>-->
+
+
+
+<div *ngIf="isSearchClicked">
+  
+  <br>
+  <hr class="perlss-horizontal-divider" style=" margin-top: 30px; margin-bottom: 50px;">
+  <h1 class="adjudication-search-results-label">Search Results</h1>
+  
+  <div class="row" style="margin-left: 2px;">
+    <div class="col-2" style="text-align: left;">
+      <button mat-flat-button color="primary" style="font-size: 13px; font-weight: bold; padding: 0px 12px;" 
+      class="perlss-click-button-white">BULK ASSIGN</button>
+    </div>
+    <div class="col-6" style="text-align: right;">
+      <form [formGroup]="searchForm" >
+        <mat-form-field appearance="outline" class="adjudication-search-box">
+          <input matInput formControlName="searchFilter" placeholder="Search Filter">
+       </mat-form-field>
+      </form>
+    </div>
+  </div>
+
+    <!-- Expandable Table -->
+  <div class="mat-elevation-z8">
+  <table mat-table
+       [dataSource]="dataSource2" multiTemplateDataRows
+     class="mat-elevation-z8 mat-elevation-z8-boarder">
+<ng-container matColumnDef="{{column}}" *ngFor="let column of adjudicationSearchRes">
+  <th mat-header-cell style="font-weight: bold;" *matHeaderCellDef>{{column}}</th>
+  <td mat-cell style="font-weight: bold;" *matCellDef="let element"> {{element[column]}}</td>
+  </ng-container>
+
+<!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+<ng-container matColumnDef="expandedDetail">
+  <td mat-cell *matCellDef="let element" [attr.colspan]="adjudicationSearchRes.length">
+      <div class="example-element-detail"
+           [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+      <table>
+        <tr>
+          <td>
+            <div class="example-element-description">
+              <mat-label style="font-weight: bold;">Date of Birth </mat-label>
+              <br>
+              {{element.birthDate}}
+            </div>
+          </td>
+          <td>
+            <div class="example-element-description">
+              <mat-label style="font-weight: bold;">Person ID </mat-label>
+              <br>
+              {{element.personId}}
+            </div>   
+          </td>
+          <td>
+            <div class="example-element-description">
+              <mat-label style="font-weight: bold;">Received in Queue </mat-label>
+              <br>
+              {{element.receivedInQueue}}
+            </div>   
+          </td>
+          <td>
+            <div class="example-element-description">
+              <mat-label style="font-weight: bold;">PAE Submissition Date </mat-label>
+              <br>
+              {{element.paeSubmissionDate}}
+            </div>   
+          </td>
+       </tr>
+        <tr>
+          <td>
+            <div class="example-element-description">
+              <mat-label style="font-weight: bold;">Task Status </mat-label>
+              <br>
+              {{element.taskStatus}}
+            </div>
+          </td>
+          <td>
+            <div class="example-element-description">
+              <mat-label style="font-weight: bold;">Queue Name </mat-label>
+              <br>
+              {{element.queueName}}
+            </div>
+          </td>
+          <td>
+            <div class="example-element-description">
+              <mat-label style="font-weight: bold;">Assigned User </mat-label>
+              <br>
+              {{element.assignedUser}}
+            </div>
+          </td>
+          <td>
+            
+          </td>
+       </tr>
+      </table>
+    </div>
+    </td>
+  </ng-container>
+
+<tr mat-header-row *matHeaderRowDef="adjudicationSearchRes"></tr>
+<tr mat-row *matRowDef="let element; columns: adjudicationSearchRes;"
+      class="example-element-row"
+      [class.example-expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element">
+  </tr>
+  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+</table>
+    <mat-paginator [length]="100"
+                  [pageSize]="10"
+                  [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12" style="text-align: right;">
+    <button type="button" mat-flat-button color="primary" class="perlss-click-button"
+      (click)="gotoNext()">NEXT</button>
+  </div>
+</div>
+</div>
+    

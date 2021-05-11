@@ -1,0 +1,63 @@
+<div class="pageMargin">
+  <div class="row-header">
+    <span class="col-9 dialog-heading">
+      Confirmation
+    </span>
+    <span class="col-3 text-right close-icon">
+      <mat-icon (click)=close()>highlight_off</mat-icon>
+    </span>
+  </div>
+  <mat-divider class="perlss-section-divider"></mat-divider>
+  <div class="text"><strong>
+      If you proceed with requested change, the slot capacity for the requested program will change as follows:
+    </strong></div>
+  <div *ngIf="data.actionToBePerformed === 'ARS'">
+    <div class="row">
+      <div>
+        <div class="current-text"><strong>Current Enrollment Target for
+            {{data.programtype.selectedprogramtype[0].value}}:
+            {{data.programtype.reserveCapacity}}</strong></div>
+        <div class="new-text"><strong>New Enrollment Target for {{data.programtype.selectedprogramtype[0].value}}:
+            {{data.programtype.enrolltargetvalue}}</strong></div>
+      </div>
+      <div
+        *ngIf="(data.programtype.selectedprogramtype[0].ENR_GROUP === 'EC5'||data.programtype.selectedprogramtype[0].ENR_GROUP === 'EC6')&&ecfCapacity"
+        class="left">
+        <div class="box-text">New ECF 5 to 6 Ratio:</div>
+        <div class="ratio"><strong>{{ecfCapacity.ec5Capacity}}:{{ecfCapacity.ec6Capacity}}</strong></div>
+      </div>
+    </div>
+
+
+
+  </div>
+  <div *ngIf="data.actionToBePerformed === 'MS'">
+    <div class="current-text-move"><strong>Current Enrollment Target for {{data.moveslot.selectedslottype[0].value}}:
+        {{data.moveslot.reserveCapacity}}</strong></div>
+    <div class="new-text-move"><strong>New Enrollment Target for {{data.moveslot.selectedslottype[0].value}}:
+        {{moveslotsubvalue}}
+      </strong></div>
+    <mat-divider class="perlss-section-divider margin"></mat-divider>
+    <div class="new-text-move"><strong>Current Enrollment Target for {{data.moveslot.selectedslotTotype[0].value}}:
+        {{data.moveslot.slotToReserveCapacity}}</strong></div>
+    <div class="new-text-move"><strong>New Enrollment Target for {{data.moveslot.selectedslotTotype[0].value}}:
+        {{movesSlotsaddValue}}
+      </strong></div>
+
+
+  </div>
+  <div class="text"><strong>
+      Please confirm that you wish to proceed.</strong>
+  </div>
+  <div class="row button">
+    <div>
+      <button mat-flat-button color="primary" class="perlss-click-button" (click)="onConfirm()">CONFIRM</button>
+    </div>
+    <div>
+      <button mat-flat-button color="primary" class="perlss-click-button-white-noborder"
+        [mat-dialog-close]="false"><strong>CANCEL</strong></button>
+    </div>
+
+
+  </div>
+</div>

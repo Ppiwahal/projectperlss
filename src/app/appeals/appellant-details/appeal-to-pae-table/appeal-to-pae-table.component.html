@@ -1,0 +1,85 @@
+<div class="wrapper">
+    <h5>Link Appeal to a PAE Record</h5>
+    <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+        <ng-container matColumnDef="paeId">
+            <th mat-header-cell *matHeaderCellDef id="paeId">PAE ID </th>
+            <td mat-cell *matCellDef="let element">{{element.paeId}} </td>
+        </ng-container>
+        <ng-container matColumnDef="paeSubmissionDate">
+            <th mat-header-cell *matHeaderCellDef id="elementGroup">PAE Submission Date </th>
+            <td mat-cell *matCellDef="let element">{{element.paeSubmissionDate | date: 'MM/dd/yyyy'}}</td>
+        </ng-container>
+        <ng-container matColumnDef="elementGroup">
+            <th mat-header-cell *matHeaderCellDef id="elementGroup">Enrollment Group </th>
+            <td mat-cell *matCellDef="let element">{{element.enrollmentGrp}}</td>
+        </ng-container>
+        <ng-container matColumnDef="paeStatus">
+            <th mat-header-cell *matHeaderCellDef id="paeStatus">PAE Status </th>
+            <td mat-cell *matCellDef="let element">{{element.paeStatus}} </td>
+        </ng-container>
+        <ng-container matColumnDef="enrollmentStatus">
+            <th mat-header-cell *matHeaderCellDef id="enrollmentStatus">Enrollment Status </th>
+            <td mat-cell *matCellDef="let element">{{element.enrollmentStat}}</td>
+        </ng-container>
+    
+        <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                <div class="example-element-detail"
+                    [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                    <div class="inside-table-wrapper">
+                        <div class="innerTable" style="width: 60%;">
+                            <div>
+                                <mat-label><strong>PAE Effective Date</strong></mat-label>
+                                <p>{{element.effectiveDt | date: 'MM/dd/yyyy'}}</p>
+                            </div>
+                            <div>
+                                <mat-label><strong>PAE End Date</strong></mat-label>
+                                <p>{{element.endDt | date: 'MM/dd/yyyy'}}</p>
+                            </div>
+                            <div>
+                                <mat-label><strong>Transition PAE?</strong></mat-label>
+                                <p>{{element.transitionPAE}}</p>
+                            </div>
+                            <div>
+                                <mat-label><strong>Slot Status</strong></mat-label>
+                                <p>{{element.slotStatus}}</p>
+                            </div>
+                        </div>
+                        <div class="innerTable" style="width: 90%;">
+                            <div>
+                                <mat-label><strong>Enrollment Start Date</strong></mat-label>
+                                <p>{{element.enrollStartDt | date: 'MM/dd/yyyy'}}</p>
+                            </div>
+                            <div>
+                                <mat-label><strong>Enrollment End Date</strong></mat-label>
+                                <p>{{element.enrollEndDt | date: 'MM/dd/yyyy'}}</p>
+                            </div>
+                            <div>
+                                <mat-label><strong>Denial/Disenrollment Reason</strong></mat-label>
+                                <p>{{element.denialreason}}</p>
+                            </div>
+                            <div>
+                                <p><button mat-flat-button [ngClass]="(element.isSelected)?'button-checked':'button-unchecked'" 
+                                    (click)="selectedRow(element)">
+                                    SELECT
+                                  <span class="material-icons">
+                                          offline_pin
+                                  </span>
+                                </button></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row"
+            [class.example-expanded-row]="expandedElement === element"
+            [class.active-class]="expandedElement === element"
+            (click)="expandedElement = expandedElement === element ? null : element">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+    </table>
+</div>
+

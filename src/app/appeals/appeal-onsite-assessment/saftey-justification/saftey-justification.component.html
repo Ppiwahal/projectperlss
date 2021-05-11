@@ -1,0 +1,94 @@
+<div style="margin-top: 30px;">
+    <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header style="background-color: #f5f5f5">
+            <mat-panel-title>
+             Safety Justification <span class="text-align-right">Review Details</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <form [formGroup]="safetyJustiForm">
+            <div style="margin-top: 30px;">
+                <mat-label>Please provide the safety justification information</mat-label>
+                <table aria-describedby mat-table [dataSource]="dataSource" class="mat-elevation-z8 first-table" formArrayName="safetyJustiFormArray">
+                    <ng-container matColumnDef="safJustificationCriteria">
+                        <th id="documentType" mat-header-cell *matHeaderCellDef>Safety Justification Criteria</th>
+                        <td mat-cell *matCellDef="let element; let index = index" [formGroupName]="index">
+                            <div>
+                                <mat-form-field appearance="outline">
+                                    <mat-select formControlName="safetyJustCrtrCd">
+                                        <mat-option value=''>Select</mat-option>
+                                        <mat-option *ngFor = "let js of  justificationCriteria" value={{js.code}}>{{js.value}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="safetyDetails">
+                        <th id="documentType" mat-header-cell *matHeaderCellDef>Safety Details</th>
+                        <td mat-cell *matCellDef="let element; let index = index" [formGroupName]="index">
+                            <div>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="safetyDtls">
+                                </mat-form-field>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="informationObtained">
+                        <th id="selection" mat-header-cell *matHeaderCellDef>Information Obtained</th>
+                        <td mat-cell *matCellDef="let element; let index = index" [formGroupName]="index">
+                            <div>
+                                <mat-form-field appearance="outline">
+                                    <mat-select formControlName="infoObtainedSw">
+                                        <mat-option value=''>Select</mat-option>
+                                        <mat-option *ngFor = "let yn of  yesOrNo" value={{yn.code}}>{{yn.value}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="documentUploaded">
+                        <th id="selection" mat-header-cell *matHeaderCellDef>Document Uploaded</th>
+                        <td mat-cell *matCellDef="let element; let index = index" [formGroupName]="index">
+                            <div>
+                                <mat-form-field appearance="outline">
+                                    <mat-select formControlName="docsUploadedSw">
+                                        <mat-option value=''>Select</mat-option>
+                                        <mat-option *ngFor = "let yn of  yesOrNo" value={{yn.code}}>{{yn.value}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="userActions">
+                        <th id="selection" mat-header-cell *matHeaderCellDef>User Actions</th>
+                        <td mat-cell *matCellDef="let element; let i = index" >
+                            <div style="color: red; margin-bottom: 15px;">
+                                <div *ngIf="element.showSaveButton">
+                                    <button class="button-style" type="button" (click)="saveRowDetails(element, safetyJustiFormArray, i)">SAVE</button>
+                                </div>
+                                <div *ngIf="!element.showSaveButton">
+                                    <span class="material-icons" style="margin-left: 15%; cursor: pointer;" (click)="edit(element, safetyJustiFormArray, i)">
+                                        edit
+                                    </span>
+                                    <span class="material-icons" *ngIf="element.constant !== 'x'" style="margin-left: 10%; cursor: pointer;" (click)="delete(element, i)">
+                                        delete_forever
+                                    </span>
+                                </div>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <div class="icon-wrapper" (click)="onAddCriteriaClick()">
+                    <span class="material-icons">
+                        add_circle
+                    </span>
+                    ADD CRITERIA
+                </div>
+            </div> 
+        </form>
+       </mat-expansion-panel>
+    </mat-accordion>
+</div>
+

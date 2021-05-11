@@ -1,0 +1,103 @@
+
+
+    <table aria-describedby mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+        <ng-container matColumnDef="OnsiteReferralDate">
+            <th mat-header-cell *matHeaderCellDef id="name"> Onsite Referral Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.createdDt | date:'MM/dd/yyyy'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="OnsiteDueDate">
+            <th mat-header-cell *matHeaderCellDef id="ssn"> Onsite Due Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.onsiteDueDt | date:'MM/dd/yyyy'}}</td>
+        </ng-container>
+        <ng-container matColumnDef="OnsiteStatus">
+            <th mat-header-cell *matHeaderCellDef id="age"> Onsite Status </th>
+            <td mat-cell *matCellDef="let element"> {{element.onsiteStatus}} </td>
+        </ng-container>
+        <ng-container matColumnDef="UpdateDate">
+            <th mat-header-cell *matHeaderCellDef id="rId"> Update Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.lastModifiedDate | date:'MM/dd/yyyy'}}</td>
+        </ng-container>
+        <ng-container matColumnDef="UserActions">
+            <th mat-header-cell *matHeaderCellDef id="intakeOutcome">User Actions</th>
+            <td mat-cell *matCellDef="let element"> 
+                <div *ngIf="element.onsiteStatusCd == 'PN'; else elseDiv">
+                    <span class="material-icons" (click)="expandedElement = expandedElement === element ? null : element" style="margin-left: 20%; cursor: pointer;">
+                        alarm_off
+                    </span>
+                </div>
+                <ng-template #elseDiv>
+                   <p (click)="expandedElement = expandedElement === element ? null : element" class="view-details">View Details</p>
+                </ng-template>
+            </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="expandedDetail" >
+            <td mat-cell *matCellDef="let element; let i=index" [attr.colspan]="columnsToDisplay.length">
+                <div class="example-element-detail"
+                    [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                    <div class="inside-table-wrapper">
+                        <div class="innerTable">
+                            <div style="width: 25%;">
+                                <mat-form-field appearance="outline">
+                                    <mat-label><span class="required">*</span>Reason for On-Hold?</mat-label>
+                                    <mat-select (selectionChange)="onReaFrHoldChanged($event, element)" [(value)]="element.onholdRsnCd" name="first"
+                                    [disabled]="element.onsiteStatusCd === 'HR'">
+                                        <mat-option value=''> Select </mat-option>
+                                        <mat-option *ngFor = "let ro of  reasonOnhold" value={{ro.code}}>{{ro.value}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div style="width:40%">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Additional Notes</mat-label>
+                                    <input matInput (keyup)="additionalNotesChange($event, element)" [(value)]="element.onholdConctrNotes" 
+                                    [disabled]="element.onsiteStatusCd === 'HR'">
+                                </mat-form-field>
+                            </div>
+                            <div class="style-icon" *ngIf="element.onsiteStatusCd == 'PN'">
+                                <button type="submit" value="RequestHold" (click)="requestHold(element)" *ngIf="element.displayButton">
+                                    <span class="material-icons">
+                                        screen_share
+                                    </span>
+                                    <p>REQUEST HOLD</p>
+                                </button> 
+                            </div>
+                            <div *ngIf="element.onsiteStatusCd === 'HR' && ltssAppealUser" style="width: 25%;">
+                                <mat-form-field appearance="outline">
+                                    <mat-label><span class="required">*</span>Approve On-Hold</mat-label>
+                                    <mat-select (selectionChange)="onAprHoldChanged($event, element)" [(value)]="element.onholdApproveSw" 
+                                    name="approve">
+                                        <mat-option value=''> Select </mat-option>
+                                        <mat-option *ngFor = "let aoh of  approveOnHold" value={{aoh.code}}>{{aoh.value}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div *ngIf="element.onsiteStatusCd === 'HR' && !ltssAppealUser" style="margin-right: 8%; margin-top: 1%;">
+                                <button mat-stroked-button  type="button" class="button-style" (click)="cancel(element)" *ngIf="element.displayButton">CANCEL</button>
+                            </div>
+                        </div>
+                        <div class="innerTable-two" *ngIf="element.onsiteStatusCd === 'HR' && ltssAppealUser">
+                           <div style="width:70%">
+                            <mat-form-field appearance="outline" *ngIf="element.onholdApproveSw === 'N'">
+                                <mat-label>Reason For Dening Request</mat-label>
+                                <input matInput (keyup)="reasonFrDenial($event, element)" [(value)]="element.onholdDeniedComments" [disabled]='true'>
+                            </mat-form-field>
+                           </div>
+                           <div style="margin-right: 9%; margin-top: 1%;" >
+                               <button mat-stroked-button  type="button" class="button-style" (click)="submit(element)" *ngIf="element.displayButton">SUBMIT</button>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row"
+            [class.example-expanded-row]="expandedElement === element"
+            [class.active-class]="expandedElement === element"
+            >
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+    </table>
+

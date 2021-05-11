@@ -1,0 +1,193 @@
+<div class="responsive">
+  <div class="form">
+    <div class="scroller">
+      <app-change-management-common mode="facility">
+        <div>
+          <form [formGroup]="facilityForm">
+            <h2>
+              Current Living Arrangement:
+              <div *ngIf="address" class="marginT">
+                <div>{{addressLine1}}</div>
+                <div>{{addressLine2}},</div>
+                <div>{{city}}, {{stateCd}} {{zip}}</div>
+              </div>
+            </h2>
+            <div class="w50">
+              <mat-form-field appearance="outline">
+                <mat-label>Provider Number</mat-label>
+                <input matInput formControlName="providerNumber" maxlength="100">
+              </mat-form-field>
+            </div>
+            <div class="w50">
+              <mat-form-field appearance="outline">
+                <mat-label><sup>
+                    <mat-label class="req"></mat-label>
+                  </sup>Transfer (discharge) Date</mat-label>
+                <input matInput [matDatepicker]="dateOfBirth" formControlName="dischargeDate" [min]="minDate">
+                <mat-datepicker-toggle matSuffix [for]="dateOfBirth"></mat-datepicker-toggle>
+                <mat-datepicker #dateOfBirth></mat-datepicker>
+                <mat-error *ngIf="getFormData().dischargeDate.errors != null">
+                  <span
+                    *ngIf="facilityForm.get('dischargeDate').hasError('required') && (getFormData().dischargeDate.touched)">
+                    {{customValidation.A1}}
+                  </span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <br>
+            <h2>Admiting Facility Details</h2>
+            <br>
+            <div class="w100">
+              <mat-form-field appearance="outline">
+                <mat-label><span class="req"></span>Facility Name</mat-label>
+                <mat-select formControlName="facilityName">
+                  <mat-option value=''>Select</mat-option>
+                  <mat-option *ngFor="let facilityName of facilityName" [value]="facilityName.code">
+                    {{facilityName.value}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-error *ngIf="getFormData().facilityName.errors !== null">
+                <span *ngIf="getFormData().facilityName.errors.required && (getFormData().facilityName.touched)">
+                  {{customValidation.A1}}</span>
+                <span
+                  *ngIf="getFormData().facilityName.errors?.invalidName && !getFormData().facilityName.errors.required">
+                  {{customValidation.A2}}
+                </span>
+              </mat-error>
+            </div>
+            <div class="floatChildren">
+              <div class="w50">
+                <mat-form-field appearance="outline">
+                  <mat-label>Provider Number</mat-label>
+                  <input matInput formControlName="admitterProviderNumber" maxlength="100">
+                </mat-form-field>
+              </div>
+              <div class="w50">
+                <mat-form-field appearance="outline">
+                  <mat-label><sup>
+                      <mat-label class="req"></mat-label>
+                    </sup>Transfer (Admission) Date</mat-label>
+                  <input matInput [matDatepicker]="dateOfBirth1" formControlName="addmissionDate" [min]="minDate">
+                  <mat-datepicker-toggle matSuffix [for]="dateOfBirth1"></mat-datepicker-toggle>
+                  <mat-datepicker #dateOfBirth1></mat-datepicker>
+                  <mat-error *ngIf="getFormData().addmissionDate.errors != null">
+                    <span
+                      *ngIf="facilityForm.get('addmissionDate').hasError('required') && (getFormData().addmissionDate.touched)">
+                      {{customValidation.A1}}
+                    </span>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="floatChildren">
+              <div class="w50">
+                <mat-form-field appearance="outline">
+                  <mat-label class="req">Address Line 1</mat-label>
+                  <input matInput formControlName="addressLine1Txt" maxlength="100">
+                </mat-form-field>
+                <mat-error *ngIf="getFormData().addressLine1Txt.errors !== null">
+                  <span
+                    *ngIf="getFormData().addressLine1Txt.errors.required && (getFormData().addressLine1Txt.touched)">
+                    {{customValidation.A1}}</span>
+                </mat-error>
+              </div>
+              <div class="w50">
+                <mat-form-field appearance="outline">
+                  <mat-label>Address Line 2</mat-label>
+                  <input matInput formControlName="addressLine2Txt" maxlength="100">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="floatChildren">
+              <div class="w50">
+                <mat-form-field appearance="outline">
+                  <mat-label class="req">City</mat-label>
+                  <input matInput formControlName="cityTxt" maxlength="25">
+                </mat-form-field>
+                <mat-error *ngIf="getFormData().cityTxt.errors !== null">
+                  <span *ngIf="getFormData().cityTxt.errors.required && (getFormData().cityTxt.touched)">
+                    {{customValidation.A1}}</span>
+                </mat-error>
+              </div>
+              <div class="w50">
+                <mat-form-field appearance="outline">
+                  <mat-label class="req">State</mat-label>
+                  <mat-select formControlName="stateCd">
+                    <mat-option value=''>Select</mat-option>
+                    <mat-option *ngFor="let state of stateDropdowns" [value]="state.code">{{state.value}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-error *ngIf="getFormData().stateCd.errors !== null">
+                  <span *ngIf="getFormData().stateCd.errors.required && (getFormData().stateCd.touched)">
+                    {{customValidation.A1}}</span>
+                </mat-error>
+              </div>
+            </div>
+            <div class="floatChildren">
+              <div class="w30">
+                <mat-form-field appearance="outline">
+                  <mat-label><span class="req"></span>Zip Code</mat-label>
+                  <input matInput formControlName="zipCode" placeholder="Zip Code">
+                </mat-form-field>
+                <mat-error *ngIf="getFormData().zipCode.errors !== null">
+                  <span *ngIf="getFormData().zipCode.errors.required && (getFormData().zipCode.touched)">
+                    {{customValidation.A1}}</span>
+                </mat-error>
+              </div>
+              <div class="w30">
+                <mat-form-field appearance="outline">
+                  <mat-label>Ext</mat-label>
+                  <input matInput formControlName="ext" placeholder="0000" mask="0000">
+                </mat-form-field>
+              </div>
+              <div class="w40">
+                <div>
+                  <mat-form-field appearance="outline">
+                    <mat-label class="req">County</mat-label>
+                    <mat-select formControlName="countyCd">
+                      <mat-option value=''>Select</mat-option>
+                      <mat-option *ngFor="let county of countyDropdowns" [value]="county.code">{{county.value}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-error *ngIf="getFormData().countyCd.errors !== null">
+                    <span *ngIf="getFormData().countyCd.errors.required && (getFormData().countyCd.touched)">
+                      {{customValidation.A1}}</span>
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+            <div class="w50">
+              <mat-form-field appearance="outline">
+                <mat-label>Phone Number</mat-label>
+                <input matInput formControlName="phoneNumber" maxlength="25">
+              </mat-form-field>
+            </div>
+            <div class="w100">
+              <mat-form-field appearance="outline">
+                <mat-label class="req">Comments</mat-label>
+                <textarea matInput class="note-textarea" #aplExpectOutcome maxlength="2000"
+                  formControlName="commentTxt"></textarea>
+                <mat-error *ngIf="getFormData().commentTxt.errors !== null">
+                  <span *ngIf="getFormData().commentTxt.errors.required && (getFormData().commentTxt.touched)">
+                    {{customValidation.A1}}</span>
+                </mat-error>
+              </mat-form-field>
+              <div class="character-count">
+                {{aplExpectOutcome.value.length}}/2000
+              </div>
+            </div>
+            <div class="row">
+              <div class="col margin">
+                <button mat-flat-button color="primary" class="perlss-click-button submit"
+                  (click)="onSubmit()">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </app-change-management-common>
+    </div>
+  </div>
+</div>

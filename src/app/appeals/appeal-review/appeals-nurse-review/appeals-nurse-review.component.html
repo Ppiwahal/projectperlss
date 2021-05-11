@@ -1,0 +1,145 @@
+<mat-accordion *ngIf="showAppealNurseReviewAccordion">
+    <mat-expansion-panel (opened)="panelOpenState = true"
+    (closed)="panelOpenState = false" [disabled]="disableAccordion">
+      <mat-expansion-panel-header style="background-color: #f5f5f5">
+        <mat-panel-title>
+         Appeals Nurse Review <span class="text-align-right">Review Details </span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form [formGroup]="appealNurseReviewForm" (ngSubmit)="saveAppealurseReview(appealNurseReviewForm)">
+        <div class="wrapper">
+            <div class="list-wrapper" *ngIf="appealType == 'PA'">
+                <div>
+                    <ul>
+                        <li>
+                            <div class="icon-style">
+                                <span class="material-icons">
+                                    remove_red_eye
+                                </span>VIEW PAE
+                            </div>
+                        </li>
+                        <li>
+                              <span>Approved Skilled Acuity:</span>
+                              <span>14</span>
+                        </li>
+                        <li>
+                              <span>Submitted Skilled Acuity:</span>
+                              <span>10</span>
+                        </li>
+                    </ul>
+                  </div>
+                  <div>
+                      <ul>
+                          <li>
+                            <div class="icon-style">
+                                <span class="material-icons">
+                                    remove_red_eye
+                                </span>VIEW ADJUDICATION
+                            </div>
+                          </li>
+                          <li>
+                              <span>PAE Submitted Acuity Score:</span>
+                              <span>14</span>
+                          </li>
+                          <li>
+                              <span>PAE Adjudication Acuity Score:</span>
+                              <span>10</span>
+                          </li>
+                      </ul>
+                  </div>
+            </div>
+            <div class="nurse-table">
+                <table aria-describedby mat-table [dataSource]="dataSourceSecond" class="mat-elevation-z8">
+                    <ng-container matColumnDef="anrStartDt">
+                      <th id="documentRequest" mat-header-cell *matHeaderCellDef>ANR Start Date </th>
+                      <td mat-cell *matCellDef="let element">{{element.anrStartDt | date: 'MM/dd/yyyy'}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="anrDueDt">
+                        <th id="documentStatu" mat-header-cell *matHeaderCellDef>ANR Due Date </th>
+                        <td mat-cell *matCellDef="let element">{{element.anrDueDt | date: 'MM/dd/yyyy'}}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="anrStatusCd">
+                        <th id="dueDates" mat-header-cell *matHeaderCellDef>ANR Status </th>
+                        <td mat-cell *matCellDef="let element">{{element.status}}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="anrCompletedDt">
+                        <th id="documentsRe" mat-header-cell *matHeaderCellDef>ANR Completed Date </th>
+                        <td mat-cell *matCellDef="let element">{{element.anrCompletedDt ?  (element.anrCompletedDt | date: 'MM/dd/yyyy') : '--'}}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="createdBy">
+                        <th id="requestingUsers" mat-header-cell *matHeaderCellDef>ANR User </th>
+                        <td mat-cell *matCellDef="let element">{{element.createdBy}}</td>
+                      </ng-container>
+                      <tr mat-header-row *matHeaderRowDef="displayedColumnsforSecondTable"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumnsforSecondTable;"></tr>
+                  </table>
+            </div>
+            <div class="text-area">
+                <mat-form-field appearance="outline">
+                    <mat-label><span class="required">*</span>Appeal Comments</mat-label>
+                    <textarea matInput #appealComment maxlength="2000" formControlName="appealComments"></textarea>
+                    <mat-error *ngIf="appealNurseReviewForm.get('appealComments')?.hasError('required')">
+                        {{customValidation.A1}}</mat-error>
+                </mat-form-field>
+                <div class="character-count">
+                    {{appealComment.value.length}}/2000
+                </div>
+            </div>
+            <div class="text-area">
+                <mat-form-field appearance="outline">
+                    <mat-label><span class="required">*</span>Saftey Review Comments</mat-label>
+                    <textarea matInput #safRevComment maxlength="2000"  formControlName="safetyRevComments"></textarea>
+                    <mat-error *ngIf="appealNurseReviewForm.get('safetyRevComments')?.hasError('required')">
+                        {{customValidation.A1}}</mat-error>
+                </mat-form-field>
+                <div class="character-count">
+                    {{safRevComment.value.length}}/2000
+                </div>
+            </div>
+            <div class="text-area">
+                <mat-form-field appearance="outline">
+                    <mat-label><span class="required">*</span>Additional Information Requested</mat-label>
+                    <textarea matInput #addInfoReq maxlength="2000"  formControlName="additionalInfoReq"></textarea>
+                </mat-form-field>
+                <div class="character-count">
+                    {{addInfoReq.value.length}}/2000
+                </div>
+            </div>
+        </div>
+        <div class="row-dropdown">
+            <div>
+                <mat-form-field appearance="outline">
+                    <mat-label>Additional Information Requested Date</mat-label>
+                    <input matInput [max]="startDate" [matDatepicker]="addInfoReqDt"  formControlName="addInfoRequestDate">
+                    <mat-datepicker-toggle matSuffix [for]="addInfoReqDt"></mat-datepicker-toggle>
+                    <mat-datepicker [startAt]="startDate" #addInfoReqDt></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="outline">
+                    <mat-label>Additional Information Returned Date</mat-label>
+                    <input matInput [max]="maxDate" [matDatepicker]="addInfoRetDt"  formControlName="addInfoReturnedDate">
+                    <mat-datepicker-toggle matSuffix [for]="addInfoRetDt"></mat-datepicker-toggle>
+                    <mat-datepicker #addInfoRetDt></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+        <div style="width: 35%; margin-top: 25px;">
+            <mat-form-field appearance="outline">
+                <mat-label><span class="required">*</span>Appeal Nurse Review status?</mat-label>
+                    <mat-select  formControlName="appealNursRevStatus">
+                        <mat-option value=''>Select </mat-option>
+                        <mat-option *ngFor = "let nr of  nurseReviewStatus" value={{nr.code}}>{{nr.value}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="appealNurseReviewForm.get('appealNursRevStatus')?.hasError('required')">
+                        {{customValidation.A1}}</mat-error>
+            </mat-form-field>
+        </div>
+        <div style="margin-top: 30px;">
+            <button mat-stroked-button type="button"  style="margin-right: 50px;">CANCEL </button>
+            <button mat-stroked-button  type="submit" class="perlss-click-button">SAVE </button>
+        </div>
+      </form>
+    </mat-expansion-panel>
+</mat-accordion>
+

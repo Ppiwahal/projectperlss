@@ -1,0 +1,52 @@
+.wrapper{margin-top: 30px;}
+
+h5{
+    color: #547E1A;
+    font-weight: bold;
+}
+
+table{
+    margin-top: 20px;
+    margin-bottom: 25px;
+}
+
+th{
+    width: 90%;
+}
+
+span{
+    cursor: pointer;
+}
+
+.cloud-upload{
+  color: #4C90D3;
+  margin-left: 25px;
+}
+.check{
+  color: #547E1A;
+  margin-right: 10px;
+}
+.remove{
+  color: red;
+}
+
+table tr:last-child td {
+    border-bottom: 1px solid #1B365D;
+}
+
+.add-underline{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.icon-wrapper{
+  position: relative;
+}
+.disc-span{
+  position:absolute;
+  left: 3%;
+  top: 5%;
+}
+.doc{
+  color: red;
+}

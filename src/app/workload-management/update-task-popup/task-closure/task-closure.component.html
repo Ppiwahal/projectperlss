@@ -1,0 +1,21 @@
+<div class="closure-wrapper">
+    <form [formGroup]="closureTaskDetails" >
+        <mat-divider></mat-divider>
+        <div class="text-area">
+            <mat-form-field appearance="outline">
+                <mat-label><span class="required-color">*</span>Closure Details</mat-label>
+                <textarea matInput #notesInput maxlength="100" rows="5" cols="45" formControlName="closureDetails"></textarea>
+                <mat-error *ngIf="closureTaskDetails.get('closureDetails').hasError('required')">
+                {{customValidation.A1}}</mat-error>
+            </mat-form-field>
+            <div class="character-count">
+                Characters Remaining: {{notesInput.value?.length ? (100 - notesInput.value?.length) : 100 }}
+            </div>
+        </div>
+
+        <div class="closure-button">
+            <button mat-flat-button class="button" (click)="onCloseTask()">CLOSE TASK</button>
+        </div>
+    </form>
+</div>
+  

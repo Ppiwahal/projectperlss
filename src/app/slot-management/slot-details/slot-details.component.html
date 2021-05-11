@@ -1,0 +1,359 @@
+<div class="pageMargin">
+    <form [formGroup]="slotDetailForm">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="app-sub-heading">Applicant Information</p>
+           </div>
+       </div>
+        <div class="inner-container" *ngIf="slotDetail">
+            <div class="row">
+                <div class="col-md-3">
+                    <p class="label_name">APPLICANT NAME:</p>
+               </div>
+                <div class="col-md-3">
+
+                    <p *ngIf="slotDetail && slotDetail.firstName">{{slotDetail.firstName}} {{slotDetail.midInitial}}
+                        {{slotDetail.lastName}}</p>
+               </div>
+                <div class="col-md-3">
+                    <p class="label_name">REFERRAL ID</p>
+               </div>
+                <div class="col-md-3">
+                    <p *ngIf="slotDetail">{{slotDetail.refId}}</p>
+               </div>
+           </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <p class="label_name">PERSON ID:</p>
+               </div>
+                <div class="col-md-3">
+                    <p *ngIf="slotDetail">{{slotDetail.prsnId}}</p>
+               </div>
+                <div class="col-md-3">
+                    <p class="label_name">REFERRAL RECEIVED DATE:</p>
+               </div>
+                <div class="col-md-3">
+                    <p *ngIf="slotDetail">{{slotDetail.createdDt}}</p>
+               </div>
+           </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <p class="label_name">DATE OF BIRTH:</p>
+               </div>
+                <div class="col-md-3">
+                    <p *ngIf="slotDetail">{{slotDetail.dobDt}}</p>
+               </div>
+                <div class="col-md-3">
+                    <p class="label_name">INTAKE OUTCOME:</p>
+               </div>
+                <div class="col-md-3">
+                    <p *ngIf="slotDetail && (getNameByCode(slotDetail.intakeOutcome ,'IOC') !== 'DD') && (getNameByCode(slotDetail.intakeOutcome ,'IOC') !== 'ID')">{{(slotDetail.intakeOutcome ? getNameByCode(slotDetail.intakeOutcome,'IOC') : "---")}}</p>
+                    <p *ngIf="slotDetail && (getNameByCode(slotDetail.intakeOutcome ,'IOC') === 'DD')">DD – Aged Caregiver</p>
+                    <p *ngIf="slotDetail && (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'ID')">ID – Aged Caregiver</p>
+               </div>
+           </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <p class="label_name">SSN:</p>
+               </div>
+                <div class="col-md-3">
+                    <p *ngIf="slotDetail">{{getSSNMask(slotDetail.ssn)}}</p>
+               </div>
+                <div class="col-md-3">
+                    <p class="label_name">REFERRAL STATUS:</p>
+               </div>
+                <div class="col-md-3">
+                    <p *ngIf="slotDetail">{{getNameByCode(slotDetail.refStatus,'RS')}}</p>
+               </div>
+           </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <p class="label_name">PROGRAM TYPE:</p>
+               </div>
+                <div class="col-md-3">
+                    <p *ngIf="slotDetail">{{slotDetail.programType}}</p>
+               </div>
+                <div class="col-md-3">
+                    <p class="label_name">SLOT STATUS:</p>
+               </div>
+                <div class="col-md-3">
+                    <p *ngIf="slotDetail">{{getNameByCode(slotDetail.sltStatusCd,'SLTS')}}</p>
+               </div>
+           </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <p class="label_name">REQUESTED ENROLLMENT GROUP:</p>
+               </div>
+                <div class="col-md-3">
+                    <p *ngIf="slotDetail">{{(slotDetail.rqstdEnrGroupCd ? getNameByCode(slotDetail.rqstdEnrGroupCd,'RPM') : "---")}}
+                    </p>
+               </div>
+                <div class="col-md-3">
+                    <p class="label_name">REFERRAL LIST STATUS:</p>
+               </div>
+                <div class="col-md-3">
+                    <p *ngIf="slotDetail">---
+                    </p>
+               </div>
+              <ng-container *ngIf="getNameByCode(slotDetail.rqstdEnrGroupCd,'RPM')">
+                <div class="col-md-3">
+                    <p class="label_name">CURRENTLY HELD SLOT:</p>
+               </div>
+                <div class="col-md-3">
+                    <p>{{getNameByCode(slotDetail.enrGroupCd,'RPM')}}</p>
+               </div>
+             </ng-container>
+           </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <p class="label_name">LEAVING INSTITUTION:</p>
+               </div>
+                <div class="col-md-3">
+                    <p>---</p>
+               </div>
+           </div>
+            <br>
+            <mat-divider></mat-divider>
+            <br>
+            <div class="row">
+                <div class="col-md-3">
+                    <p class="label_name">PAE ID:</p>
+               </div>
+                <div class="col-md-3">
+                    <p *ngIf="slotDetail">{{(slotDetail.paeId ? slotDetail.paeId : "---")}}</p>
+               </div>
+                <div class="col-md-3">
+                    <p class="label_name">CEA DETERMINATION:</p>
+               </div>
+                <div class="col-md-3">
+                    <p>{{(slotDetail.ceaStatusCd ? slotDetail.ceaStatusCd : "- Not Available -")}}
+                    </p>
+               </div>
+           </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <p class="label_name">TRANSITION ID:</p>
+               </div>
+                <div class="col-md-3">
+                    <p *ngIf="slotDetail">{{(slotDetail.trnstnId ? slotDetail.trnstnId : "---")}}
+                    </p>
+               </div>
+                <div class="col-md-3">
+                    <p class="label_name">SERVICE INITIATION DATE:</p>
+               </div>
+                <div class="col-md-3">
+                    <p>{{(slotDetail.serviceInitiationDate ? slotDetail.serviceInitiationDate : "- Not Available -")}}
+                    </p>
+               </div>
+           </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <p class="label_name">TRANSITION FROM:</p>
+               </div>
+                <div class="col-md-3">
+                    <p>---</p>
+               </div>
+                <div class="col-md-3">
+                    <p class="label_name">APPEAL FILED</p>
+               </div>
+                <div class="col-md-3">
+                    <p>---</p>
+               </div>
+           </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <p class="label_name">TRANSITION TO:</p>
+               </div>
+                <div class="col-md-3">
+                    <p>---</p>
+               </div>
+           </div>
+       </div>
+       <div class="app-sub-heading col-md-12">
+        Slot Details
+      </div>
+        <div class="row col-md-12">
+                <div class="col-md-5">
+                        <div>
+                            <mat-label>
+                                <mat-label class="required-color">*</mat-label><strong>Select Enrollment Group</strong>
+                           </mat-label>
+                            <mat-form-field appearance="outline" >
+                                <mat-select formControlName="enrGroup">
+                                    <mat-option *ngFor="let item of enrollmentGroup" [value]="item.enrGroupCd">
+                                        {{getNameByCode(item.enrGroupCd,'RPM')}}</mat-option>
+                               </mat-select>
+                           </mat-form-field>
+                       </div>
+                    <div>
+                        <div>
+                            <mat-label>
+                                <mat-label class="required-color">*</mat-label><strong>Slot Evaluation Result</strong>
+                           </mat-label>
+                            <mat-form-field appearance="outline">
+                                <mat-select formControlName="slotsEvaluationResult"
+                                    (selectionChange)="slotEvalutaionResultChange($event)" #changeEl>
+                                    <mat-option *ngFor="let item of slotEvaluationResult" [value]="item.code">
+                                        {{ item.value }}</mat-option>
+                               </mat-select>
+                           </mat-form-field>
+                       </div>
+                   </div>
+                    <div  *ngIf="slotDetailForm.contains('notes')">
+                        <div>
+                            <mat-form-field appearance="outline">
+                                <mat-label class="required-color">*</mat-label>
+                                <mat-label>Reason for update</mat-label>
+                                <textarea matInput maxlength="2000" rows="6" formControlName="notes"
+                                    placeholder=""></textarea>
+                                <mat-hint align="end">
+                                    {{slotDetailForm.controls.notes.value ? slotDetailForm.controls.notes.value.length :
+                                    0}}
+                                    / 2000</mat-hint>
+                           </mat-form-field>
+                       </div>
+                   </div>
+                    <div>
+                        <div>
+                            <button *ngIf="enableNext" type="submit" mat-flat-button color="primary" class="perlss-click-button-white"
+                                (click)="onSubmit()">SUBMIT</button>
+                                <mat-spinner *ngIf="showSpinner" class="chkFloat" [diameter]="24" color="warn" mode="indeterminate"></mat-spinner>
+
+                       </div>
+                   </div>
+               </div>
+                <div class="col-md">
+                    <div class="row">
+                        <div>
+                            <mat-card class="dashboard-card">
+                                <mat-card-title class="dashboard-card-header"></mat-card-title>
+                                <mat-card-content>
+                                    <div class="color" *ngIf="(getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Aged Caregiver') || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Emergent Circumstances')
+                                    || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Multiple Complex-Health Conditions')
+                                    || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Planned Transition')
+                                    || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Sustain Your Family Living Arrangement')
+                                    || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Intensive Behavioral Family Supports')
+                                    || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Comprehensive Behavioral Supports')
+                                    || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'ID')">Reserve Capacity</div>
+                                    <div class="color"  *ngIf="(getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Priority Group 1') || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Priority Group 2')
+                                    || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Priority Group 3')
+                                    || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Priority Group 4')
+                                    || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Priority Group 5')
+                                    || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Priority Group 6')
+                                    || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Priority Group 7')
+                                    || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Priority Group 8')">Priority Group</div>
+                                    <div class="color" *ngIf="(getNameByCode(slotDetail.intakeOutcome,'IOC') === 'DD')">DD - Aged Caregiver</div>
+                                    <div class="color">Slots Available:</div>
+                               </mat-card-content>
+                                <mat-card-actions class="slots">
+                                    <div class="row">
+                                        <div class="color">ECF CHOICES 4:</div>
+                                        <div *ngIf="slotAvailability" class="padding">{{slotAvailability.EC4}}</div>
+                                   </div>
+                                    <div class="row marginT">
+                                        <div class="color">ECF CHOICES 5:</div>
+                                        <div *ngIf="slotAvailability" class="padding">{{slotAvailability.EC5}}</div>
+                                   </div>
+                                    <div class="row marginT">
+                                        <div class="color">ECF CHOICES 6:</div>
+                                        <div *ngIf="slotAvailability" class="padding">{{slotAvailability.EC6}}</div>
+                                   </div>
+                                    <div class="row marginT" *ngIf="(getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Aged Caregiver') || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Emergent Circumstances')
+                                    || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Multiple Complex-Health Conditions')
+                                    || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Planned Transition')
+                                    || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Sustain Your Family Living Arrangement')
+                                    || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Intensive Behavioral Family Supports')
+                                    || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Comprehensive Behavioral Supports')
+                                    || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'No Aged Caregiver, Reserve Capacity, Priority Group (TP Met)')
+                                    || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Deferred Group')">
+                                    
+                                        <div class="color">ECF CHOICES 7:</div>
+                                        <div *ngIf="slotAvailability" class="padding">{{slotAvailability.EC7}}</div>
+                                   </div> 
+                                   <div class="row marginT" *ngIf="(getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Aged Caregiver') || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Emergent Circumstances')
+                                   || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Multiple Complex-Health Conditions')
+                                   || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Planned Transition')
+                                   || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Sustain Your Family Living Arrangement')
+                                   || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Intensive Behavioral Family Supports')
+                                   || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Comprehensive Behavioral Supports')
+                                   || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'No Aged Caregiver, Reserve Capacity, Priority Group (TP Met)')
+                                   || (getNameByCode(slotDetail.intakeOutcome,'IOC') === 'Deferred Group')">
+                                       <div class="color">ECF CHOICES 8:</div>
+                                       <div *ngIf="slotAvailability" class="padding">{{slotAvailability.EC8}}</div>
+                                  </div>
+                               </mat-card-actions>
+                           </mat-card>
+                       </div>
+                   </div>
+               </div>
+       </div>
+        <mat-divider class="perlss-section-divider"></mat-divider>
+
+        <div class="row" style="width: 100%;margin:auto">
+            <div class="app-sub-heading col-md-7" style="width: 100% !important;">
+                Slot History
+           </div>
+       </div>
+        <table aria-describedby="slotHistory" *ngIf="slotHistoryData" mat-table [dataSource]="dataSource" multiTemplateDataRows
+            class="mat-elevation-z8" style="width: 100%;text-align: center;font-size: 12px;">
+
+            <ng-container matColumnDef="refId">
+                <th mat-header-cell *matHeaderCellDef class='table-th' id="referralId">Referral ID</th>
+                <td mat-cell class="table-td" *matCellDef="let element">{{element.refId}}</td>
+           </ng-container>
+
+            <ng-container matColumnDef="enrGroupCd">
+                <th mat-header-cell *matHeaderCellDef class='table-th' id="enrollmentGroup">Enrollment Group</th>
+                <td mat-cell class="table-td" *matCellDef="let element">{{getNameByCode(element.enrGroupCd,'RPM')}}
+               </td>
+           </ng-container>
+
+            <ng-container matColumnDef="sltStatusCd">
+                <th mat-header-cell *matHeaderCellDef class='table-th' id="slotStatus">Slot Status</th>
+                <td mat-cell class="table-td" *matCellDef="let element">{{getNameByCode(element.sltStatusCd,'SLTS')}}
+               </td>
+           </ng-container>
+
+            <ng-container matColumnDef="lastModifiedDt">
+                <th mat-header-cell *matHeaderCellDef class='table-th' id="updateDate">Update Date</th>
+                <td mat-cell class="table-td" *matCellDef="let element">{{element.updateDt}}</td>
+           </ng-container>
+
+            <ng-container matColumnDef="firstName">
+                <th mat-header-cell *matHeaderCellDef class='table-th' id="updateBy">Update by</th>
+                <td mat-cell class="table-td" *matCellDef="let element">{{element.updateBy}}
+               </td>
+           </ng-container>
+
+            <ng-container matColumnDef="expandedDetail">
+                <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+                    <div class="example-element-detail"
+                        [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                        <div style="font-size: 12px;padding-left:25px">
+                            <table aria-describedby="expandTable" class="table table-borderless"
+                                style="width: 60%;border: 0px;border-bottom:0px;text-align: left;" *ngIf="element.updateRsnCd !== null">
+                                <tr class="d-flex">
+                                 <th id="reason" class="col-4" style="border-bottom:0px" ><strong>Removal
+                                            Reason:</strong><br>{{ element.updateRsnCd }}</th>
+                                    <td class="col-4" style="border-bottom:0px">
+                                        <strong>Comments:</strong><br>{{ element.updateRsnCd }}
+                                   </td>
+                               </tr>
+                           </table>
+                       </div>
+                   </div>
+               </td>
+           </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="element-row"
+                [class.expanded-row]="expandedElement === element"
+                (click)="expandedElement = expandedElement === element ? null : element">
+           </tr>
+            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+       </table>
+        <div>
+            <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" *ngIf="data"></mat-paginator>
+       </div>
+   </form>
+</div>

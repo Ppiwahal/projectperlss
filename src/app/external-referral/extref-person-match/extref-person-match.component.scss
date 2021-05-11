@@ -1,0 +1,57 @@
+
+
+hr {
+    margin-top: 2px;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+  
+.close-icon {
+    color : #969190;
+    cursor: pointer;
+}
+
+tr {
+    line-height: 4px;
+}
+
+.row-header {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 0 0 0;
+  }
+.perlss-section-divider {
+    width: 100%;
+    padding-top: 15px;
+    padding-bottom: 15px
+  }
+
+  .dialog-heading {
+    font-weight: bold;
+    font-size: 22px;
+    font-family: 'Open Sans';
+    color: #174A7C;
+  }
+  .dialog-sub-heading{
+     color: #4D7E20; 
+     font-weight: bold;
+     padding-bottom: 20px;
+  }
+
+  .section-divider{
+      margin-top: 20px;
+      padding-bottom: 20px;
+      color:#707070;
+      width: 94%;
+  }
+
+  table {
+    th {
+        margin:5px;
+        padding:5px;
+        }
+    td {
+        padding:10px;
+        margin:10px;
+        }
+  }

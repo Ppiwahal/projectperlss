@@ -1,0 +1,97 @@
+@import '../../../colors.scss';
+
+.header-row {
+    margin: 5px;
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+}
+.notes-body{
+    overflow: auto; 
+}
+
+.person-details{
+    margin-top: 20px;
+    overflow: auto;
+}
+
+.person-details-button{
+ margin: 20px;
+}
+
+.table-header-content{
+    font-size: 14px;
+    font-family: 'Open Sans';
+    color: #1B365D;
+}
+
+.comment-section{
+    margin: 20px;
+}
+
+  .note-textarea{
+      background-color: $colorControlBackground;
+      width: 100%;
+      margin-top: 25px;
+  }
+
+  .save-button{
+    background-color: #174A7C ; 
+    color: white; 
+    margin-right: 10px;
+  }
+  .note-label{
+    color: #4D7E20;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .note-header{
+      color: #174A7C;
+  }
+
+.note-list{
+    border: 1px solid lightgrey;
+    margin: 40px 20px 20px 20px;
+    border-radius: 5px;
+}
+.note-header{
+    margin: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #174A7C;
+}
+
+
+ul {
+    padding: 0;
+    margin: 10px;
+    list-style-type: none;
+}
+.note-description{
+    display: flex;
+    justify-content: space-between;
+}
+
+.validator{
+    position: relative;
+}
+
+.textarea-validator{
+    position: absolute;
+    left: 0;
+    top: -14%;
+    font-weight: bold;
+    color: red;
+}
+
+.required-color {
+    color: #f44336;
+}
+
+::ng-deep .green-snackbar{background-color: green;}
+
+.contact-card {
+    position: fixed;
+    right: 60px;
+}

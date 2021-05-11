@@ -1,0 +1,192 @@
+<div class="responsive">
+
+  <form [formGroup]="paeServiceSystemsFormGroup">
+
+    <div class="scroller">
+      <div class="applicantName">{{applicantName}}</div>
+      <div class="form-container">
+
+        <p><b>Please complete the following questions regarding the child's
+            involvement with service systems.</b>
+        </p>
+        <mat-card class="mat-elevation-z8 mar-bot">
+          <div class="row">
+            <div class="col-md-12">
+              <p>
+                <strong>Note:</strong> Please only consider the treatments
+                and/or
+                involvement with these service systems
+                that has not been effective in reducing the child’s behaviors,
+                reducing the significant risk of serious
+                physical harm to the child or others, or in increasing the
+                family’s
+                capacity to effectively manage the
+                child’s behaviors.
+              </p>
+
+            </div>
+          </div>
+        </mat-card>
+
+        <div class="seperator-mar"></div>
+
+        <h3 class="heading-name">Crisis Mental Health Serivce</h3>
+
+        <mat-card>
+          <p>The child has an established pattern of utilization of
+            crisis-related behavioral health services over the previous 6
+            months, which may include repeated mobile crisis calls, emergency
+            department visits, psychiatric hospitalizations, and/or residential
+            or intensive in-home treatment, even if such treatment was not
+            effective in stabilization of crisis behaviors; OR the child has an
+            established pattern of crisis-related behaviors over the previous 6
+            months that require such level of crisis-related behavioral health,
+            even if such services have not been received. This could be due to
+            the constant supervision and intervention of family caregivers,
+            including the use of physical or chemical restraints. Except for PRN
+            usage for purposes of chemical restraint in a behavioral crisis, the
+            use of psychotropic medications is not considered a crisis-related
+            behavioral health service, nor is routine psychiatric care or
+            outpatient therapy.
+          </p>
+        </mat-card>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="question-container">
+              <mat-label>
+                <mat-label class="required-class">*</mat-label>
+                Is the child involved with Crisis Mental Health Services at the
+                intensity and frequency defined above?
+
+              </mat-label>
+            </div>
+            <div class="seperator-mar"></div>
+            <div
+              *ngIf="getFormData().crisisMenHlthSrvcSw.hasError('required') &&
+              (getFormData().crisisMenHlthSrvcSw.touched || submitted)">
+              <mat-error>{{customValidation.A1}}</mat-error>
+            </div>
+            <div class="radio-container">
+              <mat-radio-group formControlName="crisisMenHlthSrvcSw">
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+        </div>
+
+        <mat-divider class="perlss-horizontal-divider"></mat-divider>
+
+        <div class="seperator-mar"></div>
+
+        <h3 class="heading-name">Child Protective Services</h3>
+
+        <mat-card>
+          <p>
+            The child has formal ongoing involvement with the child welfare
+            system
+            specifically related to his or her severe
+            behavioral health needs.
+
+          </p>
+        </mat-card>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="question-container">
+              <mat-label>
+                <mat-label class="required-class">*</mat-label>
+                Is the child involved with Child Protective Services at the
+                intensity and frequency
+                defined above?
+
+              </mat-label>
+            </div>
+            <div class="seperator-mar"></div>
+            <div
+              *ngIf="getFormData().childProtectiveSrvcSw.hasError('required') &&
+              (getFormData().childProtectiveSrvcSw.touched || submitted)">
+              <mat-error>{{customValidation.A1}}</mat-error>
+            </div>
+            <div class="radio-container">
+              <mat-radio-group formControlName="childProtectiveSrvcSw">
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+        </div>
+
+        <mat-divider class="perlss-horizontal-divider"></mat-divider>
+
+        <div class="seperator-mar"></div>
+
+        <h3 class="heading-name">Criminal Justice System</h3>
+
+        <mat-card>
+          <p>
+            The child has been engaged with the criminal justice system in the
+            past
+            6 months specifically related to his or
+            her severe behavioral health needs. Includes Juvenile and Adult
+            Justice
+            Systems, if applicable.
+
+          </p>
+        </mat-card>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="question-container">
+              <mat-label>
+                <mat-label class="required-class">*</mat-label>
+                Is the child involved with Criminal Justice System at the
+                intensity
+                and frequency as defined above?
+
+              </mat-label>
+            </div>
+            <div class="seperator-mar"></div>
+            <div
+              *ngIf="getFormData().criminalJusticeSysSw.hasError('required') &&
+              (getFormData().criminalJusticeSysSw.touched || submitted)">
+              <mat-error>{{customValidation.A1}}</mat-error>
+            </div>
+            <div class="radio-container">
+              <mat-radio-group formControlName="criminalJusticeSysSw">
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+        </div>
+
+        <div class="seperator-mar-nonfebrile"></div>
+        <div class="row">
+          <div class="col-md-6">
+            <button type="submit" mat-stroked-button class="perlss-back-button"
+              (click)="back()">BACK</button>
+            <button type="submit" mat-button class="perlss-save-button"
+              (click)="saveAndExit()">SAVE AND EXIT</button>
+          </div>
+
+          <div class="col-md-6" style="text-align: right;">
+            <button type="submit" class="submit-button" mat-flat-button
+              color="primary" (click)="save()">NEXT</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

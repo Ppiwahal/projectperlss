@@ -1,0 +1,86 @@
+<div class="scroller">
+  <div class= "pageMarginContainer">
+    <div class="applicantName">{{applicantName}}</div>
+    <h3 class="Summary">Summary</h3>
+  <p><span class="textStyle">Please make sure to provide the details for each section below. If you
+    have supporting documentation, select the cloud icon to upload the documents.</span></p>
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef class="status-header">Cost Neutrality Summary</th>
+        <td mat-cell *matCellDef="let sds" class="usrActions"><span class="textStyle">{{sds.pageTitle}}</span></td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef class="status-header">
+          <div class="iconTextContainer">Status</div>
+        </th>
+        <td mat-cell *matCellDef="let sds" class="usrActions">
+          <div class="iconTextContainer">
+            <div *ngIf="sds.status === 'Completed'">
+              <mat-icon class="green">check</mat-icon>Complete
+            </div>
+            <div *ngIf="sds.status === 'InComplete'">
+              <mat-icon class="red">close</mat-icon>Incomplete
+            </div>
+          </div>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="userActions">
+        <th mat-header-cell *matHeaderCellDef class="status-header">
+          <div class="iconTextContainer">User Actions</div>
+        </th>
+        <td mat-cell *matCellDef="let sds" class="usrActions">
+          <div class="iconTextContainer gotoDetailsLink" (click)="gotoDetails(sds.pageId)">GO TO DETAILS</div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    
+  </div>
+
+  <div>
+    <div class="pageMargin" *ngIf="dataSource.length >0 && dataSource[0].status === 'Completed'">
+      <mat-divider class="perlss-section"></mat-divider>
+      <div class="applicant-sub-heading; ">
+        <h3 class="Summary">Services Needed</h3>
+      </div>
+      <table mat-table [dataSource]="dataSource1">
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef class="status-header">
+            <div><span class="textStyle">Service</span></div>
+          </th>
+          <td mat-cell *matCellDef="let suppDocs" class="usrActions"><span class="textStyle">{{suppDocs.service}}</span></td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef class="status-header">
+            <div><span class="textStyle">Calculated Annual Amount</span></div>
+          </th>
+          <td mat-cell *matCellDef="let suppDocs" class="usrActions">
+            <span class="textStyle">{{suppDocs.calcAnnualAmt | currency}}</span>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsSuppDocs"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsSuppDocs;"></tr>
+      </table>
+    </div>
+   
+
+    <div *ngIf="dataSource.length >0 && dataSource[0].status === 'Completed'">
+      <mat-divider class="perlss-section-divider"></mat-divider>
+      <div class="pageMargin">
+      <app-common-summary [supportingDocumentData]="supportingDocument"></app-common-summary></div>
+    </div>
+  </div>
+
+  <div class="buttonBar">
+    <button mat-flat-button color="primary" class="perlss-click-button-white" (click)="gotoback()">BACK</button>
+    <button mat-flat-button color="primary" class="perlss-click-button-white-noborder" (click)="saveAndExit()">SAVE AND EXIT</button>
+    <button mat-flat-button color="primary" class="perlss-click-button" (click)="next()">NEXT</button>
+  </div>
+</div>

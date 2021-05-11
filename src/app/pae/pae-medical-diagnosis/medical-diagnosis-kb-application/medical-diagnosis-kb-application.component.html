@@ -1,0 +1,297 @@
+<div class="popup-header-container">
+  <div class="row">
+    <div class="col-md-8" style="width: 100% !important;"></div>
+    <div class="col-md-4">
+      <table id="applicantName">
+        <tr>
+        <!--   <div class="applicantName">{{applicantName}}</div> -->
+       </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<mat-divider class="perlss-horizontal-divider"></mat-divider>
+<div class="form-container">
+  <form [formGroup]="medicalDiagnosis">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="question-container">
+          <mat-label class="required-class">Chronic Diagnoses</mat-label>
+       </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="question-container">
+          <mat-label class="required-class">*</mat-label>
+          Does the applicant have a presenting chronic diagnosis as determined by a medical professional?
+       </div>
+        <div
+          *ngIf="getFormData().chrncDiagnsSw.hasError('required') && (getFormData().chrncDiagnsSw.touched || submitted)">
+          <mat-error>{{customValidation.A1}}</mat-error>
+       </div>
+        <div class="radio-container">
+          <mat-radio-group formControlName="chrncDiagnsSw" (change)="switchChronicDiagnosis($event)">
+            <div>
+              <mat-radio-button value="Y">Yes</mat-radio-button>
+            </div>
+            <div>
+              <mat-radio-button value="N">No</mat-radio-button>
+            </div>
+          </mat-radio-group>
+       </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="showPresentingChronicDiagnosis">
+      <div class="col-md-12">
+        <div class="question-container">
+          <mat-label>Please select all presenting chronic Diagnosisfrom the list below for which
+            a functional deficit exists.</mat-label>
+       </div>
+        <div class="radio-container">
+          <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Autism Spectrum
+                </mat-panel-title>
+                <mat-panel-description>
+                  View details
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="radio-container">
+                    <mat-label class="required-class">*</mat-label>Medical Diagnosis
+                    <br>
+                    <ng-select [items]="meidicalDiagnosis" formControlName="medDiagnsCd" bindLabel="name" placeholder="Select item" appendTo="body"
+                      (change)="selectMedicalDiagnosis($event)">
+                    </ng-select>
+                  </div>
+                </div>
+              </div>
+              <div class="row" *ngIf="showOtherSection">
+                <div class="col-md-12">
+                  <div class="question-container">
+                    <mat-label>
+                      <mat-label class="required-class">*</mat-label>If Other, describe:
+                    </mat-label>
+                  </div>
+                  <mat-error *ngIf="getFormData().othrMedDiagns.errors !== null">
+                    <mat-error
+                      *ngIf="getFormData().othrMedDiagns.errors.maxLength == null && !getFormData().othrMedDiagns.errors?.invalidName && !getFormData().othrMedDiagns.errors.required">
+                      Cannot exceed 2000 characters
+                    </mat-error>
+                  </mat-error>
+                  <div class="radio-container">
+                    <mat-form-field appearance="outline">
+                      <textarea matInput formControlName="othrMedDiagns"></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="question-container">
+                    <mat-label class="required-class">*</mat-label>
+                    Presisted for last 6 months?
+                  </div>
+                  <div
+                    *ngIf="getFormData().persist6MonthsSw.hasError('required') && (getFormData().persist6MonthsSw.touched || submitted)">
+                    <mat-error>{{customValidation.A1}}</mat-error>
+                  </div>
+                  <div class="radio-container">
+                    <mat-radio-group formControlName="persist6MonthsSw" (change)="switchChronicDiagnosis($event)">
+                      <div>
+                        <mat-radio-button value="Y">Yes</mat-radio-button>
+                      </div>
+                      <div>
+                        <mat-radio-button value="N">No</mat-radio-button>
+                      </div>
+                    </mat-radio-group>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="question-container">
+                    <mat-label class="required-class">*</mat-label>
+                    Expected to last at least 12 months?
+                  </div>
+                  <div
+                    *ngIf="getFormData().expctd12MonthsSw.hasError('required') && (getFormData().expctd12MonthsSw.touched || submitted)">
+                    <mat-error>{{customValidation.A1}}</mat-error>
+                  </div>
+                  <div class="radio-container">
+                    <mat-radio-group formControlName="expctd12MonthsSw" (change)="switchChronicDiagnosis($event)">
+                      <div>
+                        <mat-radio-button value="Y">Yes</mat-radio-button>
+                      </div>
+                      <div>
+                        <mat-radio-button value="N">No</mat-radio-button>
+                      </div>
+                    </mat-radio-group>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="question-container">
+                    <mat-label class="required-class">*</mat-label>
+                    Is this a primary diagonsis?
+                  </div>
+                  <div
+                    *ngIf="getFormData().primaryDiagnsSw.hasError('required') && (getFormData().primaryDiagnsSw.touched || submitted)">
+                    <mat-error>{{customValidation.A1}}</mat-error>
+                  </div>
+                  <div class="radio-container">
+                    <mat-radio-group formControlName="primaryDiagnsSw" (change)="switchChronicDiagnosis($event)">
+                      <div>
+                        <mat-radio-button value="Y">Yes</mat-radio-button>
+                      </div>
+                      <div>
+                        <mat-radio-button value="N">No</mat-radio-button>
+                      </div>
+                    </mat-radio-group>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <button type="submit" mat-flat-button color="primary" class="perlss-click-button">EDIT</button>
+                </div>
+                <div class="col-md-6">
+                  <button type="submit" mat-flat-button color="primary" class="perlss-click-button">CANCEL</button>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+       </div>
+        <div class="row" *ngIf="showAddDiagnosisForm">
+          <div class="col-md-4" style="text-align: left;">
+            <button mat-flat-button  style="font-size: 24px; padding: 15px 35px; color:#ed6053;"
+              class="perlss-click-button-white-noborder required-class" (click)="toggleAddDiagnosis()">
+              <span class="material-icons">
+                control_point
+              </span>ADD DIAGNOSIS
+            </button>
+          </div>
+       </div>
+        <div class="radio-container">
+        <div class="radio-container" *ngIf="!showAddDiagnosisForm">
+          <form [formGroup]="medicalDiagnosis" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-md-12">
+                <mat-label class="required-class">*</mat-label>Medical Diagnosis
+                <br>
+                <ng-select [items]="meidicalDiagnosis" bindLabel="name" placeholder="Select item" appendTo="body"
+                  (change)="selectMedicalDiagnosis($event)" formControlName="medDiagnsCd">
+                </ng-select>
+              </div>
+            </div>
+            <div class="row" *ngIf="showOtherSection">
+              <div class="col-md-12">
+                <div class="question-container">
+                  <mat-label>
+                    <mat-label class="required-class">*</mat-label>If Other, describe:
+                  </mat-label>
+                </div>
+                <mat-error *ngIf="getFormData().docDetailsDesc.errors !== null">
+                  <mat-error
+                    *ngIf="getFormData().docDetailsDesc.errors.maxLength == null && !getFormData().docDetailsDesc.errors?.invalidName && !getFormData().docDetailsDesc.errors.required">
+                    Cannot exceed 2000 characters
+                  </mat-error>
+                </mat-error>
+                <div class="radio-container">
+                  <mat-form-field appearance="outline">
+                    <textarea matInput formControlName="docDetailsDesc"></textarea>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="question-container">
+                  <mat-label class="required-class">*</mat-label>
+                  Presisted for last 6 months?
+                </div>
+                <div
+                  *ngIf="getFormData().presistedSw.hasError('required') && (getFormData().presistedSw.touched || submitted)">
+                  <mat-error>{{customValidation.A1}}</mat-error>
+                </div>
+                <div class="radio-container">
+                  <mat-radio-group formControlName="presistedSw" (change)="switchChronicDiagnosis($event)">
+                    <div>
+                      <mat-radio-button value="Y">Yes</mat-radio-button>
+                    </div>
+                    <div>
+                      <mat-radio-button value="N">No</mat-radio-button>
+                    </div>
+                  </mat-radio-group>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="question-container">
+                  <mat-label class="required-class">*</mat-label>
+                  Expected to last at least 12 months?
+                </div>
+                <div
+                  *ngIf="getFormData().expectedSw.hasError('required') && (getFormData().expectedSw.touched || submitted)">
+                  <mat-error>{{customValidation.A1}}</mat-error>
+                </div>
+                <div class="radio-container">
+                  <mat-radio-group formControlName="expectedSw" (change)="switchChronicDiagnosis($event)">
+                    <div>
+                      <mat-radio-button value="Y">Yes</mat-radio-button>
+                    </div>
+                    <div>
+                      <mat-radio-button value="N">No</mat-radio-button>
+                    </div>
+                  </mat-radio-group>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="question-container">
+                  <mat-label class="required-class">*</mat-label>
+                  Is this a primary diagonsis?
+                </div>
+                <div
+                  *ngIf="getFormData().primarySw.hasError('required') && (getFormData().primarySw.touched || submitted)">
+                  <mat-error>{{customValidation.A1}}</mat-error>
+                </div>
+                <div class="radio-container">
+                  <mat-radio-group formControlName="primarySw" (change)="switchChronicDiagnosis($event)">
+                    <div>
+                      <mat-radio-button value="Y">Yes</mat-radio-button>
+                    </div>
+                    <div>
+                      <mat-radio-button value="N">No</mat-radio-button>
+                    </div>
+                  </mat-radio-group>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <button type="button" mat-flat-button color="primary" class="perlss-click-button"  (click)="onSubmit()">Save</button>
+              </div>
+              <div class="col-md-4">
+                <button type="button" mat-flat-button color="primary" class="perlss-click-button" (click)="cancelAddDiagnosis()">CANCEL</button>
+              </div>
+              <div class="col-md-4">
+                <button type="button" mat-flat-button color="primary" class="perlss-click-button">DELETE</button>
+              </div>
+            </div>
+          </form>
+       </div></div>
+
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-12" style="text-align: right;">
+        <button type="submit" mat-flat-button color="primary" class="perlss-click-button">SUBMIT</button>
+      </div>
+    </div>
+  </form>
+</div>

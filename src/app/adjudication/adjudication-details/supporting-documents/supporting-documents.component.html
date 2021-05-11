@@ -1,0 +1,90 @@
+<div style="padding-top: 25px;" class="user-role-heading"></div>
+<div style="width: 92%; padding-left: 50px;">
+  <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8" style="width: 100%;">
+    <ng-container matColumnDef="select">
+      <th style="border-bottom: 1px solid #1B365D;" mat-header-cell *matHeaderCellDef>
+        <mat-checkbox>
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox>
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="module">
+      <th mat-header-cell *matHeaderCellDef class='table-th'>Document Type</th>
+      <td mat-cell *matCellDef="let element" (click)="onArrowChange()">
+        <div style="display: flex; justify-content: space-between;">
+          <div style="display: flex; align-items: center;" (click)="generatePdf()">
+            <mat-icon aria-hidden="false" aria-label="search icon" style="color:deeppink">search</mat-icon>
+            <label class="textAlignment"
+              style="margin-bottom: 0; font-weight: bold; text-decoration: underline;">{{element.documentVO.docDesc}}</label>
+          </div>
+          <!-- <mat-icon>{{icon ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</mat-icon>-->
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+        <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+          <div class="row secondary-data-content" style="padding-top: 25px">
+            <div class="col-md-6">
+              <mat-label>
+                <mat-label class="required-color">*</mat-label>Level 1 Decision
+              </mat-label>
+              <mat-form-field appearance="outline" style="width: 80%;">
+                <mat-select required>
+                  <mat-option></mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-label>
+                <mat-label class="required-color">*</mat-label>Level 1 Decision Date
+              </mat-label>
+              <mat-form-field appearance="outline" style="width: 80%;">
+                <mat-label>please choose a date</mat-label>
+                <input matInput [matDatepicker]="ptntLiability">
+                <mat-datepicker-toggle matSuffix [for]="ptntLiability"></mat-datepicker-toggle>
+                <mat-datepicker #ptntLiability></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <br>
+          <div class="row secondary-data-content">
+            <div class="col-md-6">
+              <mat-label>
+                <mat-label class="required-color">*</mat-label>Level 1 Decision
+              </mat-label>
+              <mat-form-field appearance="outline" style="width: 80%;">
+                <mat-select required>
+                  <mat-option></mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-label>
+                <mat-label class="required-color">*</mat-label>Level 1 Decision Date
+              </mat-label>
+              <mat-form-field appearance="outline" style="width: 80%;">
+                <mat-label>please choose a date</mat-label>
+                <input matInput [matDatepicker]="ptntLiability">
+                <mat-datepicker-toggle matSuffix [for]="ptntLiability"></mat-datepicker-toggle>
+                <mat-datepicker #ptntLiability></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="element-row"
+      [class.expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element">
+    </tr>
+    <!-- <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>-->
+  </table>
+</div>

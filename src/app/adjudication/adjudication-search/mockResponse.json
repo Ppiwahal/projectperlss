@@ -1,0 +1,15 @@
+
+  {
+    "id": 1,
+    "person" : "Person Search",
+    "ssn" : 1231231231,
+    "paeId" : "PAE123456",
+    "assignedUser" : "Admin",
+    "paeSubmisstionFromDate" : "2020/08/01",
+    "paeSubmisstionToDate" :"2020/08/02",
+    "adjudicationDueDays" : "5 Days",
+    "enrollmentGroup" : "Code",
+    "adjudicationStatus" : "Status",
+    "queueName" : "QueueName",
+    "taskStatus" : "TaskStatus"
+}

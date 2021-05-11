@@ -1,0 +1,527 @@
+<div class="responsive" [ngClass]="{ 'submitted': submitted }">
+
+  <form [formGroup]="myForm">
+
+    <div class="scroller">
+      <div class="applicantName">{{applicantName}}</div>
+
+      <h2 class="withTooltip"><span>Orientation</span>
+        <mat-icon class="mattoolip-icon"
+          matTooltip="TThe applicant is disoriented to person (e.g., fails to remember own name, or recognize immediate family members), place (e.g., does not know residence is a NF), or event/situation (e.g.,
+          is unaware of current circumstances in order to make decisions that prevent risk of harm).
+
+          *Approval of this deficit requires documentation of the specific orientation deficit(s), including the frequency of occurrence of such deficit(s), and the impact of such deficit(s) on the applicant.">
+          info_outline</mat-icon>
+      </h2>
+
+      <dl class="faList">
+        <dt>Always:</dt>
+        <dd>Applicant is always oriented to person, place and event/situation.</dd>
+        <dt>Usually:</dt>
+        <dd>Applicant is not oriented to person or place or event/situation 1&#8209;3&nbsp;days per week.</dd>
+        <dt>Usually Not:</dt>
+        <dd>Applicant is not oriented to person or place or event/situation 4&#8209;6&nbsp;days per week.</dd>
+        <dt>Never:</dt>
+        <dd>Applicant is never oriented to person or place or event/situation 7&nbsp;days per week.</dd>
+      </dl>
+
+      <div class="qSelect">
+        <mat-label class="req">Is applicant oriented to PERSON (fails to remember own name, or recognizes family),
+          PLACE (does not know residence is a NF), or event/situation (e.g., is unaware of current circumstances in order to make decisions that prevent risk of harm)?
+        </mat-label>
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Select an option</mat-label>
+            <mat-select formControlName="orientationPrsnPlaceCd">
+              <mat-option value="AL">Always</mat-option>
+              <mat-option value="US">Usually</mat-option>
+              <mat-option value="UN">Usually Not</mat-option>
+              <mat-option value="NE">Never</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-error *ngIf="controlError('orientationPrsnPlaceCd')">{{errorText['orientationPrsnPlaceCd']}}</mat-error>
+        </div>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <h2 class="withTooltip"><span>Expressive Communication</span>
+        <mat-icon class="mattoolip-icon"
+          matTooltip="The applicant is incapable of reliably communicating basic needs and wants (e.g., need for assistance with toileting; presence of pain) in a manner that can be understood by others, including
+           through the use of assistive devices.
+
+           *Approval of this deficit requires documentation of the medical condition(s) contributing to this deficit, as well as the specific type and frequency of communication
+           assistance required.">
+           info_outline</mat-icon>
+      </h2>
+
+
+      <dl class="faList">
+        <dt>Always:</dt>
+        <dd>Applicant is always capable of reliably communicating basic needs and wants.</dd>
+        <dt>Usually:</dt>
+        <dd>Applicant is incapable of reliably communicating basic needs and wants and requires
+          continual intervention 1&#8209;3&nbsp;days per week.
+        </dd>
+        <dt>Usually Not:</dt>
+        <dd>Applicant is incapable of reliably communicating basic needs and wants, and requires
+          continual intervention 4&#8209;6&nbsp;days per week.</dd>
+        <dt>Never:</dt>
+        <dd>Applicant is never capable of reliably communicating basic needs and wants, and requires
+          continual intervention 7&nbsp;days per week.</dd>
+      </dl>
+
+      <div class="qSelect">
+        <mat-label class="req">Can applicant reliably communicate basic wants and needs?</mat-label>
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Select an option</mat-label>
+            <mat-select formControlName="communicateWantsCd">
+              <mat-option value="AL">Always</mat-option>
+              <mat-option value="US">Usually</mat-option>
+              <mat-option value="UN">Usually Not</mat-option>
+              <mat-option value="NE">Never</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-error *ngIf="controlError('communicateWantsCd')">{{errorText['communicateWantsCd']}}</mat-error>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+
+      <h2 class="withTooltip"><span>Receptive Communication</span>
+        <mat-icon class="mattoolip-icon"
+          matTooltip="The applicant is incapable of understanding and following very simple instructions and commands without continual intervention.
+
+          *Approval of this deficit requires documentation of the medical condition(s) contributing to this deficit, as well as the specific type and
+          frequency of communication assistance required.">
+          info_outline</mat-icon>
+      </h2>
+
+      <dl class="faList">
+        <dt>Always:</dt>
+        <dd>Applicant is always capable of understanding and following very simple instructions and commands
+          without continual intervention.</dd>
+        <dt>Usually:</dt>
+        <dd>Applicant is incapable of understanding and following very simple instructions and commands without
+          continual intervention 1&#8209;3&nbsp;days per week.</dd>
+        <dt>Usually Not:</dt>
+        <dd>Applicant is incapable of understanding and following very simple instructions and commands without
+          continual intervention 4&#8209;6&nbsp;days per week.</dd>
+        <dt>Never:</dt>
+        <dd>Applicant is never capable of understanding and following very simple instructions and commands without
+          continual intervention 7&nbsp;days per week.</dd>
+      </dl>
+
+
+      <div class="qSelect">
+        <mat-label class="req">Can applicant understand and follow very simple instructions without
+          continual intervention?</mat-label>
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Select an option</mat-label>
+            <mat-select formControlName="followInstructionsCd">
+              <mat-option value="AL">Always</mat-option>
+              <mat-option value="US">Usually</mat-option>
+              <mat-option value="UN">Usually Not</mat-option>
+              <mat-option value="NE">Never</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-error *ngIf="controlError('followInstructionsCd')">{{errorText['followInstructionsCd']}}</mat-error>
+        </div>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <h2 class="withTooltip"><span>Medication</span>
+        <mat-icon class="mattoolip-icon"
+        matTooltip="The applicant is not cognitively or physically capable of self-administering prescribed medications at the prescribed schedule despite the availability of limited assistance from another person.  Limited assistance includes, but is not limited to, reminding when to take medications, encouragement to take, reading medication labels, opening bottles, handing to applicant, reassurance of the correct dose, and the use of assistive devices including a prepared medication box. An occasional lapse in adherence to a medication schedule shall not be sufficient for approval of this deficit; the applicant must have physical or cognitive impairments which persistently inhibit his or her ability to self-administer medications.  
+
+        *Approval of this deficit requires evidence that such interventions have been tried or would not be successful, and that in the absence of intervention, the applicant’s health would be at serious and imminent risk of harm.">
+        info_outline</mat-icon>
+    </h2>
+
+      <dl class="faList">
+        <dt>Always:</dt>
+        <dd>Applicant is always capable of self-administration of prescribed medications.</dd>
+        <dt>Usually:</dt>
+        <dd>Applicant is incapable of self-administration of prescribed medications without physical
+          intervention 1&#8209;3&nbsp;days per week.</dd>
+        <dt>Usually Not:</dt>
+        <dd>Applicant is incapable of self-administration of prescribed medications without physical
+          intervention 4&#8209;6&nbsp;days per week.</dd>
+        <dt>Never:</dt>
+        <dd>Applicant is never capable of self-administration of prescribed medications without physical
+          intervention 7&nbsp;days per week.</dd>
+      </dl>
+
+      <div class="qSelect">
+        <mat-label class="req">Is applicant physically or cognitively able to self-administer
+          medications with limited asstance from others? <br />
+          This excludes sliding scale insulin which is documented in the skilled services section.
+        </mat-label>
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Select an option</mat-label>
+            <mat-select formControlName="selfAdmMedicationCd" (selectionChange)="parentClick('selfAdmMedicationCd')">
+              <mat-option value="AL">Always</mat-option>
+              <mat-option value="US">Usually</mat-option>
+              <mat-option value="UN">Usually Not</mat-option>
+              <mat-option value="NE">Never</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-error *ngIf="controlError('selfAdmMedicationCd')">{{errorText['selfAdmMedicationCd']}}</mat-error>
+        </div>
+      </div>
+
+      <div class="addDetails" *ngIf="showDependent['selfAdmMedicationCd']">
+        <div class="qSelect">
+          <mat-label class="req">Please list medications for which assistance is needed:</mat-label>
+        </div>
+        <mat-accordion>
+          <mat-expansion-panel [(expanded)]="xpandStatus">
+            <mat-expansion-panel-header [collapsedHeight]="'54px'">
+              <mat-panel-title>
+                <div>
+                  <span class="title">
+                    Pills / Tablets
+                  </span>
+                  <span class="buttons">
+                    <mat-icon class="closed">control_point</mat-icon>
+                    <mat-icon class="open">remove_circle_outline</mat-icon>
+                    <label>ADD DETAILS</label>
+                  </span>
+                </div>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="form-container">
+              <div class="control floated w40">
+                <mat-radio-group formControlName="PT_adminSw" (change)="parentClick('PT_adminSw')">
+                  <mat-label class="req">Can the applicant self-administer?</mat-label>
+                  <mat-error *ngIf="controlError('PT_adminSw')">{{errorText['PT_adminSw']}}</mat-error>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div class="textArea floated w60" *ngIf="showDependent['PT_adminSw']">
+                <mat-label class="req">Provide an explanation regarding why the applicant is
+                  unable to self-administer with limited help from others</mat-label>
+                <textarea maxlength="2000" formControlName="PT_adminDesc"></textarea>
+                <mat-error *ngIf="controlError('PT_adminDesc')">{{errorText['PT_adminDesc']}}</mat-error>
+                <p>{{getLength('PT_adminDesc')}}/2000</p>
+              </div>
+              <div class="panelButtons">
+                <button class="orange" *ngIf= "showSaveButtonPT" (click)="submit('PT')">SAVE</button>
+                <button class="orange"  *ngIf= "showEditButtonPT" (click)="edit('PT')">EDIT</button>
+                <button class="transparent" style="color: #174a7c" (click)='xpandStatus=xpandStatus?false:true'>CANCEL</button>
+                <button class="orange"  *ngIf= "showDeleteButtonPT"  (click)="deleteAccordion('PT')"  style = "float:right">DELETE</button>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-error *ngIf="controlError('PT_adminSw')">{{errorText['PT_adminSw']}}</mat-error>
+        <mat-accordion>
+          <mat-expansion-panel [(expanded)]="xpandStatus1">
+            <mat-expansion-panel-header [collapsedHeight]="'54px'">
+              <mat-panel-title>
+                <div>
+                  <span class="title">
+                    Eye Drops
+                  </span>
+                  <span class="buttons">
+                    <mat-icon class="closed">control_point</mat-icon>
+                    <mat-icon class="open">remove_circle_outline</mat-icon>
+                    <label>ADD DETAILS</label>
+                  </span>
+                </div>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="form-container">
+              <div class="control floated w40">
+                <mat-radio-group formControlName="ED_adminSw" (change)="parentClick('ED_adminSw')">
+                  <mat-label class="req">Can the applicant self-administer?</mat-label>
+                  <mat-error *ngIf="controlError('ED_adminSw')">{{errorText['ED_adminSw']}}</mat-error>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div class="textArea floated w60" *ngIf="showDependent['ED_adminSw']">
+                <mat-label class="req">Provide an explanation regarding why the applicant is
+                  unable to self-administer with limited help from others</mat-label>
+                <textarea maxlength="2000" formControlName="ED_adminDesc"></textarea>
+                <mat-error *ngIf="controlError('ED_adminDesc')">{{errorText['']}}</mat-error>
+                <p>{{getLength('ED_adminDesc')}}/2000</p>
+              </div>
+              <div class="panelButtons">
+                <button class="orange" *ngIf= "showSaveButtonED" (click)="submit('ED')">SAVE</button>
+                <button class="orange"  *ngIf= "showEditButtonED" (click)="edit('ED')">EDIT</button>
+                <button class="transparent" style="color: #174a7c" (click)='xpandStatus1=xpandStatus1?false:true'>CANCEL</button>
+                <button class="orange"  *ngIf= "showDeleteButtonED"  (click)="deleteAccordion('ED')"  style = "float:right">DELETE</button>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-error *ngIf="controlError('ED_adminSw')">{{errorText['ED_adminSw']}}</mat-error>
+        <mat-accordion>
+          <mat-expansion-panel [(expanded)]="xpandStatus2">
+            <mat-expansion-panel-header [collapsedHeight]="'54px'">
+              <mat-panel-title>
+                <div>
+                  <span class="title">
+                    Inhaler / Nebulizer
+                  </span>
+                  <span class="buttons">
+                    <mat-icon class="closed">control_point</mat-icon>
+                    <mat-icon class="open">remove_circle_outline</mat-icon>
+                    <label>ADD DETAILS</label>
+                  </span>
+                </div>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="form-container">
+              <div class="control floated w40">
+                <mat-radio-group formControlName="IN_adminSw" (change)="parentClick('IN_adminSw')" >
+                  <mat-label class="req">Can the applicant self-administer?</mat-label>
+                  <mat-error *ngIf="controlError('IN_adminSw')">{{errorText['IN_adminSw']}}</mat-error>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div class="textArea floated w60" *ngIf="showDependent['IN_adminSw']">
+                <mat-label class="req">Provide an explanation regarding why the applicant is
+                  unable to self-administer with limited help from others</mat-label>
+                <textarea maxlength="2000" formControlName="IN_adminDesc"></textarea>
+                <mat-error *ngIf="controlError('IN_adminDesc')">{{errorText['IN_adminDesc']}}</mat-error>
+                <p>{{getLength('IN_adminDesc')}}/2000</p>
+              </div>
+              <div class="panelButtons">
+                <button class="orange" *ngIf= "showSaveButtonIN" (click)="submit('IN')">SAVE</button>
+                <button class="orange"  *ngIf= "showEditButtonIN" (click)="edit('IN')">EDIT</button>
+                <button class="transparent" style="color: #174a7c" (click)='xpandStatus2=xpandStatus2?false:true'>CANCEL</button>
+                <button class="orange"  *ngIf= "showDeleteButtonIN"  (click)="deleteAccordion('IN')"  style = "float:right">DELETE</button>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-error *ngIf="controlError('IN_adminSw')">{{errorText['IN_adminSw']}}</mat-error>
+        <mat-accordion>
+          <mat-expansion-panel [(expanded)]="xpandStatus3">
+            <mat-expansion-panel-header [collapsedHeight]="'54px'">
+              <mat-panel-title>
+                <div>
+                  <span class="title">
+                    Topical / Patches
+                  </span>
+                  <span class="buttons">
+                    <mat-icon class="closed">control_point</mat-icon>
+                    <mat-icon class="open">remove_circle_outline</mat-icon>
+                    <label>ADD DETAILS</label>
+                  </span>
+                </div>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="form-container">
+              <div class="control floated w40">
+                <mat-radio-group formControlName="TP_adminSw" (change)="parentClick('TP_adminSw')">
+                  <mat-label class="req">Can the applicant self-administer?</mat-label>
+                  <mat-error *ngIf="controlError('TP_adminSw')">{{errorText['TP_adminSw']}}</mat-error>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div class="textArea floated w60" *ngIf="showDependent['TP_adminSw']">
+                <mat-label class="req">Provide an explanation regarding why the applicant is
+                  unable to self-administer with limited help from others</mat-label>
+                <textarea maxlength="2000" formControlName="TP_adminDesc"></textarea>
+                <mat-error *ngIf="controlError('TP_adminDesc')">{{errorText['TP_adminDesc']}}</mat-error>
+                <p>{{getLength('TP_adminDesc')}}/2000</p>
+              </div>
+              <div class="panelButtons">
+                <button class="orange" *ngIf= "showSaveButtonTP" (click)="submit('TP')">SAVE</button>
+                <button class="orange"  *ngIf= "showEditButtonTP" (click)="edit('TP')">EDIT</button>
+                <button class="transparent" style="color: #174a7c" (click)='xpandStatus3=xpandStatus3?false:true'>CANCEL</button>
+                <button class="orange"  *ngIf= "showDeleteButtonTP"  (click)="deleteAccordion('TP')"  style = "float:right">DELETE</button>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-error *ngIf="controlError('TP_adminSw')">{{errorText['TP_adminSw']}}</mat-error>
+        <mat-accordion>
+          <mat-expansion-panel [(expanded)]="xpandStatus4">
+            <mat-expansion-panel-header [collapsedHeight]="'54px'">
+              <mat-panel-title>
+                <div>
+                  <span class="title">
+                    Injections
+                  </span>
+                  <span class="buttons">
+                    <mat-icon class="closed">control_point</mat-icon>
+                    <mat-icon class="open">remove_circle_outline</mat-icon>
+                    <label>ADD DETAILS</label>
+                  </span>
+                </div>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="form-container">
+              <div class="control floated w40">
+                <mat-radio-group formControlName="INJ_adminSw" (change)="parentClick('INJ_adminSw')">
+                  <mat-label class="req">Can the applicant self-administer?</mat-label>
+                  <mat-error *ngIf="controlError('INJ_adminSw')">{{errorText['INJ_adminSw']}}</mat-error>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div class="textArea floated w60" *ngIf="showDependent['INJ_adminSw']">
+                <mat-label class="req">Provide an explanation regarding why the applicant is
+                  unable to self-administer with limited help from others</mat-label>
+                <textarea maxlength="2000" formControlName="INJ_adminDesc"></textarea>
+                <mat-error *ngIf="controlError('INJ_adminDesc')">{{errorText['INJ_adminDesc']}}</mat-error>
+                <p>{{getLength('INJ_adminDesc')}}/2000</p>
+              </div>
+              <div class="panelButtons">
+                <button class="orange" *ngIf= "showSaveButtonINJ" (click)="submit('INJ')">SAVE</button>
+                <button class="orange"  *ngIf= "showEditButtonINJ" (click)="edit('INJ')">EDIT</button>
+                <button class="transparent" style="color: #174a7c" (click)='xpandStatus4=xpandStatus4?false:true'>CANCEL</button>
+                <button class="orange"  *ngIf= "showDeleteButtonINJ"  (click)="deleteAccordion('INJ')"  style = "float:right">DELETE</button>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-error *ngIf="controlError('INJ_adminSw')">{{errorText['INJ_adminSw']}}</mat-error>
+        <mat-accordion>
+          <mat-expansion-panel [(expanded)]="xpandStatus5">
+            <mat-expansion-panel-header [collapsedHeight]="'54px'">
+              <mat-panel-title>
+                <div>
+                  <span class="title">
+                    Meds via Tube (G Tube, J Tube, NG tube&hellip;)
+                  </span>
+                  <span class="buttons">
+                    <mat-icon class="closed">control_point</mat-icon>
+                    <mat-icon class="open">remove_circle_outline</mat-icon>
+                    <label>ADD DETAILS</label>
+                  </span>
+                </div>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="form-container">
+              <div class="control floated w40">
+                <mat-radio-group formControlName="MVT_adminSw" (change)="parentClick('MVT_adminSw')">
+                  <mat-label class="req">Can the applicant self-administer?</mat-label>
+                  <mat-error *ngIf="controlError('MVT_adminSw')">{{errorText['MVT_adminSw']}}</mat-error>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div class="textArea floated w60" *ngIf="showDependent['MVT_adminSw']">
+                <mat-label class="req">Provide an explanation regarding why the applicant is
+                  unable to self-administer with limited help from others</mat-label>
+                <textarea maxlength="2000" formControlName="MVT_adminDesc"></textarea>
+                <mat-error *ngIf="controlError('MVT_adminDesc')">{{errorText['MVT_adminDesc']}}</mat-error>
+                <p>{{getLength('MVT_adminDesc')}}/2000</p>
+              </div>
+              <div class="panelButtons">
+                <button class="orange" *ngIf= "showSaveButtonMVT" (click)="submit('MVT')">SAVE</button>
+                <button class="orange"  *ngIf= "showEditButtonMVT" (click)="edit('MVT')">EDIT</button>
+                <button class="transparent" style="color: #174a7c" (click)='xpandStatus5=xpandStatus5?false:true'>CANCEL</button>
+                <button class="orange"  *ngIf= "showDeleteButtonMVT"  (click)="deleteAccordion('MVT')"  style = "float:right">DELETE</button>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-error *ngIf="controlError('MVT_adminSw')">{{errorText['MVT_adminSw']}}</mat-error>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <h2 class="withTooltip"><span>Behavior</span>
+        <mat-icon class="mattoolip-icon"
+          matTooltip="The applicant requires persistent staff or caregiver intervention and supervision (due to an established and persistent pattern of behavioral problems which are not primarily related to a mental health condition (for which mental health treatment would be the most
+            appropriate course of treatment) or a substance abuse disorder (for which substance abuse treatment would be the most appropriate course of treatment), and which, absent such continual
+            intervention and supervision, place the applicant or others at imminent and serious risk of harm. Such behaviors may include physical aggression (including assaultive or self-injurious behavior,
+            destruction of property, resistive or combative to personal and other care, intimidating/threatening, or sexual acting out or exploitation) or inappropriate or unsafe behavior (including disrobing in public, eating non-edible substances, fire setting, unsafe cooking or smoking, wandering, elopement, or getting lost).
+
+            *Approval of this deficit requires documentation of the specific behaviors and the frequency of such behaviors.">info_outline</mat-icon>
+      </h2>
+
+      <dl class="faList">
+        <dt>Always:</dt>
+        <dd>Applicant always requires persistent staff or caregiver intervention due to an
+          established and persistent pattern of behavioral problems 7&nbsp;days per week.
+        </dd>
+        <dt>Usually:</dt>
+        <dd>Applicant requires persistent staff or caregiver intervention due to an
+          established and persistent pattern of behavioral problems 4&#8209;6&nbsp;days per week.</dd>
+        <dt>Usually Not:</dt>
+        <dd>Applicant requires persistent staff or caregiver intervention due to an
+          established and persistent pattern of behavioral problems 1&#8209;3&nbsp;days per week.</dd>
+        <dt>Never:</dt>
+        <dd>Applicant never requires persistent staff or caregiver intervention due to an
+          established and persistent pattern of behavioral problems.</dd>
+      </dl>
+
+      <div class="qSelect">
+        <mat-label class="req">Does applicant require persistent intervention for an
+          established pattern of behavioral problems not primarily related to a
+          mental health or substance abuse disorder?
+        </mat-label>
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Select an option</mat-label>
+            <mat-select formControlName="behProblemCd" (selectionChange)="parentClick('behProblemCd')">
+              <mat-option value="AL">Always</mat-option>
+              <mat-option value="US">Usually</mat-option>
+              <mat-option value="UN">Usually Not</mat-option>
+              <mat-option value="NE">Never</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-error *ngIf="controlError('behProblemCd')">{{errorText['behProblemCd']}}</mat-error>
+        </div>
+      </div>
+
+      <div class="behaviors" *ngIf="showDependent['behProblemCd']">
+        <mat-label class="req">Please specify the behavioral problems requiring continual staff or caregiver
+          intervention:</mat-label>
+        <table>
+          <thead>
+            <tr>
+              <th>Behavior Type</th>
+              <th>Intervention</th>
+              <th>User Actions</th>
+            </tr>
+          </thead>
+          <tbody formArrayName="behaviors">
+            <ng-container *ngFor="let item of getBehaviors().controls; let i = index">
+              <tr *ngIf="!behaviorState[i].deleteSw" formGroupName="{{i}}">
+                <td [ngClass]="{'ng-invalid' : showIndexedError('behType', i) }">
+                  <input type="text" maxlength="45" [attr.index]="i" formControlName="behType"
+                    (keyup)="updateIndexed($event)" (change)="validateIndexed($event)" >
+                  <mat-error *ngIf="indexedControlErrors[i].behType">{{indexedControlErrors[i].behType}}</mat-error>
+                </td>
+                <td [ngClass]="{'ng-invalid': showIndexedError('behIntrvntn', i)}">
+                  <input type="text" maxlength="45" [attr.index]="i" formControlName="behIntrvntn"
+                    (keyup)="updateIndexed($event)" (blur)="updateIndexed($event)" (change)="validateIndexed($event)"/>
+                  <mat-error *ngIf="indexedControlErrors[i].behIntrvntn">{{indexedControlErrors[i].behIntrvntn}}</mat-error>
+                </td>
+                <td>
+                  <ng-container *ngIf="showRemove">
+                    <mat-icon (click)="removeBehavior(i)">delete</mat-icon>
+                  </ng-container>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+        <p (click)="addBehavior()">
+          <mat-icon>add_circle</mat-icon><span>ADD BEHAVIOR</span>
+        </p>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="buttonBar">
+  <button mat-flat-button type="button" class="perlss-click-button-white" (click)="back()">BACK</button>
+  <button mat-flat-button color="primary" class="perlss-click-button-white-noborder"><span
+      class="hoverClass" (click)="saveAndExit()">SAVE AND EXIT</span></button>
+    <button mat-flat-button color="primary" class="perlss-click-button" (click)="next()">NEXT</button>
+</div>

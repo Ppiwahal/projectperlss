@@ -1,0 +1,65 @@
+<div class="row-header">
+  <span class="col-lg-9 dialog-heading">
+    View User Role
+  </span>
+  <span class="col-lg-3 text-right close-icon">
+    <mat-icon (click)=close()>highlight_off</mat-icon>
+  </span>
+</div>
+  <mat-divider class="perlss-section-divider"></mat-divider>
+
+  <div *ngIf="isShowTable" style="font-size: 14px;font-family: 'Open Sans'">
+    <table aria-describedby ="" class="table table-borderless">
+      <tr class="d-flex">
+        <th id="userRoleName" class="col-2"><strong>USER ROLE NAME:</strong></th>
+        <td class="col-2">
+          <span *ngIf="userRoleDetails?.roleName">{{this.userRoleDetails?.roleName}}</span>
+          <span *ngIf="!userRoleDetails?.roleName">N/A</span>
+        </td>
+        <td class="col-2"><strong>
+          <span *ngIf="isActiveFlag">ACTIVE DATE:</span>
+          <span *ngIf="!isActiveFlag">INACTIVE DATE:</span></strong>
+        </td>
+        <td class="col-6">
+          <span *ngIf="userRoleDetails?.roleStatusDt">{{userRoleDetails?.roleStatusDt | date:'MM/dd/yyyy'}}</span>
+          <span *ngIf="!userRoleDetails?.roleStatusDt">N/A</span>
+        </td>
+      </tr>
+      <tr class="d-flex">
+        <td class="col-2"><strong>ENTITY TYPE:</strong></td>
+        <td class="col-2">
+          <span *ngIf="userRoleDetails?.entityTypeName">{{userRoleDetails?.entityTypeName}}</span>
+          <span *ngIf="!userRoleDetails?.entityTypeName">N/A</span>
+        </td>
+        <td class="col-2"><strong>LAST UPDATED DATE:</strong></td>
+        <td class="col-6">
+          <span *ngIf="userRoleDetails?.lastModifiedDt">{{this.userRoleDetails?.lastModifiedDt | date:'MM/dd/yyyy'}}</span>
+          <span *ngIf="!userRoleDetails?.lastModifiedDt">N/A</span>
+        </td>
+      </tr>
+      <tr class="d-flex">
+        <td class="col-2"><strong>ENTITY:</strong></td>
+        <td class="col-2">
+          <span *ngIf="userRoleDetails?.entityName">{{userRoleDetails?.entityName}}</span>
+          <span *ngIf="!userRoleDetails?.entityName">N/A</span>
+        </td>
+        <td class="col-2"><strong>BUSINESS FUNCTION(S):</strong></td>
+        <td class="col-6">
+          <span *ngIf="userRoleDetails?.isFunctions">{{this.userRoleDetails?.functionNames}}</span>
+          <span *ngIf="!userRoleDetails?.isFunctions">N/A</span>
+        </td>
+      </tr>
+      <tr class="d-flex">
+        <td class="col-2"><strong>REGION:</strong></td>
+        <td class="col-2">
+          <span *ngIf="userRoleDetails?.regionCd">{{this.userRoleDetails?.regionCd}}</span>
+          <span *ngIf="!userRoleDetails?.regionCd">N/A</span>
+        </td>
+        <td class="col-2"><strong>TASK QUEUE(S):</strong></td>
+        <td class="col-6">
+          <span *ngIf="userRoleDetails?.isTasks">{{this.userRoleDetails?.taskQueuesModified}}</span>
+          <span *ngIf="!userRoleDetails?.isTasks">N/A</span>
+        </td>
+      </tr>
+    </table>
+  </div>

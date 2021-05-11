@@ -1,0 +1,284 @@
+<div class="responsive">
+
+  <div class="scroller noPad">
+    <div class="padded" *ngIf="headerApiComplete && !headerApiError">
+      <div *ngIf="!pastDueDt" class="intakeDate">{{HEADER_DATA.intakeDueDt | date: 'M/d/y'}}</div>
+      <div *ngIf="pastDueDt" class="intakeDate chkBordr">{{HEADER_DATA.intakeDueDt | date: 'M/d/y'}}</div>
+      <h4>Intake Actions</h4>
+    </div>
+ </div>
+</div>
+
+<div class="header-information-container" *ngIf="headerApiComplete && !headerApiError">
+  <div class="pageMargin">
+    <table id="headerTable">
+      <tr>
+        <th id="applicantName">APPLICANT NAME:</th>
+        <td class="chkPaddingL">{{HEADER_DATA.firstName}} {{HEADER_DATA.midInitial}} {{HEADER_DATA.lastName}}</td>
+        <th class="chkPad">REFERRAL ID:</th>
+        <td id="refIdData"><u (click)="openDocument()">{{HEADER_DATA.refId}}</u></td>
+     </tr>
+      <tr>
+        <th id="personId">PERSON ID:</th>
+        <td class="chkPaddingL">{{HEADER_DATA.personId}}</td>
+        <th class="chkPad">REFERRAL RECEIVED DATE:</th>
+        <td id="refIdRecvdDate">{{HEADER_DATA.submissionDt | date:'MM/dd/yyyy'}}</td>
+     </tr>
+      <tr>
+        <th id="dateOfBirth">DATE OF BIRTH:</th>
+        <td class="chkPaddingL">{{HEADER_DATA.dobDt| date:'MM/dd/yyyy'}}</td>
+        <th class="chkPad">REFERRAL SUBMITTER:</th>
+        <td id="refSubmttrData">{{mapForSubmitter.get(HEADER_DATA.whoIsSubmittingCd)}}</td>
+     </tr>
+      <tr>
+        <th id="ssn">SSN:</th>
+        <td class="chkPaddingL">{{getSSNMask(HEADER_DATA.ssn)}}</td>
+        <th class="chkPad">ASSIGNED GROUP:</th>
+        <td id="assigndGrpData">{{HEADER_DATA.entityName}}</td>
+     </tr>
+      <tr>
+        <th id="programType">PROGRAM TYPE:</th>
+        <td class="chkPaddingL">{{HEADER_DATA.programCd}}</td>
+        <th class="chkPad">ASSIGNED USER:</th>
+        <td id="assngdUserData">{{assignedUser}}</td>
+     </tr>
+   </table>
+ </div>
+</div>
+
+
+
+<div class="pageMargin chkHt">
+  <div class="summary-container" *ngIf="headerApiComplete && !headerApiError">
+
+    <div class="row">
+      <div class="col-md-12">
+        <h5>Summary</h5>
+     </div>
+   </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <p><strong>Here is a summary of responses for consideration.</strong></p>
+     </div>
+   </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <span><strong>Current Enrollment: </strong>{{SUMMARY_DATA.currentEnrollment}}</span>
+
+     </div>
+   </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <span><strong>DCS Custody: </strong>{{SUMMARY_DATA.dcsCstdy}}</span>
+     </div>
+   </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <span><strong>Current Living Arrangement: </strong>{{livingArrangementMap.get(SUMMARY_DATA.currentLivingCd)}}</span>
+     </div>
+   </div>
+
+ </div>
+
+  <div class="summary-table-container" *ngIf="summaryApiComplete && !summaryApiError">
+    <div class="row">
+      <div class="col-md-12">
+        <table id="intakeSummary" aria-describedBy="false" class="mat-elevation-z8">
+          <col span="1" class="wider">
+          <tr>
+            <th id="questions" class="left">Referral Questions</th>
+            <th id="response">Referral Response</th>
+         </tr>
+          <tr *ngFor="let summary of SUMMARY_MAP">
+            <td class="left">{{summaryMap.get(summary.key)}}</td>
+
+            <td *ngIf="SUMMARY_DATA[summary.key] == 'Y' || SUMMARY_DATA[summary.key] == 'N'">
+              {{yesNoMap.get(SUMMARY_DATA[summary.key])}}</td>
+            <td *ngIf="SUMMARY_DATA[summary.key] != 'Y' && SUMMARY_DATA[summary.key] !='N'">
+              {{SUMMARY_DATA[summary.key]}}</td>
+         </tr>
+       </table>
+     </div>
+   </div>
+ </div>
+  <ng-container *ngIf="headerApiError">We have run into an internal system error while fetching data.</ng-container>
+  <hr>
+
+  <div class="options-container">
+    <div class="row">
+      <div class="col-md-12">
+        <h5>Options</h5>
+     </div>
+   </div>
+ </div>
+</div>
+
+<div class="accordion-container">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Request Extension for Intake Due Date (Optional)
+       </mat-panel-title>
+        <mat-panel-title class="right-aligned">
+
+          <mat-icon *ngIf="!intakeActionsExtensionDataExists">add_circle_outline</mat-icon>
+          <mat-label *ngIf="!intakeActionsExtensionDataExists">&nbsp;&nbsp;ADD DETAILS</mat-label>
+          <mat-label *ngIf="intakeActionsExtensionDataExists">&nbsp;&nbsp;VIEW DETAILS</mat-label>
+          <mat-icon *ngIf="intakeActionsExtensionDataExists" class="check-green">offline_pin</mat-icon>
+       </mat-panel-title>
+     </mat-expansion-panel-header>
+
+      <div class="accordion-content-container"
+           [ngClass]="(disableRequestForExtensionDiv)?'disabledDiv':'accordion-content-container'"
+           *ngIf="intakeActionExtensionCompleted">
+        <div [formGroup]="extensionReasonForm">
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>
+                  <mat-label class="required-color"><sup>*</sup></mat-label>Reason for Requesting Extension
+               </mat-label>
+                <mat-select matNativeControl formControlName="extsnRsnCd" [disabled]="disableRequestForExtensionButton">
+
+                  <mat-option *ngFor="let intakeExtensionReason of INTAKE_EXTENSION"
+                              [value]="intakeExtensionReason.code" [disabled]="disableRequestForExtensionButton">
+                    {{intakeExtensionReason.value}}</mat-option>
+               </mat-select>
+             </mat-form-field>
+              <mat-error *ngIf="getExtensionFormData().extsnRsnCd.hasError('required') && intakeActionsSubmitted">
+                {{customValidation.A1}}
+             </mat-error>
+           </div>
+         </div>
+          <div class="row">
+            <div class="col-md-3">
+              <button mat-stroked-button type="button"
+                      [ngClass]="(disableRequestForExtensionButton)?'disabledButton':'perlss-click-button'"
+                      [disabled]="disableRequestForExtensionButton" (click)="intakeExtensionSubmitted()">SUBMIT</button>
+           </div>
+         </div>
+
+       </div>
+     </div>
+
+   </mat-expansion-panel>
+ </mat-accordion>
+</div>
+
+<app-referral-schedule-intake-visit></app-referral-schedule-intake-visit>
+
+<div class="accordion-container">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Return for Reassignment (Optional)
+       </mat-panel-title>
+        <mat-panel-title class="right-aligned">
+          <mat-icon *ngIf="!reassignmentDataExists">add_circle_outline</mat-icon>
+          <mat-label *ngIf="!reassignmentDataExists">&nbsp;&nbsp;ADD DETAILS</mat-label>
+          <mat-label *ngIf="reassignmentDataExists">&nbsp;&nbsp;VIEW DETAILS</mat-label>
+          <mat-icon *ngIf="reassignmentDataExists" class="check-green">offline_pin</mat-icon>
+       </mat-panel-title>
+     </mat-expansion-panel-header>
+
+
+      <div class="accordion-content-container"
+           [ngClass]="(returnForReassignmentDiv)?'disabledDiv':'accordion-content-container'"
+           *ngIf="reassignmentCompleted">
+        <div [formGroup]="reassignmentForm">
+          <div class="row">
+            <div class="col-md-12">
+              <mat-form-field appearance="outline" class="chkWidth">
+                <mat-label class="required-color"><sup>*</sup></mat-label>
+                <mat-label><strong>Provide a reason for reassignment</strong></mat-label>
+                <textarea matInput maxlength="2000" formControlName="reassmntRsnTxt" #reassmntRsnTxt
+                          [ngClass]="{ 'is-invalid': (getReassignmentFormData().reassmntRsnTxt.touched || reassignmentSubmitted) && getReassignmentFormData().reassmntRsnTxt.errors }"></textarea>
+                <mat-error *ngIf="getReassignmentFormData().reassmntRsnTxt.errors !== null">
+                  <mat-error
+                    *ngIf="getReassignmentFormData().reassmntRsnTxt.errors.maxLength == null && !getReassignmentFormData().reassmntRsnTxt.errors.pattern && !getReassignmentFormData().reassmntRsnTxt.errors.required">
+                    Cannot exceed 2000 characters</mat-error>
+                  <mat-error
+                    *ngIf="getReassignmentFormData().reassmntRsnTxt.touched && getReassignmentFormData().reassmntRsnTxt.errors.required">
+                    {{customValidation.A1}}</mat-error>
+                  <mat-error
+                    *ngIf="getReassignmentFormData().reassmntRsnTxt.errors.pattern && !getReassignmentFormData().reassmntRsnTxt.errors.required">
+                    {{customValidation.A2}}
+                 </mat-error>
+               </mat-error>
+             </mat-form-field>
+              <div class="character-count">
+                {{reassmntRsnTxt.value.length}}/2000
+             </div>
+           </div>
+         </div>
+
+          <ng-container *ngIf="taskMasterId === 2">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-label>
+                    <mat-label class="required-color"><sup>*</sup></mat-label>Assign Entity
+                 </mat-label>
+                  <mat-select matNativeControl formControlName="assignedEntityCd">
+                    <mat-option *ngFor="let entity of assignEntityList"
+                                [value]="entity.code">
+                      {{entity.value}}</mat-option>
+                 </mat-select>
+               </mat-form-field>
+                <mat-error
+                  *ngIf="getReassignmentFormData().assignedEntityCd.hasError('required') && reassignmentSubmitted">
+                  {{customValidation.A1}}
+               </mat-error>
+             </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <mat-form-field appearance="outline" class="chkWidth">
+                  <mat-label class="required-color"><sup>*</sup></mat-label>
+                  <mat-label><strong>LTSS Comments</strong></mat-label>
+                  <textarea matInput maxlength="2000" formControlName="ltssRsnTxt" #ltssRsnTxt
+                            [ngClass]="{ 'is-invalid': (getReassignmentFormData().ltssRsnTxt.touched || reassignmentSubmitted) && getReassignmentFormData().ltssRsnTxt.errors }"></textarea>
+                  <mat-error *ngIf="getReassignmentFormData().ltssRsnTxt.errors !== null">
+                    <mat-error
+                      *ngIf="getReassignmentFormData().ltssRsnTxt.errors.maxLength == null && !getReassignmentFormData().ltssRsnTxt.errors.pattern && !getReassignmentFormData().ltssRsnTxt.errors.required">
+                      Cannot exceed 2000 characters</mat-error>
+                    <mat-error
+                      *ngIf="getReassignmentFormData().ltssRsnTxt.touched && getReassignmentFormData().ltssRsnTxt.errors.required">
+                      {{customValidation.A1}}</mat-error>
+                    <mat-error
+                      *ngIf="getReassignmentFormData().ltssRsnTxt.errors.pattern && !getReassignmentFormData().ltssRsnTxt.errors.required">
+                      {{customValidation.A2}}
+                   </mat-error>
+                 </mat-error>
+               </mat-form-field>
+                <div class="character-count">
+                  {{ltssRsnTxt.value.length}}/2000
+               </div>
+             </div>
+           </div>
+         </ng-container>
+
+       </div>
+
+        <div>
+          <button mat-stroked-button type="button"
+                  [ngClass]="(returnForReassignmentButton)?'perlss-click-button':'disabledButton'"
+                  [disabled]="!returnForReassignmentButton" (click)="reassignmentSubmit()">SUBMIT</button>
+       </div>
+
+     </div>
+   </mat-expansion-panel>
+ </mat-accordion>
+</div>
+
+<app-referral-enter-intake-outcome
+[chmTypeCd]="chmTypeCd">
+
+</app-referral-enter-intake-outcome>

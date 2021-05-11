@@ -1,0 +1,45 @@
+<div class="responsive">
+  <div class="form">
+    <div class="scroller">
+      <div>
+        <app-change-management-common mode="twoPanel">
+          <div>
+            <form [formGroup]="myForm" [ngClass]="{'submitted': submitted }">
+              <div>
+                <div>
+                  <div class="alert-container-note">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <mat-label> The selected individual is linked to {{sentence}}.
+                       </mat-label>
+                     </div>
+                   </div>
+                 </div>
+                 <div class="row">
+                 <div class="col-md-6 margin">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Update Viewers</mat-label>
+                    <mat-select formControlName="entity" multiple (change)="selectEntity($event)" >
+                      <mat-option  *ngFor="let item of summaryDataList" [value]="item.entityCd">{{item.entityName}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-error *ngIf="controlError('entity')">{{errorText['entity']}}</mat-error>
+                  </div>
+                  <div class="col-md-6 marginT">
+                    <a class="linkT">MMIS Verify Eligibility Look-up</a>
+                  </div>
+                </div>
+                </div>
+
+                <div class="panelButtons onLeft">
+                  <button type="submit" mat-flat-button color="primary" class="perlss-click-button"
+                    (click)="save()">SUBMIT</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </app-change-management-common>
+      </div>
+    </div>
+  </div>
+</div>

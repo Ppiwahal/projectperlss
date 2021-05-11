@@ -1,0 +1,177 @@
+<div style="width: 90%; padding-left: 50px;">
+    <div class="note1">
+        NOTE: Please enter PASRR details for Level 1 or Level 2, but not both!
+    </div>
+    <form [formGroup]="passrOutcomeForm">
+        <div>
+            <div style="width: 100%">
+                <div class="user-role-heading">Level 1</div>
+            </div>
+
+            <div class="row secondary-data-content" style="border: 1px sloid;">
+                <div class="col-md-6">
+                    <!-- <mat-label class="label">
+                    Submit Date
+                </mat-label>-->
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label class="label">Submit Date</mat-label>
+                        <input formControlName="lvl1SubmitDt" matInput [matDatepicker]="ptntLiabilityPicker"
+                            [min]="minDate" [max]="maxDate" (dateChange)="onLvl1Cng()">
+                        <mat-datepicker-toggle matSuffix [for]="ptntLiabilityPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #ptntLiabilityPicker></mat-datepicker>
+                        <mat-error *ngIf="getFormData().lvl1SubmitDt.errors != null || submitted">
+                            <mat-error *ngIf="passrOutcomeForm.get('lvl1SubmitDt').errors?.required">
+                                {{customValidation.A1}}
+                            </mat-error>
+                            <mat-error *ngIf="getFormData().lvl1SubmitDt.errors.matDatepickerMax">
+                                {{customValidation.A5}}
+                            </mat-error>
+                            <mat-error *ngIf="getFormData().lvl1SubmitDt.errors.matDatepickerMin">
+                                {{customValidation.A6}}
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label class="label">
+                            Payor Source
+                        </mat-label>
+                        <mat-select (selectionChange)="onLvl1Cng()" formControlName="payorSrcCd">
+                            <mat-option [value]=null></mat-option>
+                            <mat-option *ngFor="let p of payorSrcCdList" [value]="p.code">{{p.value}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="getFormData().payorSrcCd.errors != null || submitted">
+                            <mat-error *ngIf="getFormData().payorSrcCd.errors.required">
+                                {{customValidation.A1}}
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row secondary-data-content">
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label class="label">
+                            Level 1 Decision
+                        </mat-label>
+                        <mat-select (selectionChange)="onLvl1Cng()" formControlName="lvl1DcsnCd">
+                            <mat-option [value]=null></mat-option>
+                            <mat-option *ngFor="let l of lvl1DcsnCdList" [value]="l.code">{{l.value}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="getFormData().lvl1DcsnCd.errors != null || submitted">
+                            <mat-error *ngIf="getFormData().lvl1DcsnCd.errors.required">
+                                {{customValidation.A1}}
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-6">
+                    <!-- <mat-label class="label">
+                    Level 1 Decision Date
+                </mat-label>-->
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label class="label">Level 1 Decision Date</mat-label>
+                        <input matInput formControlName="lvl1DcsnDt" [matDatepicker]="ptntLiability" [min]="minDate"
+                            [max]="maxDate" (dateChange)="onLvl1Cng()">
+                        <mat-datepicker-toggle matSuffix [for]="ptntLiability"></mat-datepicker-toggle>
+                        <mat-datepicker #ptntLiability></mat-datepicker>
+                        <mat-error *ngIf="getFormData().lvl1DcsnDt.errors != null || submitted">
+                            <mat-error *ngIf="passrOutcomeForm.get('lvl1DcsnDt').errors.required">
+                                {{customValidation.A1}}
+                            </mat-error>
+                            <mat-error *ngIf="getFormData().lvl1DcsnDt.errors.matDatepickerMax">{{customValidation.A5}}
+                            </mat-error>
+                            <mat-error *ngIf="getFormData().lvl1DcsnDt.errors.matDatepickerMin">{{customValidation.A6}}
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <mat-divider></mat-divider>
+        <br>
+
+        <div>
+            <div class="user-role-heading">Level 2</div>
+            <div class="row secondary-data-content">
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label class="label">Level 2 Decision</mat-label>
+                        <mat-select (selectionChange)="onLvl2Cng()" formControlName="lvl2DcsnCd">
+                            <mat-option [value]=null></mat-option>
+                            <mat-option *ngFor="let l of lvl2DcsnCdList" [value]="l.code">{{l.value}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="getFormData().lvl2DcsnCd.errors != null || submitted">
+                            <mat-error *ngIf="getFormData().lvl2DcsnCd.errors.required">
+                                {{customValidation.A1}}
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row secondary-data-content">
+                <div class="col-md-6">
+                    <!-- <mat-label class="label">Level 2 Effective Date</mat-label>-->
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label class="label">Level 2 Effective Date</mat-label>
+                        <input formControlName="lvl2EffDt" matInput [matDatepicker]="Liability" [min]="minDate"
+                            [max]="maxDate" aria-label="dateChange" (dateChange)="onLvl2Cng()">
+                        <mat-datepicker-toggle matSuffix [for]="Liability"></mat-datepicker-toggle>
+                        <mat-datepicker #Liability></mat-datepicker>
+                        <mat-error *ngIf="getFormData().lvl2EffDt.errors != null">
+                            <mat-error *ngIf="passrOutcomeForm.get('lvl2EffDt').errors.required || submitted">
+                                {{customValidation.A1}}
+                            </mat-error>
+                            <mat-error *ngIf="getFormData().lvl2EffDt.errors.matDatepickerMax">{{customValidation.A5}}
+                            </mat-error>
+                            <mat-error *ngIf="getFormData().lvl2EffDt.errors.matDatepickerMin">{{customValidation.A6}}
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-6">
+                    <!-- <mat-label class="label">
+                    Level 2 End Date
+                </mat-label>-->
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label class="label">Level 2 End Date</mat-label>
+                        <input formControlName="lvl2EndDt" matInput [matDatepicker]="ptntLiabilityLevel2"
+                            [min]="minDate" [max]="maxDate" (dateChange)="onLvl2Cng()">
+                        <mat-datepicker-toggle matSuffix [for]="ptntLiabilityLevel2"></mat-datepicker-toggle>
+                        <mat-datepicker #ptntLiabilityLevel2></mat-datepicker>
+                        <mat-error *ngIf="getFormData().lvl2EndDt.errors != null">
+                            <mat-error *ngIf="passrOutcomeForm.get('lvl2EndDt').errors.required || submitted">
+                                {{customValidation.A1}}
+                            </mat-error>
+                            <mat-error *ngIf="getFormData().lvl2EndDt.errors.matDatepickerMax">{{customValidation.A5}}
+                            </mat-error>
+                            <mat-error *ngIf="getFormData().lvl2EndDt.errors.matDatepickerMin">{{customValidation.A6}}
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <button mat-flat-button color="primary" [hidden]="!isHidden" style="float: left;  min-width: 100px;
+            line-height: 20px !important;"
+                (click)="onEdit()">Edit</button>
+            <button mat-flat-button [hidden]="isHidden" [disabled]="isDisabled" (click)="onSave()"
+                class="saveButton">SAVE</button>
+            <button mat-button[hidden]="isHidden" [disabled]="isDisabled" (click)="onCancel()"
+                class="cancelButton">CANCEL</button>
+            <mat-icon aria-hidden="false" [hidden]="isHidden" style="float: right; cursor: pointer"
+                aria-label="Example home icon" (click)="onDelete()">delete</mat-icon>
+        </div>
+
+    </form>
+</div>

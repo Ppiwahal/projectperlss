@@ -1,0 +1,635 @@
+<div class="heading-container">
+  <div class="row">
+    <div class="col-md-12">
+      <h4>Skilled Nursing & Rehabilitative Services</h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <mat-label>Please add all the applicable services below and the frequency needed.</mat-label>
+    </div>
+  </div>
+
+</div>
+
+<div class="accordion-form-group-container" [formGroup]="sectionType">
+  <div class="accordion-container">
+    <mat-accordion>
+      <mat-expansion-panel (opened)="openedAccordion('KBVN')" [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Ventilator or NIPPV
+          </mat-panel-title>
+          <mat-panel-title class="right-aligned">
+            <mat-icon>add_circle_outline</mat-icon>
+            <mat-label>&nbsp;&nbsp;ADD DETAILS</mat-label>
+          </mat-panel-title>
+          
+       </mat-expansion-panel-header>
+        <div class="accordion-content-container">
+          <div class="row">
+            <div class="col-md-12">
+              <mat-label  style="padding-bottom: 18px;">
+                <mat-label class="required-color">*</mat-label><strong>Does the child require a Ventilator or Non-invasive Positive Pressure 
+                  Ventilation (NIPPV)?
+                  </strong>
+              </mat-label>
+              <mat-radio-group formControlName=serviceRequiredSw>
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <mat-label><mat-label class="required-color">*</mat-label><strong>At what frequency is a Ventilator or NIPPV required?</strong></mat-label>
+              <mat-form-field appearance="outline">
+                <mat-label>Please Select an option</mat-label>
+                <mat-select formControlName=frqcyCd>
+                  <mat-option value="MOR">8 or more hours per day</mat-option>
+                  <mat-option value="LES">Less than 8 hours per day</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <mat-label style="padding-bottom: 18px;">
+                <mat-label class="required-color">*</mat-label><strong>Is this skilled service expected to continue for 12 months at the frequency 
+                  marked above?                  
+                  </strong>
+              </mat-label>
+              <mat-radio-group formControlName=frqcy12monSw>
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <div class="row">
+            <button mat-stroked-button type="button" class="expandable-row-button">SAVE</button>
+          </div>
+
+       </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    
+
+  </div>
+
+  <div class="accordion-container">
+    <mat-accordion>
+      <mat-expansion-panel (opened)="openedAccordion('KBVN')" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Tracheostomy Care
+          </mat-panel-title>
+          <mat-panel-title class="right-aligned">
+            <mat-icon>add_circle_outline</mat-icon>
+            <mat-label>&nbsp;&nbsp;ADD DETAILS</mat-label>
+          </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="accordion-content-container">
+          <div class="row">
+            <div class="col-md-12">
+              <mat-label  style="padding-bottom: 18px;">
+                <mat-label class="required-color">*</mat-label><strong>Does the child need tracheostomy care requiring suctioning?                 </strong>
+              </mat-label>
+              <mat-radio-group formControlName=serviceRequiredSw>
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <mat-label><mat-label class="required-color">*</mat-label><strong>At what frequency is a is a tracheostomy care requiring suctioning needed?</strong>
+              </mat-label>
+              <mat-form-field appearance="outline">
+                <mat-label>Please Select an option</mat-label>
+                <mat-select formControlName=frqcyCd>
+                  <mat-option value="MOR">8 or more hours per day</mat-option>
+                  <mat-option value="LES">Less than 8 hours per day</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <mat-label style="padding-bottom: 18px;">
+                <mat-label class="required-color">*</mat-label><strong>Is this skilled service expected to continue for 12 months at the frequency marked above? 
+
+                  </strong>
+              </mat-label>
+              <mat-radio-group formControlName=frqcy12monSw>
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <div class="row">
+            <button mat-stroked-button type="button" class="expandable-row-button">SAVE</button>
+          </div>
+
+       </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    
+
+  </div>
+
+  <div class="accordion-container">
+    <mat-accordion>
+      <mat-expansion-panel (opened)="openedAccordion('KBCH')" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Chronic Hypoxia
+          </mat-panel-title>
+          <mat-panel-title class="right-aligned">
+            <mat-icon>add_circle_outline</mat-icon>
+            <mat-label>&nbsp;&nbsp;ADD DETAILS</mat-label>
+          </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="accordion-content-container">
+          <div class="row">
+            <div class="col-md-12">
+              <mat-label  style="padding-bottom: 18px;">
+                <mat-label class="required-color">*</mat-label><strong>Does the child require oxygen administration for chronic hypoxia?
+
+                  </strong>
+              </mat-label>
+              <mat-radio-group formControlName=serviceRequiredSw>
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <mat-label><mat-label class="required-color">*</mat-label><strong>At what frequency is oxygen administration required?</strong>
+              </mat-label>
+              <mat-form-field appearance="outline">
+                <mat-label>Please Select an option</mat-label>
+                <mat-select formControlName=frqcyCd>
+                  <mat-option value="MOR">8 or more hours per day</mat-option>
+                  <mat-option value="LES">Less than 8 hours per day</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <mat-label style="padding-bottom: 18px;">
+                <mat-label class="required-color">*</mat-label><strong>Is this skilled service expected to continue for 12 months at the frequency 
+                  marked above?                  
+                  </strong>
+              </mat-label>
+              <mat-radio-group formControlName=frqcy12monSw>
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <mat-label style="padding-bottom: 18px;">
+                <mat-label class="required-color">*</mat-label><strong>Does the child require round the clock monitoring of oxygen saturation levels and titration of oxygen levels administered?
+                  
+                  </strong>
+              </mat-label>
+              <mat-radio-group  >
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <div class="row">
+            <button mat-stroked-button type="button" class="expandable-row-button">SAVE</button>
+          </div>
+
+       </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    
+
+  </div>
+
+  <div class="accordion-container">
+    <mat-accordion>
+      <mat-expansion-panel (opened)="openedAccordion('KBTP')" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Total Parenteral nutrition (TPN)
+          </mat-panel-title>
+          <mat-panel-title class="right-aligned">
+            <mat-icon>add_circle_outline</mat-icon>
+            <mat-label>&nbsp;&nbsp;ADD DETAILS</mat-label>
+          </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="accordion-content-container">
+          <div class="row">
+            <div class="col-md-12">
+              <mat-label  style="padding-bottom: 18px;">
+                <mat-label class="required-color">*</mat-label><strong>Does the child require Total Parenteral Nutrition (TPN)?
+                  </strong>
+              </mat-label>
+              <mat-radio-group formControlName=serviceRequiredSw>
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <mat-label style="padding-bottom: 18px;">
+                <mat-label class="required-color">*</mat-label><strong>Is this skilled service expected to continue for 12 months at the frequency 
+                  marked above?                  
+                  </strong>
+              </mat-label>
+              <mat-radio-group formControlName=frqcy12monSw>
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <div class="row">
+            <button mat-stroked-button type="button" class="expandable-row-button">SAVE</button>
+          </div>
+
+       </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    
+
+  </div>
+
+  <div class="accordion-container">
+    <mat-accordion>
+      <mat-expansion-panel (opened)="openedAccordion('KBD')" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Dialysis
+          </mat-panel-title>
+          <mat-panel-title class="right-aligned">
+            <mat-icon>add_circle_outline</mat-icon>
+            <mat-label>&nbsp;&nbsp;ADD DETAILS</mat-label>
+          </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="accordion-content-container">
+          <div class="row">
+            <div class="col-md-12">
+              <mat-label  style="padding-bottom: 18px;">
+                <mat-label class="required-color">*</mat-label><strong>Does the child require Dialysis (hemodialysis or peritoneal, in home or at-clinic)?
+
+                  </strong>
+              </mat-label>
+              <mat-radio-group formControlName=serviceRequiredSw>
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <mat-label style="padding-bottom: 18px;">
+                <mat-label class="required-color">*</mat-label><strong>Is this skilled service expected to continue for 12 months at the frequency 
+                  marked above?                  
+                  </strong>
+              </mat-label>
+              <mat-radio-group formControlName=frqcy12monSw>
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <div class="row">
+            <button mat-stroked-button type="button" class="expandable-row-button">SAVE</button>
+          </div>
+
+       </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    
+
+  </div>
+
+  <div class="accordion-container">
+    <mat-accordion>
+      <mat-expansion-panel (opened)="openedAccordion('KBTF')" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Tube Feedings
+          </mat-panel-title>
+          <mat-panel-title class="right-aligned">
+            <mat-icon>add_circle_outline</mat-icon>
+            <mat-label>&nbsp;&nbsp;ADD DETAILS</mat-label>
+          </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="accordion-content-container">
+          <div class="row">
+            <div class="col-md-12">
+              <mat-label  style="padding-bottom: 18px;">
+                <mat-label class="required-color">*</mat-label><strong>Does the child require tube feedings (G-tube, K-tube, NG-tube)?
+                  </strong>
+              </mat-label>
+              <mat-radio-group formControlName=serviceRequiredSw>
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <mat-label style="padding-bottom: 18px;">
+                <mat-label class="required-color">*</mat-label><strong>Is this skilled service expected to continue for 12 months at the frequency 
+                  marked above?                  
+                  </strong>
+              </mat-label>
+              <mat-radio-group formControlName=frqcy12monSw>
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <div class="row">
+            <button mat-stroked-button type="button" class="expandable-row-button">SAVE</button>
+          </div>
+
+       </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    
+
+  </div>
+
+  <div class="accordion-container">
+    <mat-accordion>
+      <mat-expansion-panel (opened)="openedAccordion('KBRT')" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Respiratory Treatment
+          </mat-panel-title>
+          <mat-panel-title class="right-aligned">
+            <mat-icon>add_circle_outline</mat-icon>
+            <mat-label>&nbsp;&nbsp;ADD DETAILS</mat-label>
+          </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="accordion-content-container">
+          <div class="row">
+            <div class="col-md-12">
+              <mat-label  style="padding-bottom: 18px;">
+                <mat-label class="required-color">*</mat-label><strong>Does the child require daily respiratory treatments including chest PT, C-PAP, Bi-PAP, vest device or cough assist device and IPPB treatments for airway clearance (this does not include inhalers or nebulizers)?
+
+                  </strong>
+              </mat-label>
+              <mat-radio-group formControlName=serviceRequiredSw>
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <mat-label style="padding-bottom: 18px;">
+                <mat-label class="required-color">*</mat-label><strong>Is this skilled service expected to continue for 12 months at the frequency 
+                  marked above?                  
+                  </strong>
+              </mat-label>
+              <mat-radio-group formControlName=frqcy12monSw>
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <div class="row">
+            <button mat-stroked-button type="button" class="expandable-row-button">SAVE</button>
+          </div>
+
+       </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    
+
+  </div>
+
+  <div class="accordion-container">
+    <mat-accordion>
+      <mat-expansion-panel (opened)="openedAccordion('KBIC')" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Ileostomy, Colostomy or Appendicostomy
+          </mat-panel-title>
+          <mat-panel-title class="right-aligned">
+            <mat-icon>add_circle_outline</mat-icon>
+            <mat-label>&nbsp;&nbsp;ADD DETAILS</mat-label>
+          </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="accordion-content-container">
+          <div class="row">
+            <div class="col-md-12">
+              <mat-label  style="padding-bottom: 18px;">
+                <mat-label class="required-color">*</mat-label><strong>Does the child require ileostomy, colostomy, or appendicostomy (Malone Procedure) care?
+
+                  </strong>
+              </mat-label>
+              <mat-radio-group formControlName=serviceRequiredSw>
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <mat-label style="padding-bottom: 18px;">
+                <mat-label class="required-color">*</mat-label><strong>Is this skilled service expected to continue for 12 months at the frequency 
+                  marked above?                  
+                  </strong>
+              </mat-label>
+              <mat-radio-group formControlName=frqcy12monSw>
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <div class="row">
+            <button mat-stroked-button type="button" class="expandable-row-button">SAVE</button>
+          </div>
+
+       </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    
+
+  </div>
+
+  <div class="accordion-container">
+    <mat-accordion>
+      <mat-expansion-panel (opened)="openedAccordion('KBCV')" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Catheterization, Vesicostomy or Appendecovesicostomy
+          </mat-panel-title>
+          <mat-panel-title class="right-aligned">
+            <mat-icon>add_circle_outline</mat-icon>
+            <mat-label>&nbsp;&nbsp;ADD DETAILS</mat-label>
+          </mat-panel-title>
+       </mat-expansion-panel-header>
+        <div class="accordion-content-container">
+          <div class="row">
+            <div class="col-md-12">
+              <mat-label  style="padding-bottom: 18px;">
+                <mat-label class="required-color">*</mat-label><strong>Does the child require urinary catheterization daily, or exhibits presence of vesicostomy or Mitrofanoff appendecovesicostomy?
+
+                  </strong>
+              </mat-label>
+              <mat-radio-group formControlName=serviceRequiredSw>
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <mat-label style="padding-bottom: 18px;">
+                <mat-label class="required-color">*</mat-label><strong>Is this skilled service expected to continue for 12 months at the frequency 
+                  marked above?                  
+                  </strong>
+              </mat-label>
+              <mat-radio-group formControlName=frqcy12monSw>
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+
+          <div class="row">
+            <button mat-stroked-button type="button" class="expandable-row-button">SAVE</button>
+          </div>
+
+       </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <div class="button-container">
+      <div class="row">
+        <div class="col-md-2">
+          <button type="button" mat-flat-button color="primary" class="perlss-click-button-white" (click)="back()">BACK</button>
+       </div>
+        <div class="col-md-4">
+          <button type="button" mat-flat-button color="primary" class="perlss-click-button-white-noborder"
+            (click)="saveAndExit()">SAVE AND EXIT</button>
+       </div>
+        <div class="col-md-6">
+          <button mat-flat-button color="primary" class="perlss-click-button" type="button">NEXT</button>
+       </div>
+      </div>
+    </div>  
+
+  </div>
+
+</div>

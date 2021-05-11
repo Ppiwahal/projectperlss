@@ -1,0 +1,27 @@
+.wrapper {
+  width: 100%;
+  margin: auto;
+}
+
+.required-tag, .required{
+  color: red;
+}
+
+.buttons {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
+  button {
+      width: 125px;
+  }
+}
+
+.submit-button {
+  background-color:#ED9924;
+  color:#FFFFFF;
+  border: 0 !important;
+}
+
+.bottom-margin {
+  margin-bottom: 30px;
+}

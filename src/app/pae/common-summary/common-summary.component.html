@@ -1,0 +1,22 @@
+
+<div style="padding-bottom: 40px;">
+    <table mat-table [dataSource]="dataSource2" class="mat-elevation-z8">
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef class="status-header">
+                <span style="color: #174A7C;">Supporting Documentation</span></th>
+            <td mat-cell *matCellDef="let suppDocs" style="font-size:
+                14px;"><span class="textStyle">{{suppDocs.name}}</span> </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef class="status-header"></th>
+            <td mat-cell *matCellDef="let suppDocs" (click)="uploadDocument()">
+                <label for="file-input"><mat-icon class="blue">{{suppDocs.icon}}</mat-icon></label>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsSuppDocs"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsSuppDocs;"></tr>
+    </table>
+</div>

@@ -1,0 +1,94 @@
+<div class="document-wrapper">
+    <div *ngIf="!isReassign">
+        <div class="document-header-row">
+            <div>
+                <p style="color: #1B365D; font-size: 25px; font-weight: bold;">View Documents</p>
+            </div>
+            <div>
+                <span class="close-icon" style="color: #1B365D; font-size: 25px; font-weight: bold; cursor: pointer;">
+                    <mat-icon (click)=closeDialog()>highlight_off</mat-icon>
+                </span>
+            </div>
+       </div>
+        <mat-divider></mat-divider>
+        <div class="document-body">
+            <div class="person-details">
+                <div class="table-header-content">
+                    <div *ngIf="data?.applicantName" style="color: #1B365D;" class="d-flex">
+                        <strong class="col-4">Applicant Name:</strong>
+                        <strong class="col-6">{{data.applicantName}}</strong>
+                    </div>
+                    <div *ngIf="data?.refId" style="color: #1B365D;" class="d-flex ">
+                        <strong class="col-4">Referral ID:</strong>
+                        <strong class="col-6">{{data.refId}}</strong>
+                    </div>
+                    <div *ngIf="data?.paeId" style="color: #1B365D;" class="d-flex ">
+                        <strong class="col-4">PAE ID:</strong>
+                        <strong class="col-6">{{data.paeId}}</strong>
+                    </div>
+                    <div *ngIf="data?.aplId" style="color: #1B365D;" class="d-flex ">
+                        <strong class="col-4">Appeal ID:</strong>
+                        <strong class="col-6">{{data.aplId}}</strong>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-left: 12px; margin-right: 20px; margin-top: 50px; margin-bottom: 20px;">
+                <div class="main-wrapper" *ngFor="let docs of documentsList">
+                        <div class="main-section-wrap">
+                            <div class="left-section">
+                                <div class="sec-doc-desc">
+                                    <mat-icon class="required-color">description</mat-icon>
+                                </div>
+                               <div class="doc-type documents-link" (click)="viewDoc(docs)">
+                                {{docs.docType}}
+                               </div>
+                            </div>
+                            <div class="right-section">
+                                <div class="date-disp">
+                                    {{docs.displayDate}}
+                                </div>
+                                <div (mouseover)="contactCardOver(docs)" (mouseleave)="contactCardLeave(docs)">
+                                    <mat-icon class="contact-icon">person</mat-icon>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="contact-card">
+                        <mat-card style="width: 100%; color: #1B365D;" class="contact-card-content" *ngIf="docs.showCard">
+                            <mat-card-content>
+                                <strong>Name: {{docs.userName}}</strong><br /><br />
+                                <strong>Username: {{docs.userId}}</strong>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                    <div class="fileContainer">
+                        <div class="doc-desc">
+                            <div style="color: black; text-align: left; font-size: 14px;">
+                                <strong>Document Description:</strong><br />
+                                <span>{{docs.docDesc}}</span>
+                            </div>
+                            <div class="right">
+                                <div style="cursor: pointer; display: flex;" (click)="reassignDoc(docs)">
+                                    <mat-icon class="required-color">import_export</mat-icon>
+                                    <span class="RDButtons">Reassign</span><br /><br />
+                                </div>
+                                <div style="cursor: pointer; display: flex;" (click)="showDeleteConfirmDialog(docs)">
+                                    <mat-icon class="required-color">delete_forever</mat-icon>
+                                    <span class="RDButtons">Delete</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <mat-divider style="margin-top: 20px; margin-bottom: 10px;"></mat-divider>
+                </div>
+            </div>
+       </div>
+        <div *ngIf="isNoDocs" style="margin: 20px; color: #6E7073; font-size: 14px;">
+            <strong>There are no documents to show</strong>
+       </div>
+    </div>
+    <div *ngIf="isReassign">
+        <app-reassign-document-popup (navigateBackToDocs)="navigateBackToDocs($event)" [data]="data"
+            [reassignDocs]="reassignDocs" [applicantName]="data.applicantName" [docCats]="docCats">
+       </app-reassign-document-popup>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+<div class="pageMargin">
+  <div class="applicantName"> {{applicantName}}</div>
+
+  <div>
+    <h3>Interventions</h3>
+
+    <form [formGroup]="paeIntensiveInterventionsForm">
+      <div class="col-md-12">
+        <mat-label>
+          <mat-label class="required-color">*</mat-label>Has the applicant required any of the interventions mentioned
+          below? <br> <span class="p-l-12">(Select <strong>ALL</strong> that apply)</span>
+        </mat-label>
+      </div>
+      <div>
+        <mat-error *ngIf="(!interventionsSelected && !interventionsNoneSelected) && submitted">{{customValidation.A1}}
+        </mat-error>
+
+      </div>
+      <mat-selection-list role="list">
+        <ng-container *ngFor="let benefits of benefitsList | keyvalue">
+          <span *ngFor="let benefits2 of benefits.value | keyvalue">
+            <mat-list-item role="listitem" *ngIf="benefits2.key ===  'name'">
+              <mat-checkbox class="example-margin" (change)="changeEvent($event, benefits2.value)">
+                {{interventionsMap.get(benefits2.value)}}</mat-checkbox>
+            </mat-list-item>
+          </span>
+        </ng-container>
+        <div class="error-container">
+          <mat-error *ngIf="interventionsSelected && interventionsNoneSelected">{{customValidation.A27}}
+          </mat-error>
+        </div>
+      </mat-selection-list>
+      <br>
+      <div class="row">
+        <div class="col-md-2" style="text-align: left;">
+          <button mat-flat-button color="primary" class="perlss-click-button-white" (click)="back()">BACK</button>
+        </div>
+        <div class="col-md-4" style="text-align: left;">
+          <button mat-flat-button color="primary" class="perlss-click-button-white-noborder"
+            (click)="saveAndExit()">SAVE
+            AND EXIT</button>
+        </div>
+        <div class="col-md-6" style="text-align: right;">
+          <button mat-flat-button color="primary" [disabled]="interventionsSelected && interventionsNoneSelected"
+            class="perlss-click-button" (click)="next()">NEXT</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

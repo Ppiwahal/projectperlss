@@ -1,0 +1,31 @@
+hr {
+    margin-top: 2px;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.close-icon {
+    transform: scale(1.0);
+    cursor: pointer;
+    color: #8b99ac;
+}
+
+.row-header {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 17px 0 0 0;
+}
+
+ .text-padding {
+   padding: 20px 15px 0 32px !important;
+ }
+
+ .text-heading {
+   color: #4D7E20;
+   font-size: large;
+   font-weight: bold;
+ }
+ .text-font{
+   font-size:14px;
+   margin-top: 10px
+ }

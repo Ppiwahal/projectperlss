@@ -1,0 +1,126 @@
+<div class="pageMargin">
+  <div class="row-header">
+    <span class="col-lg-9">
+      <h4>Appointment Summary</h4>
+    </span>
+    <span class="col-lg-3 text-right close-icon">
+      <mat-icon (click)=closeDialog()>highlight_off</mat-icon>
+    </span>
+  </div>
+  <hr />
+
+  <div class="field-content">
+    <div class="row content-bottom">
+      <div class="col-6 left-content">
+        Person's Name:
+      </div>
+      <div class="col-5">
+        <a [routerLink]="" (click)="passTheSalt()">{{appointmentSummary?.personName ? appointmentSummary?.personName :
+          '---'}}</a>
+      </div>
+    </div>
+    <div class="row content-bottom">
+      <div class="col-6 left-content">
+        Date of Birth:
+      </div>
+      <div class="col-5">
+        {{appointmentSummary?.dobDt ? appointmentSummary?.dobDt : '---'}}
+      </div>
+    </div>
+    <div class="row content-bottom">
+      <div class="col-6 left-content">
+        Referral ID:
+      </div>
+      <div class="col-5">
+        {{appointmentSummary?.refId ? appointmentSummary?.refId : '---'}}
+      </div>
+    </div>
+    <div class="row content-bottom">
+      <div class="col-6 left-content">
+        PAE ID:
+      </div>
+      <div class="col-5">
+        {{appointmentSummary?.paeId ? appointmentSummary?.paeId : '---'}}
+      </div>
+    </div>
+    <div class="row content-bottom">
+      <div class="col-6 left-content">
+        Appointment Type:
+      </div>
+      <div class="col-5">
+        {{appointmentSummary?.appointmentTypeValue}}
+      </div>
+    </div>
+    <div class="row content-bottom">
+      <div class="col-6 left-content">
+        Intake Due Date:
+      </div>
+      <div class="col-5">
+        {{appointmentSummary?.intakeDueDt ? appointmentSummary?.intakeDueDt : '---'}}
+      </div>
+    </div>
+    <div class="row content-bottom">
+      <div class="col-6 left-content">
+        Contact Method:
+      </div>
+      <div class="col-5">
+        {{appointmentSummary?.contactMethodValue}}
+      </div>
+    </div>
+    <div class="row content-bottom">
+      <div class="col-6 left-content">
+        Contact Time:
+      </div>
+      <div class="col-5">
+        {{appointmentSummary?.appointmentDate ? appointmentSummary?.appointmentDate : '---'}}
+      </div>
+    </div>
+    <div class="row content-bottom">
+      <div class="col-6 left-content">
+        Location:
+      </div>
+      <div class="col-5">
+        <ng-container *ngIf="appointmentSummary?.contactMethodValue === 'In-person'">
+          <span *ngFor="let addr of appointmentSummary.address">
+            <ng-container>{{addr ? addr : '---'}}</ng-container><br />
+          </span>
+        </ng-container>
+        <ng-container *ngIf="appointmentSummary?.contactMethodValue === 'Telephone'">
+          <span>
+            {{formatPhoneNumber(appointmentSummary?.telephoneNum)}}
+          </span>
+        </ng-container>
+        <ng-container *ngIf="appointmentSummary?.contactMethodValue === 'Virtual'">
+          <span>
+            ---
+          </span>
+        </ng-container>
+      </div>
+    </div>
+    <div class="row content-bottom">
+      <div class="col-6 left-content">
+        Referral Type:
+      </div>
+      <div class="col-5">
+        {{appointmentSummary?.programCd}}
+      </div>
+    </div>
+    <div class="row content-bottom">
+      <div class="col-6 left-content">
+        Appointment Status:
+      </div>
+      <div class="col-5">
+        {{appointmentSummary?.statusCodeValue}}
+      </div>
+    </div>
+  </div>
+
+  <div class="update-app">
+    <button mat-flat-button color="primary" (click)="updateAppointment()" class="perlss-click-button"
+      style="font-weight: bold;">UPDATE APPOINTMENT</button>
+  </div>
+  <div class="Cancel-app">
+    <button type="button" mat-flat-button (click)="cancelAppointment()" class="cancel-button-content"
+      style="font-weight: bold;">CANCEL APPOINTMENT</button>
+  </div>
+</div>

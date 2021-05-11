@@ -1,0 +1,29 @@
+.wrapper{
+   border: 1px solid #547e1a;
+}
+.heading{
+    margin-top: 15px;
+    margin-left: 7%;
+    p{
+        color: black;
+        font-weight: bold;
+        font-weight: 14px;
+    }
+    
+ }
+.content-wrapper {
+    display: flex; 
+    justify-content: space-around;
+}
+.content{
+    display: flex;
+    justify-content: space-between;
+    width: 35%;
+}
+
+.display-bold{
+    p {
+        font-weight: bold;
+        color: black ;
+    }
+}

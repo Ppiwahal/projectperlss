@@ -1,0 +1,99 @@
+.page-header-container{
+  .row{
+    .col-md-4{
+
+    text-align: center;
+    max-width: 100%;
+    width: 100%;
+    }
+    padding-bottom: 36px;
+  }
+}
+
+.applicant-name-container{
+    padding: 18px;
+    vertical-align: middle;
+    justify-content: center;
+    font-size:  20px;
+    border: 2px solid;
+    border-color: #4D7E20;
+}
+
+
+.note-container{
+  padding-top: 27px;
+  padding-bottom: 27px;
+  background-color: #f5f9fe;
+  padding-left: 45px;
+  padding-right: 45px;
+}
+
+
+.form-note-container{
+  padding-top: 27px;
+  padding-bottom: 27px;
+  background-color: #f5f9fe;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+.care-section{
+  
+  padding-top:20px;
+  padding-bottom:20px;
+  .row {
+    padding-bottom:  20px;
+    .col-md-6{
+      .is-activated{
+        width: 100%;
+        text-align: left;
+        border: solid 1px;
+        border-color: #1B365C;
+        .button-icon{
+          float: right;
+          margin-top: 10px;
+          margin-bottom: 9px;
+        }
+      }
+
+      .is-deactivated{
+        width: 100%;
+        height: 45px;
+        text-align: left;
+        border: solid 1px;
+        border-color: #1B365C;
+        background-color:#1B365C;
+        color: white;
+        .button-icon{
+          float: right;
+          margin-top: 10px;
+          margin-bottom: 9px;
+          background-color: #1B365C;
+          color: WHITE;
+        }
+      }
+    }
+  }
+  .button-container{
+    padding-top: 5vh;
+    .row{
+      .col-md-2{
+        text-align: left;
+      }
+      .col-md-4{
+        text-align: left;
+      }
+      .col-md-6{
+        text-align: right;
+      }
+      .perlss-click-button, .perlss-click-button-white-noborder, .perlss-click-button-white{
+        font-size: 25px !important;
+      }
+    }
+  }
+}
+
+.required-color {
+  color: #EE3524;
+}
+

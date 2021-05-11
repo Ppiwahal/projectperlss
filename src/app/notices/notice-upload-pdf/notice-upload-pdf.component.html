@@ -1,0 +1,61 @@
+<form [formGroup]="uploadForm">
+<div style="padding: 20px 0px 10px 0px;">
+  <mat-label class="required-color">*</mat-label>
+  <strong>Upload Form</strong>
+</div>
+<div class="fileDropContainer" *ngIf="!isUploaded">
+  <input formControlName="uploadFile" type="file" #fileDropRef id="fileDropRef" (change)="fileBrowseHandler($event.target.files)"
+    accept="application/pdf" [multiple]="allowMultiple" />
+  <div>
+    <mat-icon class="required-color file_upload">cloud_upload</mat-icon>
+    <div style="font-weight: bold;">Drag and Drop Files Here</div>
+    <div class="smallLabel" style="margin-top: 0px;">(Maximum File Size is 5 MB)</div>
+    <div>
+      <button mat-flat-button class="uploadButton">Browse</button>
+      <div class="files-list">
+        <div class="single-file" *ngFor="let file of files; let i = index">
+          <span>
+            {{ file?.name }}
+          </span>
+       </div>
+      </div>
+    </div>
+    <div class="bottomText">
+      Acceptable document format is 8.5 inch X 11 inch :<br>*.pdf
+    </div>
+  </div>
+</div>
+<div *ngIf="files && files.length >0 && isUploaded">
+  <div style="padding-top: 15px; padding-left: 30px;" *ngFor="let file of files;let i = index;">
+      <div class="row">
+        <div class="cloud-icon-wrapper">
+          <span>
+              <mat-icon class="note-icon">description</mat-icon>
+          </span>
+            <span class="size">
+            {{ file?.name }} {{file.size/(1024*1024) | number : '1.2-2'}} MB
+          </span>
+            <span class="delete-icons" (click)="deleteFile(i)">
+              <mat-icon class="note-icon">delete_forever</mat-icon>
+          </span>
+       </div>
+      </div>
+  </div>
+</div>
+<mat-error *ngIf="f.uploadFile.errors?.required && files.length === 0  && f.uploadFile.dirty">
+  {{customValidation.A1}}</mat-error>
+<!-- <mat-error *ngIf="files.length === 0">
+  {{customValidation.A1}}</mat-error> -->
+<mat-error *ngIf="fileErrors?.maxSizeErr">
+  {{customValidation.A40}}</mat-error>
+<mat-error *ngIf="fileErrors?.fileTypeErr">
+  {{customValidation.A41}}</mat-error>
+<mat-error *ngIf="fileErrors?.fileNameErr">
+  {{customValidation.A42}}</mat-error>
+<mat-error *ngIf="fileErrors?.isPageSizeErr">
+  Acceptable PDF Format is 8.5 * 11</mat-error>
+
+<div class="row" style="float: right; padding-top: 15px;" *ngIf="!isUploaded"><button mat-flat-button color="primary" class="upload-Button"
+    (click)="uploadFile()">UPLOAD</button>
+</div>
+</form>

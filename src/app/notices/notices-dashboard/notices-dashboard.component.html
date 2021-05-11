@@ -1,0 +1,171 @@
+<div class="pageMargin" role="main">
+    <div class="row">
+        <div class="col-xs-4 create-bitton">
+            <button routerLink="/ltss/notices/createmanualnotice" mat-flat-button style="height: 52px;" color="primary" class="button-click-button-white">
+                <span>
+                    <mat-icon style="color:#1B365D; padding: 10px 34px 0px 0px;">email</mat-icon>
+                </span>
+                CREATE MANUAL NOTICE
+            </button>
+        </div>
+        <div class="col-xs-4">
+            <button routerLink="/ltss/notices/returnnoticemail" mat-flat-button style="height: 52px;" color="primary" class="button-click-button-white">
+                <mat-icon style="color:#1B365D; transform: rotate(180deg); padding: 0px 19px 0px 15px;">call_missed
+                </mat-icon>
+                ADD RETURN MAIL
+            </button>
+        </div>
+    </div>
+    <div class="row" style="width: 100%;padding-left: 14px; padding-top: 25px;">
+        <div class="app-sub-heading">
+            Person search
+        </div>
+    </div>
+    <div style="padding-bottom: 20px;">
+        <p style="color: black;">Please use the criteria below to search by person details or notice details.</p>
+    </div>
+
+    <form [formGroup]="noticeForm" (ngSubmit)="search()">
+        <div style="width: 100%">
+            <mat-form-field style="width: 100%" appearance="outline">
+                <mat-label>Person Search</mat-label>
+                <input matInput [(ngModel)]="personDisplayName" formControlName="personSearch" [matAutocomplete]="auto" #applicantNameInput placeholder="Search by Applicant Name, Date Of Birth, SSN, Person ID, County">
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)='handleSelection($event.option.value)'>
+                    <mat-option class="select-hr" *ngFor="let option of personOptions" [value]="option">
+                    <strong>Applicant Name: </strong>{{option.prsnDetail?.firstName}}  {{option.prsnDetail?.lastName}}
+                    <strong>Dob: </strong>{{option.prsnDetail?.dobDt}}
+                    <strong>SSN: </strong>{{option.prsnDetail?.ssn}}
+                    <strong>Person Id: </strong>{{option.prsnDetail?.prsnId}}
+                    <strong>County: </strong>{{option.prsnDetail?.prsnCountyName}}
+                    </mat-option>
+                </mat-autocomplete>
+                <button mat-button matTooltip="Clear Search" *ngIf="personDisplayName" matSuffix mat-icon-button aria-label="Clear" (click)="personDisplayName=null;selectedPersonId=null;">
+                <mat-icon>close</mat-icon>
+            </button>
+            </mat-form-field>
+        </div>
+        <div>
+        <div class="filter-wrapper">
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header style="background-color: #f5f5f5">
+                            <mat-panel-title>
+                                Additional Notice Filter Criteria
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="queue-accordion">
+                            <div class="filter-dropdown">
+                                <div>
+                                    <mat-form-field appearance="outline" >
+                                        <mat-label>
+                                            <strong>Referral ID</strong>
+                                        </mat-label>
+                                        <input formControlName="referralId" matInput type="text">
+                                    </mat-form-field>
+                                </div>
+                                <div>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>
+                                            <strong>PAE ID</strong>
+                                        </mat-label>
+                                        <input formControlName="paeId" matInput type="text">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="filter-dropdown">
+                                <div>
+                                    <mat-form-field appearance="outline"  >
+                                        <mat-label>
+                                            <strong>Appeal ID</strong>
+                                        </mat-label>
+                                        <input formControlName="apealId" matInput type="text">
+                                    </mat-form-field>
+                                </div>
+                                <div>
+                                    <mat-form-field appearance="outline"  >
+                                        <mat-label>
+                                            <strong>Notice Type</strong>
+                                        </mat-label>
+                                        <mat-select formControlName="noticeType">
+                                          <mat-option value=''>Select an option</mat-option>
+                                          <mat-option *ngFor="let noticeType of noticeTypes" value={{noticeType.code}}>{{noticeType.value}}
+                                          </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="filter-dropdown">
+                                <div>
+                                    <mat-form-field appearance="outline"  >
+                                        <mat-label>
+                                            <strong>Program Type</strong>
+                                        </mat-label>
+                                        <mat-select formControlName="programType">
+                                          <mat-option value=''>Select an option</mat-option>
+                                          <mat-option *ngFor="let programType of programTypes" value={{programType.code}}>{{programType.value}}
+                                          </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div>
+                                    <mat-form-field appearance="outline"  >
+                                        <mat-label>
+                                            <strong>Print Type</strong>
+                                        </mat-label>
+                                        <mat-select formControlName="printType">
+                                          <mat-option value=''>Select an option</mat-option>
+                                          <mat-option *ngFor="let printType of printTypes" value={{printType.name}}>{{printType.value}}
+                                          </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="filter-dropdown">
+                                <div>
+                                    <mat-form-field appearance="outline"  >
+                                        <mat-label>
+                                            <strong>Notice Status</strong>
+                                        </mat-label>
+                                        <mat-select formControlName="noticeStatus">
+                                          <mat-option value=''>Select an option</mat-option>
+                                          <mat-option *ngFor="let noticeStatusObj of noticeStatus" value={{noticeStatusObj.name}}>{{noticeStatusObj.value}}
+                                          </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label><strong>Enrollment Effective Date</strong></mat-label>
+                                        <input matInput [matDatepicker]="enrollmentEffectivepicker" formControlName="noticeEffectivedate">
+                                        <mat-datepicker-toggle matSuffix [for]="enrollmentEffectivepicker"></mat-datepicker-toggle>
+                                        <mat-datepicker [startAt]="startDate"  #enrollmentEffectivepicker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="filter-dropdown">
+                                <div>
+                                    <mat-form-field appearance="outline"  >
+                                        <mat-label><strong>Notice Generate Date</strong></mat-label>
+                                        <input matInput [matDatepicker]="generatedDatePicker" formControlName="noticeGeneratedate">
+                                        <mat-datepicker-toggle matSuffix [for]="generatedDatePicker"></mat-datepicker-toggle>
+                                        <mat-datepicker [startAt]="startDate"  #generatedDatePicker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+
+            </div>
+        </div>
+    <div style="padding-top: 25px; padding-bottom: 25px;">
+        <button type="submit" mat-flat-button color="primary" class="perlss-click-button">
+            SEARCH
+        </button>
+    </div>
+</form>
+    <mat-divider  *ngIf="noticeRecords && noticeRecords.length > 0"></mat-divider>
+    <app-notices-search-table [noticeRecords] =  "noticeRecords" *ngIf="noticeRecords && noticeRecords.length > 0"></app-notices-search-table>
+</div>

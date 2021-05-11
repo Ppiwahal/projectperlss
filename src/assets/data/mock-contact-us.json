@@ -1,0 +1,132 @@
+[
+  {
+    "id": "1",
+    "typeCd": "TennCare’s Main Line:",
+    "contactInformations": [
+      {
+        "no": "1-800-342-3145"
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "typeCd": "LTSS Help Desk:",
+    "description": "Questions regarding the Pre-Admission Evaluation (PAE) and Medical Eligibility should be directed here.",
+    "contactInformations": [
+      {
+        "no": "1-877-224-0219"
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "typeCd": "TennCare Connect:",
+    "description": "Questions regarding Medicaid Financial Eligibility should be directed here.",
+    "contactInformations": [
+      {
+        "no": "855-259-0701"
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "typeCd": "MCO:",
+    "description": "Managed Care Organizations (MCOs) can help members apply for Long Term Services and Supports (LTSS) programs or answer questions about current benefits and services.",
+    "contactInformations": [
+      {
+        "name": "Amerigroup:",
+        "no": "866-840-4991"
+      },
+      {
+        "name": "BlueCare:",
+        "no": "888-747-8955"
+      },
+      {
+        "name": "UnitedHealthcare:",
+        "no": "800-690-1606"
+      }
+    ]
+  },
+  {
+    "id": "5",
+    "typeCd": "Ascend Help Desk:",
+    "description": "Questions regarding the Pre-Admission Screening and Resident Review (PASRR) process should be directed here.",
+    "contactInformations": [
+      {
+        "no": "833-617-2777"
+      }
+    ]
+  },
+  {
+    "id": "6",
+    "typeCd": "PACE:",
+    "description": "The Program of All-Inclusive Care for the Elderly (PACE) provides comprehensive medical and social services to certain frail, community-dwelling elderly individuals, most of whom are dually eligible for Medicare and Medicaid benefits. Questions regarding PACE should be directed here.",
+    "contactInformations": [
+      {
+        "no": "423-698-0802"
+      }
+    ]
+  },
+  {
+    "id": "7",
+    "typeCd": "AAADs:",
+    "description": "Your local Area Agency on Aging and Disability (AAAD) can provide information and assistance to apply for the CHOICES program.",
+    "contactInformations": [
+      {
+        "name": "First Tennessee:",
+        "no": "1-866-836-6678"
+      },
+      {
+        "name": "Northwest TN:",
+        "no": "1-866-836-6678"
+      },
+      {
+        "name": "South Central TN:",
+        "no": "1-866-836-6678"
+      },
+      {
+        "name": "Upper Cumberland:",
+        "no": "1-931-476-4158"
+      },
+      {
+        "name": "Southwest TN: ",
+        "no": "1-731-668-6967"
+      },
+      {
+        "name": "East Tennessee:",
+        "no": "1-866-836-6678"
+      },
+      {
+        "name": "Mid-South TN:",
+        "no": "1-866-836-6678"
+      },
+      {
+        "name": "Greater Nashville:",
+        "no": "1-615-255-1010"
+      },
+      {
+        "name": "Southeast TN:",
+        "no": " 1-866-836-6678"
+      }
+    ]
+  },
+  {
+    "id": "8",
+    "typeCd": "DIDD: ",
+    "description": "Department of Intellectual and Developmental Disabilities (DIDD) can provide information and assistance to apply for Employment & Community First CHOICES and the 1915(c) HCBS Waivers.",
+    "contactInformations": [
+      {
+        "name": "West Region:",
+        "no": "866-372-5709"
+      },
+      {
+        "name": "Middle Region: ",
+        "no": "800-654-4839"
+      },
+      {
+        "name": "East Region:",
+        "no": "888-531-9876"
+      }
+    ]
+  }
+]

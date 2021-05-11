@@ -1,0 +1,433 @@
+      <div class="responsive" id="pM">
+        <div class="scroller">
+          <div class="panels">
+        <div>
+        <label>Assigned Tasks</label>
+        <div>
+          <div>
+            <label><span> Enrollment Past Due</span></label>
+                  <div class="data" (click) = "pendingReferralSubmission('pastDue')">
+                    <span><span class="black">{{pastDueData}}</span><span class="spinner" *ngIf="!totalCountsReady"></span></span>
+                  </div>
+                </div>
+                <div>
+                  <label><span>
+                    Due in next 1 day
+                  </span></label>
+                  <div class="data" (click) = "pendingReferralSubmission('dueNext1day')">
+                    <span><span class="red">{{dueNext1day}}</span><span class="spinner" *ngIf="!totalCountsReady"></span></span>
+                  </div>
+                </div>
+              <div>
+                <label><span>
+                  Due in next 3 days
+                </span></label>
+                  <div class="data" (click) = "pendingReferralSubmission('dueNext3day')">
+                      <span><span class="lightorange">{{dueNext3day}}</span><span class="spinner" *ngIf="!totalCountsReady"></span></span>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+        <div>
+          <label><span> Enrollments on Hold</span></label>
+          <div>
+            <div class = "twoRows">
+                        <label><span>
+                        Waiting on Actual Transition Date
+                      </span></label>
+                      <div class="data-hold" (click) = "pendingReferralSubmission('transitionData')">
+                          <span><span class="black">{{transitionDataCount}}</span><span class="spinner" *ngIf="!countsReady"></span></span>
+                        </div>
+                      </div>
+
+                      <div class = "twoRows">
+                        <label><span>
+                        Waiting on Service Initiation Date
+                        </span></label>
+                        <div class="data-hold" (click) = "pendingReferralSubmission('initiationData')">
+                        <span><span class="black">{{initiationDataCount}}</span><span class="spinner" *ngIf="!countsReady"></span></span>
+                      </div>
+                      </div>
+
+                    <div class = "twoRows">
+                       <label><span>
+                            Waiting on Actual Discharge Date
+                       </span></label>
+                        <div class="data-hold" (click) = "pendingReferralSubmission('dischargeData')">
+
+                          <span><span class="black">{{dischargeDataCount}}</span><span class="spinner" *ngIf="!countsReady"></span></span>
+                        </div>
+                      </div>
+
+
+                        <div class = "twoRows">
+                          <label><span>
+                            Waiting on Group 3 Interest
+                          </span></label>
+                      <div class="data-hold" (click) = "pendingReferralSubmission('groupInterest')">
+                        <span><span class="black">{{groupInterestCount}}</span><span class="spinner" *ngIf="!countsReady"></span></span>
+                      </div>
+                      </div>
+
+
+                        <div class = "twoRows">
+                          <label><span>
+                            Waiting on Financial Eligibility
+                          </span></label>
+                        <div class="data-hold" (click) = "pendingReferralSubmission('financialElgibilty')">
+                          <span><span class="black">{{financialElgibiltyCount}}</span><span class="spinner" *ngIf="!countsReady"></span></span>
+                        </div>
+                      </div>
+              </div>
+            </div>
+
+        <div>
+         <label>Completed</label>
+           <div>
+           <div>
+
+                <label><span>
+                  Today
+                </span></label>
+                <div class="data" (click) = "pendingReferralSubmission('completedToday')">
+                  <span><span class="black">{{completedToday}}</span><span class="spinner" *ngIf="!totalCountsReady"></span></span>
+                </div>
+              </div>
+
+              <div>
+                <label><span>Past Week</span></label>
+                <div class="data" (click) = "pendingReferralSubmission('completedPastweek')">
+                  <span><span class="black">{{completedPastweek}}</span><span class="spinner" *ngIf="!totalCountsReady"></span></span>
+                </div>
+              </div>
+
+              <div>
+                  <label><span>
+                    Past 4 Weeks
+                  </span></label>
+                  <div class="data" (click) = "pendingReferralSubmission('completedPast4week')">
+                    <span><span class="black">{{completedPast4week}}</span><span class="spinner" *ngIf="!totalCountsReady"></span></span>
+                  </div>
+                </div>
+              </div>
+        </div>
+        </div>
+
+
+
+        <h2 class="lineAbove">Unassigned Enrollment Queues</h2>
+
+    <div id = "enrollmentTable">
+    <table mat-table style="width:97%" [dataSource]="dataSource | keyvalue:orderByKey">
+
+      <ng-container matColumnDef="key">
+        <th mat-header-cell *matHeaderCellDef>Queue Name</th>
+      <tr><td mat-cell *matCellDef="let element">{{taskQueueMap.get(element.key)}}</td></tr>
+      </ng-container>
+
+      <ng-container matColumnDef="value" >
+        <th mat-header-cell *matHeaderCellDef>Count</th>
+        <tr><td mat-cell *matCellDef="let element" (click)="pendingReferralSubmission('taskCount:'+ element.key)">
+          {{element.value}}</td></tr>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <span *ngIf="!queueTableShowResult" class="spinner marginChk">
+    </span>
+    </div>
+
+
+
+    <br>
+    <br>
+    <button mat-flat-button color="primary"
+    class="perlss-click-button-white" (click) = "myOpenTasks()">MY OPEN TASKS</button>
+
+  </div>
+</div>
+
+<div class="page-width">
+  <div class="enrollment-search-container" style="box-shadow:none">
+       <div class="row">
+      <div class="col-md-12">
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header style = "background-color: #f5f5f5;">
+              <mat-panel-title class="perlss_page_content">
+                Additional Enrollment Filter Criteria
+             </mat-panel-title>
+           </mat-expansion-panel-header>
+        <div class="enrollment-sub-desciption">Please use the criteria below to enrollment by person details or
+          enrollment
+          details.</div>
+          <div class="form-container">
+        <form [formGroup]="myForm" (ngSubmit)="enrollmentAdditionalSearch()">
+
+            <div class="row">
+              <div class="col-md-12">
+                <ng-container>
+                  <mat-form-field style="width: 100%;">
+                    <mat-label>Person Search</mat-label>
+                    <input matInput [(ngModel)] = "personId" formControlName="personId" [matAutocomplete]="auto"
+                placeholder="Search by Applicant Name, Date Of Birth, SSN, Person ID, County" #applicantNameInput>
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)='handleSelection($event.option.value)'>
+                <mat-option class="select-hr" *ngFor="let option of personOptions" [value]="option">
+                  <strong>Applicant Name:</strong>{{option.prsnDetail?.firstName}} {{option.prsnDetail?.lastName}},
+                  <strong>DOB:</strong>{{option.prsnDetail?.dobDt | date: 'MM/dd/yyyy'}},
+                  <strong>SSN:</strong>{{option.prsnDetail?.ssn}},
+                  <strong>PersonId:</strong>{{option.prsnDetail?.prsnId}} <span *ngIf="option.prsnDetail.cntyCd">,
+                    <strong>County:</strong></span>{{option.prsnDetail?.cntyCd}}
+               </mat-option>
+             </mat-autocomplete>
+             <button mat-button matTooltip="Clear Search" *ngIf="personId" matSuffix mat-icon-button aria-label="Clear" (click)="personId=null;personIdDetail='';">
+              <mat-icon>close</mat-icon>
+          </button>
+                 </mat-form-field>
+               </ng-container>
+             </div>
+           </div>
+
+      <div class="row">
+        <div class="col-md-6">
+
+            <mat-form-field appearance="outline">
+              <mat-label>PAE ID </mat-label>
+            <input matInput formControlName="paeId" placeholder="Enter PAE ID">
+            <mat-error *ngIf="!myForm.controls['paeId'].valid && myForm.controls['paeId'].touched">
+              {{ checkPAE() }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+
+          <mat-form-field appearance="outline">
+            <mat-label>Assigned User </mat-label>
+            <input matInput formControlName="assignedUserId" placeholder="Enter User ID">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+
+          <mat-form-field appearance="outline">
+            <mat-label>Enrollment Group </mat-label>
+            <mat-select formControlName="enrollmentGroup" >
+              <mat-option>None</mat-option>
+              <mat-option *ngFor="let enrollmentGroup of enrollmentGroupRt" [value]="enrollmentGroup.code">
+                {{enrollmentGroup.description}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Enrollment Status </mat-label>
+              <mat-select formControlName="enrollmentStatus" >
+                <mat-option>None</mat-option>
+              <mat-option *ngFor="let enrollmentStatus of enrollmentStatusRt" [value]="enrollmentStatus.code">
+                {{enrollmentStatus.value}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+
+          <mat-form-field appearance="outline">
+            <mat-label>Authorization Date</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+              <input matInput matStartDate formControlName="authorizationFromDate" placeholder="Start date" >
+              <input matInput matEndDate formControlName="authorizationToDate" placeholder="End date" >
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <button type="submit"
+          mat-flat-button color="primary"
+          class="perlss-click-button">SEARCH</button>
+        </div>
+      </div>
+      <br>
+      <br>
+      </form>
+  </div>
+</mat-expansion-panel>
+</mat-accordion>
+<br>
+  </div>
+</div>
+</div>
+</div>
+
+
+
+      <div id="dashboardTable">
+    <div *ngIf="searchReferralClicked" class="search-table-container">
+
+      <h2 class="side-heading">Search Results</h2>
+
+      <table style="width:100%">
+        <tr>
+        <td><button mat-flat-button color="primary" class="button-white" style="min-width:150%">SELECT</button></td>
+        <td style="padding-left:38vw;"><input class="align-input" placeholder="Search Filter"></td>
+      </tr>
+    </table>
+
+    <br>
+
+        <table id="searchresultsTable"  style = "border: 1px solid #04537d; box-shadow: 0px 5px 3px 0px #AAAAAA;" aria-describedby="false"aria-describedby="false" mat-table [dataSource]="dataSource2" multiTemplateDataRows
+        class="mat-elevation-z0">
+
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef id="firstName">Person Name </th>
+          <td mat-cell *matCellDef="let element" style = "cursor:pointer"><u>{{element.firstName}} {{element.midInitial}}
+            {{element.lastName}} </u>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="ssn">
+          <th mat-header-cell *matHeaderCellDef id="ssn">SSN</th>
+          <td style="width:15%" mat-cell *matCellDef="let element">{{getSSNMask(element.ssn)}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="paeId">
+          <th mat-header-cell *matHeaderCellDef id="paeId">PAE ID</th>
+          <td mat-cell *matCellDef="let element">{{element.paeId}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="enrollmentGroup">
+          <th mat-header-cell *matHeaderCellDef id="enrollmentGroup">Enrollment <br> Group</th>
+          <td mat-cell *matCellDef="let element">{{enrGrpMap.get(element.programCd)}}
+            <div *ngIf="(element.programCd === '' || element.programCd === undefined || element.programCd === null)">---</div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="enrollmentStatus">
+          <th mat-header-cell *matHeaderCellDef id="enrollmentStatus">Enrollment <br> Status</th>
+          <td mat-cell *matCellDef="let element">{{enrStatusMap.get(element.enrollmentStatus)}}
+            <div *ngIf="(element.enrollmentStatus === '' || element.enrollmentStatus === undefined || element.enrollmentStatus === null )">---</div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="authorizationDate">
+          <th mat-header-cell *matHeaderCellDef id="authorizationDate">Authorization Date</th>
+          <td mat-cell *matCellDef="let element">{{element.authorizationDate}}
+            <div *ngIf="(element.authorizationDate === '' || element.authorizationDate === undefined || element.authorizationDate === null)">---</div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="expandedDetail">
+          <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumn.length">
+            <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+              <table class="table table-borderless" aria-describedby="false">
+                <tr>
+                  <td style="width: 20%">
+                    <strong>Date of Birth</strong>
+                    <div>{{element.birthDate| date:'MM/dd/yyyy' }}</div>
+                    <div>{{element.age}}</div>
+                  </td>
+                  <td>
+                    <strong>Adjudication Date</strong>
+                    <div>{{element.adjDueDt| date:'MM/dd/yyyy' }}</div>
+                    <div *ngIf="(element.adjDueDt === '' || element.adjDueDt === undefined || element.adjDueDt === null)">---</div>
+
+                  </td>
+                  <td>
+                    <strong>Task Queue</strong>
+                    <div>{{taskQueueMap.get(element.taskQueue)}}</div>
+                    <div *ngIf="(element.taskQueue === '' || element.taskQueue === undefined || element.taskQueue === null)">---</div>
+                  </td>
+                  <td>
+                    <strong>Task Status</strong>
+                    <div>{{taskStatusMap.get(element.taskStatus)}}</div>
+                    <div *ngIf="(element.taskStatus === '' || element.taskStatus === undefined || element.taskStatus === null)">---</div>
+                  </td>
+                  <td>
+                    <strong>Appeal Filed</strong>
+                    <div>{{element.appealFiled }}</div>
+                    <div *ngIf="(element.appealFiled === '' || element.appealFiled === undefined || element.appealFiled === null)">---</div>
+                  </td>
+                  <td>
+                    <button mat-stroked-button *ngIf="(element.taskStatus === 'IP' || element.taskStatus === 'AS')"
+                      (click) = "continueClicked(element)" class="expandable-row-button">CONTINUE REVIEW </button>
+                      <button mat-stroked-button *ngIf="!(element.enrollmentStatus ==='MOP'||
+                      element.enrollmentStatus ==='PDD'||
+                      element.enrollmentStatus ==='PFE'||
+                      element.enrollmentStatus ==='PTD' ||
+                      element.enrollmentStatus ==='SSI') && (element.taskStatus === 'NW')"
+class="expandable-row-button" (click) = "initiateReviewClicked(element)">INITIATE REVIEW
+</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Person ID</strong>
+                    <div>{{element.personId}}</div>
+                  </td>
+                  <td>
+                    <strong>Assigned User</strong>
+                    <div>{{element.assignedUserId}}</div>
+                  </td>
+                  <td>
+                    <strong>Received in Queue</strong>
+                    <div>{{element.receivedInQueue| date:'MM/dd/yyyy'}}</div>
+                    <div *ngIf="(element.receivedInQueue === '' || element.receivedInQueue === undefined)">---</div>
+                  </td>
+                  <td>
+                    <strong>Task Completion</strong>
+                    <div *ngIf="element.taskStatus ==='CL'">{{element.taskCompletion| date:'MM/dd/yyyy' }}</div>
+                    <div *ngIf="(element.taskCompletion === '' || element.taskCompletion === undefined || element.taskStatus !== 'CL')">---</div>
+                  </td>
+                  <td></td>
+                  <td>
+                    <button mat-stroked-button *ngIf="(element.enrollmentStatus ==='MOP'||
+                                                      element.enrollmentStatus ==='PDD'||
+                                                      element.enrollmentStatus ==='PFE'||
+                                                      element.enrollmentStatus ==='PTD' ||
+                                                      element.enrollmentStatus ==='SSI' ||
+                                                      element.taskStatus === 'AS' || element.taskStatus === 'IP' || element.taskStatus === 'CL')"
+                      (click) = "viewDetailsClicked(element)" class="expandable-row-button-white">VIEW DETAILS</button>
+
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumn"></tr>
+        <tr mat-row *matRowDef="let element; columns: displayedColumn;" class="element-row"
+          [class.expanded-row]="expandedElement === element"
+          (click)="expandedElement = expandedElement === element ? null : element">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+      </table>
+      <br>
+      <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+
+
+
+  </div>
+</div>
+
+<br>
+<br>
+
+<!-- <div class="row">
+      <div class="col-md-12" style="text-align: right;">
+        <button type="button" mat-flat-button color="primary" class="perlss-click-button"
+          (click)= "gotoNext()">NEXT</button>
+      </div>
+    </div> -->
+
+

@@ -1,0 +1,351 @@
+<div class="pageMargin" id="pM">
+  <br>
+  <mat-label class="sub-heading">School and Work</mat-label>
+  <div class="required">*Required</div>
+  <br><br>
+  <mat-card class="cardStyle">
+    <strong>Note: &nbsp;</strong><span>
+      "You" in the application is the person who wants services. <br>
+      <span class="push-right-note">
+        <mat-icon class="red-icon">info_outline</mat-icon>This is a tool tip icon used
+        across the application for short descriptions.
+      </span>
+    </span>
+  </mat-card>
+  <br><br>
+
+  <div class="row">
+    <div class="page-sub-heading">
+      School Information
+    </div>
+  </div>
+  <br>
+  <form [formGroup]="schAndWorkForm" (ngSubmit)="next()">
+    <div class="row">
+      <div class="col">
+        <div class="row" style="margin-left: 5px;">
+          <label id="example-radio-group-label"><sup><label class="required-color">*</label></sup>Are you in school right
+              now?</label>
+       </div>
+        <div *ngIf="getFormData().curSchoolSw.hasError('required') && (getFormData().curSchoolSw.touched || submitted)" class="error">
+          <mat-error>{{customValidation.A1}}</mat-error>
+       </div>
+        <div class="row">
+          <mat-radio-group aria-labelledby="example-radio-group-label" formControlName="curSchoolSw"
+            (change)="onCurSchool($event)">
+            <div class="radio-button">
+              <mat-radio-button value="Y">Yes</mat-radio-button>
+            </div>
+            <div class="radio-button">
+              <mat-radio-button value="N">No</mat-radio-button>
+            </div>
+          </mat-radio-group>
+       </div>
+      </div>
+    </div>
+    <br>
+    <div *ngIf=inSchool>
+
+      <div class="row">
+        <div class="col">
+          <div class="row" style="margin-left: 5px;">
+            <label id="example-radio-group-label"><sup><label class="required-color">*</label></sup>Will you be leaving
+                high
+                school or finishing a post-secondary education or training program soon? (like college or vo-tech
+                school)</label>
+          </div>
+          <div *ngIf="getFormData().leaveSchoolSw.hasError('required') && (getFormData().leaveSchoolSw.touched || submitted)" class="error">
+            <mat-error>{{customValidation.A1}}</mat-error>
+          </div>
+          <div class="row">
+            <mat-radio-group aria-labelledby="example-radio-group-label" formControlName="leaveSchoolSw">
+              <div class="radio-button">
+                <mat-radio-button value="Y">Yes</mat-radio-button>
+              </div>
+              <div class="radio-button">
+                <mat-radio-button value="N">No</mat-radio-button>
+              </div>
+            </mat-radio-group>
+          </div>
+       </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col">
+          <div class="row" style="margin-left: 5px;">
+            <label id="example-radio-group-label"><sup><label class="required-color">*</label></sup>Are you working with
+                your school or with Vocational Rehabilitation to plan for employment?</label>
+          </div>
+          <div
+            *ngIf="getFormData().vocRehabSw.hasError('required') && (getFormData().vocRehabSw.touched || submitted)" class="error">
+            <mat-error>{{customValidation.A1}}</mat-error>
+          </div>
+          <div class="row">
+            <mat-radio-group aria-labelledby="example-radio-group-label" formControlName="vocRehabSw">
+              <div class="radio-button">
+                <mat-radio-button value="Y">Yes</mat-radio-button>
+              </div>
+              <div class="radio-button">
+                <mat-radio-button value="N">No</mat-radio-button>
+              </div>
+            </mat-radio-group>
+          </div>
+       </div>
+      </div>
+
+      <br>
+      <div class="row">
+        <div class="col">
+          <div class="row" style="margin-left: 5px;">
+            <label id="example-radio-group-label"><sup><label class="required-color">*</label></sup>Do you need
+              services that you can't get from your school or from Vocational Rehabilitation to help you get a job
+              or get ready for a job?</label>
+          </div>
+          <div
+            *ngIf="getFormData().jobVocRehabSw.hasError('required') && (getFormData().jobVocRehabSw.touched || submitted)" class="error">
+            <mat-error>{{customValidation.A1}}</mat-error>
+          </div>
+          <div class="row">
+            <mat-radio-group aria-labelledby="example-radio-group-label" formControlName="jobVocRehabSw">
+              <div class="radio-button">
+                <mat-radio-button value="Y">Yes</mat-radio-button>
+              </div>
+              <div class="radio-button">
+                <mat-radio-button value="N">No</mat-radio-button>
+              </div>
+            </mat-radio-group>
+          </div>
+       </div>
+      </div>
+    </div>
+
+    <br>
+    <mat-divider></mat-divider>
+    <br>
+    <div class="row">
+      <div class="page-sub-heading">
+        Work Information
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col">
+        <div class="row" style="margin-left: 5px;">
+          <label id="example-radio-group-label"><sup><label class="required-color">*</label></sup>Please select one of the
+              options below to explain your job situation:</label>
+       </div>
+        <div *ngIf="getFormData().jobSituationCd.hasError('required') && (getFormData().jobSituationCd.touched || submitted)" class="error">
+          <mat-error>{{customValidation.A1}}</mat-error>
+       </div>
+        <div class="row">
+          <mat-radio-group aria-labelledby="example-radio-group-label" formControlName="jobSituationCd"
+            (change)="onJobOptSelection($event)">
+            <div class="radio-button">
+              <mat-radio-button value="jobNow">I have a job right now</mat-radio-button>
+            </div>
+            <div class="radio-button">
+              <mat-radio-button value="jobOfferSw">I have a job offer. I can only get the job if I have someone to
+                help me while I am working</mat-radio-button>
+            </div>
+            <div class="radio-button">
+              <mat-radio-button value="lostJobSw">I lost my job not long ago and need help to get or keep a new job
+              </mat-radio-button>
+            </div>
+            <div class="radio-button">
+              <mat-radio-button value="needJobHelp">I do not have a job but I know I want to work and need help to
+                get or keep a job
+              </mat-radio-button>
+            </div>
+            <div class="radio-button">
+              <mat-radio-button value="noJobExplore">I do not have a job and I am not sure about work but I am
+                willing to explore the possibility of working
+                <mat-icon class="red-icon" matTooltip = "It will help you decide if you want to work, and the kinds of jobs
+                you might like and be really good at by visiting job sites that match your skills and interests.
+                It can also help you and your family understand the benefits of working and answer your questions
+                about work.">info_outline</mat-icon>
+              </mat-radio-button>
+            </div>
+            <div class="radio-button">
+              <mat-radio-button value="notIntrestedInWork">I am not interested in working</mat-radio-button>
+            </div>
+          </mat-radio-group>
+       </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="jobNowSw=='Y' || jobOfferSw=='Y' || lostJobSw=='Y'">
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" style="width:100% !important">
+          <mat-label>
+            <mat-label class="required-color"><sup>*</sup></mat-label>Employer Name
+          </mat-label>
+          <input matInput formControlName="empName" placeholder="Employer Name*" maxlength="100"
+            [ngClass]="{ 'is-invalid': getFormData().empName.touched && getFormData().empName.errors }">
+          <mat-error *ngIf="getFormData().empName.errors !== null">
+            <mat-error *ngIf="getFormData().empName.errors.required && (getFormData().empName.touched || submitted)">
+              {{customValidation.A1}}
+            </mat-error>
+          </mat-error>
+       </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="lostJobSw=='Y'">
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" style="width: 100 px">
+          <mat-label>
+            <mat-label class="required-color">
+              <mat-label class="required-color"><sup>*</sup></mat-label>
+            </mat-label>Job End Month and Year
+          </mat-label>
+          <input matInput [matDatepicker]="jobEndDt" formControlName="jobEndDt" placeholder="mm/yyyy" [max]="maxDate"
+            [ngClass]="{ 'is-invalid': getFormData().jobEndDt.touched && getFormData().jobEndDt.errors }">
+            <mat-datepicker-toggle matSuffix [for]="jobEndDt"></mat-datepicker-toggle>
+            <mat-datepicker #jobEndDt startView="multi-year"
+              (yearSelected)="chosenYearHandler($event)"
+              (monthSelected)="chosenMonthHandler($event, jobEndDt)">
+            </mat-datepicker>
+          <mat-error *ngIf="getFormData().jobEndDt.errors !== null">
+            <mat-error *ngIf="getFormData().jobEndDt.errors.required && (getFormData().jobEndDt.touched || submitted)">
+              {{customValidation.A1}}
+            </mat-error>
+            <mat-error *ngIf="getFormData().jobEndDt.errors.touched && getFormData().jobEndDt.errors.pattern">
+              {{customValidation.A6}}
+            </mat-error>
+          </mat-error>
+       </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field appearance="outline">
+          <mat-label>
+            <sup><mat-label class="required-color">*</mat-label></sup>Why did the job end?
+          </mat-label>
+          <mat-select matNativeControl formControlName="jobEndReasonCd" aria-placeholder="Select an option">
+            <mat-option value="LEF">I chose to leave</mat-option>
+            <mat-option value="FIR">I was asked to leave</mat-option>
+          </mat-select>
+          <mat-error *ngIf="getFormData().jobEndReasonCd.errors !== null">
+            <mat-error
+              *ngIf="getFormData().jobEndReasonCd.errors.required && (getFormData().jobEndReasonCd.touched || submitted)">
+              {{customValidation.A1}}</mat-error>
+          </mat-error>
+       </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="jobNowSw=='Y'">
+      <div class="col">
+        <div class="row" style="margin-left: 5px;">
+          <label id="example-radio-group-label"><sup><label class="required-color">*</label></sup>Do you need services to
+            keep the job?
+            <mat-icon class="red-icon" matTooltip = "This includes things like a job coach, transportation to and from work, or personal assistance to get ready for work or on the job.">info_outline
+            </mat-icon>
+          </label>
+       </div>
+        <div
+          *ngIf="getFormData().needSrvcsForJobSw.hasError('required') && (getFormData().needSrvcsForJobSw.touched || submitted)"
+           class="error">
+          <mat-error>{{customValidation.A1}}</mat-error>
+       </div>
+        <div class="row">
+          <mat-radio-group aria-labelledby="example-radio-group-label" formControlName="needSrvcsForJobSw">
+            <div class="radio-button">
+              <mat-radio-button value="Y">Yes</mat-radio-button>
+            </div>
+            <div class="radio-button">
+              <mat-radio-button value="N">No</mat-radio-button>
+            </div>
+          </mat-radio-group>
+       </div>
+      </div>
+    </div>
+    <br>
+    <div class="row" *ngIf="noJobExplWorkSw=='Y'">
+      <div class="col">
+        <div class="row" style="margin-left: 5px;">
+          <label id="example-radio-group-label"><sup><label class="required-color">*</label></sup>Are you willing to try
+              out a
+              service called exploration?
+            <mat-icon class="red-icon" matTooltip = "It will help you decide if you want to work, and the kinds of jobs you
+              might like and be really good at by visiting job sites that match your skills and interests. It can also help
+              you and your family understand the benefits of working and answer your questions about work.">info_outline
+            </mat-icon>
+          </label>
+       </div>
+        <div
+          *ngIf="getFormData().srvcCallExplreSw.hasError('required') && (getFormData().srvcCallExplreSw.touched || submitted)" class="error">
+          <mat-error>{{customValidation.A1}}</mat-error>
+       </div>
+        <div class="row">
+          <mat-radio-group aria-labelledby="example-radio-group-label" formControlName="srvcCallExplreSw">
+            <div class="radio-button">
+              <mat-radio-button value="Y">Yes</mat-radio-button>
+            </div>
+            <div class="radio-button">
+              <mat-radio-button value="N">No</mat-radio-button>
+            </div>
+          </mat-radio-group>
+       </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="age>=21">
+      <div class="col">
+        <div class="row" style="margin-left: 5px;">
+          <label id="example-radio-group-label"><sup><label class="required-color">*</label></sup>Do you have health
+              problems
+              or disabilities that make it hard to work and you need help to live in and be part of the
+              community? </label>
+       </div>
+        <div class="row">
+          <mat-radio-group aria-labelledby="example-radio-group-label" formControlName="hlthDisabilitySw"
+            (change)="onHeathDisablity($event)">
+            <div class="radio-button">
+              <mat-radio-button value="Y">Yes</mat-radio-button>
+            </div>
+            <div class="radio-button">
+              <mat-radio-button value="N">No</mat-radio-button>
+            </div>
+          </mat-radio-group>
+       </div>
+      </div>
+    </div>
+    <br>
+    <div class="row" *ngIf="age>62 && hlthDisSw">
+      <div class="col">
+        <div class="row" style="margin-left: 5px;">
+          <label id="example-radio-group-label"><sup><label class="required-color">*</label></sup>Do you need help to live
+              and
+              do things in the community?</label>
+       </div>
+        <div class="row">
+          <mat-radio-group aria-labelledby="example-radio-group-label" formControlName="liveDoThingsSw">
+            <div class="radio-button">
+              <mat-radio-button value="Y">Yes</mat-radio-button>
+            </div>
+            <div class="radio-button">
+              <mat-radio-button value="N">No</mat-radio-button>
+            </div>
+          </mat-radio-group>
+       </div>
+      </div>
+    </div>
+    <div class="row button-container">
+			<div class="col-md-2" style="text-align: left;">
+				<button mat-flat-button color="primary" type="button" (click)="back()"
+					class="perlss-click-button-white chkW">BACK</button>
+			</div>
+			<div class="col-md-4" style="text-align: left;">
+				<button mat-flat-button color="primary" type="button" (click)="saveAndExit()" class="perlss-click-button-white-noborder chkW">
+          SAVE AND EXIT
+        </button>
+			</div>
+			<div class="col-md-6" style="text-align: right;">
+				<button *ngIf="enableNext" mat-flat-button color="primary"
+					class="perlss-click-button chkW" type="submit">NEXT</button>
+        <mat-spinner *ngIf="showSpinner" class="chkFloat" [diameter]="24" color="warn" mode="indeterminate"></mat-spinner>
+			</div>
+		</div>
+
+  </form>
+</div>

@@ -1,0 +1,167 @@
+<div class="responsive person-details">
+    <form [formGroup]="personDetailsForm" (ngSubmit)="savePersonDetails()">
+        <div class="details-wrapper">
+            <h5>Person Details</h5>
+            <div class="person-info">
+                <div style="width: 30%;">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Person ID</mat-label>
+                        <input formControlName="persionId" matInput>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="person-info">
+                <div style="width: 30%;">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Record ID</mat-label>
+                        <input formControlName="recordId" matInput>
+                    </mat-form-field>
+                </div>
+                <div style="width: 30%;">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Record Type</mat-label>
+                        <input formControlName="recordType" matInput>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="person-info">
+                <div style="width: 30%;">
+                    <mat-form-field appearance="outline">
+                        <mat-label><span class="required">*</span>First Name</mat-label>
+                        <input matInput formControlName="firstName" placeholder="First Name"
+                        [ngClass]="{ 'is-invalid': (getFormData().firstName.touched || submitted) && getFormData().firstName.errors }">
+                      <mat-error *ngIf="getFormData().firstName.errors !== null">
+                        <mat-error
+                          *ngIf="getFormData().firstName.errors.maxLength == null && !getFormData().firstName.errors?.invalidName && !getFormData().firstName.errors.required">
+                          Cannot exceed 45 characters</mat-error>
+                        <mat-error
+                          *ngIf="getFormData().firstName.errors.required && (getFormData().firstName.touched  || submitted)">
+                          {{customValidation.A1}}</mat-error>
+                        <mat-error
+                          *ngIf="getFormData().firstName.errors?.invalidName && !getFormData().firstName.errors.required">
+                          {{customValidation.A2}}
+                        </mat-error>
+                      </mat-error>
+                    </mat-form-field>
+                </div>
+                <div style="width: 10%;">
+                    <mat-form-field appearance="outline">
+                        <mat-label>MI</mat-label>
+                        <input matInput formControlName="mi" placeholder="MI"
+                        [ngClass]="{ 'is-invalid': getFormData().mi.touched && getFormData().mi.errors }">
+                      <mat-error *ngIf="getFormData().mi.errors !== null">
+                        <mat-error
+                          *ngIf="getFormData().mi.errors.maxLength == null && !getFormData().mi.errors.pattern">
+                          Cannot exceed 1 letter
+                        </mat-error>
+                        <mat-error *ngIf="getFormData().mi.errors.pattern">~ Invalid characters</mat-error>
+                      </mat-error>
+                    </mat-form-field>
+                </div>
+                <div style="width: 30%;">
+                    <mat-form-field appearance="outline">
+                        <mat-label><span class="required">*</span>Last Name</mat-label>
+                        <input matInput formControlName="lastName"[ngClass]="{ 'is-invalid': (getFormData().lastName.touched || submitted) && getFormData().lastName.errors }">
+                        <mat-error *ngIf="getFormData().lastName.errors !== null">
+                          <mat-error
+                            *ngIf="getFormData().lastName.errors.maxLength == null && !getFormData().lastName.errors?.invalidName && !getFormData().lastName.errors.required">
+                            Cannot exceed 45 characters</mat-error>
+                          <mat-error
+                            *ngIf="getFormData().lastName.errors.required && (getFormData().lastName.touched  || submitted)">
+                            {{customValidation.A1}}</mat-error>
+                          <mat-error
+                            *ngIf="getFormData().lastName.errors?.invalidName && !getFormData().lastName.errors.required">
+                            {{customValidation.A2}}
+                          </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div style="width: 10%;">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Suffix</mat-label>
+                            <mat-select formControlName="suffix">
+                                <mat-option value=''>Select</mat-option>
+                                <mat-option *ngFor = "let ns of  nameSuffix" value={{ns.code}}>{{ns.value}}</mat-option>
+                            </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="person-info">
+                <div style="width: 30%; position: relative;">
+                    <mat-form-field appearance="outline">
+                        <mat-label><span class="required">*</span>Date of Birth</mat-label>
+                        <input matInput [matDatepicker]="dobDt" formControlName="dobDt" autocomplete="off"
+                        [min]="minDate"
+                        [max]="maxDate"
+                        (dateChange)="calculateAge($event.value)">
+                        <mat-datepicker-toggle matSuffix [for]="dobDt"></mat-datepicker-toggle>
+                        <mat-datepicker #dobDt></mat-datepicker>
+                        <mat-error *ngIf="getFormData().dobDt.errors != null">
+                            <mat-error *ngIf="personDetailsForm.get('dobDt').hasError('required')">
+                              {{customValidation.A1}}
+                            </mat-error>
+                            <mat-error *ngIf="getFormData().dobDt.errors.matDatepickerMax">{{customValidation.A5}}</mat-error>
+                            <mat-error *ngIf="getFormData().dobDt.errors.matDatepickerMin">{{customValidation.A6}}</mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                    <div class="sub-element" *ngIf="age != null">
+                        <mat-label><span>Age: </span>{{age}} Years</mat-label>
+                    </div>
+                </div>
+                <div style="width: 20%; margin-right: 5%;">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Gender</mat-label>
+                            <mat-select formControlName="gender">
+                                <mat-option value=''>Select</mat-option>
+                                <mat-option *ngFor = "let g of  gender" value={{g.code}}>{{g.value}}</mat-option>
+                            </mat-select>
+                    </mat-form-field>
+                </div>
+                <div style="width: 35%; position: relative;">
+                    <mat-form-field appearance="outline">
+                        <mat-label><sup>
+                            <mat-label class="required">*</mat-label>
+                          </sup>Social Security Number</mat-label>
+                        <input matInput formControlName="ssn" placeholder="xxx-xx-xxxx" (keyup)="ssnChange($event)" mask="000-00-0000"
+                          [ngClass]="{ 'is-invalid': getFormData().ssn.touched && getFormData().ssn.errors }">
+                        <mat-error *ngIf="getFormData().ssn.errors !== null">
+                          <mat-error *ngIf="getFormData().ssn.errors?.invalid">{{customValidation.A4}}</mat-error>
+                          <mat-error *ngIf="getFormData().ssn.errors.required && (getFormData().ssn.touched || submitted)">
+                            {{customValidation.A1}}
+                          </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                  <mat-checkbox formControlName="ssnAvalSw" (change)="onSsnAvailableChange($event)">
+                    Select if SSN is not available
+                  </mat-checkbox>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col button-top">
+                    <button [ngClass]="{ 'grey-color': isSaveDisabled, 'green-color': !isSaveDisabled }" type="submit" mat-flat-button color="primary"
+                     class="personDetails-button  perlss-click-button submit" [disabled]="isSaveDisabled">
+                        SAVE PERSON DETAILS
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col buttonSecond-top">
+                    <button type = "button" [ngClass]="{ 'grey-color': !isSaveDisabled, 'blue-color': isSaveDisabled }" mat-flat-button color="primary"
+                     class="personDetails-button  perlss-click-button submit" [disabled]="!isSaveDisabled" (click)="getSearchResults()">
+                        PERSON MATCH
+                    </button>
+                </div>
+            </div>
+
+       </div>
+    </form>
+    <mat-divider *ngIf="searchRecipientRecords"></mat-divider>
+    <app-search-results [searchRecipientRecords] = "searchRecipientRecords" *ngIf="searchRecipientRecords"></app-search-results>
+    <div class="row">
+      <div class="col go_back">
+          <a routerLink="/ltss/personReconciliation/reconciliationDashboard"><u>GO BACK TO PERSON RECONCILIATION HOME</u></a><br>
+      </div>
+  </div>
+</div>

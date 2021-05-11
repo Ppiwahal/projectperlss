@@ -1,0 +1,233 @@
+<div class="responsive">
+  <form [formGroup]="enhancedRespiratoryCareForm">
+    <div class="scroller">
+      <div class="applicantName">{{applicantName}}</div>
+      <div class="note">
+        <div>
+          <label>Note:</label>
+          <p>Reimbursement for Nursing Facility Services at one of the Enhanced Respiratory
+            Care rates (and an HCBS Cost Neutrality Cap based on eligibility for such enhanced level of reimbursement)
+            is
+            limited to persons who meet specified medical eligibility criteria below.
+            Approval of CV or TS reimbursement (or a Cost Neutrality Cap based on eligibility for such enhanced level of
+            reimbursement) requires specific supporting documentation.</p>
+        </div>
+      </div>
+      <br>
+      <hr>
+      <div class="care-section">
+        <div class="row">
+          <div class="col-md-12" style="padding-left: 0px;">
+            <mat-label>Please review the approval criteria and documentation requirements and indicate the
+              required care that's applicable:</mat-label>
+          </div>
+        </div>
+
+        <mat-error *ngIf="!isChronicVentilator && !isSecretionManagement && submitted">{{customValidation.A47}}
+        </mat-error>
+
+        <div class="row">
+          <div class="col-md-6"  style="padding-left: 0px;">
+            <button [class]="isChronicVentilator?'is-deactivated':'is-activated'" mat-stroked-button
+            (click)="chronicVentilatorServices()" type="button" style="line-height:43px;">CHRONIC VENTILATOR SERVICES
+              <mat-icon class="button-icon">offline_pin</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="isChronicVentilator">
+          <div class="col-md-6">
+            <mat-form-field appearance="outline">
+              <mat-label>
+                <mat-label class="required-color">*</mat-label>Requested Start Date
+              </mat-label>
+              <input matInput [matDatepicker]="chrncReqStartDt" formControlName="chrncReqStartDt" [min]="minDate">
+              <mat-datepicker-toggle matSuffix [for]="chrncReqStartDt"></mat-datepicker-toggle>
+              <mat-datepicker [startAt]="startDate" #chrncReqStartDt></mat-datepicker>
+              <mat-error *ngIf="getFormData().chrncReqStartDt.errors != null">
+                <mat-error
+                  *ngIf="(getFormData().chrncReqStartDt.touched || submitted) && getFormData().chrncReqStartDt.hasError('required')">
+                  {{customValidation.A1}}
+                </mat-error>
+                <mat-error
+                  *ngIf="getFormData().chrncReqStartDt.errors?.matDatepickerMin  && (getFormData().chrncReqStartDt.touched || getFormData().chrncReqStartDt.dirty)">
+                  {{customValidation.A6}}
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6">
+            <mat-form-field appearance="outline">
+              <mat-label>
+                <mat-label class="required-color">*</mat-label>Requested End Date
+              </mat-label>
+              <input matInput [matDatepicker]="chrncReqEndDt" formControlName="chrncReqEndDt" [min]="minDate">
+              <mat-datepicker-toggle matSuffix [for]="chrncReqEndDt"></mat-datepicker-toggle>
+              <mat-datepicker [startAt]="startDate" #chrncReqEndDt></mat-datepicker>
+              <mat-error *ngIf="getFormData().chrncReqEndDt.errors != null">
+                <mat-error
+                  *ngIf="(getFormData().chrncReqEndDt.touched || submitted) && getFormData().chrncReqEndDt.hasError('required')">
+                  {{customValidation.A1}}
+                </mat-error>
+                <mat-error
+                  *ngIf="getFormData().chrncReqEndDt.errors.matDatepickerMin  && (getFormData().chrncReqEndDt.touched && getFormData().chrncReqEndDt.dirty)">
+                  {{customValidation.A6}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-note-container mat-elevation-z5">
+          <mat-label>
+            <strong>Approval Criteria:</strong>
+            <br>
+            <ul>
+              <li>Applicant must be ventilator dependent for at least 12 hours each day with an invasive patient end of
+                the circuit (i.e., tracheostomy cannula).</li>
+              <li>On a case-by-case basis, TennCare may, subject to additional medical review by the MCO or Event,
+                authorize Chronic Ventilator Reimbursement for an applicant who is ventilator dependent with a
+                progressive
+                neuromuscular disorder, spinal cord injury, or chronic respiratory failure and is ventilated using
+                noninvasive positive pressure ventilation (NIPPV) by mask or mouthpiece for at least 12 hours each day
+                in
+                order to avoid or delay tracheostomy.</li>
+              <li>Treatment plan must be developed with input and participation from a pulmonologist or physician with
+                experience in ventilator care and signed by the treating physician or a licensed respiratory
+                professional
+                who will oversee the intensive respiratory care.</li>
+            </ul>
+          </mat-label>
+          <br>
+          <mat-label>
+            <strong>Documentation Requirements:</strong>
+            <br>
+            <ul>
+              <li>Physician order – for ventilator at least 12 hours per day</li>
+              <li>Detailed treatment plan signed by the treating physician, licensed RN or licensed respiratory
+                professional who will oversee the intensive respiratory care;</li>
+              <li>A care plan for services to be performed by a registered or licensed nurse and/ or respiratory
+                therapist; or Plan for care to be rendered by family members, with documentation of their ability to
+                perform such care.</li>
+            </ul>
+          </mat-label>
+          <br>
+          <mat-label>
+            <strong>Approval Period:</strong>
+            <br>
+            <ul>
+              <li>Up to 6 months</li>
+            </ul>
+          </mat-label>
+          <br>
+          <mat-label>
+            Note: After initial 6 month approval, with a new request, may be approved for more than 6 months
+            if person is in persistent vegetative state, or has a progressive neurological disorder such as ALS.
+          </mat-label>
+        </div>
+        <br>
+        <div class="row" style="padding-top:15px;">
+          <div class="col-md-6" style="padding-left: 0px;">
+            <button [class]="isSecretionManagement?'is-deactivated':'is-activated'" mat-stroked-button
+              (click)="secretionManagement()" type="button" style="line-height:43px;">SECRETION MANAGEMENT TRACHEAL SUCTIONING
+              <mat-icon class="button-icon">offline_pin</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="isSecretionManagement">
+          <div class="col-md-6">
+            <mat-form-field appearance="outline">
+              <mat-label>
+                <mat-label class="required-color">*</mat-label>Requested Start Date
+              </mat-label>
+              <input matInput [matDatepicker]="trachealReqStartDt" formControlName="trachealReqStartDt" [min]="minDate">
+              <mat-datepicker-toggle matSuffix [for]="trachealReqStartDt"></mat-datepicker-toggle>
+              <mat-datepicker [startAt]="startDate" #trachealReqStartDt></mat-datepicker>
+              <mat-error *ngIf="getFormData().trachealReqStartDt.errors != null">
+                <mat-error
+                  *ngIf="(getFormData().chrncReqEndDt.touched || submitted) && getFormData().trachealReqStartDt.hasError('required')">
+                  {{customValidation.A1}}
+                </mat-error>
+                <mat-error
+                  *ngIf="getFormData().trachealReqStartDt.errors?.matDatepickerMin  && (getFormData().trachealReqStartDt.touched || getFormData().trachealReqStartDt.dirty)">
+                  {{customValidation.A6}}
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6">
+            <mat-form-field appearance="outline">
+              <mat-label>
+                <mat-label class="required-color">*</mat-label>Requested End Date
+              </mat-label>
+              <input matInput [matDatepicker]="trachealReqEndDt" formControlName="trachealReqEndDt" [min]="minDate">
+              <mat-datepicker-toggle matSuffix [for]="trachealReqEndDt"></mat-datepicker-toggle>
+              <mat-datepicker [startAt]="startDate" #trachealReqEndDt></mat-datepicker>
+              <mat-error *ngIf="getFormData().trachealReqEndDt.errors != null">
+                <mat-error
+                  *ngIf="(getFormData().trachealReqEndDt.touched || submitted) && getFormData().trachealReqEndDt.hasError('required')">
+                  {{customValidation.A1}}
+                </mat-error>
+                <mat-error
+                  *ngIf="getFormData().trachealReqEndDt.errors.matDatepickerMin  && (getFormData().trachealReqEndDt.touched && getFormData().trachealReqEndDt.dirty)">
+                  {{customValidation.A6}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <br>
+        <div class="form-note-container mat-elevation-z5">
+          <mat-label>
+            <strong>Approval Criteria:</strong>
+            <br>
+            <ul>
+              <li>Patient must have a functioning tracheostomy and a copious volume of secretions, and require:</li>
+              <li>Invasive tracheal suctioning, at a minimum, once every 3 hours with documented assessment pre- and
+                post-suctioning; or</li>
+              <li>The use of mechanical airway clearance devices and/or heated high flow molecular humidification via
+                the tracheostomy, at a minimum, 3 times per day with documented assessment pre-and post.</li>
+              <li>The suctioning (or airway clearance, as applicable) must be required to remove excess secretions
+                and/or aspirate from the trachea, which cannot be removed by applicant’s spontaneous effort.</li>
+            </ul>
+          </mat-label>
+          <br>
+          <mat-label>
+            <strong>Documentation Requirements:</strong>
+            <br>
+            <ul>
+              <li>Physician order – for ventilator at least 12 hours per day</li>
+              <li>Detailed treatment plan signed by the treating physician, licensed RN or licensed respiratory
+                professional who will oversee the intensive respiratory care;</li>
+              <li> A care plan for services to be performed by a registered or licensed nurse and/ or respiratory
+                therapist; or Plan for care to be rendered by family members, with documentation of their ability to
+                perform such care.</li>
+            </ul>
+          </mat-label>
+          <br>
+          <mat-label>
+            <strong>Approval Period:</strong>
+            <br>
+            <ul>
+              <li>30 Days</li>
+            </ul>
+          </mat-label>
+          <br>
+          <mat-label>
+            Note: TennCare may on a case by case basis approve Secretion Management for more than thirty (30) days e.g.,
+            if a person has ALS or another progressive neuromuscular disorder, spinal cord injury or chronic respiratory
+            failure, or is in a persistent vegetative state, where ongoing secretion management tracheal suctioning is
+            expected to continue
+          </mat-label>
+        </div>
+      </div>
+    </div>
+    <div class="buttonBar">
+      <button mat-flat-button type="button" class="perlss-click-button-white" (click)="back()">BACK</button>
+      <button mat-flat-button color="primary" type="button" class="perlss-click-button-white-noborder"
+        (click)="saveAndExit()"><span class="hoverClass">SAVE AND EXIT</span></button>
+      <button mat-flat-button color="primary" type="button" class="perlss-click-button" (click)="nextClicked()">NEXT</button>
+    </div>
+  </form>
+</div>

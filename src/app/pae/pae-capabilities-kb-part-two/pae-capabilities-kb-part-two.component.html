@@ -1,0 +1,167 @@
+<div class="responsive">
+	<form [formGroup]="myForm" (ngSubmit)="onSubmit()" [ngClass]="{'submitted': submitted}">
+
+		<div class="scroller">
+
+			<div class="applicantName">Jessica Jones</div>
+
+			<div class="note">
+				<div>
+					<label>Note:</label>
+					<p>Please select the checkboxes below if the child requires consistent assistance in these
+						activities of daily living or major skill areas for the next 12 months across all settings,
+						including home, school,
+						and community. The activities listed below are loaded based on the child's current age.</p>
+				</div>
+			</div>
+
+			<h3>Dressing</h3>
+
+			<table class="activityTable">
+				<thead>
+					<tr>
+						<th>Activity</th>
+						<th>Reported Response</th>
+						<th>Confirmed Response</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Needs physical help getting clothes on. This does not include fasteners such as buttons,
+							zippers, and snaps.</td>
+						<td>
+							<mat-checkbox value="reported" class="checkbox-element" formControlName="dressingRR">
+							</mat-checkbox>
+						</td>
+						<td>
+							<mat-checkbox value="confirmed" class="checkbox-element" formControlName="dressingRC">
+							</mat-checkbox>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<mat-error *ngIf="groupError['dressingNone']">
+				{{groupError['dressingNone']}}
+			</mat-error>
+
+			<div class="checkbox-group">
+				<mat-label>If no section displayed applies for this Activity of Daily Living, please indicate below:
+				</mat-label>
+				<mat-checkbox value="none" class="checkbox-element" formControlName="dressingNone">None of the
+					statements above apply</mat-checkbox>
+			</div>
+
+			<h3>Grooming</h3>
+			<table class="activityTable">
+				<thead>
+					<tr>
+						<th>Activity</th>
+						<th>Reported Response</th>
+						<th>Confirmed Response</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Combative during grooming (e.g. flails, takes 2 caregivers to accomplish task)</td>
+						<td>
+							<mat-checkbox class="checkbox-element" formControlName="combativeRR"></mat-checkbox>
+						</td>
+						<td>
+							<mat-checkbox class="checkbox-element" formControlName="combativeCR"></mat-checkbox>
+						</td>
+					</tr>
+					<tr>
+						<td>Unable to wash hands.</td>
+						<td>
+							<mat-checkbox class="checkbox-element" formControlName="washingRR"></mat-checkbox>
+						</td>
+						<td>
+							<mat-checkbox class="checkbox-element" formControlName="washingRC"></mat-checkbox>
+						</td>
+					</tr>
+					<tr>
+						<td>Needs physical help with grooming tasks.</td>
+						<td>
+							<mat-checkbox class="checkbox-element" formControlName="groomingRR"></mat-checkbox>
+						</td>
+						<td>
+							<mat-checkbox class="checkbox-element" formControlName="groomingRC"></mat-checkbox>
+						</td>
+					</tr>
+					<tr>
+						<td>Needs step-by-step cueing during grooming tasks</td>
+						<td>
+							<mat-checkbox class="checkbox-element" formControlName="cueingRR"></mat-checkbox>
+						</td>
+						<td>
+							<mat-checkbox class="checkbox-element" formControlName="cueingRC"></mat-checkbox>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<mat-error *ngIf="groupError['groomingNone']">{{groupError['groomingNone']}}</mat-error>
+			<div class="checkbox-group">
+				<mat-label>If no section displayed applies for this Activity of Daily Living, please indicate below:
+				</mat-label>
+				<mat-checkbox class="checkbox-element" formControlName="groomingNone">None of the statements above apply
+				</mat-checkbox>
+			</div>
+
+			<h3 class="lineAbove">Learning</h3>
+			<div class="row">
+				<mat-radio-group aria-labelledby="example-radio-group-label" formControlName="learning">
+					<mat-label class="req">Does the child have a substantial functional limitation in learning as
+						defined by a 30%
+						(25% if the child is under one year of age) or greater delay or a score of at least 2 (1.5 if
+						the child is
+						under one year of age) standard deviations below the mean based on a valid, standardized and
+						norm referenced
+						measure of aggregate intellectual functioning?
+					</mat-label>
+					<mat-error *ngIf="controlError('learning')">{{customValidation.A1}}</mat-error>
+					<mat-radio-button value="yes">Yes</mat-radio-button>
+					<mat-radio-button value="no">No</mat-radio-button>
+				</mat-radio-group>
+			</div>
+
+			<h3 class="lineAbove">Expressive Communication</h3>
+			<div class="row">
+				<mat-radio-group aria-labelledby="example-radio-group-label" formControlName="expressiveCommunication">
+					<mat-label class="req">Does the child have a substantial functional limitation in expressive
+						language
+						as determined by a norm-referenced assessment in the last 12 months? (Defined by results that
+						indicate a delay of 30% or greater or 2 standard deviations (SD) below the mean; if the child
+						is
+						under one year of age, this is defined as a delay of 25% or greater or 1.5 SD below the mean.)
+					</mat-label>
+					<mat-error *ngIf="controlError('expressiveCommunication')">{{customValidation.A1}}</mat-error>
+					<mat-radio-button value="yes">Yes</mat-radio-button>
+					<mat-radio-button value="no">No</mat-radio-button>
+				</mat-radio-group>
+			</div>
+
+			<h3 class="lineAbove">Receptive Communication</h3>
+			<div class="row">
+				<mat-radio-group aria-labelledby="example-radio-group-label" formControlName="receptiveCommunication">
+					<mat-label class="req">Does the child have a substantial functional limitation in receptive language
+						as determined by a norm-referenced assessment in the last 12 months? (Defined by results that
+						indicate a delay of 30% or greater or 2.0 standard deviations (SD) below the mean; if the child
+						is
+						under one year of age, this is defined as a delay of 25% or greater or 1.5 SD below the mean.)
+					</mat-label>
+					<mat-error *ngIf="controlError('receptiveCommunication')">{{customValidation.A1}}</mat-error>
+					<mat-radio-button value="yes">Yes</mat-radio-button>
+					<mat-radio-button value="no">No</mat-radio-button>
+				</mat-radio-group>
+			</div>
+		</div>
+		<div class="buttonBar">
+			<button mat-flat-button color="primary" (click)="back()" class="perlss-click-button-white">BACK</button>
+			<button mat-flat-button color="primary" type="submit" (click)="onSaveAndExitClick()"
+				class="perlss-click-button-white-noborder">SAVE
+				AND EXIT</button>
+			<button mat-flat-button color="primary" type="submit" class="perlss-click-button"
+				(click)="onNextClick()">NEXT</button>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,291 @@
+<div class="responsive dialog">
+  <div class="header Ptr">
+  <div class="left">
+    <h1 mat-dialog-title>Planned Transition to Community Living Form</h1>
+  </div><div class="right">
+    <label class="req">Required</label>
+    <mat-icon (click)="closePopup()" style="font-size: 35px;">highlight_off</mat-icon>
+  </div>
+  </div>
+
+  <form
+    [formGroup]="myForm"
+    (ngSubmit)="submit()"
+    [ngClass]="{ submitted: submitted }"
+  >
+    <div class="scroller noPad">
+      <div class="message">
+        <p>
+          Potential applicants for the Planned Transition to Commmunity Living
+          reserve capacity group must be at least 21 years of age and live with
+          their family (not a foster family). Upon approval by CMS, this
+          criterion may apply on a case by case basis to adults ages 18-20 with
+          I/DD living with their family. The following section shall be
+          completed during the Intake visit to document the circumstances under
+          which the above-named person is believed to meet criteria requiring
+          support to plan for transition to community living due to the
+          declining health of the primary caregiver. This information shall be
+          reviewed by the Interagency Review Committee to determine whether the
+          person will proceed with application for enrollment in the Employment
+          and Community First CHOICES program in available reserve capacity set
+          aside for such purposes.
+        </p>
+
+        <p>
+          Please ensure that the potential applicant does not appear to qualify
+          for potential enrollment in an open Priority Category before
+          submitting a request for review of the Planned Transition to Community
+          Living. If a potential applicant appears to meet criteria fdor both
+          and open Priority Category and Planned Transition to Community Living
+          &mdash; you must proceed with an aplication for potential enrollment
+          in the appropriate open Priorty Category.
+        </p>
+      </div>
+
+      <div class="padded">
+        <h2>
+          Please identify all Planned Transition to Community Living criteria
+          that are applicable:
+        </h2>
+        <div class="checkbox-group">
+          <mat-label class="req" id="naturalOnlyFmlySw_label">
+            The person lives at home with the natural family or the only
+            'family' the person knows.
+          </mat-label>
+          <mat-error *ngIf="controlError('naturalOnlyFmlySw')">{{errorText['naturalOnlyFmlySw']}}</mat-error>
+          <mat-radio-group
+            formControlName="naturalOnlyFmlySw"
+            attr.aria-labelledby="naturalOnlyFmlySw_label"
+          >
+            <mat-radio-button value="Y">Yes</mat-radio-button>
+            <mat-radio-button value="N">No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div class="checkbox-group">
+          <mat-label class="req" id="cannotLiveIndSupSw_label" for="cannotLiveIndSupSw">
+            The person is not able to live independently without appropriate supports in place.
+          </mat-label>
+          <mat-error *ngIf="controlError('cannotLiveIndSupSw')">{{errorText['cannotLiveIndSupSw']}}</mat-error>
+          <mat-radio-group formControlName="cannotLiveIndSupSw" attr.aria-labelledby="cannotLiveIndSupSw_label">
+            <mat-radio-button value="Y">Yes</mat-radio-button>
+            <mat-radio-button value="N">No</mat-radio-button>
+          </mat-radio-group>
+       </div>
+
+        <div class="checkbox-group">
+          <mat-label class="req" id="cargvrPoorHlthSw_label" for="cargvrPoorHlthSw">
+            The person's primary caregiver is in poor and declining health such that they are not likely to be able to
+            continue caring for/supporting the person in the near future (i.e., within a year).
+          </mat-label>
+          <mat-error *ngIf="controlError('cargvrPoorHlthSw')">{{errorText['cargvrPoorHlthSw']}}</mat-error>
+          <mat-radio-group formControlName="cargvrPoorHlthSw" attr.aria-labelledby="cargvrPoorHlthSw_label">
+            <mat-radio-button value="Y">Yes</mat-radio-button>
+            <mat-radio-button value="N">No</mat-radio-button>
+          </mat-radio-group>
+       </div>
+
+        <div class="checkbox-group">
+          <mat-label class="req" id="needSupSmoothTrnstnSw_label" for="needSupSmoothTrnstnSw">
+            The person needs support to assist the person and caregiver with planning for a smooth transition to
+            community living to avoid a potential crisis situation in the near future (i.e., within a year).
+          </mat-label>
+          <mat-error *ngIf="controlError('needSupSmoothTrnstnSw')">{{errorText['needSupSmoothTrnstnSw']}}</mat-error>
+          <mat-radio-group formControlName="needSupSmoothTrnstnSw" attr.aria-labelledby="needSupSmoothTrnstnSw_label">
+            <mat-radio-button value="Y">Yes</mat-radio-button>
+            <mat-radio-button value="N">No</mat-radio-button>
+          </mat-radio-group>
+       </div>
+
+        <div class="checkbox-group">
+          <mat-label class="req" id="willPartPlnndTrnstnSw_label" for="willPartPlnndTrnstnSw">
+            The person and caregiver understand and are willing to participate in support that will assist in a planned
+            transition to community living.
+          </mat-label>
+          <mat-error *ngIf="controlError('willPartPlnndTrnstnSw')">{{errorText['willPartPlnndTrnstnSw']}}</mat-error>
+          <mat-radio-group formControlName="willPartPlnndTrnstnSw" attr.aria-labelledby="willPartPlnndTrnstnSw_label">
+            <mat-radio-button value="Y">Yes</mat-radio-button>
+            <mat-radio-button value="N">No</mat-radio-button>
+          </mat-radio-group>
+       </div>
+
+      </div>
+      <hr>
+      <div class="padded">
+        <p>Please complete the information below and submit with all supporting documentation to TennCare,
+          via designated process, for referral to the Interagency Review Committee.</p>
+        <p>Please do not provide repetitive information in multiple response boxes below. Each area needs to
+          be addressed specific to the information being requested.</p>
+
+        <div class="textArea">
+          <mat-label class="req"
+            >Please explain why this person does not appear to qualify for
+            enrollment in an open Priority Category:</mat-label
+          >
+          <textarea
+            maxLength="2000"
+            formControlName="notQualifiedEnrolPcTxt"
+          ></textarea>
+          <p>{{ getLength("notQualifiedEnrolPcTxt") }}/2000</p>
+        </div>
+
+        <div class="textArea">
+          <mat-label class="req"
+            >Describe current living arrangement and care/support provided by
+            the primary caregiver:</mat-label
+          >
+          <textarea
+            maxLength="2000"
+            formControlName="currLvngArrngTxt"
+          ></textarea>
+          <p>{{ getLength("currLvngArrngTxt") }}/2000</p>
+        </div>
+
+        <div class="textArea">
+          <mat-label class="req"
+            >Description of support provided by other caregivers that are in the
+            home or who provide support to the person on a regular
+            basis:</mat-label
+          >
+          <textarea
+            maxLength="2000"
+            formControlName="othrSupAvailTxt"
+          ></textarea>
+          <p>{{ getLength("othrSupAvailTxt") }}/2000</p>
+        </div>
+
+        <div class="textArea">
+          <mat-label class="req"
+            >Details regarding current health condition of person's caregiver
+            including diagnosis, when the condition began, severity of symptoms,
+            and current and expected progression of decline:</mat-label
+          >
+          <textarea
+            maxLength="2000"
+            formControlName="currHlthCondTxt"
+          ></textarea>
+          <p>{{ getLength("currHlthCondTxt") }}/2000</p>
+        </div>
+
+        <div class="textArea">
+          <mat-label class="req"
+            >Anticipated amount of time the primary caregiver will be able to
+            assist in supporting the person:
+          </mat-label>
+          <textarea maxLength="2000" formControlName="amtTimeCareAsstTxt"></textarea>
+          <p>{{getLength('amtTimeCareAsstTxt')}}/2000</p>
+       </div>
+
+        <div class="textArea">
+          <mat-label class="req"
+            >Description of the primary caregiver's understanding, willingness,
+            and ability to participate in planning for the person's transition
+            to community living:</mat-label
+          >
+          <textarea
+            maxLength="2000"
+            formControlName="cargvrPartiPlanTxt"
+          ></textarea>
+          <p>{{ getLength("cargvrPartiPlanTxt") }}/2000</p>
+        </div>
+
+        <div class="textArea">
+          <mat-label class="req"
+            >Description of the person's understanding, willingness, and ability
+            to participate in planning for the transition to community
+            living:</mat-label
+          >
+          <textarea
+            maxLength="2000"
+            formControlName="prsnPartiPlanTxt"
+          ></textarea>
+          <p>{{ getLength("prsnPartiPlanTxt") }}/2000</p>
+        </div>
+
+        <div class="textArea">
+          <mat-label class="req"
+            >Description of support provided by other caregivers that are in the
+            home or who provide support to the person on a regular
+            basis:</mat-label
+          >
+          <textarea
+            maxLength="2000"
+            formControlName="supCaregvrInhomeTxt"
+          ></textarea>
+          <p>{{ getLength("supCaregvrInhomeTxt") }}/2000</p>
+        </div>
+
+        <div class="textArea">
+          <mat-label class="req"
+            >Other supports/resources that will be available to assist in
+            planning for the person's transition to community living:</mat-label
+          >
+          <textarea
+            maxLength="2000"
+            formControlName="othrSupAvailTxt"
+          ></textarea>
+          <p>{{ getLength("othrSupAvailTxt") }}/2000</p>
+        </div>
+
+        <div class="textArea">
+          <mat-label class="req"
+            >Describe your observations of the current circumstance and reason
+            for Planned Transition to Community Living criteria
+            request:</mat-label
+          >
+          <textarea
+            maxLength="2000"
+            formControlName="rsnForPlannTrnstnTxt"
+          ></textarea>
+          <p>{{ getLength("rsnForPlannTrnstnTxt") }}/2000</p>
+        </div>
+
+        <div class="checkbox-group">
+
+          <mat-label class=""
+            >Please check all supporting documentation being provided with this
+            request:</mat-label
+          >
+          <mat-checkbox formControlName="verifTrgtPopulnSw"
+            >Verification of target population</mat-checkbox
+          >
+          <mat-checkbox formControlName="adaptBehLsaResSw">
+            Adaptive Behavior / Life Skills Assessment results</mat-checkbox
+          >
+          <mat-checkbox formControlName="legalDocsSw">
+            Legal documents</mat-checkbox>
+          <mat-checkbox formControlName="phyclClinicalNoteSw">Physician / clinical
+            note(s)</mat-checkbox>
+          <div class="inline">
+            <mat-checkbox id="othrSw" (click)="otherClick()" formControlName="othrSw">Other:
+            </mat-checkbox>
+            <div class="inline-wrapper">
+              <ng-container *ngIf="f.othrSw.value">
+                <input formControlName="othrDesc" placeHolder="Other Documentation" type="text"
+                  [ngClass]="{ 'is-invalid': f.othrSw.value && !f.othrDesc.value && !f.othrDesc.touched }" />
+              </ng-container>
+              <ng-container *ngIf="!f.othrSw.value">
+                <input formControlName="othrDesc" class="disabled" type="text" disabled>
+              </ng-container>
+              <mat-error *ngIf="controlError('othrDesc')">{{errorText['othrDesc']}}</mat-error>
+            </div>
+          </div>
+        </div>
+
+        <div class="checkbox-group w40">
+          <mat-form-field appearance="outline" class="w40">
+            <mat-label class="req">Electronic Signature</mat-label>
+            <input matInput placeholder="Electronic Signature" formControlName="electronicSignature"
+              [ngClass]="{ 'is-invalid': f.electronicSignature.touched  && !f.electronicSignature.value }" />
+              <mat-error *ngIf="controlError('electronicSignature')">{{errorText['electronicSignature']}}</mat-error>
+          </mat-form-field>
+       </div>
+
+      </div>
+    </div>
+    <div class="buttonBar">
+      <button color="primary" type="submit"
+        class="mat-focus-indicator mat-flat-button mat-button-base mat-primary">Submit</button>
+    </div>
+  </form>
+</div>

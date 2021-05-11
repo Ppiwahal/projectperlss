@@ -1,0 +1,335 @@
+@import '../../../../../colors.scss';.accordion-container {
+  margin-bottom: 36px;
+  mat-accordion {
+    mat-expansion-panel {
+      justify-content: space-between;
+      font-weight: 500;
+      font-size: 23.5px;
+      font-family: 'Open Sans';
+      background-color:  $colorControlBackground;
+      mat-expansion-panel-header{
+        width: 100%;
+        padding: 0 7vw 0  3vw;
+      }
+      mat-panel-title{
+        font-weight: 500;
+        font-size: 23.5px;
+      }
+      mat-panel-title.right-aligned {
+        flex-grow: 0;
+        font-weight: 500;
+        font-size: 23.5px;
+        mat-label{
+          margin-top: 2px;
+          font-size: 20px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+.accordion-content-container{
+  padding-top: 18px;
+  padding-left: 36px;
+  padding-right: 36px;
+  padding-bottom: 18px;
+  font-family: 'Open Sans';
+  font-weight: 500;
+  background-color: white;
+  .row{
+    padding-top: 13.5px;
+    padding-bottom: 13.5px;
+    width: calc(100% - 4.90px);
+    .col-md-3{
+      text-align: right;
+    }
+  }
+}
+:host::ng-deep .mat-expansion-panel-body {
+  padding: 0 !important;
+}
+
+.check-green{
+  color: #547E1A;
+  padding-left: 9px;
+}
+
+.required-color {
+  color: #ed6053;
+}
+
+.tableContainer{
+  padding-top: 36px;
+  padding-bottom: 36px;
+}
+
+#intakeContactTable,  #fileUpload{
+  width: calc(100% - 90px) !important;
+  font-family: 'Open Sans';
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #35485b;
+  padding: 18px;
+  text-align: center;
+  .left{
+    text-align: left;
+    padding-left: 36px;
+  }
+}
+
+#intakeContactTable td{
+  padding: 9px;
+  border-bottom: 0.5px solid #999999;
+}
+
+#intakeContactTable th {
+  padding: 18px;
+  border-bottom: 2px solid $colorGrayBlue;
+  color: #547E1A;
+}
+
+.upload-icon{
+  color:  rgb(76, 144, 211);
+}
+
+
+.check-green{
+  color: #547E1A;
+  padding-left: 9px;
+}
+
+#fileUpload th, #fileUpload td {
+  padding-top: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #35485b;
+}
+
+.wider {
+  width: 80%;
+}
+
+.disabledButton, .perlss-click-button:disabled{
+  color:gray;
+}
+.disabledDiv , .accordion-content-container:disabled , .accordion-content-container > div > ng-container > div:not(.buttonBar){
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+button.perlss-click-button {
+  font-size:  20px;
+  padding: 7px 13px;
+}
+
+.buttonBar {
+
+  overflow: hidden;
+  width: 100%;
+  margin: 0;
+  height: 90px;
+  padding: 10px 0px 10px 0px;
+
+  button.perlss-click-button-white-noborder,
+  button.perlss-click-button, button.perlss-click-button-white,
+  button.mat-flat-button, button.mat-primary {
+    font-size: 21.5px;
+    min-width: 72px;
+    float: left;
+    margin: 0 36px 0 0;
+    padding: 8px 11px;
+
+    &:last-child {
+      float: left;
+      margin: 0;
+    }
+  }
+
+  &.floatedRight {
+    padding-left: 18px;
+    padding-right: 18px;
+    button.perlss-click-button-white-noborder,
+    button.perlss-click-button, button.perlss-click-button-white,
+    button.mat-flat-button, button.mat-primary {
+      float: right;
+      margin-left: 36px;
+      margin-right: 0;
+    }
+  }
+  &.floatedLeft {
+    padding-left: 18px;
+    padding-right: 18px;
+    button.perlss-click-button-white-noborder,
+    button.perlss-click-button, button.perlss-click-button-white,
+    button.mat-flat-button, button.mat-primary {
+      float: left;
+      margin-left: 36px;
+      margin-right: 0;
+    }
+  }
+}
+
+.docTable {
+  border: 1px solid #555555;
+  overflow: hidden;
+  height: auto;
+  width: 90%;
+  margin: 36px 0 21.5px 0 !important;
+
+  > div.title {
+      width: 100%;
+      height: auto;
+      overflow: hidden;
+      font-size:  20px;
+      line-height: 23.5px;
+      margin: 0;
+      padding: 14.5px 18px 14.5px 18px;
+      font-weight: 600;
+      background: rgb(205, 221, 244);
+      border: none;
+      color: #000000;
+  }
+
+  > div {
+      margin: 0;
+      border-top: 1px solid #555555;
+      clear: both;
+      height: auto;
+      width: 100%;
+      overflow: hidden;
+      padding: 3.5px 0;
+      > label, > div {
+          font-size: 18px;
+          line-height: 21.5px;
+          padding: 9px 18px;
+          margin: 0;
+      }
+      > label {
+          float: left;
+          padding-left: 36px;
+          display: block;
+
+          &.asLink {
+              text-decoration: underline;
+              &:hover {
+              color: #2a70d1;
+              cursor: pointer;
+              }
+          }
+      }
+      > div {
+          float: right;
+          font-size:  18px;
+          line-height: 21.5px;
+          height: 36px;
+          overflow: hidden;
+          width: 432;
+          padding: 0;
+          > div {
+              float: left;
+              height: auto;
+              overflow: hidden;
+              padding: 0;
+              margin: 7px 0 0 0;
+
+              > mat-icon, > label > mat-icon {
+                  font-size: 27px;
+                  padding: 0;
+                  margin: 0;
+                  position: relative;
+                  top: -2px;
+              }
+
+              &.available {
+                  width: 180px;
+
+                  > label.done {
+
+                      padding: 0;
+                      margin: 0;
+                      display: inline-block;
+
+                      &:hover {
+                      cursor: pointer;
+                      }
+
+                      &.checked > span.check > mat-icon {
+                      visibility: visible;
+                      }
+
+                      > span.check {
+                          display: inline-block;
+                          border: 2px solid #666666;
+                          width: 21.5px;
+                          height: 21.5px;
+                          margin: 2px 0 0 0;
+
+                          > mat-icon {
+                              display: inline-block;
+                              font-size: 32.5px;
+                              color: #cc0000;
+                              margin: 0;
+                              padding: 0;
+                              position: relative;
+                              visibility: hidden;
+                              top: -10px;
+                              left: -3.5px;
+                          }
+
+                          + span {
+                              display: inline-block;
+                              position: relative;
+                              top: -16px;
+                              left: 11px;
+                          }
+                      }
+                  }
+              }
+
+              &.linkItem {
+                  width: 144px;
+                  // text-align: center;
+
+                  > label > mat-icon.blue {
+                      &:hover {
+                          color: rgb(27, 95, 122);
+                          cursor: pointer;
+                      }
+                  }
+
+                  > mat-icon.grey {
+                      &:hover {
+                          cursor: not-allowed;
+                      }
+                  }
+
+                  > div.popupLink {
+                      color: blue;
+                      text-decoration: underline;
+                      &:hover {
+                          color: rgb(54, 136, 85);
+                          cursor: pointer;
+                      }
+                  }
+
+                  > label > mat-icon.blue, > mat-icon.grey, > mat-icon.green {
+                      font-size: 32.5px;
+                      position: relative;
+                      // top: -5.5px;
+                  }
+              }
+
+              &.delete {
+                  width: 72px;
+                  text-align: center;
+
+                  > label > mat-icon.red {
+                      &:hover {
+                          color: rgb(124, 44, 87);
+                          cursor: pointer;
+                      }
+                  }
+              }
+          }
+      }
+  }
+}

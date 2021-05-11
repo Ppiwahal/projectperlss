@@ -1,0 +1,7 @@
+{
+  "BUILD_TIME": "local_build_time",
+  "BUILD_NUMBER": "local_build_number",
+  "ENVIRONMENT_NAME": "env_name"
+}
+
+

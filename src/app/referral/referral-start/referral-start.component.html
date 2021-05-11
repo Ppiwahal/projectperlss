@@ -1,0 +1,97 @@
+<div class="pageMargin">
+  <form [formGroup]="referralForm" [ngClass]="{'submitted': submitted }">
+    <div class="scroller flushTop">
+      <div class="comboNote">
+        <h2 class="sub-heading">Start Referral</h2>
+        <div class="required">*Required</div>
+        <mat-card class="cardStyle">
+          <strong>Note: &nbsp;</strong><span>
+            "You" in the application is the person who wants services. <br>
+            <span class="push-right-note">
+              <mat-icon class="red-icon">info_outline</mat-icon>This is a tool tip icon used
+              across the application for short descriptions.
+            </span>
+          </span>
+        </mat-card>
+      </div>
+      <br><br>
+      <p><strong>Employment and Community First CHOICES</strong> is a program that provides services and supports to
+        people who have an intellectual or other developmental disability (I/DD) in their homes and communities.
+        These types of services are called home and community-based services or HCBS.
+      </p><br>
+      <div class="floatChildren">
+        <div class="w70">
+          <div class="checkbox-group">
+            <mat-label class="req">Do you have an intellectual and/or developmental disability? (Select ALL that
+              apply)
+            </mat-label>
+            <mat-error *ngIf="errorText['checkboxes'] !== null">{{errorText['checkboxes']}}</mat-error>
+            <br>
+            <mat-checkbox (click)="groupClick()" formControlName="intelDisableSw">
+              <mat-label class="withTooltip"><span>Intellectual Disability</span>
+                <sup>
+                  <mat-icon class="red-icon" matTooltip = "This means you have an IQ of 70 or below. This makes it harder for you to do at least two of these things: learn, communicate, take care of yourself, stay safe and healthy, make decisions, work, live independently, do things in the community, use community services and interact with other people. These problems must have started before the age of 18.">info_outline
+                  </mat-icon>
+                </sup>
+              </mat-label>
+            </mat-checkbox>
+            <br>
+            <mat-checkbox formControlName="devDisableSw" (click)="groupClick()">
+              <mat-label class="withTooltip"><span>Developmental Disability</span>
+                <sup>
+                  <mat-icon class="red-icon" matTooltip = "This means you have physical or mental health problems that started before the age of 22 and are expected to continue. Because of those problems, you need help to do at least three of these things: learn, communicate, walk, take care of yourself, make decisions, work and live independently.">info_outline
+                  </mat-icon>
+                </sup>
+              </mat-label>
+            </mat-checkbox>
+          </div>
+        </div>
+      </div><br>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field class="textArea" appearance="outline">
+            <mat-label><sup><mat-label class="required-color">*</mat-label></sup>List your Chronic Diagnosis (If none, please enter 'None')</mat-label>
+            <textarea matInput formControlName="diagnosisTxt" #diagnosisTxt maxlength="2000"
+              [ngClass]="{ 'is-invalid': (getData().diagnosisTxt.touched || submitted) && getData().diagnosisTxt.errors }"></textarea>
+            <mat-error *ngIf="getData().diagnosisTxt.errors !== null">
+              <span *ngIf="(getData().diagnosisTxt.touched || submitted) && getData().diagnosisTxt.errors.required">
+                {{customValidation.A1}}</span>
+              <span *ngIf="getData().diagnosisTxt.errors.pattern && !getData().diagnosisTxt.errors.required">
+                {{customValidation.A2}}
+              </span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+      <div class="col-md-6 character-count">
+        <span style="float: right; margin-top: -20px;">{{getData().diagnosisTxt.value.length}}/2000</span>
+      </div>
+      </div>
+      
+      <br>
+      <p>Services in Employment and Community First CHOICES will help you get or keep a job
+        and live as independently as possible in the community. They will help you do things in the community that you
+        want to do—to help you
+        build relationships and reach your goals. If you live at home with your family, they will also help your
+        family upport you in planning for and reaching your goals.
+      </p>
+      <br>
+      <p><strong> Do you want to submit a referral for Employment and Community First CHOICES?</strong></p>
+
+      <p>If you do, please click on the <strong>Next</strong> button below to continue with
+        submitting a new referral. Be sure you answer all of the questions that are applicable.
+      </p>
+
+      <p class="spaceAbove">If you have already submitted a referral, <strong class="red">STOP. DO NOT SUBMIT</strong>
+        another referral. If you need to update information for a previously submitted referral and you have Medicaid,
+        call your MCO. If you don't have Medicaid, call the DIDD office in your area.</p>
+
+      <p>Do you need the phone number? <span>Click: "<a class="clickHere" (click)="openContact()"><u>Contact
+        Us.</u></a>"</span></p>
+    </div>
+    <div class="buttonBar floatedRight">
+      <button mat-flat-button color="primary" (click)="next()" class="perlss-click-button chkSize">NEXT</button>
+    </div>
+  </form>
+</div>

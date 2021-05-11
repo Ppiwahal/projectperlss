@@ -1,0 +1,175 @@
+<div class="wrapper">
+    <div class="header">
+        <div class="search-heading">
+            <strong>Search Result</strong>
+        </div>
+        <div class="filter-field">
+            <mat-form-field appearance="outline">
+                <mat-label>Search Filter</mat-label>
+                <input matInput placeholder="" (keyup)="applyFilter($event)" #input>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div id="dashboardTable">
+        <table id="mainTable" aria-describedby="false" mat-table [dataSource]="dataSource" multiTemplateDataRows
+            class="mat-elevation-z0">
+
+            <ng-container matColumnDef="personName">
+                <th id="personName" mat-header-cell *matHeaderCellDef>Person Name</th>
+                <td mat-cell *matCellDef="let element">{{element.firstName}} {{element.lastName}} </td>
+            </ng-container>
+            <ng-container matColumnDef="ssn">
+                <th id="personName" mat-header-cell *matHeaderCellDef>SSN</th>
+                <td mat-cell *matCellDef="let element">{{formatSSN(element.ssn)}}</td>
+            </ng-container>
+            <ng-container matColumnDef="recipientType">
+                <th id="ssn" mat-header-cell *matHeaderCellDef>Recipient Type</th>
+                <td mat-cell *matCellDef="let element">{{element.recipientType}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="noticeType">
+                <th id="noticeType" mat-header-cell *matHeaderCellDef>Notice Type</th>
+                <td mat-cell *matCellDef="let element">{{element.noticesType ? element.noticesType : "---"}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="programType">
+                <th id="programType" mat-header-cell *matHeaderCellDef>Program Type</th>
+                <td mat-cell *matCellDef="let element">{{element.programType}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="generateDate">
+                <th id="generateDate" mat-header-cell *matHeaderCellDef>Generate Date</th>
+                <td mat-cell *matCellDef="let element">{{element.generateDt ? element.generateDt : "---"}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="noticeStatus">
+                <th id="noticeStatus" mat-header-cell *matHeaderCellDef>Notice Status</th>
+                <td mat-cell *matCellDef="let element">{{element.noticeStatus}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="printType">
+                <th id="printType" mat-header-cell *matHeaderCellDef>Print Type</th>
+                <td mat-cell *matCellDef="let element">{{element.printType}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="expandedDetail">
+                <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                    <div class="example-element-detail"
+                        [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                        <table id="secondTable" class="table table-borderless" aria-describedby="false">
+                            <ng-container *ngIf="element.recipientType === 'Applicant'; else elseDiv">
+                                <tr class="subtable-content">
+                                    <td style="padding-left: 0px; width: 16.6%;">
+                                        <strong>Date of Birth</strong>
+                                        <div>{{element.dob ? element.dob : "---"}}</div>
+                                    </td>
+                                    <td style="padding-left: 0px; width: 16.6%;">
+                                        <strong>Person ID</strong>
+                                        <div>{{element.personId ? element.personId : "---"}}</div>
+                                    </td>
+                                    <td style="padding-left: 0px; width: 16.6%;">
+                                        <strong>Referral ID</strong>
+                                        <div>{{element.refId ? element.refId : "---"}}</div>
+                                    </td>
+                                    <td style="padding-left: 0px; width: 16.6%;">
+                                        <strong>PAE ID</strong>
+                                        <div>{{element.paeId ? element.paeId : "---"}}</div>
+                                    </td>
+                                    <td style="padding-left: 0px; width: 16.6%;">
+                                        <strong>Appeal ID</strong>
+                                        <div>{{element.aplId ? element.aplId : "---"}}</div>
+                                    </td>
+                                    <td style="padding-left: 0px">
+                                        <div *ngIf="element.langCd === 'EN' || element.langCd === 'SP'" [hidden]="element.noticeStatus === 'Suppressed'" (click)="viewPdf('EN',element)" class="icon-wrapper">
+                                            <span class="icon-span note-icon">
+                                                <mat-icon class="note-icon">description</mat-icon>
+                                           </span>
+                                                VIEW IN ENGLISH
+                                       </div>
+                                        <div *ngIf="element.langCd === 'SP'" [hidden]="element.noticeStatus === 'Suppressed'" (click)="viewPdf('SP',element)" class="icon-wrapper">
+                                            <span class="icon-span note-icon">
+                                                <mat-icon class="note-icon">description</mat-icon>
+                                           </span>
+                                                    VIEW IN SPANISH
+                                       </div>
+                                       <div *ngIf="element.langCd === 'CV' || element.langCd === 'NA'" [hidden]="element.noticeStatus === 'Suppressed'" (click)="viewPdf('EN',element)" class="icon-wrapper">
+                                        <span class="icon-span note-icon">
+                                            <mat-icon class="note-icon">description</mat-icon>
+                                       </span>
+                                          VIEW NOTICE
+                                   </div>
+                                       <div style="padding-top: 5px">
+                                            <button style="color: #1B365D; font-weight: bold" mat-stroked-button
+                                            [routerLink]="['/ltss/notices/details',element.noticeId]"
+                                            [state]="{ data: { row: element, noticeRecords : noticeRecords}}">VIEW
+                                            DETAILS</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-left: 0px;">
+                                        <strong>County</strong>
+                                        <div>{{(element.county ? getNameByCode(element.county,'CT') : "---")}}</div>
+                                    </td>
+                                    <td style="padding-left: 0px;">
+                                        <strong>Notice ID</strong>
+                                        <div>{{element.noticeId ? element.noticeId : "---"}}</div>
+                                    </td>
+                                    <td style="padding-left: 0px;">
+                                        <strong>Enrollment Effective Date</strong>
+                                        <div>{{element.enrollmentEffectiveDate ? element.enrollmentEffectiveDate : "---"}}</div>
+                                    </td>
+                                </tr>
+                            </ng-container>
+
+                            <ng-template #elseDiv>
+                                <div class="paddingrow-content">
+                                    <div [hidden]="element.noticeStatusCd === 'SU'" *ngIf="element.langCd === 'EN' || element.langCd === 'SP'" (click)="viewPdf('EN',element)" class="icon-SecondWrapper">
+                                            <span class="SecondRowicon-span note-icon">
+                                                <mat-icon class="note-icon">description</mat-icon>
+                                           </span>
+                                                VIEW IN ENGLISH
+                                   </div>
+    
+                                    <div [hidden]="element.noticeStatusCd === 'SU'" *ngIf="element.langCd === 'SP'" (click)="viewPdf('SP',element)" class="icon-SecondWrapper">
+                                        <span class="SecondRowicon-span note-icon">
+                                            <mat-icon class="note-icon">description</mat-icon>
+                                       </span>
+                                                VIEW IN SPANISH
+                                   </div>
+
+                                   <div [hidden]="element.noticeStatusCd === 'SU'" *ngIf="element.langCd === 'CV' || element.langCd === 'NA'" (click)="viewPdf('EN',element)" class="icon-SecondWrapper">
+                                    <span class="SecondRowicon-span note-icon">
+                                        <mat-icon class="note-icon">description</mat-icon>
+                                   </span>
+                                        VIEW NOTICE
+                           </div>
+    
+                                    <div class="paddingrow-Secondchild">
+                                        <button style="color: #1B365D; font-weight: bold;" mat-stroked-button
+                                            [routerLink]="['/ltss/notices/details',element.noticeId]"
+                                            [state]="{ data: { row: element, noticeRecords : noticeRecords}}">VIEW
+                                            DETAILS</button>
+                                   </div>
+                               </div>
+                            </ng-template>
+                            
+                        </table>
+                    </div>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+            <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row on-hover"
+                [class.active-class]="expandedElement === element"
+                [class.example-expanded-row]="expandedElement === element"
+                (click)="expandedElement = expandedElement === element ? null : element">
+            </tr>
+            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+        </table>
+
+    </div>
+
+    <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
+</div>

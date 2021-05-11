@@ -1,0 +1,202 @@
+@import '../../../colors.scss';
+
+.page-header-container{
+  .row{
+    .col-md-4{
+
+    text-align: center;
+    max-width: 100%;
+    width: 100%;
+    }
+    padding-bottom: 36px;
+  }
+}
+
+.care-section{
+  padding-left: 45px;
+  padding-right: 45px;
+
+  .row {
+    padding-bottom:  63px;
+    .col-md-6{
+      .is-activated{
+        height: 72px;
+        width: 100%;
+        text-align: left;
+        border: solid 1px;
+        border-color: #1B365C;
+        .button-icon{
+          float: right;
+          margin-top: 9px;
+          margin-bottom: 9px;
+        }
+      }
+
+      .is-deactivated{
+        width: 100%;
+        height: 72px;
+        text-align: left;
+        border: solid 1px;
+        border-color: #1B365C;
+        background-color:#1B365C;
+        color: white;
+        .button-icon{
+          float: right;
+          margin-top: 9px;
+          margin-bottom: 9px;
+          background-color: #1B365C;
+          color: WHITE;
+        }
+      }
+    }
+  }
+  .button-container{
+    padding-top: 5vh;
+    .row{
+      .col-md-2{
+        text-align: left;
+      }
+      .col-md-4{
+        text-align: left;
+      }
+      .col-md-6{
+        text-align: right;
+      }
+      .perlss-click-button, .perlss-click-button-white-noborder, .perlss-click-button-white{
+        font-size: 25px !important;
+      }
+    }
+  }
+}
+
+.required-color {
+  color: #EE3524;
+}
+
+.linkicon{ 
+    margin: 0 auto;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#wrapper {
+    display: flex;    
+    width:100%;
+    margin-top: 10px;
+}
+#wrapper div {
+    flex-basis: 100%;
+    text-align: center;
+    line-height: 1;
+}
+
+::ng-deep .mat-icon {
+   vertical-align: middle;
+}
+
+.blue{
+  color: rgb(83 144 206);
+}
+
+
+.green{
+  color: #73884c;
+}
+
+div.responsive table > tbody > tr > td, div.responsive table.activityTable > tbody > tr > td{
+  border: unset;
+}
+
+div.responsive table > tbody > tr > td:first-child, div.responsive table.activityTable > tbody > tr > td:first-child{
+  
+  border-bottom: right;
+}
+
+.btl-radius{
+  border-top-left-radius: unset !important;
+}
+
+.btr-radius{
+  border-top-right-radius: unset !important;
+}
+
+tbody > tr > td + td{
+  border-left: unset;
+}
+
+.w-50{
+  width:50%;
+}
+
+.bb{
+  border-bottom: 1px solid lightgray !important;
+}
+
+
+.bt{
+  border-top: 1px solid lightgray !important;
+}
+
+.mll-5{
+  float: left;
+  margin-left: 5px;
+}
+.red{
+  color: $colorRed;
+}
+
+table {
+  margin-top: 18px;
+  border: 1px solid #487aac;
+  border-radius: 0 !important;
+  margin: 10px;
+}
+
+.bt{
+  border-top: 1px solid lightgray;
+}
+
+.mr-13 {margin-right:13% !important;}
+.alert-border{
+  width: auto !important;
+    right: 2%;
+    border: 1px solid orange !important;
+}
+
+.btp{
+  padding: 12.5px 18px;
+}
+
+.tac{
+  text-align: center;
+}
+
+.full-width{
+  width:100%;
+}
+
+.bb-db{
+  border-bottom:0.5px  grey !important;
+}
+.panelButtons{
+  float: left !important;
+  width: 50% !important
+ 
+}
+.perlss-click-button {
+  margin: 19px 0 10px 24px  !important;
+}
+.cardStyle {
+  background-color: $colorControlBackground;
+  border-color: 1px solid green;
+  color: #6E7073;
+  font-family: 'Open Sans';
+  margin-left: 30px;
+  margin-right: 35px;
+  margin-top: 15px;
+  font-size: 17px;
+}
+.mat-primary{
+  font-size: 25px !important;
+  min-width: 178px !important;
+  }

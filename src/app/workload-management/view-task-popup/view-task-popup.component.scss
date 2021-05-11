@@ -1,0 +1,82 @@
+.main-content{
+    height: 80vh;
+    overflow-y: scroll; 
+}
+.task-header{
+    font-size: 18px;
+    color:#04537D;
+    padding: 6px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+}
+.task-header div p{
+    color:#04537D;
+}
+.task-summary{
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 0 10px 0;
+    padding-left: 15px;
+}
+.flex-container div{
+    display: flex;
+    margin: 5px 0 5px 0;
+    margin-left: -40px;
+}
+.flex-container div p{
+    margin: 0;
+    font-size: 14px;
+}
+.flex-container div mat-label{
+    margin-right: 5px;
+    font-weight: bold;
+    font-size: 14px;
+}
+.task-history{
+    margin: 15px;
+}
+.history-header{
+    font-size: 14px;
+    font-weight: bold;
+    color: #4D7E20;;
+}
+table{
+    width: 100%;
+    border: 1px solid #1B365D;
+}
+
+table tr:last-child td {
+    border-bottom: 1px solid #1B365D;
+}
+
+.table-th {
+    font-size: 14px;
+    font-weight: bold;
+    color: #04537d;
+}
+
+th:nth-child(1) {
+    width: 15%;
+}
+
+th:nth-child(2) {
+    width: 15%;
+}
+
+th:nth-child(3) {
+    width: 10%;
+}
+
+th:nth-child(4) {
+    width: 20%;
+}
+
+th:nth-child(5) {
+    width: 15%;
+}
+
+th:nth-child(6) {
+    width: 25%;
+}
+

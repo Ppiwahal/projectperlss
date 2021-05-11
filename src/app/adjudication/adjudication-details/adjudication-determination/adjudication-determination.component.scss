@@ -1,0 +1,41 @@
+.container {
+    border: 1px solid;
+    padding-left:30px;
+}
+
+.required-class {
+    color: #ed6053;
+}
+
+.user-role-heading {
+    color: #4d7e20;
+    font-size: 22px;
+    //font-weight: bold;
+    padding: 20px;
+    padding-left: 0;
+}
+
+.crlon{
+    border: 1px solid rgba(4, 76, 124, 0.781);
+}
+
+.note{
+    border: 1px solid rgba(211, 89, 8, 0.938);
+    padding: 10px;
+}
+
+
+.title {
+    font-Size:16px;
+    color:  rgba(4, 76, 124, 0.781);
+    border-bottom: 2px solid rgba(4, 76, 124, 0.781);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+}
+
+.content{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+}

@@ -1,0 +1,91 @@
+<div class="wrapper">
+    <div class="heading">
+        <p>Linked Record Summary:</p>
+    </div>
+    <div class="content-wrapper" *ngIf="linkedPae !== null">
+            <div class="content">
+                <div class="display-bold">
+                    <p>PAE Effective Date:</p>
+                    <p>PAE End Date:</p>
+                    <p>PAE Status:</p>
+                    <P>Transition PAE:</P>
+                    <P>Slot Status:</P>
+                    <P>Submitting Agency:</P>
+                </div>
+                <div>
+                    <P>{{linkedPae?.adjRqstVO?.paeEffDt ? (linkedPae?.adjRqstVO?.paeEffDt  | date:'MM/dd/yyyy') : '--'}}</P>
+                    <P>{{linkedPae?.adjRqstVO?.paeEffDt ? (linkedPae?.adjRqstVO?.paeEndDt | date:'MM/dd/yyyy') : '--'}}</P>
+                    <P>{{linkedPae?.statusCd ? linkedPae?.statusCd : '--'}}</P>
+                    <P>---</P>
+                    <P>{{linkedPae?.statusCd ? linkedPae?.statusCd : '--'}}</P>
+                    <P>---</P>
+                </div>
+            </div>
+            <div  class="content">
+                <div class="display-bold">
+                    <p>Enrollment Start Date:</p>
+                    <p>Enrollment End Date:</p>
+                    <p>Enrollment Status:</p>
+                    <P>Denial/Disenrollment Reason:</P>
+                    <P>Assigned MCO:</P>
+                </div>
+                <div>
+                    <P>{{linkedPae?.enrDtlVO?.enrStartDt ? (linkedPae?.enrDtlVO?.enrStartDt | date:'MM/dd/yyyy') : '--'}}</P>
+                    <P>{{linkedPae?.enrDtlVO?.enrEndDt ? (linkedPae?.enrDtlVO?.enrEndDt | date:'MM/dd/yyyy') : '--'}}</P>
+                    <P>{{linkedPae?.enrStatusCd ? linkedPae?.enrStatusCd : '--'}}</P>
+                    <P>{{linkedPae?.enrDtlVO?.enrDenialRsnCd ? linkedPae?.enrDtlVO?.enrDenialRsnCd : '--'}}</P>
+                    <P>---</P>
+                </div>
+            </div>
+    </div>
+    <div class="content-wrapper" *ngIf="linkedRef !== null">
+        <div class="content">
+            <div class="display-bold">
+                <p>Referral Type:</p>
+                <p>Referral Received Date:</p>
+                <p>Intake Outcome:</p>
+            </div>
+            <div>
+                <P>{{linkedRef?.refType ? linkedRef?.refType : '--'}}</P>
+                <P>{{linkedRef?.submissionDt ? (linkedRef?.submissionDt | date:'MM/dd/yyyy') : '--'}}</P>
+                <P>{{linkedRef?.intakeOutcomeResltCd ? linkedRef?.intakeOutcomeResltCd : '--'}}</P>
+            </div>
+        </div>
+        <div  class="content">
+            <div class="display-bold">
+                <p>Referral Status:</p>
+                <p>Submitting Agency:</p>
+            </div>
+            <div>
+                <P>{{linkedRef?.refStatus ? linkedRef?.refStatus : '--'}}</P>
+                <P>---</P>
+            </div>
+        </div>
+    </div>
+    <div class="content-wrapper" *ngIf="linkedPassr !== null">
+        <div class="content">
+            <div class="display-bold">
+                <p>Client ID:</p>
+                <p>Episode ID:</p>
+                <p>PASRR Adverse Action Date:</p>
+            </div>
+            <div>
+                <P>{{linkedPassr?.clientId}}</P>
+                <P>{{linkedPassr?.episodeId}}</P>
+                <P>{{linkedPassr?.pasrrAdverseActionDate | date: 'MM/dd/yyyy'}}</P>
+            </div>
+        </div>
+        <div  class="content">
+            <div class="display-bold">
+                <p>PASRR Reason:</p>
+                <p>Payor Source:</p>
+                <p>PASRR Adverse Action Reason:</p>
+            </div>
+            <div>
+                <P>{{pasrrReason == undefined ? '--' : pasrrReason}}</P>
+                <P>{{payorSource == undefined ? '--' : payorSource}}</P>
+                <p>{{passrAdverseReason == undefined ? '--' : passrAdverseReason}}</p>
+            </div>
+        </div>
+    </div>
+</div>

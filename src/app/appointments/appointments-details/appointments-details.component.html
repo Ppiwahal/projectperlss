@@ -1,0 +1,374 @@
+<div class="pageMargin">
+  <div class="row" style="width: 100%; padding-bottom: 50px;">
+    <div class="col-md-8" style="width: 100% !important;">
+      <div class="applicant-sub-heading">
+        Appointment Details
+      </div>
+    </div>
+    <div class="col-md-4" style="border: solid 1px #547E1A;padding: 10px 0px 10px 10px;font-size: 12px;">
+      <table aria-describedby="personName">
+        <tr style="padding-top: 15px;">
+          <th id="interViewer"><strong>INTERVIEWER NAME : </strong></th>
+          <td style="white-space: nowrap; color: black">{{ details?.interviewerName ? details?.interviewerName : ''}}</td>
+        </tr>
+        <tr>
+          <td> <strong>APPOINTMENT STATUS : </strong></td>
+          <td style="color: black"> {{getStatusVal(details?.appointmentStatusCd) }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="row breadcrumb" style="font-size: 12px;background-color: #F6FAFF;">
+    <table aria-describedby="breadcrumb" class="table table-borderless">
+      <tr class="d-flex">
+        <th id="applicantName" class="col-3"><strong>APPLICANT NAME:</strong></th>
+        <td class="col-4">
+          <span *ngIf="details?.personName" class="applicantName-font"
+         [routerLink]="['/ltss/appointments/search']"><u>{{details?.personName}}</u></span>
+          <span *ngIf="!details?.personName">--</span>
+        </td>
+        <td class="col-3"><strong>REFERRAL ID:</strong></td>
+        <td class="col-2">
+          <span *ngIf="details?.refId">{{details?.refId}}</span>
+          <span *ngIf="!details?.refId">--</span>
+        </td>
+      </tr>
+      <tr class="d-flex">
+        <td class="col-3"><strong>PERSON ID:</strong></td>
+        <td class="col-4">
+          <span *ngIf="details?.personId == details?.personId || details?.prsnId">{{details?.personId}}</span>
+          <span *ngIf="!details?.personId">--</span>
+        </td>
+        <td class="col-3"><strong>REFERRAL RECEIVED DATE:</strong></td>
+        <td class="col-2">
+          <span *ngIf="details?.refReceivedDt">{{details?.refReceivedDt}}</span>
+          <span *ngIf="!details?.refReceivedDt">--</span>
+        </td>
+      </tr>
+      <tr class="d-flex">
+        <td class="col-3"><strong>DATE OF BIRTH:</strong></td>
+        <td class="col-4">
+          <span *ngIf="details?.dobDt">{{details?.dobDt}}</span>
+          <span *ngIf="!details?.dobDt">--</span>
+        </td>
+        <td class="col-3"><strong>INTAKE DUE DATE:</strong></td>
+        <td class="col-2">
+          <span *ngIf="details?.intakeDueDt">{{details?.intakeDueDt}}</span>
+          <span *ngIf="!details?.intakeDueDt">--</span>
+        </td>
+      </tr>
+      <tr class="d-flex">
+        <td class="col-3"><strong>SSN</strong></td>
+        <td class="col-4">{{ formatSSN(details?.ssn) }}</td>
+        <td class="col-3"><strong>PAE ID:</strong></td>
+        <td class="col-2">
+          <span *ngIf="details?.paeId">{{details?.paeId}}</span>
+          <span *ngIf="!details?.paeId">--</span>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="width: 95%;padding-top: 60px;font-size: 14px;margin: auto;">
+    <form [formGroup]="myForm" (ngSubmit)="addAppointment()">
+      <div class="row">
+        <div class="col-md-6 ">
+          <mat-form-field appearance="outline" class="wid-100">
+            <mat-label> <span class="req required-color">*</span> Appointment Date</mat-label>
+            <input style="color: black;" matInput placeholder="mm/dd/yyyy" [matDatepicker]="picker" [min]="today" formControlName="appointmentDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker [startAt]="startDate" #picker></mat-datepicker>
+            <mat-error *ngIf="myForm.get('appointmentDate').errors?.datePriorToInitialDate">
+              The date is entered cannot be prior to 01/01/1901.
+            </mat-error>
+            <mat-error
+              *ngIf="myForm.get('appointmentDate').errors?.required && (myForm.get('appointmentDate').touched || myForm.get('appointmentDate').dirty)">
+              {{customValidation.A1}}
+            </mat-error>
+            <mat-error *ngIf="myForm.get('appointmentDate').errors?.dateInFuture">
+              The date cannot be in the future.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6 ">
+          <mat-form-field appearance="outline" class="wid-100">
+            <mat-label> <span class="req required-color">*</span> Appointment Start Time</mat-label>
+            <input style="color: black;" matInput placeholder="12hr format (default settings)" aria-label="12hr format" [ngxTimepicker]="default"  formControlName="appointmentStartTime"  readonly>
+            <ngx-material-timepicker #default></ngx-material-timepicker>
+
+            <mat-error
+              *ngIf="myForm.get('appointmentStartTime').errors?.required && (myForm.get('appointmentStartTime').touched || myForm.get('appointmentStartTime').dirty)">
+              {{customValidation.A1}}
+            </mat-error>
+
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6" *ngIf="myForm.contains('appointmentStatusCd')">
+          <mat-form-field appearance="outline">
+            <mat-label>
+              <mat-label class="required-color">*</mat-label>Appointment Status
+            </mat-label>
+            <mat-select formControlName="appointmentStatusCd" (selectionChange)="statusChange($event.value)">
+              <mat-option value=''>Select an option</mat-option>
+              <mat-option *ngFor="let statusReasonCode of  statusReasonCodes" value={{statusReasonCode.code}}>
+                {{statusReasonCode.value}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="myForm.get('appointmentStatusCd').hasError('required')">
+              {{customValidation.A1}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6" *ngIf="details?.programCd === 'KB'">
+          <mat-form-field appearance="outline" class="wid-100">
+            <mat-label> <span class="req required-color">*</span> Appointment For Group</mat-label>
+            <mat-select placeholder="Appointment For Group" formControlName="appointmentForGroup">
+              <mat-option *ngFor="let option of appointmentForGroupOptions"  [value]="option.code">{{option.value}} </mat-option>
+            </mat-select>
+            <mat-error *ngIf="myForm.get('appointmentForGroup').hasError('required')">
+              {{customValidation.A1}}</mat-error>
+
+          </mat-form-field>
+        </div>
+
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" style="width:100% !important">
+            <mat-label>
+              <mat-label class="required-color">*</mat-label>Appointment Type
+            </mat-label>
+            <mat-select formControlName="appointmentTypeCd">
+              <mat-option value=''>Select an option</mat-option>
+              <mat-option *ngFor="let appointmentType of  appointmentTypes" value={{appointmentType.code}}>
+                {{appointmentType.value}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="myForm.get('appointmentTypeCd').hasError('required')">
+              {{customValidation.A1}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" style="width:100% !important">
+            <mat-label>
+              <mat-label class="required-color">*</mat-label>Contact Method
+            </mat-label>
+            <mat-select formControlName="contactMethodCd" (selectionChange)="contactChange($event.value)">
+              <mat-option value=''>Select an option</mat-option>
+              <mat-option *ngFor="let contactMethodDetail of  contactMethodDetails" value={{contactMethodDetail.code}}>
+                {{contactMethodDetail.value}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="myForm.get('contactMethodCd').hasError('required')">
+              {{customValidation.A1}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="myForm.contains('cancelReasonCd')">
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" style="width:100% !important">
+            <mat-label>
+              <mat-label class="required-color">*</mat-label>Reason
+            </mat-label>
+            <mat-select formControlName="cancelReasonCd" (selectionChange)="reasonChange($event.value)">
+              <mat-option value=''>Select an option</mat-option>
+              <mat-option *ngFor="let cancelReason of  cancelReasons" value={{cancelReason.code}}>{{cancelReason.value}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="myForm.get('cancelReasonCd').hasError('required')">
+              {{customValidation.A1}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row" *ngIf="myForm.contains('notes')">
+        <div class="col-md-12">
+          <mat-form-field appearance="outline">
+            <mat-label>Notes</mat-label>
+            <textarea matInput maxlength="2000" rows="6" formControlName="notes" placeholder=""></textarea>
+            <mat-hint align="end">{{myForm.controls.notes.value ? myForm.controls.notes.value.length : 0}} / 2000
+            </mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div style="color: black;" class="row" *ngIf="myForm.contains('telephoneNumber')">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label class="required-color">*</mat-label><mat-label> Telephone Number </mat-label>
+              <input style="color: black;" matInput  formControlName="telephoneNumber" placeholder="(xxx)-xxx-xxxx" mask ="(000) 000-0000"
+                [ngClass]="{ 'is-invalid': f.telephoneNumber?.touched && f.telephoneNumber?.errors }">
+                <mat-error *ngIf="f.telephoneNumber?.errors">
+                <mat-error *ngIf="f.telephoneNumber?.errors.required">{{customValidation.A1}}</mat-error>
+                <mat-error
+                    *ngIf="f.telephoneNumber?.errors.maxLength == null && !f.telephoneNumber?.errors?.invalidPhone && !f.telephoneNumber?.errors.required">
+                    {{customValidation.A97}}</mat-error>
+                <mat-error *ngIf="f.telephoneNumber?.errors?.invalidPhone && !f.telephoneNumber?.errors.required">{{customValidation.A8}}
+                </mat-error>
+            </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+      <ng-container *ngIf="showAddressSection">
+        <div style="padding-bottom: 15px;" class='form-label'>Please select the Appointment location from the addresses
+          on file mentioned below or provide a different address.</div>
+
+
+        <mat-radio-group aria-label="Select an option" (change)="showAddressForm($event.value)">
+          <div class="row" style="padding-bottom: 15px;font-size: 14px;">
+            <ng-container *ngFor="let address of addresses;let i =index">
+              <div class="col-md-4 mb-3" *ngIf="address &&  address['addrLine1']">
+                <mat-radio-button [value]="address" [checked]="!displayAddressForm && address['isActive']"> {{ address['addrLine1'] }} <br>
+                  {{ address['city'] }}, {{ address['stateCd'] }}, {{ address['zip'] }}, {{address['extsn'] }}</mat-radio-button>
+              </div>
+            </ng-container>
+            <div class="col-md-12">
+              <mat-radio-button value="others" [checked]="displayAddressForm">Others</mat-radio-button>
+            </div>
+
+          </div>
+        </mat-radio-group>
+        <div>
+          <ng-container *ngIf="displayAddressForm" formGroupName="appointmentAddressVO">
+
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Address Line 1
+                  </mat-label>
+                  <input matInput placeholder="" formControlName="addrLine1"
+                    [ngClass]="{ 'is-invalid': childFormGroup.addrLine1.touched && childFormGroup.addrLine1.errors }" />
+                  <mat-error *ngIf="childFormGroup.addrLine1.errors !== null">
+                    <mat-error
+                      *ngIf="childFormGroup.addrLine1.errors.maxLength == null && !childFormGroup.addrLine1.errors?.invalid && !childFormGroup.addrLine1.errors.required">
+                      Cannot exceed 100 characters</mat-error>
+                    <mat-error *ngIf="childFormGroup.addrLine1.errors.required">{{customValidation.A1}}
+                    </mat-error>
+                    <mat-error
+                      *ngIf="childFormGroup.addrLine1.errors?.invalid && !childFormGroup.addrLine1.errors.required">
+                      {{customValidation.A2}}
+                    </mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-label>
+                    <mat-label class="required-color"></mat-label>Address Line 2
+                  </mat-label>
+                  <input matInput placeholder="" formControlName="addrLine2"
+                    [ngClass]="{ 'is-invalid': childFormGroup.addrLine2.touched && childFormGroup.addrLine2.errors }">
+                  <mat-error *ngIf="childFormGroup.addrLine2.errors !== null">
+                    <mat-error
+                      *ngIf="childFormGroup.addrLine2.errors.maxLength == null && !childFormGroup.addrLine2.errors?.invalid ">
+                      Cannot exceed
+                      50 characters</mat-error>
+                    <mat-error *ngIf="childFormGroup.addrLine2.errors?.invalid">{{customValidation.A2}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>City
+                  </mat-label>
+                  <input matInput placeholder="City" formControlName="city"
+                    [ngClass]="{ 'is-invalid': childFormGroup.city.touched && childFormGroup.city.errors }" />
+                  <mat-error *ngIf="childFormGroup.city.errors !== null">
+                    <mat-error
+                      *ngIf="childFormGroup.city.errors.maxLength == null && !childFormGroup.city.errors?.invalid && !childFormGroup.city.errors.required">
+                      Cannot exceed 25 characters</mat-error>
+                    <mat-error *ngIf="childFormGroup.city.errors.required">{{customValidation.A1}}</mat-error>
+                    <mat-error *ngIf="childFormGroup.city.errors?.invalid && !childFormGroup.city.errors.required">
+                      {{customValidation.A2}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" style="width:100% !important">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>State
+                  </mat-label>
+                  <mat-select formControlName="stateCd" [(ngModel)]="stateCodeDetails[0].code">
+                    <mat-option value="">Select an Option</mat-option>
+                    <mat-option *ngFor="let stateCodeDetail of stateCodeDetails" value="{{stateCodeDetail.code}}">{{stateCodeDetail.value}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="addValidator('stateCd').hasError('required')">
+                    {{customValidation.A1}}</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field appearance="outline" style="width:100% !important">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>Zip code
+                  </mat-label>
+                  <input maxlength="5" matInput placeholder="zip code" formControlName="zip"
+                    [ngClass]="{ 'is-invalid': childFormGroup.zip.touched && childFormGroup.zip.errors }" />
+                  <mat-error *ngIf="childFormGroup.zip.errors !== null">
+                    <mat-error *ngIf="childFormGroup.zip.errors.required">{{customValidation.A1}}</mat-error>
+                    <mat-error *ngIf="childFormGroup.zip.errors?.invalid && !childFormGroup.zip.errors.required">
+                      {{customValidation.A2}}</mat-error>
+                    <mat-error *ngIf="childFormGroup.zip.errors?.pattern">{{customValidation.A7}}</mat-error>
+                    <mat-error *ngIf="childFormGroup.zip.errors?.pattern">{{customValidation.A98}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-0">
+               <h4 style="font-weight: bold; line-height: 51px;">-</h4>
+              </div>
+              <div class="col-md-2">
+                <mat-form-field appearance="outline" style="width:100% !important">
+                  <mat-label>Ext</mat-label>
+                  <input formControlName="ext" maxlength="4" matInput placeholder="Ext" [ngClass]="{ 'is-invalid': childFormGroup.ext.touched && childFormGroup.ext.errors }" />
+                  <mat-error *ngIf="childFormGroup.ext.errors !== null">
+                    <mat-error *ngIf="childFormGroup.ext.errors?.pattern">{{customValidation.A99}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" style="width:100% !important">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>County
+                  </mat-label>
+                  <mat-select formControlName="countyCd">
+                    <mat-option value="">Select an Option</mat-option>
+                    <mat-option *ngFor="let countyCodeDetail of countyCodeDetails" value="{{countyCodeDetail.code}}">{{countyCodeDetail.value}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="addValidator('countyCd').hasError('required')">
+                    {{customValidation.A1}}</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+          </ng-container>
+        </div>
+      </ng-container>
+      <div class="row">
+        <div class="col">
+          <button type="submit" mat-flat-button color="primary" class="perlss-click-button update-button-font"
+            *ngIf="details">{{ details['appointmentStatusCd'] == "SC" || details['appointmentStatusCd'] == "RE" ? 'UPDATE APPOINTMENT' : 'SCHEDULE APPOINTMENT' }}</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="row">
+    <div class="col cancel-button-font">
+      <a routerLink="/ltss/appointments/search">GO BACK TO APPOINTMENT SEARCH</a><br>
+    </div>
+  </div>
+</div>

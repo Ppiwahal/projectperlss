@@ -1,0 +1,149 @@
+@import '../../../colors.scss';
+
+.document-header-row {
+    margin: 12px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.fileContainer {
+    width: 98%;
+    margin-left: 1%;
+    min-height: 125px;
+    margin-top: 10px;
+    border: solid 1px #979797;
+    text-align: center;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.contact-icon {
+    color: #1B365D;
+    background-color: #F3F3F3;
+    border-radius: 25px;
+    cursor: default;
+}
+
+.contact-card {
+    position: absolute;
+    width: 200px;
+    right: 0;
+}
+
+.contact-card-content {
+position: absolute;
+z-index: 10001 !important;
+}
+
+.document-card {
+    margin-left: 1%;
+    margin-right: 3%;
+    display: flex;
+    justify-content: center;
+    color: #1B365D;
+}
+
+.documents-date {
+    margin-left: auto;
+    font-weight: bold;
+    margin-top: 7px;
+    margin-right: 15px;
+    color: black;
+}
+
+.table-header-content{
+    font-size: 14px;
+    font-family: 'Open Sans';
+    color: #1B365D;
+    font-weight: bold;
+}
+
+.documents-link {
+    font-weight: bold;
+    color: #1B365D;
+    text-decoration: underline;
+    cursor: pointer;
+    line-height: 27px;
+}
+
+.document-body{
+    overflow: auto;
+}
+
+.person-details{
+    margin-top: 20px;
+}
+
+.doc-desc {
+    display: flex;
+    font-size: x-small;
+    padding-top: 10px;
+    color: black;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.uploadButton {
+    background-color: white;
+    color: #ed6053;
+    border: 1px solid #ed6053 !important;
+}
+
+.required-color {
+    color: #ed6053;
+    padding-top: 5px;
+}
+
+.right {
+    margin-left: auto;
+}
+
+.spinner-overlay {
+    position: absolute;
+    top: 60%;
+    right: 36vh;
+    margin: -25px 0 0 -25px;
+}
+
+.applicantName {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.RDButtons {
+    color: #1B365D;
+    text-decoration: underline;
+    font-weight: bold;
+    margin-left: 5px;
+    font-size: 14px;
+    margin-top: 6px;
+}
+
+.main-wrapper{
+    position: relative;
+}
+
+.main-section-wrap{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 1%;
+}
+
+.left-section{
+    display: flex;
+    width: 70%;
+    .sec-doc-desc{
+        margin-right: 5px;
+    }
+    .doc-type{
+        margin-top: 1px;
+    }
+}
+
+.right-section{
+    display: flex;
+    .date-disp{
+        margin-right: 10px;
+        margin-top: 3px;
+    }
+}

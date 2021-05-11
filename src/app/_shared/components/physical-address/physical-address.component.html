@@ -1,0 +1,151 @@
+<div>
+  <div *ngIf="isPhysicalAddress">
+    <h3>Physical Address</h3>
+      <p>Tell us the address where you live. This cannot be a PO Box.</p>
+  </div>
+  <div class="address-card">
+    <form [formGroup]="myForm" (ngSubmit)="executeValidation()">
+      <div style="margin-bottom: 10px;" class="row" *ngIf="showAddressType">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label><span class="required">*</span>Address Format</mat-label>
+            <mat-select formControlName="addressFormat" (selectionChange)="onAddressFormatChanged($event.value)">
+              <mat-option *ngFor="let af of addressFormat" [value]="af.code">{{af.value}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-error *ngIf="f.addressFormat.errors !==null">
+            <span *ngIf="(f.addressFormat.touched) && f.addressFormat.errors.required">{{customValidation.A1}}</span>
+          </mat-error>
+       </div>
+      </div>
+      <div style="margin-bottom: 10px;" class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label><span class="required">*</span>Address Line 1</mat-label>
+            <input matInput formControlName="addrLine1" placeholder="Address Line 1" maxlength="100"
+            [ngClass]="{ 'is-invalid': f.addrLine1.touched && f.addrLine1.errors }">
+          </mat-form-field>
+            <mat-error *ngIf="f.addrLine1.errors !== null">
+              <span *ngIf="(f.addrLine1.touched) && f.addrLine1.errors.required">{{customValidation.A1}}
+              </span>
+              <span *ngIf="f.addrLine1.errors.pattern && !f.addrLine1.errors.required">
+              {{customValidation.A2}}</span>
+            </mat-error>
+       </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Address Line 2</mat-label>
+            <input matInput formControlName="addrLine2" placeholder="Address Line 2" maxlength="100">
+          </mat-form-field>
+           
+       </div>
+      </div>
+      <div style="margin-bottom: 10px;" class="row" *ngIf="showUsFormatFields">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label><span class="required">*</span>City</mat-label>
+            <input matInput formControlName="city" placeholder="City" maxlength="25"
+            [ngClass]="{ 'is-invalid': f.city.touched && f.city.errors }">
+          </mat-form-field>
+            <mat-error *ngIf="f.city.errors !==null">
+              <span *ngIf="(f.city.touched) && f.city.errors.required">{{customValidation.A1}}
+              </span>
+              <span *ngIf="f.city.errors?.invalid && !f.city.errors.required">
+              {{customValidation.A2}}</span>
+            </mat-error>
+
+         
+         
+       </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label><span class="required">*</span>State</mat-label>
+            <mat-select formControlName="state" [ngClass]="{ 'is-invalid': f.state.touched && f.state.errors }"
+              (selectionChange)="stateChanged($event.value)">
+              <mat-option value=''>Select</mat-option>
+              <mat-option *ngFor="let state of stateDropdowns" [value]="state.code">{{state.value}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+            <mat-error *ngIf="f.state.errors !==null">
+              <span *ngIf="(f.state.touched) && f.state.errors.required">{{customValidation.A1}}</span>
+            </mat-error>
+       </div>
+      </div>
+      <div style="margin-bottom: 10px;" class="row">
+        <div class="col-md-3">
+          <mat-form-field appearance="outline">
+            <mat-label><span class="required">*</span>Zip Code</mat-label>
+            <input matInput formControlName="zipCode" placeholder="Zip Code" mask="99999"
+            [ngClass]="{ 'is-invalid': f.zipCode.touched && f.zipCode.errors }">
+          </mat-form-field>
+            <mat-error *ngIf="f.zipCode.errors !==null">
+              <span *ngIf="(f.zipCode.touched) && f.zipCode.errors.required">{{customValidation.A1}}</span>
+              <span *ngIf="f.zipCode.errors.pattern">{{customValidation.A7}}</span>
+            </mat-error>
+         
+       </div>
+        <div class="col-md-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Ext</mat-label>
+            <input matInput formControlName="ext" placeholder="0000" mask="0000"
+            [ngClass]="{ 'is-invalid': (f.ext.touched || f.ext.errors || f.ext.errors?.pattern)}">
+          </mat-form-field>
+            <mat-error *ngIf="f.ext.errors">
+                <mat-error *ngIf="(f.ext.touched && f.ext.errors?.pattern) || f.ext.errors?.pattern">
+              Must contain only Numbers with 4 Characters</mat-error>
+            </mat-error>
+          
+       </div>
+        <div *ngIf="showCounty" class="col-md-6">
+          <div *ngIf="showUsFormatFields">
+            <mat-form-field appearance="outline">
+              <mat-label>County</mat-label>
+              <mat-select formControlName="county">
+                <mat-option value=''>Select</mat-option>
+                <mat-option *ngFor="let county of countyDropdowns" [value]="county.code">{{county.value}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+       </div>
+      </div>
+      <div *ngIf="showMilAddressFormat">
+        <div style="margin-bottom: 10px;" class="row">
+          <div class="col-md-6">
+            <mat-form-field appearance="outline">
+              <mat-label><span class="required">*</span>APO / FPO</mat-label>
+              <mat-select formControlName="apoFpo"  [ngClass]="{ 'is-invalid': f.apoFpo.touched && f.apoFpo.errors }">
+                <mat-option value=''>Select</mat-option>
+                <mat-option *ngFor="let af of militaryPo" [value]="af.code">{{af.value}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+              <mat-error *ngIf="f.apoFpo.errors && formSubmitted">
+                <mat-error *ngIf="(f.apoFpo.touched && f.apoFpo.errors.required) || f.apoFpo.errors.required">{{customValidation.A1}}</mat-error>
+              </mat-error>
+           
+          </div>
+       </div>
+        <div style="margin-bottom: 10px;" class="row">
+          <div class="col-md-6">
+            <mat-form-field appearance="outline">
+              <mat-label><span class="required">*</span>AA / AE / AP</mat-label>
+              <mat-select formControlName="aaAeAp"  [ngClass]="{ 'is-invalid': f.aaAeAp.touched && f.aaAeAp.errors }">
+                <mat-option value=''>Select</mat-option>
+                <mat-option *ngFor="let aa of militaryState" [value]="aa.code">{{aa.value}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+              <mat-error *ngIf="f.aaAeAp.errors && formSubmitted">
+                <mat-error *ngIf="(f.aaAeAp.touched && f.aaAeAp.errors.required) || f.aaAeAp.errors.required">{{customValidation.A1}}</mat-error>
+              </mat-error>
+           
+          </div>
+       </div>
+      </div>
+      <div class="row" style="margin-top: 20px;" *ngIf="!hideValidation">
+        <div class="col">
+          <button type="submit" mat-flat-button color="primary" class="perlss-click-button submit">VALIDATE
+            ADDRESS</button>
+       </div>
+      </div>
+    </form>
+  </div>
+</div>

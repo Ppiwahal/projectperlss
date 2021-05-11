@@ -1,0 +1,54 @@
+.required-color {
+    color: #f44336;
+}
+
+.create-manualtask-button {
+    padding-top: 40px;
+    color: chocolate;
+}
+
+.search-icon {
+    position: absolute;
+    right: 5px;
+    padding-top: 10px;
+}
+.user-role-heading {
+    color: #4d7e20;
+    font-size: 22px;
+    //font-weight: bold;
+    padding: 20px;
+    padding-left: 0;
+}
+.secondary-data-content {
+    align-items: center;
+}
+
+.label {
+    padding-left: 10px;
+    font-weight: bold;
+    color: black;
+}
+
+.note1 {
+    font-size: 16px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    margin-top: 30px;
+}
+
+.saveButton {
+    background-color: rgba(238, 153, 36, 1) !important;
+    min-width: 100px;
+    line-height: 20px !important;
+    font-size: 15px;
+    color:white;
+}
+
+.cancelButton {
+    margin-left: 10px;
+    background-color: white;
+    color: rgba(27, 87, 128);
+    font-size: 15px;
+    min-width: 100px;
+    line-height: 20px !important;
+}

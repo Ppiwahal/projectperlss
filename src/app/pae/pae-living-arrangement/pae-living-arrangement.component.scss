@@ -1,0 +1,79 @@
+h2 {
+  font-size: 30.5px;
+  line-height: 36px;
+  font-weight: 700;
+  margin: 0;
+  padding: 0px 0px 0px 0px;
+  color: #547E1A;
+  font-family: 'Open Sans';
+  margin: 14.5px 0 9px 0;
+}
+
+.page-header-container{
+  .row{
+    .col-md-4{
+    border: 2px solid;
+    border-color: #4D7E20;
+    text-align: center;
+    max-width: 100%;
+    width: 100%;
+    }
+  }
+}
+
+.applicant-name-container{
+    padding: 18px;
+    vertical-align: middle;
+    justify-content: center;
+    font-size: 18px;
+    border: 1px solid #4D7E20;
+}
+
+.form-container{
+  margin-left: 45px;
+  margin-right: 45px;
+  margin-top: 5vh;
+}
+
+.kb-checkbox-container{
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+}
+.additional-section-container{
+  padding-top: 5vh;
+}
+.radio-container{
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+}
+
+.date-facility-container{
+  padding-top: 0vh;
+  padding-bottom: 0vh;
+}
+.checkbox-column{
+  display: inline-block;
+  width:48%;
+  padding-top: 1.0vh;
+}
+::ng-deep .mat-form-field {
+  width: 100%;
+}
+
+.mat-form-field-appearance-outline.mat-form-field-disabled{
+  cursor: not-allowed;
+}
+
+.required-color {
+  color: #EE3524;
+}
+
+.styleCorrectn{
+  color: black;
+  border: 1px solid #547e1a;
+  font-size: 15px;
+}
+
+#spinnerStyle{
+  display:unset;
+}

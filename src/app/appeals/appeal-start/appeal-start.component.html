@@ -1,0 +1,157 @@
+<div class="wrapper">
+    <form [formGroup]="appealStartForm" (ngSubmit)="gotoNextStepper(appealStartForm.value)">
+        <div class="header-wrapper">
+            <p class="header">Start</p>
+            <p class="required-tag"><span class="required">*</span>Required</p>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="person-wrapper">
+            <mat-label class="lable">Search For Person</mat-label>
+            <div>
+                <mat-form-field appearance="outline">
+                    <mat-label>Search by Applicant Name, Date Of Birth, SSN, Person ID, County</mat-label>
+                    <input aria-label="person search" matInput formControlName="personSearch" [matAutocomplete]="auto"
+                        #applicantNameInput (keyup)="personInputChanged()">
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)='handleSelection($event.option.value)'>
+                        <mat-option class="select-hr" *ngFor="let option of personOptions" [value]="option">
+                            <strong>Name:</strong>{{option.prsnDetail.firstName}} {{option.prsnDetail.lastName}},
+                            <strong>DOB:</strong>
+                            {{ option.prsnDetail.dobDt }},
+                            <strong>SSN:</strong>{{option.prsnDetail?.ssn}},
+                            <strong>PersonId:</strong>{{option.prsnDetail?.prsnId}} <span
+                                *ngIf="option.prsnDetail.cntyCd">, <strong>County:</strong></span>
+                            {{option.prsnDetail?.cntyCd}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <button mat-button *ngIf="f.personSearch?.value" matSuffix mat-icon-button aria-label="Clear"
+                        type=button (click)="clearPersonSearch($event);">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="not-found-button" *ngIf="noUserFound">
+            <p>If you do not find the person in search, you can click "APPELLANT NOT FOUND" button.</p>
+            <button type="button" mat-flat-button [ngClass]="(isNotFoundSelected)?'button-checked':'button-unchecked'"
+                (click)="isPersonNotFoundSelected()">APPELLANT NOT FOUND
+                <span class="material-icons">
+                    offline_pin
+                </span>
+            </button>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="appeal-request-wrap" *ngIf="showAppealRequest">
+            <div *ngIf="isShowDemographic" style="margin-bottom: 30px;">
+                <app-appellant-info-demographic [appellantDemographic]="appellantDetails"></app-appellant-info-demographic>
+            </div>
+            <p class="lable">Appeal Request</p>
+            <div class="row-details">
+                <mat-form-field appearance="outline">
+                    <mat-label><span class="required">*</span>Who is filing the Appeal?</mat-label>
+                    <mat-select formControlName="filingAppeal">
+                        <mat-option value=''>Select </mat-option>
+                        <mat-option *ngFor="let rs of  filingAppealData" value={{rs.code}}>{{rs.value}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="row-dropdown">
+                <div>
+                    <mat-form-field appearance="outline">
+                        <mat-label><span class="required">*</span>Appeal Filing Method</mat-label>
+                        <mat-select formControlName="filingMethod"
+                            (selectionChange)="onDropdownValueChanged($event.value)">
+                            <mat-option value=''>Select </mat-option>
+                            <mat-option *ngFor="let rs of  filingAppealMethodData" value={{rs.code}}>{{rs.value}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div *ngIf="showDateDepartment">
+                    <mat-form-field appearance="outline">
+                        <mat-label><span class="required">*</span>Appeal Received Date</mat-label>
+                        <input aria-label="appeal received date" matInput [max]="this.startDate" [matDatepicker]="receivedDate"
+                            formControlName="appealRecievedDate">
+                        <mat-datepicker-toggle matSuffix [for]="receivedDate"></mat-datepicker-toggle>
+                        <mat-datepicker [startAt]="startDate" #receivedDate></mat-datepicker>
+                        <mat-error *ngIf="getFormData().appealRecievedDate.errors != null">
+                            <mat-error *ngIf="getFormData().appealRecievedDate.errors.matDatepickerMax">
+                                {{customValidation.A5}}</mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="radio-wrapper" *ngIf="showDateDepartment">
+                <mat-label><span class="required">*</span>Appeal Received by Other Department?</mat-label>
+                <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                    (change)="onRadioSelected($event.value)" formControlName="recByOtherDep">
+                    <mat-radio-button class="example-radio-button" *ngFor="let isR of isAppellantReceivedByOthDep"
+                        [value]="isR.code">
+                        {{isR.value}}
+                    </mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="row-dropdown" *ngIf="isReceivedByOtherDep">
+                <div>
+                    <mat-form-field appearance="outline">
+                        <mat-label><span class="required">*</span>Name of the Other Department</mat-label>
+                        <mat-select formControlName="otherDepartmentNameDetails">
+                            <mat-option value=''>Select </mat-option>
+                            <mat-option *ngFor="let rs of  otherDepartmentNameDetails" value={{rs.code}}>{{rs.value}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="outline">
+                        <mat-label><span class="required">*</span>Date LTSS Recieved the Appeal</mat-label>
+                        <input matInput aria-label="ltss received date" [max]="startDate"
+                            [matDatepicker]="ltssReceivedDate" formControlName="ltssRecievedDate">
+                        <mat-datepicker-toggle matSuffix [for]="ltssReceivedDate"></mat-datepicker-toggle>
+                        <mat-datepicker [startAt]="startDate" #ltssReceivedDate></mat-datepicker>
+                        <mat-error *ngIf="getFormData().ltssRecievedDate.errors != null">
+                            <mat-error *ngIf="getFormData().ltssRecievedDate.errors.matDatepickerMax">
+                                {{customValidation.A5}}</mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="text-area">
+                <mat-form-field appearance="outline">
+                    <mat-label><span class="required" *ngIf="commentsRequired">*</span>What mistake does the appelant
+                        think was made?</mat-label>
+                    <textarea matInput class="note-textarea" #aplMistake maxlength="2000"
+                        formControlName="aplMistake"></textarea>
+                    <mat-error
+                        *ngIf="getFormData().aplMistake !== undefined && getFormData().aplMistake.errors !== null">
+                        <mat-error *ngIf="getFormData().aplMistake.touched && getFormData().aplMistake.errors.required">
+                            {{customValidation.A1}}</mat-error>
+                    </mat-error>
+                </mat-form-field>
+                <div class="character-count">
+                    {{aplMistake.value.length}}/2000
+                </div>
+            </div>
+            <div class="text-area">
+                <mat-form-field appearance="outline">
+                    <mat-label><span class="required" *ngIf="commentsRequired">*</span>What does the appellant expect to
+                        happen if they win their appeal?</mat-label>
+                    <textarea matInput class="note-textarea" #aplExpectOutcome maxlength="2000"
+                        formControlName="aplExpectOutcome"></textarea>
+                    <mat-error
+                        *ngIf="getFormData().aplExpectOutcome !== undefined && getFormData().aplExpectOutcome.errors !== null">
+                        <mat-error
+                            *ngIf="getFormData().aplExpectOutcome.touched && getFormData().aplExpectOutcome.errors.required">
+                            {{customValidation.A1}}</mat-error>
+                    </mat-error>
+                </mat-form-field>
+                <div class="character-count">
+                    {{aplExpectOutcome.value.length}}/2000
+                </div>
+            </div>
+        </div>
+        <div class="next-button">
+            <button mat-flat-button class="button-checked" type="submit"
+                [disabled]="!appealStartForm.valid">NEXT</button>
+        </div>
+    </form>
+</div>

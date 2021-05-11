@@ -1,0 +1,150 @@
+<div class="row-header">
+  <span class="col-lg-9 dialog-heading">
+    Edit User Profile
+  </span>
+  <span class="col-lg-3 text-right close-icon">
+    <mat-icon (click)=close()>highlight_off</mat-icon>
+  </span>
+</div>
+<mat-divider class="perlss-section-divider"></mat-divider>
+
+<div style="font-size: 14px;font-family: 'Open Sans'">
+  <table aria-describedby class="table table-borderless">
+    <tr class="d-flex">
+      <th id="userName" class="col-2"><strong>Username:</strong></th>
+      <td class="col-4">{{ userProfile.userName }}</td>
+      <td class="col-2"><strong>Entity:</strong></td>
+      <td class="col-4">{{ entityName }}</td>
+    </tr>
+    <tr class="d-flex">
+      <td class="col-2"><strong>First Name</strong></td>
+      <td class="col-4">{{ userProfile.firstName}}</td>
+      <td *ngIf="userProfile.mi !== null" class="col-2"><strong>MI</strong></td>
+      <td *ngIf="userProfile.mi !== null" class="col-4">{{ userProfile.mi}}</td>
+      <td *ngIf="userProfile.mi == null &&  userProfile.suffix !== null " class="col-2"><strong>Suffix</strong></td>
+      <td *ngIf="userProfile.mi == null &&  userProfile.suffix !== null" class="col-4">{{userProfile.suffix}}</td>
+      <td *ngIf="userProfile.mi == null && userProfile.suffix == null" class="col-2"><strong>Last Name</strong></td>
+      <td *ngIf="userProfile.mi == null && userProfile.suffix == null" class="col-4">{{ userProfile.lastName}}</td>
+    </tr>
+    <tr class="d-flex">
+      <td *ngIf="(userProfile.suffix == null && userProfile.mi == null)" class="col-2"><strong>Complete?</strong></td>
+      <td
+        *ngIf="(userProfile.entityDetails.completeSw === 'Y') && (userProfile.suffix == null && userProfile.mi == null) "
+        class="col-4">Yes</td>
+      <td
+        *ngIf="userProfile.entityDetails.completeSw === 'N' && (userProfile.suffix == null && userProfile.mi == null)  "
+        class="col-4">NO</td>
+      <td
+        *ngIf="(userProfile.mi == null && userProfile.suffix !== null) || (userProfile.mi == !null && userProfile.suffix !== null)"
+        class="col-2"><strong>Last Name</strong></td>
+      <td
+        *ngIf="(userProfile.mi == null && userProfile.suffix !== null) || (userProfile.mi == !null && userProfile.suffix !== null)"
+        class="col-4">{{ userProfile.lastName}}</td>
+
+      <td *ngIf="userProfile.mi == !null && userProfile.suffix !== null " class="col-2"><strong>Suffix</strong></td>
+      <td *ngIf="userProfile.mi == !null &&  userProfile.suffix !== null" class="col-4">{{userProfile.suffix}}</td>
+
+      <td
+        *ngIf="(userProfile.suffix == null && userProfile.mi !== null) || (userProfile.suffix !== null && userProfile.mi == null)"
+        class="col-2"><strong>Complete?</strong></td>
+      <td
+        *ngIf="(userProfile.entityDetails?.completeSw === 'Y') && ((userProfile.suffix == null && userProfile.mi !== null) || (userProfile.suffix !== null && userProfile.mi == null))"
+        class="col-3">Yes</td>
+      <td
+        *ngIf="(userProfile.entityDetails?.completeSw === 'N') && ((userProfile.suffix == null && userProfile.mi !== null) || (userProfile.suffix !== null && userProfile.mi == null))"
+        class="col-3">NO</td>
+
+    </tr>
+    <div *ngIf="userProfile.mi !== null && userProfile.suffix !== null">
+      <tr class="d-flex">
+        <td class="col-2"><strong>Complete?</strong></td>
+        <td *ngIf="userProfile.entityDetails.completeSw === 'Y'" class="col-3">Yes</td>
+        <td *ngIf="userProfile.entityDetails.completeSw === 'N'" class="col-3">NO</td>
+      </tr>
+    </div>
+
+  </table>
+</div>
+
+<form [formGroup]="editUserProfileForm" (ngSubmit)="editUserProfile()">
+  <div class="container">
+    <div class="row row-cols-2">
+      <div class="col">
+        <mat-label>
+          <mat-label class="required-color">*</mat-label><strong>User Role:</strong>
+       </mat-label>
+        <ng-select [items]="secUserRole" formControlName="userRoles" bindLabel="roleName" (change)="handleUserRoleChange()"
+          [multiple]="true" bindValue="roleId" [closeOnSelect]="false"required [virtualScroll]="true">
+       </ng-select>
+       <mat-error *ngIf="editUserProfileForm.get('userRoles').hasError('required')">
+        {{customValidation.A1}}</mat-error>
+      </div>
+      <div class="col">
+        <mat-label>
+          <mat-label class="required-color">*</mat-label><strong>Classification</strong>
+       </mat-label>
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-select formControlName="classification" (selectionChange)="handleManagedUserRoles()">
+            <mat-option *ngFor="let c of classificationList" [value]="c.code">
+              {{c.value}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="editUserProfileForm.get('classification').hasError('required')">
+            {{customValidation.A1}}</mat-error>
+       </mat-form-field>
+      </div>
+      <div class="col" *ngIf="displayRegion">
+        <mat-label>
+          <mat-label class="required-color">*</mat-label><strong>Region</strong>
+       </mat-label>
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-select formControlName="region">
+            <mat-option *ngFor="let r of regionCdList" [value]="r.name">{{r.value}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="editUserProfileForm.get('region').hasError('required')">
+            {{customValidation.A1}}</mat-error>
+       </mat-form-field>
+      </div>
+      <div class="col" *ngIf="editUserProfileForm.get('classification').value === 'L'">
+        <mat-label>
+          <mat-label class="required-color">*</mat-label><strong>Managed User Roles</strong>
+       </mat-label>
+        <ng-select [items]="secUserRole" formControlName="managedUserRoles" bindLabel="roleName"
+          [multiple]="true" bindValue="roleId" [closeOnSelect]="false" [virtualScroll]="true">
+       </ng-select>
+        <mat-error *ngIf="editUserProfileForm.get('managedUserRoles').hasError('required')">
+          {{customValidation.A1}}</mat-error>
+      </div>
+      <div class="col" *ngIf="editUserProfileForm.get('classification').value === 'M'">
+        <mat-label>
+          <mat-label class="required-color">*</mat-label><strong>Managed User Roles:</strong>
+       </mat-label>
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-select formControlName="managedUserRoles">
+            <mat-option *ngFor="let r of secUserRole" [value]="r.roleId">{{r.roleName}}</mat-option>
+          </mat-select>
+            <mat-error *ngIf="editUserProfileForm.get('managedUserRoles').hasError('required')">
+              {{customValidation.A1}}</mat-error>
+       </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-label>
+          <mat-label class="required-color">*</mat-label><strong>Status:</strong>
+       </mat-label>
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-select formControlName="status">
+            <mat-option *ngFor="let status of userStatus" [value]="status.code">
+              {{status.value}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="editUserProfileForm.get('status').hasError('required')">
+            {{customValidation.A1}}</mat-error>
+       </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="save-button">
+    <button type="submit" mat-flat-button color="primary" class="perlss-click-button"
+    >SAVE</button>
+  </div>
+</form>

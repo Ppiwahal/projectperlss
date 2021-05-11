@@ -1,0 +1,46 @@
+.radio-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    .example-radio-group{
+        display: flex;
+        flex-direction: column;
+        margin-top: 5px;
+        margin-left: 5px;
+        width: 1%;
+    }
+}
+
+.required-tag, .required{
+    color: red;
+}
+
+.person-info{
+    display: flex;
+    margin-top: 20px;
+    div{
+        margin-right: 5%;
+    }
+}
+
+.buttons{
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    button{
+        width: 10%;
+    }
+}
+
+.note-textarea{
+    width: 100%;
+}
+.note-textarea + p{
+    margin-left: 96%
+}
+.text-align-right {
+    flex: 1;
+    text-align: right;
+    padding-right: 20px;
+  }
+  

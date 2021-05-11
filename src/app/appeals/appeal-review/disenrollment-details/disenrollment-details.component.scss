@@ -1,0 +1,100 @@
+.radio-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    .example-radio-group{
+        display: flex;
+        flex-direction: column;
+        margin-top: 5px;
+        margin-left: 5px;
+        width: 1%;
+    }
+}
+
+.required-tag, .required{
+    color: red;
+}
+
+.un-selected:hover, .selected:hover{
+    cursor: pointer;
+}
+.selected{
+    color: green;
+}
+.un-selected{
+    color: grey;
+}
+.first-table th{
+    width: 88%;
+}
+.table-td{
+    padding-left: 3%;
+}
+table tr:last-child td {
+    border-bottom: 1px solid #1B365D;
+}
+.note-textarea{
+    width: 100%;
+}
+.note-textarea + p{
+    margin-left: 96%
+}
+.person-info{
+    display: flex;
+    margin-top: 30px;
+    div{
+        margin-right: 5%;
+    }
+}
+
+.style-icon{
+    margin-right: 3%;
+    margin-top: 5px;
+    position: absolute;
+    top: -40%;
+    left: -13%;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.text-align-right {
+    flex: 1;
+    text-align: right;
+    padding-right: 20px;
+  }
+
+  .document-request{
+      margin-top: 20px;
+      table th{
+        width: 20%; 
+     }
+  }
+
+  .document-table{
+      margin-top: 30px;
+  }
+
+  .table-wrapper{
+      margin-top:30px
+  }
+
+  .cancel-request{
+    margin: 10px 0;
+}
+
+div > .mat-form-field{
+  width: 100%;
+}
+
+.text-area{
+    margin-top: 30px;
+}
+
+.character-count{
+    float: right;
+    margin-top: -24px;
+  }
+
+  .radio-styles{
+      width: 35% !important;
+  }

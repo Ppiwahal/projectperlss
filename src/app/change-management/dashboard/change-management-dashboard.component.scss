@@ -1,0 +1,76 @@
+@import '../../../colors.scss';
+
+
+
+.buttonArray {
+    overflow: hidden;
+    height: auto;
+    width: 100%;
+    padding: 0;
+    margin:  -18px 0 0 0;
+
+    > div {
+        width: 900px;
+        padding: 0;
+        overflow: hidden;
+        height: auto;
+        margin: 0 0 58.5px 0;
+        
+        + div {
+            &::before {
+                content: '';
+                display: block;
+                width:  864px;
+                height: 12.5px;
+                border-top: 1px solid $colorLightGray;
+            }
+            
+        }
+
+        > h2 {
+            margin: 0;
+            padding: 0;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        > .buttonItems {
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+            margin-left: 2px;
+
+            > button {
+                float: left;
+                width: 414px;
+                margin: 18px 36px 0 0;
+                border: 1px solid gray;
+                border-radius: 5.5px;
+                padding: 11px 14.5px;
+                font-size: 18px;
+                background: white;
+                cursor: pointer;
+                text-align: left;
+
+                &:hover {
+                    background: #174a7c;
+                    color:white
+                }
+
+                &.fullWidth {
+                    width:  864px;
+                }
+
+                &.blue {
+                    background: $colorBlue;
+                    color: white;
+
+                    &:hover {
+                        background: $colorBlueBright;
+                    }
+                }
+
+            }
+        }
+    }
+}

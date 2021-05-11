@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="app-sub-heading col-md-7" style="width: 100% !important;">
+      Slot Summary
+    </div>
+    <div class="table-border">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="enrollment-heading">Total Enrollment Target</div>
+       </div>
+        <div class="col-md-6">
+       </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="text-heading"><strong>ECF CHOICES - Reserve Capacity</strong></div>
+            </div>
+            <div class="col-md-6">
+              <a *ngIf="slotSummary" class="text"
+                (click)="onClickRC('ECF CHOICES')"><strong><u>{{slotSummary.ecfReserve}}</u></strong></a>
+            </div>
+            <div class="col-md-6">
+              <div class="text-heading"><strong>ECF CHOICES - Priority Group</strong></div>
+            </div>
+            <div class="col-md-6">
+              <a *ngIf="slotSummary" class="text"
+                (click)="onClickRC('ECF CHOICES')"><strong><u>{{slotSummary.ecfPriority}}</u></strong></a>
+            </div>
+          </div>
+          <div *ngIf="slotSummary" class="row">
+            <div class="col-md-6">
+              <div class="text-heading"><strong>ECF 5 and 6 Slot Ratio ({{ECF5and6SlotRatio}})</strong></div>
+            </div>
+            <div class="col-md-6">
+              <div class="text-heading"><strong>{{slotSummary.ecf5Slot}}:{{slotSummary.ecf6Slot}}</strong></div>
+            </div>
+            <div class="col-md-6">
+              <div class="text-heading"><strong>ECF 5 and 6 Enrollment Ratio ({{ECF5and6EnrolledRatio}})</strong></div>
+            </div>
+            <div class="col-md-6">
+              <div class="text-heading"><strong>{{slotSummary.ecf5Enrollled}}:{{slotSummary.ecf6Enrolled}}</strong>
+              </div>
+            </div>
+          </div>
+       </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="text-heading"><strong>KATIE BECKETT - PART A</strong></div>
+            </div>
+            <div class="col-md-6">
+              <a *ngIf="slotSummary" class="text"
+                (click)="onClickRC('Katie Beckett')"><strong><u>{{slotSummary.kbPartA}}</u></strong></a>
+            </div>
+            <div class="col-md-6">
+              <div class="text-heading"><strong>KATIE BECKETT - PART B</strong></div>
+            </div>
+            <div class="col-md-6">
+              <a *ngIf="slotSummary" class="text"
+                (click)="onClickRC('Katie Beckett')"><strong><u>{{slotSummary.kbPartB}}</u></strong></a>
+            </div>
+            <div class="col-md-6">
+              <div class="text-heading"><strong>CHOICES 2</strong></div>
+            </div>
+            <div class="col-md-6">
+              <a *ngIf="slotSummary" class="text"
+                (click)="onClickRC('CHOICES 2')"><strong><u>{{slotSummary.ch2}}</u></strong></a>
+            </div>
+          </div>
+       </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<div class="pageMargin">
+  <div class="applicantName">{{applicantName}}</div>
+
+  <div>
+    <h3 class="Summary">Summary</h3>
+    <!-- <div class="applicant-sub-heading">
+      <div class="applicant-heading">Please make sure to provide the details for each section below. If you
+        have supporting documentation, select the cloud icon to upload the documents.</div>
+    </div> -->
+    <p><span class="textStyle">Please make sure to provide the details for each section below. If you
+        have supporting documentation, select the cloud icon to upload the documents.</span></p>
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef class="status-header">
+          Behavioral Support Summary
+        </th>
+        <td mat-cell *matCellDef="let sds" class="usrActions">{{sds.name}}</td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef class="status-header">
+          <div class="iconTextContainer">Status</div>
+        </th>
+        <td mat-cell *matCellDef="let sds" class="usrActions">
+          <!--  <mat-icon class="red">{{sds.icon}}</mat-icon>-->
+          <div class="iconTextContainer">
+            <div *ngIf="sds.status === 'Complete'">
+              <mat-icon class="green">check</mat-icon>Complete
+            </div>
+            <div *ngIf="sds.status !== 'Complete'">
+              <mat-icon class="red">close</mat-icon>Incomplete
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="userActions">
+        <th mat-header-cell *matHeaderCellDef class="status-header">
+          <div class="iconTextContainer">User Actions</div>
+        </th>
+        <td mat-cell *matCellDef="let sds" class="usrActions">
+          <div class="iconTextContainer gotoDetailsLink" (click)="gotoDetails(sds.name)"><b>{{sds.userActions}}</b></div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <ng-container *ngIf="showSupportingDocument">
+      <mat-divider class="perlss-section-divider"></mat-divider>
+
+      <app-common-summary [supportingDocumentData]="supportingDocument"></app-common-summary>
+    </ng-container>
+    <br>
+    <div class="row">
+      <div class="col-md-2" style="text-align: left;">
+        <button mat-flat-button color="primary" class="perlss-click-button-white" (click)="gotoback()">BACK</button>
+      </div>
+      <div class="col-md-4" style="text-align: left;">
+        <button mat-flat-button color="primary" class="perlss-click-button-white-noborder" (click)="saveAndExit()">SAVE
+          AND EXIT</button>
+      </div>
+      <div class="col-md-6" style="text-align: right;">
+        <button mat-flat-button color="primary" class="perlss-click-button" (click)="next()">NEXT</button>
+      </div>
+
+    </div>
+  </div>
+</div>

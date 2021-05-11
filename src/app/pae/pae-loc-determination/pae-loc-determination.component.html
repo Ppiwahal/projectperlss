@@ -1,0 +1,801 @@
+<div class="responsive">
+  <div class="form">
+    <div class="scroller noPad">
+      <div class="padded">
+        <div class="applicantName">{{applicantName}}</div>
+      </div>
+      <ng-container *ngIf="showResult">
+        <div class="applicantData">
+          <ng-container *ngFor="let row of locDeterminationData">
+            <ng-container *ngIf="row == 'separator'">
+              <hr />
+            </ng-container>
+            <div *ngIf="row !== 'separator'">
+              <div *ngFor="let item of row">
+                <label>{{item.label}}</label>
+                <div *ngIf="item.value">{{item.value}}</div>
+                <div *ngIf="!item.value" class="tbd">TBD</div>
+              </div>
+            </div>
+          </ng-container>
+       </div>
+      </ng-container>
+      <br>
+      <mat-divider class="perlss-horizontal-divider"></mat-divider>
+      <ng-container *ngIf="showResult">
+        <div class="applicantData">
+          <ng-container *ngFor="let row of financialData">
+            <ng-container *ngIf="row == 'separator'">
+              <hr />
+            </ng-container>
+            <div *ngIf="row !== 'separator'">
+              <div *ngFor="let item of row">
+                <label>{{item.label}}</label>
+                <div *ngIf="item.value">{{item.value}}</div>
+                <!-- <div *ngIf="!item.value" class="tbd">TBD</div>-->
+              </div>
+            </div>
+          </ng-container>
+       </div>
+      </ng-container>
+      <br>
+      <mat-divider class="perlss-horizontal-divider"></mat-divider>
+      <ng-container *ngIf="showResult">
+        <div class="checkAlign">
+          <div class="applicantData" style="width: 720px;">
+            <ng-container *ngFor="let row of partBslotData">
+              <ng-container *ngIf="row == 'separator'">
+                <hr />
+              </ng-container>
+              <div *ngIf="row !== 'separator'">
+                <div *ngFor="let item of row">
+                  <label class="labelWidth">{{item.label}}</label>
+                  <div *ngIf="item.value" class="itemStyle">{{item.value}}</div>
+                  <!-- <div *ngIf="!item.value" class="tbd">TBD</div>-->
+                </div>
+              </div>
+            </ng-container>
+          </div>     
+          <div class="applicantData" style="width: 612px; height: 235px;">
+            <ng-container *ngFor="let row of partAslotData">
+              <ng-container *ngIf="row == 'separator'">
+                <hr />
+              </ng-container>
+              <div *ngIf="row !== 'separator'">
+                <div *ngFor="let item of row">
+                  <label class="labelWidth">{{item.label}}</label>
+                  <div *ngIf="item.value" class="itemStyle">{{item.value}}</div>
+                  <!-- <div *ngIf="!item.value" class="tbd">TBD</div>-->
+                </div>
+              </div>
+            </ng-container>
+          </div>     
+       </div>
+      </ng-container>
+      <br>
+      <mat-divider class="perlss-horizontal-divider"></mat-divider>
+      <ng-container *ngIf="showResult">
+        <div class="checkAlign">
+          <div class="applicantData" style="width: 720px;">
+            <ng-container *ngFor="let row of partBPaeData">
+              <ng-container *ngIf="row == 'separator'">
+                <hr />
+              </ng-container>
+              <div *ngIf="row !== 'separator'">
+                <div *ngFor="let item of row">
+                  <label class="labelWidth">{{item.label}}</label>
+                  <div *ngIf="item.value" class="itemStyle2">{{item.value}}</div>
+                  <!-- <div *ngIf="!item.value" class="tbd">TBD</div>-->
+                </div>
+              </div>
+            </ng-container>
+          </div>     
+          <div class="applicantData" style="width: 612px; height: 235px; padding-bottom: 396px;">
+            <ng-container *ngFor="let row of partBlocData">
+              <ng-container *ngIf="row == 'separator'">
+                <hr />
+              </ng-container>
+              <div *ngIf="row !== 'separator'">
+                <div *ngFor="let item of row">
+                  <label class="labelWidth">{{item.label}}</label>
+                  <div *ngIf="item.value" class="itemStyle">{{item.value}}</div>
+                  <!-- <div *ngIf="!item.value" class="tbd">TBD</div>-->
+                </div>
+              </div>
+            </ng-container>
+          </div>     
+       </div>
+      </ng-container>
+      <br>
+      <mat-divider class="perlss-horizontal-divider"></mat-divider>
+      <ng-container *ngIf="showResult">
+        <div class="checkAlign">
+          <div class="applicantData" style="width: 720px;">
+            <ng-container *ngFor="let row of partAPaeData">
+              <ng-container *ngIf="row == 'separator'">
+                <hr />
+              </ng-container>
+              <div *ngIf="row !== 'separator'">
+                <div *ngFor="let item of row">
+                  <label class="labelWidth">{{item.label}}</label>
+                  <div *ngIf="item.value" class="itemStyle2">{{item.value}}</div>
+                  <!-- <div *ngIf="!item.value" class="tbd">TBD</div>-->
+                </div>
+              </div>
+            </ng-container>
+          </div>     
+          <div class="applicantData" style="width: 612px; height: 235px; padding-bottom: 511px;">
+            <ng-container *ngFor="let row of partAlocData">
+              <ng-container *ngIf="row == 'separator'">
+                <hr />
+              </ng-container>
+              <div *ngIf="row !== 'separator'">
+                <div *ngFor="let item of row">
+                  <label class="labelWidth">{{item.label}}</label>
+                  <div *ngIf="item.value" class="itemStyle">{{item.value}}</div>
+                  <!-- <div *ngIf="!item.value" class="tbd">TBD</div>-->
+                </div>
+              </div>
+            </ng-container>
+          </div>     
+       </div>
+      </ng-container>
+      <br>
+      <mat-divider class="perlss-horizontal-divider"></mat-divider>
+      <ng-container *ngIf="showResult">
+        <div class="checkAlign">
+          <div class="applicantData" style="width: 720px;">
+            <ng-container *ngFor="let row of disenrollment1Data">
+              <ng-container *ngIf="row == 'separator'">
+                <hr />
+              </ng-container>
+              <div *ngIf="row !== 'separator'">
+                <div *ngFor="let item of row">
+                  <label class="labelWidth">{{item.label}}</label>
+                  <div *ngIf="item.value" class="itemStyle2">{{item.value}}</div>
+                  <!-- <div *ngIf="!item.value" class="tbd">TBD</div>-->
+                </div>
+              </div>
+            </ng-container>
+          </div>     
+          <div class="applicantData" style="width: 612px; height: 235px; padding-bottom: 263px;">
+            <ng-container *ngFor="let row of disenrollment2Data">
+              <ng-container *ngIf="row == 'separator'">
+                <hr />
+              </ng-container>
+              <div *ngIf="row !== 'separator'">
+                <div *ngFor="let item of row">
+                  <label class="labelWidth">{{item.label}}</label>
+                  <div *ngIf="item.value" class="itemStyle">{{item.value}}</div>
+                  <!-- <div *ngIf="!item.value" class="tbd">TBD</div>-->
+                </div>
+              </div>
+            </ng-container>
+          </div>     
+       </div>
+      </ng-container>
+      <br>
+      <mat-divider class="perlss-horizontal-divider"></mat-divider>
+      <h2 class="padded">PART B LOC Determination</h2>
+      <mat-accordion>
+        <mat-expansion-panel class="expansionPanel">
+          <mat-expansion-panel-header class="expansionHeader">
+            <mat-panel-title>
+              DIDD Assessor
+            </mat-panel-title>
+            <span>
+              <mat-panel-description class="expansionDetails">
+                REVIEW DETAILS
+              </mat-panel-description>
+            </span>
+          </mat-expansion-panel-header>
+          <div class="innerContainer">
+            <button mat-flat-button color="primary" id="locCalc"
+              class="perlss-click-button-white">RUN LOC CALCULATION
+            </button>
+            <div id="labelContainer">
+              <mat-label id="mtLabel"><b>NOTE:&nbsp; System LOC Determination:</b> At-Risk Medical <br>
+                <span style="margin-left: 43px;"><b>Does the individual trigger for PART A:</b> Yes</span>
+              </mat-label>
+            </div>
+            <div>
+              <mat-form-field appearance="outline" class="dropDown">
+                <mat-label class="req">PAE Decision</mat-label>
+                <mat-select>
+                  <mat-option value="AP">Approved</mat-option>
+                  <mat-option value="DN">Denied</mat-option>
+                  <mat-option value="PS">Pending</mat-option>
+                  <mat-option value="WD">Withdrawn</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field appearance="outline" class="dropDownLong">
+                <mat-label class="req">LOC Decision</mat-label>
+                <mat-select>
+                  <mat-option value="MD">At-Risk - Medical</mat-option>
+                  <mat-option value="ID">At-Risk - IDD or DD</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="radio-container">
+              <mat-label class="required-color">*</mat-label>
+              Does the applicant want to be evaluated for Part A?
+              <mat-radio-group id="questnOptions">
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+            <div class="commentsContainer">
+              <mat-label><b>Comments</b></mat-label>
+              <div class="textContainer">
+                <textarea style="width: 100%;" #notesInput id="notesInput" maxlength="2000" rows="5" cols="45"></textarea>
+              </div>
+            </div>
+          </div>
+       </mat-expansion-panel>
+        <br>
+        <mat-expansion-panel class="expansionPanel">
+          <mat-expansion-panel-header class="expansionHeader">
+            <mat-panel-title>
+              DIDD Supervisor
+            </mat-panel-title>
+            <span>
+              <mat-panel-description class="expansionDetails">
+                REVIEW DETAILS
+              </mat-panel-description>
+            </span>
+          </mat-expansion-panel-header>
+          <div class="innerContainer">
+            <button mat-flat-button color="primary" id="locCalc"
+              class="perlss-click-button-white">RUN LOC CALCULATION
+            </button>
+            <div id="labelContainer">
+              <mat-label id="mtLabel"><b>NOTE:&nbsp; System LOC Determination:</b> At-Risk Medical <br>
+                <span style="margin-left: 43px;"><b>Does the individual trigger for PART A:</b> Yes</span>
+              </mat-label>
+            </div>
+            <div>
+              <mat-form-field appearance="outline" class="dropDown">
+                <mat-label class="req">PAE Decision</mat-label>
+                <mat-select>
+                  <mat-option value="AP">Approved</mat-option>
+                  <mat-option value="DN">Denied</mat-option>
+                  <mat-option value="PS">Pending</mat-option>
+                  <mat-option value="WD">Withdrawn</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field appearance="outline" class="dropDownLong">
+                <mat-label class="req">LOC Decision</mat-label>
+                <mat-select>
+                  <mat-option value="MD">At-Risk - Medical</mat-option>
+                  <mat-option value="ID">At-Risk - IDD or DD</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="radio-container">
+              <mat-label class="required-color">*</mat-label>
+              Does the applicant want to be evaluated for Part A?
+              <mat-radio-group id="questnOptions">
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+            <div class="commentsContainer">
+              <mat-label><b>Comments</b></mat-label>
+              <div class="textContainer">
+                <textarea style="width: 100%;" #notesInput id="notesInput" maxlength="2000" rows="5" cols="45"></textarea>
+              </div>
+            </div>
+          </div>
+       </mat-expansion-panel>
+        <br>
+        <mat-expansion-panel class="expansionPanel">
+          <mat-expansion-panel-header class="expansionHeader">
+            <mat-panel-title>
+              DIDD Disenrollment Review
+            </mat-panel-title>
+            <span>
+              <mat-panel-description class="expansionDetails">
+                REVIEW DETAILS
+              </mat-panel-description>
+            </span>
+          </mat-expansion-panel-header>
+          <div class="innerContainer">
+            <div>
+              <mat-form-field appearance="outline" class="dropDownLong">
+                <mat-label class="req">Disenrollment Type</mat-label>
+                <mat-select>
+                  <mat-option value="VOL">Voluntary Disenrollment</mat-option>
+                  <mat-option value="INV">Involuntary Disenrollment</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field appearance="outline"  class="dropDownLong">
+                <mat-label class="req">Disenrollment Reason</mat-label>
+                <mat-select>
+                  <mat-option value="MDE">Member Deceased</mat-option>
+                  <mat-option value="HOS">Election of Hospice Services in a NF</mat-option>
+                  <mat-option value="NFD">NF discharge (Group 1 only)</mat-option>
+                  <mat-option value="DEN">Denied PAE and no longer meets LOC (NF LOC or At Risk)</mat-option>
+                  <mat-option value="COS">Cannot safetly meet needs within Cost Neutrality/Expenditure Cap, refusal 
+                    of alternative services, including NF or ICF/IID as applicable
+                  </mat-option>
+                  <mat-option value="SAF">Cannot safely meet needs (HCBS only)</mat-option>
+                  <mat-option value="NTC">Member is not receiving TennCare reimbursed Long Term Services and Supports</mat-option>
+                  <mat-option value="NON">Non-payment of patient liability and member cannot transfer to another MCO</mat-option>
+                  <mat-option value="STA">Moved out of State</mat-option>
+                  <mat-option value="DCS">DCS Custody</mat-option>
+                  <mat-option value="COT">Cost exceeds Institution</mat-option>
+                  <mat-option value="NOS">I don’t want / need long-term care anymore</mat-option>
+                  <mat-option value="PAY">I don’t want to pay part of the cost of my long- term care (called patient liability)</mat-option>
+                  <mat-option value="HOM">I don’t want my home or things I own (my estate) to be used to pay TennCare back 
+                    for my long-term care after my death. Services I may have to pay back include nursing home care and 
+                    home care (or HCBS). It’s called “estate recovery,” and it’s part of federal law.
+                  </mat-option>
+                  <mat-option value="HNF">I don’t want home and community-based (HCB)  services. I want care in a NF or ICF/ IID.</mat-option>
+                  <mat-option value="MED">[insert child’s name] doesn’t want/ need Medicaid, including Katie Beckett Part A services.</mat-option>
+                  <mat-option value="PRE">I don’t want to pay premiums for [insert child’s name] to be in Katie Beckett Part A.</mat-option>
+                  <mat-option value="OTH">Other</mat-option>
+                  <mat-option value="DET">Disenrolled due to transition</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="recordsHeader">
+              <div class="headerContainer">
+                <div id="suppDoc">Supporting Documentation</div>
+              </div>
+            </div>
+            <div class="recordsContent">
+              <div class="headerContainer">
+                <mat-icon id="search">search</mat-icon>
+                <u>MCO Uploaded Supporting Documentation</u>
+              </div>
+            </div>
+            <div class="commentsContainer">
+              <mat-label><b>Comments:</b>
+                <br>
+                MCO Provided explanation for disenrolling the applicant. 
+              </mat-label>
+            </div>
+            <div>
+              <mat-form-field appearance="outline" class="dropDownLong">
+                <mat-label class="req">DIDD DECISION</mat-label>
+                <mat-select>
+                  <mat-option value="APP">MD Psychiatrist</mat-option>
+                  <mat-option value="DEN">Psychologist (Psy.D. or Ph.D. )</mat-option>
+                  <mat-option value="RES">LCSW</mat-option>
+                  <mat-option value="WAT">LPC/MHSP</mat-option>
+                  <mat-option value="WIT">DNP</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field appearance="outline" class="dropDownLong">
+                <mat-label class="req">Disenrollment Date</mat-label>
+                <input matInput readonly [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker [startAt]="startDate" #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="commentsContainer">
+              <mat-label><b>Comments</b></mat-label>
+              <div class="textContainer">
+                <textarea style="width: 100%;" #notesInput2 id="notesInput2" maxlength="2000" rows="5" cols="45"></textarea>
+              </div>
+            </div>
+          </div>
+       </mat-expansion-panel>
+        <br>
+        <mat-expansion-panel class="expansionPanel">
+          <mat-expansion-panel-header class="expansionHeader">
+            <mat-panel-title>
+              Appeals User
+            </mat-panel-title>
+            <span>
+              <mat-panel-description class="expansionDetails">
+                REVIEW DETAILS
+              </mat-panel-description>
+            </span>
+          </mat-expansion-panel-header>
+          <div class="innerContainer">
+            <div>
+              <mat-form-field appearance="outline" class="dropDownLong">
+                <mat-label class="req">Part B PAE Status Post Appeal</mat-label>
+                <mat-select>
+                  <mat-option value="1">TBD</mat-option>
+                  <mat-option value="2">TBD</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field appearance="outline" class="dropDownLong">
+                <mat-label class="req">Part B LOC Determination Post Appeal</mat-label>
+                <mat-select>
+                  <mat-option value="1">TBD</mat-option>
+                  <mat-option value="2">TBD</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="dropDownLong extraMargin">
+                <mat-label class="req">Part B LOC Determination Date Post Appeal</mat-label>
+                <input matInput readonly [matDatepicker]="picker1">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker [startAt]="startDate" #picker1></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+       </mat-expansion-panel>
+        <br>
+      </mat-accordion>
+      <h2 class="padded">PART A LOC Determination</h2>
+      <mat-accordion>
+        <mat-expansion-panel class="expansionPanel">
+          <mat-expansion-panel-header class="expansionHeader">
+            <mat-panel-title>
+              Ascend Assessor
+            </mat-panel-title>
+            <span>
+              <mat-panel-description class="expansionDetails">
+                REVIEW DETAILS
+              </mat-panel-description>
+            </span>
+          </mat-expansion-panel-header>
+          <div class="innerContainer">
+            <button mat-flat-button color="primary" id="locCalc"
+              class="perlss-click-button-white">RUN LOC CALCULATION
+            </button>
+            <div id="labelContainer">
+              <mat-label id="mtLabel"><b>NOTE:&nbsp; System LOC Determination:</b> At-Risk Medical <br>
+                <span style="margin-left: 43px;"><b>Does the individual trigger for PART A:</b> Yes</span>
+              </mat-label>
+            </div>
+          </div>
+          <div class="innerContainer">
+            <div>
+              <mat-form-field appearance="outline" class="dropDownLong">
+                <mat-label>PAE Status</mat-label>
+                <mat-select>
+                  <mat-option value="1">TBD</mat-option>
+                  <mat-option value="2">TBD</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field appearance="outline" class="dropDownLong">
+                <mat-label class="req">PAE Decision</mat-label>
+                <mat-select>
+                  <mat-option value="AP">Approved</mat-option>
+                  <mat-option value="DN">Denied</mat-option>
+                  <mat-option value="PS">Pending</mat-option>
+                  <mat-option value="WD">Withdrawn</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field appearance="outline" class="dropDownLong">
+                <mat-label class="req">Part A Prioritization Score</mat-label>
+                <input matInput>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field appearance="outline" class="dropDownLong">
+                <mat-label class="req">LOC Decision</mat-label>
+                <mat-select>
+                  <mat-option value="P1">Tier 1 Medical with Ventilator or NIPPV</mat-option>
+                  <mat-option value="P2">Tier 1 Medical with Skilled Medical Interventions</mat-option>
+                  <mat-option value="P3">Tier 1 Behavioral with Self-Injurious and Aggressive Behaviors</mat-option>
+                  <mat-option value="P4">Tier 1 Behavioral with Self-Injurious or Aggressive Plus Other Dangerous</mat-option>
+                  <mat-option value="P5">Tier 2 Standard 1</mat-option>
+                  <mat-option value="P6">Tier 2 Standard 2</mat-option>
+                  <mat-option value="P7">Tier 2 Standard 3</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="innerContainer">
+            <div class="row">
+              <mat-form-field appearance="outline" class="dropDownLong">
+                <mat-label class="req">Average Cost of Care for Individual</mat-label>
+                <input matInput>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="dropDownLong extraMargin">
+                <mat-label class="req">Average Cost of Care for Individual</mat-label>
+                <input matInput>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="innerContainer" style="margin-top: 18px;">
+            Do you want to approve or deny this individual's eligibility due to comparable cost of care before enrollment?
+            <mat-form-field appearance="outline" class="dropDownLong">
+              <mat-select>
+                <mat-option value="1">TBD as db table is empty</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="innerContainer">
+            <div class="radio-container">
+              <mat-label class="required-color">*</mat-label>
+                Please confirm you want to deny this individual due to comparable cost of care. 
+                This individual will not be eligible to receive Katie Beckett benefits. 
+              <mat-radio-group id="questnOptions">
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+            <div class="commentsContainer">
+              <mat-label><b>Comments</b></mat-label>
+              <div class="textContainer">
+                <textarea style="width: 100%;" maxlength="2000" rows="5" cols="45"></textarea>
+              </div>
+            </div>
+          </div> 
+       </mat-expansion-panel>
+        <br>
+        <mat-expansion-panel class="expansionPanel">
+          <mat-expansion-panel-header class="expansionHeader">
+            <mat-panel-title>
+              LTSS Nurse
+            </mat-panel-title>
+            <span>
+              <mat-panel-description class="expansionDetails">
+                REVIEW DETAILS
+              </mat-panel-description>
+            </span>
+          </mat-expansion-panel-header>
+          <div class="innerContainer">
+            <button mat-flat-button color="primary" id="locCalc"
+              class="perlss-click-button-white">RUN LOC CALCULATION
+            </button>
+            <div id="labelContainer">
+              <mat-label id="mtLabel"><b>NOTE:&nbsp; System LOC Determination:</b> At-Risk Medical <br>
+                <span style="margin-left: 43px;"><b>Does the individual trigger for PART A:</b> Yes</span>
+              </mat-label>
+            </div>
+          </div>
+          <div class="innerContainer">
+            <div>
+              <mat-form-field appearance="outline" class="dropDownLong">
+                <mat-label>PAE Status</mat-label>
+                <mat-select>
+                  <mat-option value="1">TBD</mat-option>
+                  <mat-option value="2">TBD</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field appearance="outline" class="dropDownLong">
+                <mat-label class="req">PAE Decision</mat-label>
+                <mat-select>
+                  <mat-option value="AP">Approved</mat-option>
+                  <mat-option value="DN">Denied</mat-option>
+                  <mat-option value="PS">Pending</mat-option>
+                  <mat-option value="WD">Withdrawn</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field appearance="outline" class="dropDownLong">
+                <mat-label class="req">Part A Prioritization Score</mat-label>
+                <input matInput>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field appearance="outline" class="dropDownLong">
+                <mat-label class="req">LOC Decision</mat-label>
+                <mat-select>
+                  <mat-option value="P1">Tier 1 Medical with Ventilator or NIPPV</mat-option>
+                  <mat-option value="P2">Tier 1 Medical with Skilled Medical Interventions</mat-option>
+                  <mat-option value="P3">Tier 1 Behavioral with Self-Injurious and Aggressive Behaviors</mat-option>
+                  <mat-option value="P4">Tier 1 Behavioral with Self-Injurious or Aggressive Plus Other Dangerous</mat-option>
+                  <mat-option value="P5">Tier 2 Standard 1</mat-option>
+                  <mat-option value="P6">Tier 2 Standard 2</mat-option>
+                  <mat-option value="P7">Tier 2 Standard 3</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="innerContainer">
+            <div class="row">
+              <mat-form-field appearance="outline" class="dropDownLong">
+                <mat-label class="req">Average Cost of Care for Individual</mat-label>
+                <input matInput>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="dropDownLong extraMargin">
+                <mat-label class="req">Average Cost of Care for Individual</mat-label>
+                <input matInput>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="innerContainer" style="margin-top: 18px;">
+            Do you want to approve or deny this individual's eligibility due to comparable cost of care before enrollment?
+            <mat-form-field appearance="outline" class="dropDownLong">
+              <mat-select>
+                <mat-option value="1">TBD as db table is empty</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="innerContainer">
+            <div class="radio-container">
+              <mat-label class="required-color">*</mat-label>
+                Please confirm you want to deny this individual due to comparable cost of care. 
+                This individual will not be eligible to receive Katie Beckett benefits. 
+              <mat-radio-group id="questnOptions">
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+            <div class="commentsContainer">
+              <mat-label><b>Comments</b></mat-label>
+              <div class="textContainer">
+                <textarea style="width: 100%;" maxlength="2000" rows="5" cols="45"></textarea>
+              </div>
+            </div>
+          </div> 
+       </mat-expansion-panel>
+        <br>
+        <mat-expansion-panel class="expansionPanel">
+          <mat-expansion-panel-header class="expansionHeader">
+            <mat-panel-title>
+              LTSS Disenrollment Review
+            </mat-panel-title>
+            <span>
+              <mat-panel-description class="expansionDetails">
+                REVIEW DETAILS
+              </mat-panel-description>
+            </span>
+          </mat-expansion-panel-header>
+          <div class="innerContainer">
+            <div>
+              <mat-form-field appearance="outline" class="dropDownLong">
+                <mat-label>Disenrollment Type</mat-label>
+                <mat-select>
+                  <mat-option value="VOL">Voluntary Disenrollment</mat-option>
+                  <mat-option value="INV">Involuntary Disenrollment</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field appearance="outline" class="dropDownLong">
+                <mat-label class="req">Disenrollment Reason</mat-label>
+                <mat-select>
+                  <mat-option value="MDE">Member Deceased</mat-option>
+                  <mat-option value="HOS">Election of Hospice Services in a NF</mat-option>
+                  <mat-option value="NFD">NF discharge (Group 1 only)</mat-option>
+                  <mat-option value="DEN">Denied PAE and no longer meets LOC (NF LOC or At Risk)</mat-option>
+                  <mat-option value="COS">Cannot safetly meet needs within Cost Neutrality/Expenditure Cap, 
+                    refusal of alternative services, including NF or ICF/IID as applicable</mat-option>
+                  <mat-option value="SAF">Cannot safely meet needs (HCBS only)</mat-option>
+                  <mat-option value="NTC">Member is not receiving TennCare reimbursed Long Term Services and Supports</mat-option>
+                  <mat-option value="NON">Non-payment of patient liability and member cannot transfer to another MCO</mat-option>
+                  <mat-option value="STA">Moved out of State</mat-option>
+                  <mat-option value="DCS">DCS Custody</mat-option>
+                  <mat-option value="COT">Cost exceeds Institution</mat-option>
+                  <mat-option value="NOS">I don’t want/ need long-term care anymore.</mat-option>
+                  <mat-option value="PAY">I don’t want to pay part of the cost of my long- term care 
+                    (called patient liability)</mat-option>
+                  <mat-option value="HOM">I don’t want my home or things I own (my estate) to be used to pay TennCare 
+                    back for my long-term care after my death. Services I may have to pay back include nursing home care 
+                    and home care (or HCBS). It’s called “estate recovery,” and it’s part of federal law.</mat-option>
+                  <mat-option value="HNF">I don’t want home and community-based (HCB)  services. I want care 
+                    in a NF or ICF/ IID.</mat-option>
+                  <mat-option value="MED">[insert child’s name] doesn’t want/ need Medicaid, including Katie Beckett 
+                    Part A services.</mat-option>
+                  <mat-option value="PRE">I don’t want to pay premiums for [insert child’s name] to be in 
+                    Katie Beckett Part A.</mat-option>
+                  <mat-option value="OTH">Other</mat-option>
+                  <mat-option value="DET">Disenrolled due to transition</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field appearance="outline" class="dropDownLong">
+                <mat-label class="req">Average Cost of Care for Individual</mat-label>
+                <input matInput>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="dropDownLong extraMargin">
+                <mat-label class="req">Average Cost of Care for Individual</mat-label>
+                <input matInput>
+              </mat-form-field>
+            </div>
+            <div class="recordsHeader">
+              <div class="headerContainer">
+                <div id="suppDoc">Supporting Documentation</div>
+              </div>
+            </div>
+            <div class="recordsContent">
+              <div class="headerContainer">
+                <mat-icon id="search">search</mat-icon>
+                <u>MCO Uploaded Supporting Documentation</u>
+              </div>
+            </div>
+            <div class="commentsContainer">
+              <mat-label><b>Comments:</b>
+                <br>
+                MCO Provided explanation for disenrolling the applicant. 
+              </mat-label>
+            </div>
+            <div>
+              <mat-form-field appearance="outline" class="dropDownLong">
+                <mat-label>LTSS Decision</mat-label>
+                <mat-select>
+                  <mat-option value="APP">MD Psychiatrist</mat-option>
+                  <mat-option value="DEN">Psychologist (Psy.D. or Ph.D. )</mat-option>
+                  <mat-option value="RES">LCSW</mat-option>
+                  <mat-option value="WAT">LPC/MHSP</mat-option>
+                  <mat-option value="WIT">DNP</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="commentsContainer">
+              <mat-label><b>Comments</b></mat-label>
+              <div class="textContainer">
+                <textarea style="width: 100%;" #notesInput id="notesInput" maxlength="2000" rows="5" cols="45"></textarea>
+              </div>
+            </div>
+          </div>
+       </mat-expansion-panel>
+        <br>
+        <mat-expansion-panel class="expansionPanel">
+          <mat-expansion-panel-header class="expansionHeader">
+            <mat-panel-title>
+              Appeals User
+            </mat-panel-title>
+            <span>
+              <mat-panel-description class="expansionDetails">
+                REVIEW DETAILS
+              </mat-panel-description>
+            </span>
+          </mat-expansion-panel-header>
+          <div class="innerContainer">
+            <div>
+              <mat-form-field appearance="outline" class="dropDownLong">
+                <mat-label>Part A PAE Status Post Appeal</mat-label>
+                <mat-select>
+                  <mat-option value="1">TBD</mat-option>
+                  <mat-option value="2">TBD</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field appearance="outline" class="dropDownLong">
+                <mat-label>Part A LOC Determination Post Appeal</mat-label>
+                <input matInput>
+              </mat-form-field>
+              <div class="extraMargin">
+                <mat-form-field appearance="outline" class="dropDownLong">
+                  <mat-label class="req">Part A LOC Determination Date Post Appeal</mat-label>
+                  <input matInput readonly [matDatepicker]="picker2">
+                  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                  <mat-datepicker [startAt]="startDate" #picker2></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+       </mat-expansion-panel>
+      </mat-accordion> 
+    </div>
+    <div class="buttonBar">
+      <button mat-flat-button type="button" class="perlss-click-button-white" (click)="back()">BACK</button>
+      <button mat-flat-button color="primary" class="perlss-click-button">SUBMIT</button>
+    </div>
+  </div>
+</div>

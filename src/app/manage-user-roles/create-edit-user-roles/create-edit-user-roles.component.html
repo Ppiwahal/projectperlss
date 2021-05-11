@@ -1,0 +1,74 @@
+<hr>
+<div class="row-header user-role-heading">
+  <span class="col-lg-9 dialog-heading">
+    {{displayMode === 'CREATE' ? 'Create User Role' : 'Edit User Role'}}
+  </span>
+</div>
+
+<form [formGroup]="userRoleForm" (ngSubmit)="saveOrEditUserRole()">
+  <div style="margin-top: 45px">
+    <div class="row">
+      <div class="col-md-5">
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Entity Type</mat-label>
+          <mat-select formControlName="entityType" (selectionChange)="handleEntityChange()" [disabled]="isReadOnlyUser || isRoleCreated">
+            <mat-option value=''>Select an option</mat-option>
+            <mat-option *ngFor="let entityType of  entityTypes" value={{entityType.code}}>{{entityType.value}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-5">
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Entity</mat-label>
+          <mat-select formControlName="entity" [disabled]="isReadOnlyUser ||  isRoleCreated">
+            <mat-option value=''>Select an option</mat-option>
+            <mat-option *ngFor="let entityName of  entityNameVals" value={{entityName.entityId}}>{{entityName.entityName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row secondary-data-content">
+      <div class="col-md-5">
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>
+            <strong>User Role Name</strong>
+          </mat-label>
+          <input matInput maxlength="60" formControlName="userRoleName">
+        </mat-form-field>
+      </div>
+      <div class="col-md-5">
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status" [disabled]="isReadOnlyUser">
+            <mat-option value=''>Select an option</mat-option>
+            <mat-option *ngFor="let statusOption of  statusOptions" value={{statusOption.code}}>{{statusOption.value}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="padding-bottom:35px;" *ngIf="(displayMode === 'EDIT')">
+    <div class="row" style="padding-bottom: 15px;">
+      <span (click)="editBusinessFunctionDialog()">
+        <mat-icon class="icon-style" [inline]="true">add_circle_outline</mat-icon>
+        <mat-label class="icon-test">EDIT BUSINESS FUNCTIONS</mat-label>
+      </span>
+    </div>
+    <div class="row">
+      <span (click)="editTaskQueuesDialog()">
+        <mat-icon class="icon-style" [inline]="true">add_circle_outline</mat-icon>
+        <mat-label class="icon-test">EDIT TASK QUEUES</mat-label>
+      </span>
+    </div>
+  </div>
+
+  <div class="save-button">
+    <button type="submit" style="width: 8%;" mat-flat-button color="primary" class="perlss-click-button">SAVE</button>
+  </div>
+</form>

@@ -1,0 +1,139 @@
+<div class="pageMargin">
+    <div class="user-role-heading">Request</div>
+    <div style="padding-top: 25px;">
+        The link/unlink request for the individual(s) below has been:
+   </div>
+    <div class="accepted-heading">
+        ACCEPTED
+   </div>
+    <div class="rejected-heading">
+        REJECTED
+   </div>
+    <div class="updated-heading">
+        UPDATED
+   </div>
+    <div style="padding-top: 25px;">
+        The link request has been submitted for the individual(s) below:
+   </div>
+
+    <div style="padding-top: 25px;">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="common">Person 1:</p>
+           </div>
+       </div>
+        <div class="inner-container">
+            <div class="row">
+                <div class="first-person col-md-3">
+                    <p class="label_name">NAME:</p>
+               </div>
+                <div class="col-md-3">
+                    <p>{{confirmLinkDetails?.primaryPerson?.name}}</p>
+               </div>
+                <div class="col-md-3">
+                    <p class="label_name">PERSON ID</p>
+               </div>
+                <div class="col-md-3">
+                    <p>{{confirmLinkDetails?.primaryPerson?.personId}}</p>
+               </div>
+           </div>
+            <div class="row">
+                <div class="first-person col-md-3">
+                    <p class="label_name">DATE OF BIRTH:</p>
+               </div>
+                <div class="col-md-3">
+                    <p>{{confirmLinkDetails?.primaryPerson?.dateOfBirth}}</p>
+               </div>
+                <div class="col-md-3">
+                    <p class="label_name">SSN</p>
+               </div>
+                <div class="col-md-3">
+                    <p>{{confirmLinkDetails?.primaryPerson?.ssn}}</p>
+               </div>
+           </div>
+            <div class="row">
+                <div class="first-person col-md-3">
+                    <p class="label_name">SOURCE:</p>
+               </div>
+                <div class="col-md-3">
+                    <p>{{confirmLinkDetails?.primaryPerson?.source}}</p>
+               </div>
+                <div class="col-md-3">
+                    <p class="label_name">STATUS</p>
+               </div>
+                <div class="col-md-3">
+                    <p>Active</p>
+               </div>
+           </div>
+       </div>
+   </div>
+
+    <div style="padding-top: 25px;">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="common">Person 2:</p>
+           </div>
+       </div>
+        <div class="inner-container">
+            <div class="row">
+                <div class="second-person col-md-3">
+                    <p class="label_name">NAME:</p>
+               </div>
+                <div class="col-md-3">
+                    <p>{{confirmLinkDetails?.secondaryPerson?.name}}</p>
+               </div>
+                <div class="col-md-3">
+                    <p class="label_name">PERSON ID</p>
+               </div>
+                <div class="col-md-3">
+                    <p>{{confirmLinkDetails?.secondaryPerson?.personId}}</p>
+               </div>
+           </div>
+            <div class="row">
+                <div class="second-person col-md-3">
+                    <p class="label_name">DATE OF BIRTH:</p>
+               </div>
+                <div class="col-md-3">
+                    <p>{{confirmLinkDetails?.secondaryPerson?.dateOfBirth}}</p>
+               </div>
+                <div class="col-md-3">
+                    <p class="label_name">SSN</p>
+               </div>
+                <div class="col-md-3">
+                    <p>{{confirmLinkDetails?.secondaryPerson?.ssn}}</p>
+               </div>
+           </div>
+            <div class="row">
+                <div class="second-person col-md-3">
+                    <p class="label_name">SOURCE:</p>
+               </div>
+                <div class="col-md-3">
+                    <p>{{confirmLinkDetails?.secondaryPerson?.source}}</p>
+               </div>
+                <div class="col-md-3">
+                    <p class="label_name">STATUS</p>
+               </div>
+                <div class="col-md-3">
+                    <p>Active</p>
+               </div>
+           </div>
+       </div>
+   </div>
+
+    <div class="row" style="margin-top: 20px;">
+        <div class="col">
+            <button type="submit" mat-flat-button color="primary" class="perlss-click-button submit">
+                SUBMIT
+           </button>
+       </div>
+   </div>
+
+    <div class="text-align-right">
+        <div class="create-manualtask-button">
+            <button mat-flat-button class="perlss-continue-click-button">CONFIRM LINK</button>
+       </div>
+        <div class="create-manualtask-button">
+            <button mat-flat-button class="perlss-update-click-button-white">REJECT LINK</button>
+       </div>
+   </div>
+</div>

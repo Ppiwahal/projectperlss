@@ -1,0 +1,47 @@
+<div class="wrapper">
+    <form  [formGroup]="assessorSearchForm" (ngSubmit)="search()">
+        <div class="flex-header">
+            <p class="header">Search Assessor</p>
+            <!-- <p class="required-tag"><span class="required">*</span>Required</p> -->
+       </div>
+        <div class="inside-wrapper">
+            <div class="drop-down">
+                <mat-form-field appearance="outline">
+                    <mat-label>Search by Name, or Assessor Code</mat-label>
+                    <input aria-label="personSearch" matInput [(ngModel)]="input" formControlName="assessorSearch" [matAutocomplete]="auto" #applicantNameInput>
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)='handleSelection($event.option.value)'>
+                        <mat-option class="select-hr" *ngFor="let option of assessorSearchOptions" [value]="option">
+                            <span *ngIf="option !== 'No Records Found'"><strong>Applicant Name:</strong>{{option.prsnDetail?.first_name}} {{option.prsnDetail?.last_name}}, 
+                                <strong>Assessor Code:</strong>{{option.prsnDetail?.assessor_id}}, 
+                                <strong>Program Code:</strong>{{option.prsnDetail?.prog_cd}}
+                            </span>
+                            <span *ngIf="option === 'No Records Found'"><strong>No Records Found</strong></span>
+                          </mat-option>
+                    </mat-autocomplete>
+                        <button matTooltip="Clear Search" mat-button *ngIf="f.assessorSearch?.value" matSuffix mat-icon-button aria-label="Clear"
+                            (click)="f.assessorSearch.setValue(null)">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="entity-dropdown">
+                    <mat-label>Entity</mat-label>
+                    <mat-select formControlName="entity" (selectionChange)="onEntityChange($event)">
+                        <mat-option value=''>Select</mat-option>
+                        <mat-option *ngFor = "let entity of  entityData" value={{entity.entityId}}>{{entity.entityName}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div *ngIf="isError" style="font-weight: bold; color: red; margin-bottom: 5px;">
+                Please select at least one search criteria.
+            </div>
+            <div  class="button-icon">
+                <div>
+                    <button type="submit" mat-flat-button color="primary" class="custom-button" [disabled]="!searchButton">SEARCH</button>
+                </div>
+                <div *ngIf="isAddAcessor" class="icon" (click)="openAddAssessorPopup()">
+                <mat-icon class="icon-style" [inline]="true">add_circle_outline</mat-icon><strong class="icon-lebel">ADD ASSESSOR</strong>
+              </div>
+            </div>
+       </div>
+    </form>
+</div>

@@ -1,0 +1,29 @@
+.required-color {
+  color: #ed6053;
+}
+  .checkbox-element {
+    position: relative;
+    top: 20%;
+    padding-left: 15px;
+    transform: translateY(-20%);
+  }
+
+  .question-container{
+    padding-top:15px;
+  }
+
+  .button-content{
+    padding-top: 20px;
+}
+
+.back-button{
+    text-align: left;
+}
+
+.next-button{
+    text-align: right;
+}
+
+div > .mat-form-field {
+  width: 100%;
+}

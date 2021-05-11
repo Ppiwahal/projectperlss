@@ -1,0 +1,167 @@
+<div class="popup-header-container">
+  <div class="row">
+    <div class="col-md-8">
+      <h4>Recommendation Form</h4>
+    </div>
+    <div class="col-md-4">
+      <div style="display: flex; justify-content: flex-end; margin-right: 1rem">
+        <div class="required-class">* <span>Required</span></div>
+        <div>
+          <mat-icon
+            class="popup-close-icon"
+            (click)="closePopup()"
+            style="font-size: 35px"
+            >highlight_off</mat-icon
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <mat-divider class="perlss-horizontal-divider"></mat-divider>
+  <form [formGroup]="recommendationFormGroup" (ngSubmit)="onSubmit()">
+  <div class="card" *ngIf="currentAge < 21">
+<!--       <div class="card-header bg-transparent">
+          <b>Recommendation Form</b>
+       </div>-->
+        <div class="card-body" formGroupName="intensiveCheckboxGroup">
+           <p class="questions"><span class="required-class">*</span><b>Intensive Behavioral Family-Centered, Treatment, Stabilization and Supports(Group 7)</b></p>
+
+           <mat-error *ngIf="recommendationFormGroup.controls['intensiveCheckboxGroup'].errors !== null && recommendationFormGroup.controls['intensiveCheckboxGroup'].errors.requireOneCheckboxToBeChecked && (recommendationFormGroup.controls['intensiveCheckboxGroup'].touched || submitted)"> {{customValidation.A1}}</mat-error>
+
+            <div class="row">
+            <div class="col-md-12">
+              <mat-checkbox class="example-margin" formControlName="intensiveCheckbox1"
+                  [checked]="getIntensiveForm().get('intensiveCheckbox1').value=='Y'"
+                  (change)="getIntensiveForm().get('intensiveCheckbox1').setValue($event.checked? 'Y':'N')"
+                  id="intensiveCheckbox1" >I have reviewed the  <i>Intensive Behavioural Family-Centered, Treatment, Stabilization and supports </i>() Certification form along with the documentaion supporting the reserve capacity criteria for a Group 7 slot. </mat-checkbox>
+            </div>
+
+            <div class="col-md-12">
+              <mat-checkbox class="example-margin" formControlName="intensiveCheckbox2"
+                  [checked]="getIntensiveForm().get('intensiveCheckbox2').value=='Y'"
+                  id="intensiveCheckbox2" [(ngModel)]="vm.intensiveCheckboxModel2" (change)="intensiveCheckboxMethod2(vm.intensiveCheckboxModel2)">I recommend <i>Intensive behavioural Family-Centered Treatment, Stabilization and Supports </i>(IBFCTSS) as transitional benifitsfor this individual; <b>OR</b></mat-checkbox>
+            </div>
+            <div class="col-md-12">
+              <mat-checkbox class="example-margin" formControlName="intensiveCheckbox3"
+                  [checked]="getIntensiveForm().get('intensiveCheckbox3').value=='Y'"
+                  (change)="getIntensiveForm().get('intensiveCheckbox3').setValue($event.checked? 'Y':'N')"
+                  id="intensiveCheckbox3" [(ngModel)]="vm.intensiveCheckboxModel3" (change)="intensiveCheckboxMethod3(vm.intensiveCheckboxModel3)">I do NOT recommend <i>intensive behavioural Family-Centered Treatment, Stabilization and Supports </i>(IBFCTSS) as a transitional benifits for this individual.</mat-checkbox>
+            </div>
+       </div>
+<!--             <mat-error>
+                <p *ngIf="recommendationFormGroup.controls['intensiveCheckboxGroup'].errors?.notAllowedNone">
+                  {{customValidation.A33}}
+                </p>
+              </mat-error>-->
+       </div>
+
+  </div>
+  <div class="seperator-mar"></div>
+<div class="card" *ngIf="currentAge < 18">
+        <div class="card-body"  formGroupName="comprehensiveCheckboxGroup">
+      <p class="questions"><span class="required-class">*</span><b>Comprehensive Behavioral Supports for Employment and Community Living (Group 8)</b></p>
+          <mat-error *ngIf="recommendationFormGroup.controls['comprehensiveCheckboxGroup'].errors !== null && recommendationFormGroup.controls['comprehensiveCheckboxGroup'].errors.requireOneCheckboxToBeChecked && (recommendationFormGroup.controls['comprehensiveCheckboxGroup'].touched || submitted)"> {{customValidation.A1}}</mat-error>
+
+       <div class="row">
+            <div class="col-md-12">
+              <mat-checkbox  class="example-margin" formControlName="comprehensiveCheckbox1"
+                  [checked]="getComprehensiveForm().get('comprehensiveCheckbox1').value==null"
+                  (change)="getComprehensiveForm().get('comprehensiveCheckbox1').setValue($event.checked? 'Y':'N')" >I have reviewed the <i>Intensive Behavioral Community Transition and Stabilization Services </i>(IBCTSS) Certification from along with the documentation supporting the reserve capacity criteria for Group 8 slot.</mat-checkbox>
+            </div>
+            <div class="col-md-12">
+              <mat-checkbox  class="example-margin" formControlName="comprehensiveCheckbox2"
+                  [checked]="getComprehensiveForm().get('comprehensiveCheckbox2').value==null"
+                  [(ngModel)]="cm.comprehensiveCheckboxModel2" (change)="comprehensiveCheckboxMethod2(cm.comprehensiveCheckboxModel2)">I recommend <i>Comprehensive Family-Centered Treatment, Stabilization and Supports </i>(IBFCTSS) as a transitional benifits for this individual; <b>OR</b></mat-checkbox>
+            </div>
+            <div class="col-md-12">
+              <mat-checkbox  class="example-margin" formControlName="comprehensiveCheckbox3"
+                [checked]="getComprehensiveForm().get('comprehensiveCheckbox3').value==null"
+                [(ngModel)]="cm.comprehensiveCheckboxModel3" (change)="comprehensiveCheckboxMethod3(cm.comprehensiveCheckboxModel3)">I do NOT recommend <i>Comprehensive Behavioral Family-Centered Treatment, Stabilization and Supports </i>(IBFCTSS) as a transitional benifits for this individual.</mat-checkbox>
+            </div>
+          </div>
+
+       </div>
+
+  </div>
+  <div class="seperator-mar"></div>
+<div class="card">
+        <div class="card-body">
+
+       <div class="row">
+<!--             <div class="col-md-6">
+              <mat-form-field appearance="outline">
+                <mat-label><span>*</span>Electronic Signature</mat-label>
+                <input matInput formControlName="electronicSignature" placeholder="Electronic Signature">
+              </mat-form-field>
+                <mat-error *ngIf="recommendationFormGroup.get('electronicSignature').hasError('required') && (recommendationFormGroup.get('electronicSignature').touched || submitted)">
+            {{customValidation.A1}}</mat-error>
+            <mat-error *ngIf="recommendationFormGroup.get('electronicSignature').hasError('invalid') && !recommendationFormGroup.get('electronicSignature').hasError('required')">{{customValidation.A2}}</mat-error>
+
+            </div>-->
+
+      <div class="col-md-6">
+        <div class="question-container">
+          <mat-label>
+            <mat-label class="required-class">*</mat-label><span>Electronic Signature</span>
+          </mat-label>
+       </div>
+        <mat-form-field appearance="outline">
+          <input matInput formControlName="electronicSignature" placeholder="Electronic Signature">
+       </mat-form-field>
+                <mat-error *ngIf="recommendationFormGroup.get('electronicSignature').hasError('required') && (recommendationFormGroup.get('electronicSignature').touched || submitted)">
+            {{customValidation.A1}}</mat-error>
+            <mat-error *ngIf="recommendationFormGroup.get('electronicSignature').hasError('invalid') && !recommendationFormGroup.get('electronicSignature').hasError('required')">{{customValidation.A2}}</mat-error>
+      </div>
+
+      <div class="col-md-6">
+        <div class="question-container">
+          <mat-label>
+            <mat-label class="required-class">*</mat-label><span>Credentials</span>
+          </mat-label>
+       </div>
+            <mat-form-field appearance="outline">
+                  <mat-select placeholder="Select an Option" formControlName="credentials">
+                    <mat-option value="1">In-Person</mat-option>
+                    <mat-option value="2">In-Person 01</mat-option>
+                    <mat-option value="3">In-Person 02</mat-option>
+                </mat-select>
+              </mat-form-field>
+                  <mat-error *ngIf="recommendationFormGroup.get('credentials').hasError('required') && (recommendationFormGroup.get('credentials').touched || submitted)">
+            {{customValidation.A1}}</mat-error>
+
+            </div>
+
+    <div class="col-md-6 rd">
+
+      <div class="question-container">
+          <mat-label>
+            <mat-label class="required-class">*</mat-label><span> Recommendation Date</span>
+          </mat-label>
+       </div>
+
+              <mat-form-field appearance="outline">
+              <input matInput [matDatepicker]="picker"
+               formControlName="recommendationDate" placeholder="mm/dd/yyyy">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+              <mat-error *ngIf="recommendationFormGroup.get('recommendationDate').hasError('required')  && (recommendationFormGroup.get('recommendationDate').touched || submitted)">
+            {{customValidation.A1}}</mat-error>
+              <mat-error>
+                  <p *ngIf="recommendationFormGroup.get('recommendationDate').hasError('dateInFuture')">
+                    {{customValidation.A5}}
+                  </p>
+                  <p *ngIf="recommendationFormGroup.get('recommendationDate').hasError('datePriorToInitialDate')">
+                    {{customValidation.A6}}
+                  </p>
+              </mat-error>
+
+            </div>
+            <div class="col-md-12 text-right">
+              <button mat-flat-button color="primary"
+               class="submit-button"><b>SUBMIT</b></button>
+          </div>
+          </div>
+       </div>
+       </div>
+        </form>

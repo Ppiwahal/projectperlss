@@ -1,0 +1,26 @@
+<div class="responsive">
+    <div class="form">
+      <div class="scroller">
+        <app-change-management-common>
+          <form [formGroup]="myForm" [ngClass]="{'submitted': submitted }">
+            <div>
+                <div *ngIf="displayPae" class="w40">
+                  <mat-label class="req">PAE Flag</mat-label>
+                    <mat-form-field appearance="outline">
+                      <mat-select formControlName="bnftPlanCd">
+                        <mat-option value="ACT">Active</mat-option>
+                        <mat-option value="IAC">Inactive</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-error *ngIf="controlError('bnftPlanCd')">{{errorText['bnftPlanCd']}}</mat-error>
+                  </div>
+              <div class="panelButtons">
+                <button type="submit" mat-flat-button color="primary" class="perlss-click-button"
+                  (click)="save()">PROCEED TO ENROLLMENT</button>
+              </div>
+            </div>
+          </form>
+        </app-change-management-common>
+      </div>
+    </div>
+  </div>

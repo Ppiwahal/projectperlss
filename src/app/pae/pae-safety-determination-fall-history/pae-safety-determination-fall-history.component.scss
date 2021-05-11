@@ -1,0 +1,48 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+div.page-container {
+    padding: 0;
+}
+
+.required-color {
+  color: #ED6053;
+  padding-right: 5px !important;
+}
+
+.expPanel {
+  background: aliceblue;
+  border: 1px solid #547E1A;
+}
+
+#top {
+  margin-top: 36px;
+  width:95%
+}
+
+.panel-description {
+  margin-left: 590px;
+  color: #174A7C;
+}
+
+.expandable-row-button{
+  background-color:#ED9924;
+  color: white;
+  display: inline-flex;
+  vertical-align: middle;
+  justify-content: center;
+  width: 100%;
+}
+
+#fallDetl {
+  padding: 18px;
+  background: white;
+  border: none;
+  font-size: large;
+  &:focus{
+    outline: none;
+  }
+}

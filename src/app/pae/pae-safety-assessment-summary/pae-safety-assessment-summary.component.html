@@ -1,0 +1,316 @@
+<div class="responsive">
+  <form [formGroup]="paeSafetyAssessmentSummaryForm" class="responsive">
+    <div class="scroller">
+      <div class="applicantName">{{applicantName}}</div> 
+      <br>
+      <h2>Summary</h2>
+  
+      <div class="transfer_sub_container">
+        <span>Safety Determination is to be requested only by an entity submitting a PAE for NF LOC in
+          accordance with requirements set forth in TennCare Rule.<br><br>
+          Total Acuity Score of this PAE:
+       </span>
+      </div>
+
+      <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" 
+        formControlName="reqSafetyConSw" (change)="considerationYorN($event.value)">
+          <mat-radio-button class="example-radio-button" *ngFor="let reason of yesOrNo" [value]="reason.code">
+              {{reason.value}}
+          </mat-radio-button>
+      </mat-radio-group>
+  
+      <div class="div-container" *ngIf="showHide">
+        <i>A Safety Determination Request must be made in accordance with requirements set forth in TennCare Rule.
+          The Safety Determination Request Form must be completed in its entirety and included with the PAE Submission,
+          along with all required documentation.</i>
+      </div>
+  
+      <div class="chkBoxContainer" *ngIf="showHide2">
+        <div class="chkboxContent">
+          <mat-checkbox formControlName="nfSrvcSw">
+            <span class="required"><sup>*</sup></span>I am aware that a safety determination request may be initiated by an applicant or applicant representative.
+            I have talked to the applicant about meeting NF LOC for Medicaid reimbursement of NF services, including
+            safety
+            determinations. A safety determination has not been requested.
+          </mat-checkbox>
+       </div>
+  
+        <div class="chkboxContent">
+          <mat-checkbox formControlName="hcbsSrvcSw">
+            <span class="required"><sup>*</sup></span>I am aware that a safety determination request may be initiated by an applicant or applicant representative.
+            I have talked to the applicant about meeting NF LOC for Medicaid reimbursement of HCBS, including safety
+            determinations. A safety determination has not been requested.
+          </mat-checkbox>
+       </div>
+  
+        <div class="chkboxContent">
+          <mat-checkbox formControlName="tenncareQualifiedAssesrSw">
+            <span class="required"><sup>*</sup></span>I am a TennCare Qualified Assessor and I attest that this person a) appears to qualify for CHOICES Group 3
+            based on an acuity score below 9 and his needs can be safely met within the Group 3 expenditure cap. Or b) appears
+            to qualify for CHOICES Group 2 and his needs can be safely met within his individual CN cap.
+          </mat-checkbox>
+       </div>
+      </div>
+  
+      <div *ngIf="showHide">
+        <mat-divider class="perlss-section-divider"></mat-divider>
+        <div class="table-descr">
+          Please make sure to provide the details for each section below. If you have supporting
+          documentation, select the cloud icon to upload the documents.
+       </div>
+
+        <table mat-table [dataSource]="summaryRecords">
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef class="status-header">
+              Safety Determination Summary
+            </th>
+            <td mat-cell *matCellDef="let sds" class="usrActions">{{sds.pageTitle}}</td>
+          </ng-container>
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef class="status-header">
+              <div class="iconTextContainer">Status</div>
+            </th>
+            <td mat-cell *matCellDef="let sds" class="usrActions">
+              <!--  <mat-icon [ngStyle]="{'color':'red'}">{{sds.icon}}</mat-icon>-->
+              <span class="iconTextContainer">
+                <span *ngIf="sds.status === 'Completed'">
+                  <mat-icon class="green">check</mat-icon>
+                </span>
+                <span *ngIf="sds.status !== 'Completed'">
+                  <mat-icon class="red">close</mat-icon>
+                </span>
+              </span>
+              {{sds.status}}
+            </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="userActions">
+            <th mat-header-cell *matHeaderCellDef class="status-header">
+              <div class="iconTextContainer">User Actions</div>
+            </th>
+            <td mat-cell *matCellDef="let sds" class="usrActions">
+              <div class="iconTextContainer gotoDetailsLink" (click)="gotoDetails(sds.pageId)">GO TO DETAILS</div>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+       </table>
+  
+        <mat-divider class="perlss-section-divider"></mat-divider>
+  
+      </div>
+  
+      <div *ngIf="showHide3 && clickedDetails">
+      
+        <table id="safetySummary" aria-describedBy="false">
+          <col span="1" class="wide">
+          <tr>
+            <th id="safetyServiceSummary" class="left" style="color: #1B365C;">Supporting Documentation</th>
+            <th id="status"></th>
+          </tr>
+          <tr id="borders">
+            <td class="left spacing">Score 5-8 with Safety Concerns</td>                 
+            <td class="spacing">
+              <button (click)="fileDropRef.click()" style="border: none;background: none;">
+                <mat-icon [ngStyle]="{'color':'#4c90d3'}">cloud_upload</mat-icon>
+                <input #fileDropRef type="file" (change)="fileBrowseHandler($event.target.files)" style="display:none;" />
+              </button>
+            </td>
+          </tr>
+          <tr id="borders">
+            <td class="left spacing">Change in Needs</td>                 
+            <td class="spacing">
+              <mat-icon [ngStyle]="{'color':'#4c90d3'}">cloud_upload</mat-icon>
+            </td>
+          </tr>
+          <tr id="borders">
+            <td class="left spacing">Change in Primary Caregiver Status</td>                 
+            <td class="spacing">
+              <mat-icon [ngStyle]="{'color':'#4c90d3'}">cloud_upload</mat-icon>
+            </td>
+          </tr>
+          <tr id="borders">
+            <td class="left spacing">Documentation of Falls</td>                 
+            <td class="spacing">
+              <mat-icon [ngStyle]="{'color':'#4c90d3'}">cloud_upload</mat-icon>
+            </td>
+          </tr>
+          <tr id="borders">
+            <td class="left spacing">Inpatient Admissions/ER Visits</td>                 
+            <td class="spacing">
+              <mat-icon [ngStyle]="{'color':'#4c90d3'}">cloud_upload</mat-icon>
+            </td>
+          </tr>
+          <tr id="borders">
+            <td class="left spacing">APS/Police Involvement</td>                 
+            <td class="spacing">
+              <mat-icon [ngStyle]="{'color':'#4c90d3'}">cloud_upload</mat-icon>
+            </td>
+          </tr>
+          <tr id="borders">
+            <td class="left spacing">CBRA Discharge</td>                 
+            <td class="spacing">
+              <mat-icon [ngStyle]="{'color':'#4c90d3'}">cloud_upload</mat-icon>
+            </td>
+          </tr>
+          <tr id="borders">
+            <td class="left spacing">Other Safety Concerns</td>                 
+            <td class="spacing">
+              <mat-icon [ngStyle]="{'color':'#4c90d3'}">cloud_upload</mat-icon>
+            </td>
+          </tr>
+          <tr id="borders">
+            <td class="left spacing">Maladaptive Behavior Assessment (MBA and MBI)</td>                 
+            <td class="spacing">
+              <mat-icon [ngStyle]="{'color':'#4c90d3'}">cloud_upload</mat-icon>
+            </td>
+          </tr>
+          <tr id="borders">
+            <td class="left spacing">Behavior Deficit</td>                 
+            <td class="spacing">
+              <mat-icon [ngStyle]="{'color':'#4c90d3'}">cloud_upload</mat-icon>
+            </td>
+          </tr>
+          <tr id="borders">
+            <td class="left spacing">Orientation Deficit</td>                 
+            <td class="spacing">
+              <mat-icon [ngStyle]="{'color':'#4c90d3'}">cloud_upload</mat-icon>
+            </td>
+          </tr>
+          <tr id="borders">
+            <td class="left spacing">Mobility Deficit</td>                 
+            <td class="spacing">
+              <mat-icon [ngStyle]="{'color':'#4c90d3'}">cloud_upload</mat-icon>
+            </td>
+          </tr>
+          <tr id="borders">
+            <td class="left spacing">Transfer Deficit</td>                 
+            <td class="spacing">
+              <mat-icon [ngStyle]="{'color':'#4c90d3'}">cloud_upload</mat-icon>
+            </td>
+          </tr>
+          <tr id="borders">
+            <td class="left spacing">Toileting Deficit</td>                 
+            <td class="spacing">
+              <mat-icon [ngStyle]="{'color':'#4c90d3'}">cloud_upload</mat-icon>
+            </td>
+          </tr>
+       </table>
+  
+        <mat-divider class="perlss-section-divider"></mat-divider>
+
+        <table id="safetySummary" aria-describedBy="false">
+          <col span="1" class="wide">
+          <tr>
+            <th id="safetyServiceSummary" class="left" style="color: #1B365C;">Additional Required Documents</th>
+            <th id="status"></th>
+          </tr>
+          <tr id="borders">
+            <td class="left spacing">Comprehensive Needs Assessment
+              <sup>
+                <mat-icon class="red-icon-tooltip" [matTooltipClass]="'inside-tooltip'" matTooltip="A comprehensive needs assessment, including:
+                - an assessment of the applicant�s physical, behavioral, and psychosocial needs not reflected in the PAE;
+                - the specific tasks and functions for which assistance is needed by the Applicant;
+                - the frequency with which such tasks must be performed; and
+                - the Applicant�s need for safety monitoring and supervision">error_outline</mat-icon>
+              </sup>
+            </td>                 
+            <td class="spacing">
+              <mat-icon [ngStyle]="{'color':'#4c90d3'}">cloud_upload</mat-icon>
+            </td>
+          </tr>
+          <tr id="borders">
+            <td class="left spacing">Prior 6 months
+              <sup>
+                <mat-icon class="red-icon-tooltip" [matTooltipClass]="'inside-tooltip'" matTooltip="A detailed description of the Applicant�s living arrangements and the services and supports the Applicant has
+                received during the six (6) months prior to submission of the Safety Determination request, including unpaid care
+                provided by family members and other caregivers, paid services and supports the Applicant has been receiving
+                regardless of payer (e.g., non-CHOICES HCBS available through TennCare such as home health and services
+                available through Medicare, private insurance or other funding sources); and any anticipated change in the
+                availability of such care or services from the current caregiver or payer">error_outline</mat-icon>
+              </sup>
+            </td>                 
+            <td class="spacing">
+              <mat-icon [ngStyle]="{'color':'#4c90d3'}">cloud_upload</mat-icon>
+            </td>
+          </tr>
+          <tr id="borders">
+            <td class="left spacing">Recent Events
+              <sup>
+                <mat-icon class="red-icon-tooltip" [matTooltipClass]="'inside-tooltip'" matTooltip="A detailed explanation regarding any recent significant event(s) or circumstances that have impacted the
+                Applicant�s need for services and supports, including how such event(s) or circumstances impact the Applicant�s
+                ability to be safely supported within the array of covered services and supports that would be available if the
+                Applicant were enrolled in CHOICES Group 5 or for a child under age 18 who has an intellectual or developmental 
+                disability, how such event(s) or circumstances would impact the Applicant�s ability 
+                to remain in the family home.">error_outline</mat-icon>
+              </sup>
+            </td>                 
+            <td class="spacing">
+              <mat-icon [ngStyle]="{'color':'#4c90d3'}">cloud_upload</mat-icon>
+            </td>
+          </tr>
+          <tr id="borders">
+            <td class="left spacing">Plan of Care or Support Plan
+              <sup>
+                <mat-icon class="red-icon-tooltip" [matTooltipClass]="'inside-tooltip'" matTooltip="A person-centered plan of 
+                care or support plan developed by the MCO Care Coordinator or Support Coordinator (i.e., the entity submitting 
+                the Safety Determination request) which specifies the tasks and functions for which assistance is needed by 
+                the Applicant, the frequency with which such tasks must be performed, the Applicant�s need for safety monitoring
+                 and supervision; and the amount (e.g., minutes, hours, etc.) of paid assistance that would be necessary to 
+                 provide such assistance; and that would be provided by such entity upon approval of the Safety Determination.
+                 A plan of care or support plan is not required 
+                 for a Safety Determination submitted by DIDD.)">error_outline</mat-icon>
+              </sup>
+            </td>                 
+            <td class="spacing">
+              <mat-icon [ngStyle]="{'color':'#4c90d3'}">cloud_upload</mat-icon>
+            </td>
+          </tr>
+          <tr id="borders">
+            <td class="left spacing">Safety Explanation
+              <sup>
+                <mat-icon class="red-icon-tooltip" [matTooltipClass]="'inside-tooltip'" matTooltip="A detailed explanation 
+                regarding why the array of covered services and supports, including CHOICES HCBS up to the Expenditure 
+                Cap of $30,000 and one-time emergency assistance up to $6,000 and non- CHOICES HCBS (e.g., home health), 
+                services available through Medicare, private insurance or other funding sources, and unpaid supports provided 
+                by family members and other caregivers would not be sufficient to safely meet the applicant�s needs in the 
+                community or for a child under age 18 who has an intellectual or developmental disability, why the availability 
+                of benefits in ECF CHOICES Group 4, including ECF CHOICES HCBS up to the Expenditure Cap of $15,000, 
+                non-ECF CHOICES HCBS available through TennCare (e.g., home health); cost-effective alternative 
+                services (as applicable); services available through Medicare, private insurance or other funding sources; 
+                and natural supports provided by family members and other caregivers who are willing and able to provide 
+                such care, will help to minimize the child�s risk of risk of placement outside the home.">error_outline</mat-icon>
+              </sup>
+            </td>                 
+            <td class="spacing">
+              <mat-icon [ngStyle]="{'color':'#4c90d3'}">cloud_upload</mat-icon>
+            </td>
+          </tr>
+          <tr id="borders">
+            <td class="left spacing">Interagency Review and Decision
+              <sup>
+                <mat-icon class="red-icon-tooltip" [matTooltipClass]="'inside-tooltip'" matTooltip="If an Emergent Criteria 
+                Review Form has been completed and approved by Interagency Committee Review for this Applicant, please attach 
+                the completed Emergent Criteria Review Form and Interagency Committee Review Decision Form.
+                If a Multiple Complex Health Conditions Criteria Review Form has been completed and approved by 
+                Interagency Committee Review for this Applicant, please attach the completed Multiple Complex Health 
+                Conditions Criteria Review Form and Interagency Committee Review Decision Form.">error_outline</mat-icon>
+              </sup>
+            </td>                 
+            <td class="spacing">
+              <mat-icon [ngStyle]="{'color':'#4c90d3'}">cloud_upload</mat-icon>
+            </td>
+          </tr>
+       </table>
+      </div>
+     
+      <label *ngIf="validationMessage" class="required">* {{validationMessage}}</label>
+    </div>
+    <div class="buttonBar">
+      <button mat-flat-button color="primary" class="perlss-click-button-white" (click)="back()">BACK</button>
+      <button mat-flat-button color="primary" class="perlss-click-button-white-noborder" (click)="saveAndExit()">SAVE AND EXIT</button>
+      <button mat-flat-button color="primary" class="perlss-click-button" (click)="saveSafetyAssessmentSummary()">NEXT</button>
+    </div>
+  </form>
+</div>

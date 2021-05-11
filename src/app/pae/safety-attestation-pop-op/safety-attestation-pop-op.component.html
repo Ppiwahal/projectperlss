@@ -1,0 +1,101 @@
+<div class="row safety">
+  <div class="col-md-12">
+   <div class="header-item2">
+     <h2>Safety Attestation</h2>
+     <mat-icon (click)="closePopup()">highlight_off</mat-icon>
+   </div>
+   <mat-divider class="perlss-horizontal-divider"></mat-divider>
+</div>
+</div>
+
+<div class="responsive safetyA">
+  <form [formGroup]="safetyAttestationForm">
+  <p><b>Please read and attest by selecting atleast one of the statement below. (Select all that apply)</b></p>
+
+<div class="row selection-list content" *ngFor="let attestation of safetyAttestations" tabindex="1"
+[ngClass]="{'selected-choice': attestation.selected,'unselected-choice': !attestation.selected}"
+(click)="attestation.selected = !attestation.selected">
+  <div class="col-md-10" tabindex="2" style="outline: none;">
+    {{attestation.text}}
+  </div>
+  <div class="col-md-2 text-right" tabindex="3" style="outline: none;">
+    <mat-icon class="icon">offline_pin</mat-icon>
+  </div>
+</div>
+<p><b>Please read the statement below and sign that you understand.</b></p>
+<p>
+
+  I, as a licensed professional, take responsibility for the information provided in this safety Determination request
+  and attest that I have personally reviewed the information provided in this Safety Determination Request and it is
+  accurate and true to the best of my knowledge. I understand that this information will be used to determine the applicant's
+  eligibility and/or reimbursement for long-term care services. I understand that any intentional act or omission on my part
+  to provide false information or give a false impression that would potentially result in a person obtaining benefits for
+  coverage to which s/he is not entitled may be considered an act of fraud under the state's TennCare program and Title XIX
+  of the Social Security Act. I further understand that, under the Tennessee Medicaid False Claims Act, any person who
+  presents or causes to be presented to the state a claim for payment under the TennCare program knowing such claim us
+  false or fraudulent may be subject to federal and state civil and criminal penalties.
+</p>
+
+<div class="row sa">
+  <div class="col-md-6 ">
+    <mat-form-field appearance="outline" class="wid-100">
+      <mat-label><span class="req"></span>Credentials</mat-label>
+      <mat-select placeholder="Credentials" formControlName="credentialsCd" (selectionChange)="credChanged($event.value)">
+        <mat-option *ngFor="let element of uniqueCredentialsArray" [value]="element.credentialsCd">{{element.credentialsCd}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- <mat-error *ngIf="incorrectCode">
+      {{customValidation.A1}}
+    </mat-error> -->
+    <mat-error *ngIf="safetyAttestationForm.get('credentialsCd').errors?.required && (safetyAttestationForm.get('credentialsCd').touched || safetyAttestationForm.get('credentialsCd').dirty)">
+      {{customValidation.A1}}
+    </mat-error>
+    <mat-error *ngIf="safetyAttestationForm.get('credentialsCd').errors?.specialCharacterValidator">
+      {{customValidation.A2}}
+    </mat-error>
+  </div>
+  <div class="col-md-6 ">
+    <mat-form-field appearance="outline" class="wid-100">
+      <mat-label><span class="req"></span>Qualified Accessor Name</mat-label>
+      <mat-select placeholder="Qualified Accessor Name" formControlName="qualifiedAssessorName">
+        <mat-option *ngFor="let name of filteredData" [value]="name.assessorId">{{name.firstName}} {{name.lastName}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- <mat-error *ngIf="incorrectCode">
+      {{customValidation.A1}}
+    </mat-error> -->
+    <mat-error *ngIf="safetyAttestationForm.get('qualifiedAssessorName').errors?.required && (safetyAttestationForm.get('qualifiedAssessorName').touched || safetyAttestationForm.get('qualifiedAssessorName').dirty)">
+      {{customValidation.A1}}
+    </mat-error>
+    <mat-error *ngIf="safetyAttestationForm.get('qualifiedAssessorName').errors?.specialCharacterValidator">
+      {{customValidation.A2}}
+    </mat-error>
+  </div>
+  <div class="col-md-6 ">
+    <mat-form-field appearance="outline" class="wid-100">
+      <mat-label><span class="req"></span>Qualified Accessor Code</mat-label>
+      <input matInput spellcheck="false" [maxlength]="20" formControlName="qualifiedAssessorId">
+    </mat-form-field>
+    <mat-error *ngIf="incorrectCode">
+      {{customValidation.A37}}
+    </mat-error>
+    <mat-error *ngIf="safetyAttestationForm.get('qualifiedAssessorId').errors?.required && (safetyAttestationForm.get('qualifiedAssessorId').touched || safetyAttestationForm.get('qualifiedAssessorId').dirty)">
+      {{customValidation.A1}}
+    </mat-error>
+    <mat-error *ngIf="safetyAttestationForm.get('qualifiedAssessorId').errors?.specialCharacterValidator">
+      {{customValidation.A2}}
+    </mat-error>
+  </div>
+</div>
+
+
+<div class="buttonBar">
+<button mat-flat-button type="button" class="perlss-click-button-white" (click)="back()">BACK</button>
+<!-- <button mat-flat-button color="primary" class="perlss-click-button-white-noborder" (click)="callTestModal()"><span -->
+  <!-- class="hoverClass">SAVE AND EXIT</span></button> -->
+<button mat-flat-button color="primary" class="perlss-click-button"
+(click)="saveSafetyAttestionPopUpForm();">SUBMIT</button>
+</div>
+
+</form>
+</div>

@@ -1,0 +1,111 @@
+<div class="wrapper">
+  <form [formGroup]="editAssessorForm" (ngSubmit)="saveAccessorData()">
+    <div class="flex-wrapper">
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Assessor Code</mat-label>
+          <input aria-label="assessor code" matInput autocomplete="off" formControlName="assessorCode" />
+       </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Entity</mat-label>
+  
+          <input aria-label="assessor code" matInput autocomplete="off" formControlName="entity" />
+       </mat-form-field>
+      </div>
+    </div>
+    <div class="flex-wrapper">
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>First Name</mat-label>
+          <input aria-label="first name" matInput autocomplete="off" formControlName="firstName" />
+       </mat-form-field>
+        <mat-error *ngIf="editAssessorForm.get('firstName').hasError('required')">
+          {{customValidation.A1}}</mat-error>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Last Name</mat-label>
+          <input aria-label="last name" matInput autocomplete="off" formControlName="lastName" />
+       </mat-form-field>
+        <mat-error *ngIf="editAssessorForm.get('lastName').hasError('required')">
+          {{customValidation.A1}}</mat-error>
+      </div>
+    </div>
+    <div class="flex-wrapper">
+      <div>
+        <mat-form-field appearance="outline" class="mat-margin">
+          <mat-label>Credential</mat-label>
+          <mat-select formControlName="credentials">
+            <mat-option *ngFor="let c of  credentialOptions" value={{c.code}}>{{c.value}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="editAssessorForm.get('credentials').hasError('required')">
+            {{customValidation.A1}}</mat-error>
+       </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Program</mat-label>
+          <input aria-label="program" matInput autocomplete="off" formControlName="program" />
+       </mat-form-field>
+      </div>
+    </div>
+    <div class="flex-wrapper">
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Start Date</mat-label>
+          <input aria-label="start date" matInput [matDatepicker]="startDate" formControlName="startDate">
+          <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+          <mat-datepicker #startDate></mat-datepicker>
+       </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>End Date</mat-label>
+          <input aria-label="end date" matInput [matDatepicker]="endDate" formControlName="endDate">
+          <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+          <mat-datepicker #endDate></mat-datepicker>
+       </mat-form-field>
+      </div>
+    </div>
+    <div class="flex-wrapper">
+      <div>
+        <mat-form-field appearance="outline" class="mat-margin">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status">
+            <mat-option *ngFor="let status of  statusDropDownValues" value={{status.code}}>{{status.value}}</mat-option>
+          </mat-select>
+       </mat-form-field>
+        <mat-error *ngIf="editAssessorForm.get('status').hasError('required')">
+          {{customValidation.A1}}</mat-error>
+      </div>
+      <div class="icon-wrapper">
+        <div class="icon" (click)="addRecertification()">
+          <mat-icon class="icon-style" [inline]="true" *ngIf="showPlus">add_circle_outline</mat-icon>
+          <mat-icon class="icon-style" [inline]="true" *ngIf="!showPlus">remove_circle_outline</mat-icon><strong
+            class="icon-lebel">Add Recertification</strong>
+       </div>
+      </div>
+    </div>
+    <div class="flex-wrapper">
+      <div>
+        <button mat-flat-button color="primary" class="perlss-click-button" type="submit"
+          [disabled]="!editAssessorForm.valid">SAVE</button>
+      </div>
+      <div *ngIf="!showPlus">
+        <mat-form-field appearance="outline">
+          <mat-label>Recertification Date</mat-label>
+          <input aria-label="recertification date" matInput  [max]="maxDate" [matDatepicker]="recertificationDate"
+            [matDatepickerFilter]="disableWeekendsFilter" formControlName="recertificationDate"
+            (dateChange)="onRecertificationDateChanged()">
+          <mat-datepicker-toggle matSuffix [for]="recertificationDate"></mat-datepicker-toggle>
+          <mat-datepicker #recertificationDate></mat-datepicker>
+          <mat-error *ngIf="getFormData().recertificationDate.errors != null">
+          <mat-error *ngIf="getFormData().recertificationDate.errors.matDatepickerMax">{{customValidation.A5}}</mat-error>
+          </mat-error>
+       </mat-form-field>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,42 @@
+<form  [formGroup]="taskUpdate">
+  <div class="wrapper task-details">
+      <div style="margin-left:15px; margin-top: 15px; color: #4D7E20 ;">
+          <p style="color: #4D7E20; font-size:14px;font-weight: bold;">Task Details</p>
+    </div>
+      <div class="filter-dropdown">
+          <div>
+              <mat-form-field appearance="outline">
+                <mat-label > Priority </mat-label>
+                    <mat-select formControlName="taskPriority">
+                        <mat-option value=''> Select </mat-option>
+                        <mat-option *ngFor = "let p of  priorityData" value={{p.code}}>{{p.value}}</mat-option>
+                  </mat-select>
+              </mat-form-field>
+        </div>
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label> Grand Region </mat-label>
+              <mat-select formControlName="grandRegion">
+                  <mat-option value=''> Select </mat-option>
+                  <mat-option *ngFor = "let g of  GrandRegionData" value={{g.code}}>{{g.value}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+    </div>
+        <div>
+          <div style="margin-left: 5%; width: 34%;">
+              <mat-form-field *ngIf="taskDetails?.queueCd === '1'" appearance="outline">
+                <mat-label> Expedite Referral </mat-label>
+                    <mat-select formControlName="expediete">
+                      <mat-option value=''> Select </mat-option>
+                      <mat-option *ngFor = "let e of  expediteReferralData" value={{e.code}}>{{e.value}}</mat-option>
+                  </mat-select>
+              </mat-form-field>
+              <div>
+                  <button mat-flat-button class="button" (click)= "onUpdate()" >UPDATE</button>
+              </div>
+          </div>
+        </div>
+  </div>
+</form>
+

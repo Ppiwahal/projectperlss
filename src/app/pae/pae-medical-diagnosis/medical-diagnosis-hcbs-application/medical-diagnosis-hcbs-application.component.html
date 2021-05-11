@@ -1,0 +1,69 @@
+<div class="form-container">
+  <div class="scroller">
+  <form [formGroup]="medicalDiagnosis" (ngSubmit)="onSubmit()">
+  <div class="applicantName">{{applicantName}}</div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="question-container">
+          <h3 class="required-name">Chronic Diagnoses</h3>
+       </div>
+      </div>
+    </div>
+    <div class="row" style="padding-bottom: 30px;">
+      <div class="col-md-12">
+        <div class="question-container">
+          <mat-label class="required-class">*</mat-label><span class="textStyle">Does the applicant have a presenting chronic diagnosis as
+            determined by a medical professional?</span>
+        </div>
+        <div class="radio-container">
+          <mat-radio-group formControlName="chrncDiagnsSw" (change)="switchChronicDiagnosis($event)">
+            <div *ngIf="getFormData().chrncDiagnsSw.hasError('required') && (getFormData().chrncDiagnsSw.touched || submitted)">
+              <mat-error>{{customValidation.A1}}</mat-error>
+            </div>
+            <div>
+              <mat-radio-button value="Y">Yes</mat-radio-button>
+            </div>
+            <div>
+              <mat-radio-button value="N">No</mat-radio-button>
+            </div>
+          </mat-radio-group>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="question-container">
+          <mat-label style="padding-bottom: 30px;"><span class="textStyle">Please select all presenting chronic Diagnoses from the
+            list below for which
+            a functional deficit exists.</span></mat-label>
+       </div>
+        <div class="radio-container" style="width: 70%">
+          <div style="padding-bottom: 12px;">
+            <mat-label class="required-class" style="padding-bottom: 30px;">*</mat-label><span class="textStyle">Medical
+              Diagnosis</span></div>
+          <ng-select [items]="meidicalDiagnosis" formControlName="medDiagnsCd"
+            bindLabel="name"
+            placeholder="Select item" multiple="true"
+            (change)="selectMedicalDiagnosis($event)"
+            (remove)="onItemDeSelect($event)" [closeOnSelect]="false"
+            [searchable]="true">
+          </ng-select>
+          <mat-error *ngIf="getFormData().medDiagnsCd.errors">
+            <mat-error
+              *ngIf="getFormData().medDiagnsCd.touched &&
+              getFormData().medDiagnsCd.errors.required">
+              {{customValidation.A1}}</mat-error>
+          </mat-error>
+       </div>
+      </div>
+    </div><div class="buttonBar">
+      <button mat-flat-button color="primary" class="perlss-click-button-white" (click)="goBack()">BACK</button>
+
+      <button mat-flat-button color="primary" class="perlss-click-button-white-noborder" (click)="saveAndExit()">SAVE AND EXIT</button>
+      <button type="button" mat-flat-button color="primary"  class="perlss-click-button" (click)="onSubmit()">NEXT</button>
+    </div>
+  </form></div>
+  </div>
+
+    
+  

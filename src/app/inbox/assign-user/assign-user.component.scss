@@ -1,0 +1,104 @@
+@import "../../../colors.scss";
+
+.close-icon {
+  transform: scale(1);
+  cursor: pointer;
+  color: #8b99ac;
+}
+.row-header {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 17px 0 10px 0;
+}
+
+.dialog-heading {
+  font-weight: bold;
+  font-size: 22px;
+  font-family: "Open Sans";
+  color: #174a7c;
+}
+
+.table-td {
+  border: 1px solid black;
+}
+
+table tr:last-child td {
+  border-bottom: 1px solid #174a7c;
+}
+
+table {
+  border: 1px solid #174a7c;
+}
+
+.mat-button,
+.mat-icon-button,
+.mat-stroked-button,
+.mat-flat-button {
+  line-height: 20px !important;
+}
+
+.sendtoback-button {
+  padding-left: 105px;
+}
+
+.update-dialog-heading {
+  font-weight: bold;
+  font-size: 16px;
+  font-family: "Open Sans";
+  color: #547e1a;
+}
+
+tr.element-row:not(.clicked-row):active {
+  background: $colorControlBackground;
+}
+
+tr.clicked-row {
+  background: #edf4fb;
+  font-weight: bold;
+}
+
+.assignuser-search-table-container {
+  overflow-y: auto;
+  height: 350px;
+}
+
+.assign-user-container {
+  padding-top: 25px;
+  padding-left: 52px;
+  padding-right: 52px;
+}
+
+.search-heading {
+  font-weight: bold;
+  font-size: 14px;
+  font-family: "Open Sans";
+  color: #547e1a;
+  padding-bottom: 5px;
+}
+
+.search-users-text {
+  border: 1px solid #b3b3b3;
+  width: 100%;
+  min-height: 40px;
+  padding-left: 15px;
+  background-color: $colorControlBackground;
+}
+
+.table-th {
+  font-size: 14px;
+  font-weight: bold;
+  color: #04537d;
+}
+
+.button-table-content {
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+.button-height {
+  height: 50px;
+}
+
+#toast-container > .toast-success {
+font-size: larger;
+}

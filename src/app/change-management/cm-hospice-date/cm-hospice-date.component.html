@@ -1,0 +1,34 @@
+<div class="responsive">
+  <div class="form">
+    <div class="scroller">
+      <app-change-management-common>
+        <form [formGroup]="myForm" [ngClass]="{'submitted': submitted }">
+          <div>
+            <div class="w30">
+              <mat-form-field appearance="outline">
+                <mat-label class="req">Hospice Effective Date</mat-label>
+                <input matInput [matDatepicker]="effectiveDatePicker" formControlName="hospiceDt"
+                  (keydown)="dateFilter($event)">
+                <mat-datepicker-toggle matSuffix [for]="effectiveDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #effectiveDatePicker></mat-datepicker>
+              </mat-form-field>
+              <mat-error *ngIf="controlError('hospiceDt')">{{errorText['hospiceDt']}}</mat-error>
+            </div>
+            <div class="w80"><div class="textArea">
+              <mat-label class="req">Comments</mat-label>
+              <textarea formControlName="commentTxt"></textarea>
+              <mat-error *ngIf="controlError('commentTxt')">{{errorText['commentTxt']}}</mat-error>
+              <p>{{getControl('commentTxt').value.length}}/2000</p>
+            </div></div>
+            <div>
+              <div>
+                <button  class="panelButtons" type="submit" mat-flat-button color="primary" class="perlss-click-button"
+                  (click)="save()">SUBMIT</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </app-change-management-common>
+    </div>
+  </div>
+</div>

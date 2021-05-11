@@ -1,0 +1,15 @@
+<div class="pageMargin">
+    <app-search-assessor (assessorSearchCallback)="searchCallback($event)" 
+        [entityData]="entityDropdownData"
+        [programData]="programDropDownDataData"
+        [credentialData]="credentialDropDownDataData"
+        (openAddAssessor)="openAddAssessor($event)"></app-search-assessor>
+
+    <app-search-assessor-result [assessorsTableData]="searchAssessorsTableData" 
+        [entityData]="entityDropdownData"
+        [credentialData]="credentialDropDownDataData"
+        [statusData]="statusDropDownData"
+        [showNoRecordsFound]="showNoRecordsFound"
+        [payloadData]="payloadData"
+        ></app-search-assessor-result>
+</div>

@@ -1,0 +1,32 @@
+<div class="pageMargin">
+    <div class="col required">
+      *Required
+    </div>
+    <div class="wrapper" [ngClass]="{'center-box' : isReadOnlyUser}">
+      <div class="box">
+          <div>
+            User Roles
+          </div>
+          <p class="status-name">Active User <br>Roles</p>
+          <p class="status" (click)="showActiveRecords()">{{rolesCount}}</p>
+      </div>
+
+      <div *ngIf="isLTSSRole && !isReadOnlyUser" (click)="createUserRole()" class="create-box">
+          <p class="create-status-name">
+            <mat-icon class="icon-style" [inline]="true">
+               supervisor_account
+            </mat-icon>
+          </p>
+          <p class="create-status">CREATE NEW<br><br>USER ROLE</p>
+      </div>
+    </div>
+    <hr>
+    <div class="user-role-heading">
+      User Roles
+    </div>
+    <app-user-roles-table [showOnlyActive]="showOnlyActive" (emitRolesCount)="rolesCount = $event"
+      (emitUserRoleEditMode)="editUserRole($event)">
+    </app-user-roles-table>
+    <app-create-edit-user-roles [isReadOnlyUser]="isReadOnlyUser" (emitDisplayMode)="handleDisplayMode($event)" [hidden]="!showUserRoleScreen" [displayMode]="displayMode" [selectedRow]="selectedRow">
+    </app-create-edit-user-roles>
+</div>

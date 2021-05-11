@@ -1,0 +1,78 @@
+table {
+    width: 100%;
+  }
+  
+  tr.example-detail-row {
+    height: 0;
+  }
+  
+  tr.example-element-row:not(.example-expanded-row):hover {
+    background: whitesmoke;
+  }
+  
+  tr.example-element-row:not(.example-expanded-row):active {
+    background: #efefef;
+  }
+  
+  .example-element-row td {
+    border-bottom-width: 0;
+  }
+  
+  .example-element-detail {
+    overflow: hidden;
+    display: flex;
+  }
+  
+
+  table tr:last-child td {
+    border-bottom: 1px solid #1B365D;
+}
+
+.innerTable{
+    display: flex;
+    justify-content: space-between;
+  }
+  .inside-table-wrapper{
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  .active-class{
+    background-color: #eaf8ff;
+    border-bottom: 1px solid lightgray;
+  }
+  
+  .on-hover:hover{
+    background-color: #eaf8ff;
+    cursor: pointer;
+  }
+
+  ::ng-deep tr.mat-header-row{
+    border-bottom: 2px solid #174A7C;
+  }
+
+.individual-button{
+    margin-top: 40px;
+    p {
+        margin-bottom: 5x;
+        font-size: bold;
+        color: black;
+    }
+}
+
+.button-checked{
+    background-color: #174A7C;
+    font-weight: bold;
+    color: white;
+}
+
+
+.button-unchecked{
+    border: 1px solid #ED9924;
+    background-color: #ED9924;
+    font-weight: bold;
+    color: white;
+}
+th{
+  width: 20%;
+}

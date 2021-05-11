@@ -1,0 +1,46 @@
+<div class="referral-queue-container">
+
+  <div class="row">
+    <div class="col-md-6">
+      <h3> Waiting List Queues </h3>
+    </div>
+    <div class="col-md-6" style="text-align:right;">
+        <button mat-flat-button color="primary"
+            class="perlss-click-button-white" (click)="displaySearchResults(waitingListAllData)">MY
+            OPEN TASKS</button>
+    </div>
+  </div>
+  <div id="taskTable">
+    <table  style="width:100%" aria-describedby="queuetable" mat-table [dataSource]="dataSource"  class="mat-elevation-z8">
+
+      <ng-container matColumnDef="queueName">
+        <th id="queueName" mat-header-cell *matHeaderCellDef >Queue Name</th>
+        <tr>
+        <td mat-cell *matCellDef="let element" ><strong style="cursor: pointer;">{{element.queueName}}</strong></td>
+      </tr>
+      </ng-container>
+
+      <ng-container matColumnDef="count">
+        <th id="count" mat-header-cell *matHeaderCellDef >Count</th>
+        <tr>
+        <td mat-cell style="cursor: pointer;" *matCellDef="let element" (click)="displaySearchResults(element.listDetails)" ><strong style="cursor: pointer;">{{element.count}}</strong></td>
+      </tr>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>
+
+<div class="katie-box">
+  <div class="applicant-name-container" (click)="displaySearchResults(partAData)">
+    KATIE BECKETT PART A WAITING LIST <span class="count-number">{{partACount}}</span>
+  </div>
+</div>
+<div *ngIf="isAuthorizedUser" class="katie-box">
+  <div class="applicant-name-container">
+    <a [routerLink]="" (click)="passTheSalt()"><u>KATIE BECKETT PART B WAITING LIST</u></a>
+      <span class="count-number" (click)="displaySearchResults(partBData)">{{partBCount}}</span>
+  </div>
+</div>

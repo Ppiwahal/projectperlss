@@ -1,0 +1,29 @@
+.header-row {
+  margin: 5px;
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  padding:  18px;
+}
+
+.checkbox-group {
+  margin: 90px 0 0 18px;
+}
+
+.checkbox-group *{
+  margin-bottom: 36px;
+}
+
+.button-container {
+  padding: 72px 0 0 36px;
+}
+
+#note {
+  padding: 18px 0 18px 27px;
+  background: aliceblue;
+}
+
+::ng-deep .mat-dialog-container {
+  padding:  0;
+}

@@ -1,0 +1,21 @@
+<div class="wrapper">
+    <div class="header-wrapper">
+        <p class="header">Onsite Assessment</p>
+        <p class="required-tag"><span class="required">*</span>Required </p>
+    </div>
+    <app-appellant-info></app-appellant-info>
+    <app-onsite-assessment-requested></app-onsite-assessment-requested>
+    <app-onsite-review-table></app-onsite-review-table>
+    <div *ngIf="true">
+        <app-documentation-required></app-documentation-required>
+        <app-onsite-assessment-correction (emitOnsiteAssesCorrection)="emitOnsiteAssesCorrection($event)"></app-onsite-assessment-correction>
+        <app-target-population-determination *ngIf="!isCorrectionReqOnsite"></app-target-population-determination>
+        <app-onsite-outcome *ngIf="!isCorrectionReqOnsite" (emitAppealDecision)="emitAppealDecision($event)"></app-onsite-outcome>
+    </div>
+    
+    <div class="buttons">
+        <button mat-stroked-button type="button">BACK </button>
+        <button mat-stroked-button  type="button" class="perlss-click-button" *ngIf="showSubmit">SUBMIT</button>
+        <button mat-stroked-button  type="button" class="perlss-click-button" *ngIf="!showSubmit">NEXT</button>
+    </div>
+</div>

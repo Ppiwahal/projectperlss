@@ -1,0 +1,75 @@
+<div class="wrapper">
+    <mat-label>Please add hearing order details below.</mat-label>
+    <div class="hearing-wrapper">
+        <div class="hearing-flex">
+            <div style="width: 30%;">
+                <p>Order</p>
+            </div>
+            <div>
+                <p>Date judge Issued the order</p>
+            </div>
+            <div>
+                <p>User Actions</p>
+            </div>
+        </div>
+        <form [formGroup]="initialOrderForm">
+            <div class="row-flex">
+                <div style="width: 30%;">
+                    <mat-form-field appearance="outline">
+                        <mat-label><span class="required">*</span>Order</mat-label>
+                        <mat-select formControlName="orderGrantingServices">
+                            <mat-option value=''>Select an Option</mat-option>
+                            <mat-option *ngFor="let ogs of orderGrantingService" value={{ogs.code}}>{{ogs.value}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-error *ngIf="isShowErrors && initialOrderForm.get('orderGrantingServices')?.hasError('required')">
+                        <span>{{customValidation.A1}}</span>
+                    </mat-error>
+                </div>
+                <div style="width: 25%;">
+                    <mat-form-field appearance="outline">
+                        <mat-label><span class="required">*</span>Date Judge Issued the Order</mat-label>
+                        <input formControlName="hearingDate" aria-label="hearing date" matInput [matDatepicker]="heDatendTime" autocomplete="off">
+                        <mat-datepicker-toggle matSuffix [for]="heDatendTime"></mat-datepicker-toggle>
+                        <mat-datepicker [startAt]="startDate" #heDatendTime></mat-datepicker>
+                    </mat-form-field>
+                    <mat-error *ngIf="isShowErrors && initialOrderForm.get('hearingDate')?.hasError('required')">
+                        <span>{{customValidation.A1}}</span>
+                    </mat-error>
+                </div>
+                <div>
+                    <button mat-stroked-button type="button" class="perlss-click-button"
+                        style="margin-top: 2vh;" (click)="saveHearingOrderDetails()">SAVE</button>
+                </div>
+            </div>
+            <div class="row-flex" style="width: 40%;">
+                <mat-form-field appearance="outline">
+                    <mat-label><span class="required">*</span>Judge Writing Order</mat-label>
+                    <input formControlName="judgeWritingOrder" aria-label="judge writing order" matInput>
+                </mat-form-field>
+                <mat-error *ngIf="isShowErrors && initialOrderForm.get('judgeWritingOrder')?.hasError('required')">
+                    <span>{{customValidation.A1}}</span>
+                </mat-error>
+            </div>
+            <div class="style-comment">
+                <mat-form-field appearance="outline">
+                    <mat-label>Hearing Summary:</mat-label>
+                    <textarea readonly formControlName="hearingSummary" matInput #hearingSummary maxlength="2000"></textarea>
+                </mat-form-field>
+                <div class="character-count">
+                    {{hearingSummary.value.length}}/2000
+                </div>
+            </div>
+            <div class="style-comment">
+                <mat-form-field appearance="outline">
+                    <mat-label>Comments:</mat-label>
+                    <textarea formControlName="comments" matInput #comments maxlength="2000"></textarea>
+                </mat-form-field>
+                <div class="character-count">
+                    {{comments.value.length}}/2000
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

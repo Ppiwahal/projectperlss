@@ -1,0 +1,123 @@
+<mat-accordion>
+    <mat-expansion-panel #mapanel="matExpansionPanel">
+      <mat-expansion-panel-header style="background-color: #f5f5f5">
+        <mat-panel-title>
+         Appeal Overview <span class="text-align-right"> Review Details</span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+    
+      <div class="wrapper">
+        <div>
+            <form [formGroup]="appealOverViewDetailsForm" (ngSubmit)="saveAppealReview(appealOverViewDetailsForm)">
+                <div class="person-info">
+                    <div style="width: 35%;">
+                        <mat-form-field appearance="outline">
+                            <mat-label><span class="required">*</span>Is the Appeal timely?</mat-label>
+                            <mat-select formControlName="appealTimelyDetail" (selectionChange)="onAppealTimelyChange($event.value)">
+                                <mat-option value=''> Select an Option </mat-option>
+                                <mat-option *ngFor="let appealTimeDetail of appealTimeDetails" value={{appealTimeDetail.code}}>
+                                    {{appealTimeDetail.value}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="appealOverViewDetailsForm.get('appealTimelyDetail')?.hasError('required')">
+                                {{customValidation.A1}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div *ngIf="showEreason == 'GC'" style="width: 35%;">
+                        <mat-form-field appearance="outline">
+                            <mat-label><span class="required">*</span>Exception Reason</mat-label>
+                            <mat-select formControlName="exceptionReasons">
+                                <mat-option value=''> Select an Option </mat-option>
+                                <mat-option *ngFor="let exceptionReasonDetail of exceptionReasonDetails" value={{exceptionReasonDetail.name}} >
+                                    {{exceptionReasonDetail.value}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="appealOverViewDetailsForm.get('exceptionReasons')?.hasError('required')">
+                                {{customValidation.A1}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div  *ngIf="showCOB">
+                    <div  *ngIf="showEreason == 'GC' || showEreason == 'Y'" >
+                        <div style="width: 35%;">
+                            <mat-form-field appearance="outline">
+                                <mat-label><span class="required">*</span>Issue COB?</mat-label>
+                                <mat-select formControlName="issueCOB"  (selectionChange)="onCobChange($event.value)">
+                                    <mat-option value=''> Select an Option </mat-option>
+                                    <mat-option *ngFor="let issueCOBDetail of issueCOBDetails" value={{issueCOBDetail.code}} >{{issueCOBDetail.value}}</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="appealOverViewDetailsForm.get('issueCOB')?.hasError('required')">
+                                    {{customValidation.A1}}</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div *ngIf="showCobDetails == 'Y'">
+                            <div class="person-info">
+                                <div style="width: 35%;">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label><span class="required">*</span>Select Program required for COB</mat-label>
+                                        <mat-select formControlName="progReqFrCob">
+                                            <mat-option value=''> Select an Option </mat-option>
+                                            <mat-option *ngFor="let prCOB of progReqForCob" value={{prCOB.code}} >{{prCOB.value}}</mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="appealOverViewDetailsForm.get('progReqFrCob')?.hasError('required')">
+                                            {{customValidation.A1}}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div style="width: 35%;">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label><span class="required">*</span>COB Start Date</mat-label>
+                                        <input matInput [matDatepicker]="CobStDt" formControlName="cobStartDate" autocomplete="off">
+                                        <mat-datepicker-toggle matSuffix [for]="CobStDt"></mat-datepicker-toggle>
+                                        <mat-datepicker [startAt]="startDate" #CobStDt></mat-datepicker>
+                                        <mat-error *ngIf="appealOverViewDetailsForm.get('cobStartDate')?.hasError('required')">
+                                            {{customValidation.A1}}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div *ngIf="enrolledInAnotProg">
+                                <div>
+                                    <p> <span style="font-weight: bold;">The individual is currently enrolled in: CHOICES Group 3.</span> To create a COB segment the individual cannot be enrolled in the program</p>
+                                </div>
+                                <div style="width: 35%;">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label><span class="required">*</span>Disenroll the appellant from their currently enrolled program?</mat-label>
+                                        <mat-select formControlName="disenrollFrnEnrPrg">
+                                            <mat-option value=''> Select an Option </mat-option>
+                                            <mat-option *ngFor="let disenroll of issueCOBDetails" value={{disenroll.code}} >{{disenroll.value}}</mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="appealOverViewDetailsForm.get('disenrollFrnEnrPrg')?.hasError('required')">
+                                            {{customValidation.A1}}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="text-area">
+                                <mat-label><span class="required">*</span>Reason for COB creation:</mat-label>
+                                <textarea class="note-textarea" #notesInput id="notesInput" maxlength="2000" rows="10" cols="45" formControlName="cobCreationReason"></textarea>
+                                <p> {{notesInput.value?.length ? (0 + notesInput.value?.length) : 0 }}/2000 </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <div class="radio-wrapper" *ngIf="showOptions">
+                        <mat-label style="font-weight: bold; margin-bottom: 10px;"><span class="required">*</span>Select one of the options below to
+                            continue:</mat-label>
+                        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" 
+                        formControlName="radioButtonSelected">
+                            <mat-radio-button class="example-radio-button" *ngFor="let radio of radioOptions" [value]="radio.code">
+                                {{radio.value}}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                        <mat-error *ngIf="appealOverViewDetailsForm.get('radioButtonSelected')?.hasError('required') && submitted">
+                            {{customValidation.A1}}</mat-error>
+                    </div>
+           
+                <div style="margin-top: 30px;">
+                    <button mat-stroked-button type="button"  style="margin-right: 50px;" (click)="mapanel.close()"> CANCEL </button>
+                    <button mat-stroked-button  type="submit" class="perlss-click-button"> SAVE </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+
+

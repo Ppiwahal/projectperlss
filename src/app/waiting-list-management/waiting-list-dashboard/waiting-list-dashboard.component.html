@@ -1,0 +1,6 @@
+<div class="pageMargin">
+    <app-waiting-list-queues (emitSearchRequest)="handleSearchRequest($event)"></app-waiting-list-queues>
+    <mat-divider></mat-divider>
+    <app-waiting-list-filter  (emitSearchRequest)="handleSearchRequest($event)"></app-waiting-list-filter>
+    <app-waiting-list-search-table *ngIf="displaySearchResult" [searchResults]="searchResults"></app-waiting-list-search-table>
+</div>

@@ -1,0 +1,87 @@
+.icon-bar {
+  position:fixed;
+  top: 76%;
+  width: 2.5vw;
+  height: 22vh;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-125%);
+  background-color: white;
+  right: 17px;
+  z-index: 2001 !important;
+}
+
+.inner-icon{
+ font-size: 20px;
+ cursor: pointer;
+ padding: 8px 0;
+ background-color: #F3F3F3;
+ transition: all 0.3s ease;
+ text-align: center;
+ mat-icon{
+   font-size: 28px;
+ }
+ mat-icon:hover{
+   transform: scale(1.3);
+ }
+}
+
+.modal.right .modal-dialog {
+  margin-top: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-transform: translate3d(0%, 0, 0);
+  -ms-transform: translate3d(0%, 0, 0);
+  -o-transform: translate3d(0%, 0, 0);
+  transform: translate3d(0%, 0, 0);
+  top: calc(-1* (-2.2vw + 37px));
+  position: fixed;
+}
+
+.modal.right .modal-content {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.modal.right .modal-body {
+  padding: 15px 40px 80px 15px;
+}
+
+/*Right*/
+.modal.right.fade .modal-dialog {
+  right: 0vw;
+  -webkit-transition: opacity 0.8s linear, right 0.5s ease-out;
+  -moz-transition: opacity 0.8s linear, right 0.5s ease-out;
+  -o-transition: opacity 0.8s linear, right 0.5s ease-out;
+  transition: opacity 0.8s linear, right 0.5s ease-out;
+  box-shadow: 0px 11px 15px -7px rgb(0 0 0 / 20%),
+              0px 24px 38px 3px rgb(0 0 0 / 14%),
+              0px 9px 46px 8px rgb(0 0 0 / 12%);
+}
+
+.modal.right.fade.in .modal-dialog {
+  right: 0px;
+  display: block;
+}
+
+/* ----- MODAL STYLE ----- */
+.modal-content {
+  border-radius: 0;
+  border: none;
+}
+
+.cloud-icon{
+  color: #4C90D3;
+}
+.email-icon{
+  color: #547E1A;
+}
+.folder-icon{
+  color: #4C90D3;
+}
+.note-icon{
+  color: orange;
+}
+.alarm-icon{
+  color: #780000;
+}

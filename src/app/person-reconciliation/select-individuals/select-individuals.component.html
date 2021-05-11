@@ -1,0 +1,152 @@
+<button type="button" [hidden]="true" class="btn btn-primary" data-toggle="modal" #reminderModal data-target="#exampleModal">
+  Initiate Link
+</button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title popupHeading" id="exampleModalLabel">Reminder</h5>
+        <span class="col-lg-3 close-icon">
+          <mat-icon (click)=close()>highlight_off</mat-icon>
+        </span>
+      </div>
+      <div class="modal-body popup_body ">
+        Please complete all override actions to move necessary information to the primary persion ID.
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div style="width: 100%;font-size: 14px;">
+    <form [formGroup]="selectIndividuals" (ngSubmit)="handleSubmitDetails()">
+        <div class="row request-Type">
+            <mat-label class="required-color">*</mat-label>
+            <mat-label><strong>Request:</strong></mat-label>
+            <span class="request">{{requestType}}</span>
+       </div>
+        <div class="row">
+            <div class="col-md-12">
+              <div style="width: 100%">
+                <mat-form-field style="width: 100%" appearance="outline">
+                    <mat-label class="required-color">*</mat-label><mat-label>First Person ID</mat-label>
+                  <input matInput formControlName="firstPersonId" maxlength="10"
+                    placeholder="First Person ID">
+                    <mat-error *ngIf="selectIndividuals.get('firstPersonId').hasError('required')">
+                        {{customValidation.A1}}</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+       </div>
+
+        <div class="row secondPerson-div">
+            <div class="col-md-12">
+              <div style="width: 100%">
+                <mat-form-field style="width: 100%" appearance="outline">
+                    <mat-label class="required-color">*</mat-label><mat-label>Second Person ID</mat-label>
+                  <input matInput formControlName="secondPersonId" maxlength="10"
+                    placeholder="Second Person ID">
+                      <mat-error *ngIf="selectIndividuals.get('secondPersonId').hasError('required')">
+                        {{customValidation.A1}}</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+       </div>
+
+        <div class="create-manualtask-submitButton"> 
+            <div>
+              <button mat-flat-button class="perlss-click-button">SUBMIT</button>
+            </div>
+            <div class="error-msg">
+              <span *ngIf="serviceError" [innerHTML]="serviceError">
+              </span>              
+            </div>
+       </div>
+    </form>
+
+    <div *ngIf="loadSearchResults">
+        <div class="select-individuals">
+            Select Individuals
+       </div>
+        <div class="status-banner" *ngIf="showMsg">
+            One of the person ID's provided is associated to a pending PAE. Please complete adjudication on this record before continuing.  
+            <mat-icon style="float:right;cursor:pointer;" (click)="hideBanner()">close</mat-icon>
+       </div>
+        <div class="select-individuals-content">
+            Please select the rows you would like to link. After selecting the rows, you can note which one should be the primary record.
+            If multiple rows selected have a Source of TEDS, a task will be created in the TEDS system to acknowledge before
+            action can be taken.
+       </div>
+
+        <div class="select-individuals-content">
+            <table aria-describedby mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8"
+                style="width: 100%;font-size: 12px;">
+
+            <ng-container matColumnDef="sourceRecipientId">
+                <th id="personName" mat-header-cell *matHeaderCellDef class='table-th'>Person Id</th>
+                <td mat-cell class="table-td" *matCellDef="let element">{{element.sourceRecipientId}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <th id="ssn" mat-header-cell *matHeaderCellDef class='table-th'>Name</th>
+                <td mat-cell class="table-td" *matCellDef="let element">{{element.name?.firstName}} {{ element.name?.lastName}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="dateOfBirth">
+                <th id="noticeType" mat-header-cell *matHeaderCellDef class='table-th'>DOB</th>
+                <td mat-cell class="table-td" *matCellDef="let element">{{element.dateOfBirth | date: 'MM/dd/yyyy'}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="ssn">
+                <th id="programType" mat-header-cell *matHeaderCellDef class='table-th'>SSN</th>
+                <td mat-cell class="table-td" *matCellDef="let element">{{element.ssn}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+                <th id="generateDate"  mat-header-cell *matHeaderCellDef class='table-th'>Status</th>
+                <td mat-cell class="table-td" *matCellDef="let element">{{element.status}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="sourceSystemId">
+                <th id="noticeStatus" mat-header-cell *matHeaderCellDef class='table-th'>Source</th>
+                <td mat-cell class="table-td" *matCellDef="let element">{{element.sourceSystemId}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="primary">
+                <th id="primary" mat-header-cell *matHeaderCellDef>Primary</th>
+                <td mat-cell *matCellDef="let element">
+                    <div>
+                        <mat-radio-button value="1" [checked]="element.checked" (change)="handlePrimaryChange(element)"></mat-radio-button>
+                    </div>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+       </table>
+    </div>
+      <div class="link-error-msg" *ngIf="showPrimaryLinkError">
+        Please define the primary person ID for this link request
+      </div>
+      <div class="link-error-msg" *ngIf="showPrimaryUninkError">
+        Please define the primary person ID for this unlink request.
+      </div>
+
+    <div class="text-align-right">
+        <div class="create-manualtask-button">
+            <button mat-flat-button class="perlss-continue-click-button" *ngIf="requestType === 'Link'" [ngClass]="{ 'grey-color': isServiceSuccess, 'blue-color': !isServiceSuccess }" [disabled]="isServiceSuccess" (click)="initiateLink()">INITIATE LINK</button>
+       </div>
+        <div class="create-manualtask-button">
+            <button mat-flat-button class="perlss-update-click-button-white" *ngIf="requestType === 'Unlink'"  [ngClass]="{ 'perlss-update-click-button-grey-color': isServiceSuccess, 'perlss-update-click-button-white': !isServiceSuccess }" [disabled]="isServiceSuccess"  (click)="initiateUnLink()">INITIATE UNLINK</button>
+       </div>
+    </div>
+    </div>
+
+    <div class="row">
+        <div class="col go_back">
+            <a routerLink="/ltss/personReconciliation/reconciliationDashboard"><u>GO BACK TO PERSON RECONCILIATION HOME</u></a><br>
+        </div>
+    </div>
+</div>
+

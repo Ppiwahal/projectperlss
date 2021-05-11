@@ -1,0 +1,130 @@
+<div class="note-wrapper">
+    <div class="header-row">
+        <div>
+            <p style="color: #1B365D; font-size: 25px; font-weight: bold;">Notes</p>
+       </div>
+        <div>
+            <span class="close-icon" style="cursor: pointer;">
+                <mat-icon (click)=closeDialog()>highlight_off</mat-icon>
+            </span>
+       </div>
+    </div>
+    <mat-divider class="perlss-section-divider"></mat-divider>
+    <div class="notes-body">
+        <div class="person-details">
+            <div class="table-header-content">
+                <table aria-describedby="Applicant" style="width: 100%;">
+                    <tr *ngIf="data?.applicantName" class="d-flex">
+                        <th id="applicantName" class="col-4"><strong>Applicant Name:</strong></th>
+                        <td class="col-6">{{data?.applicantName}}</td>
+                    </tr>
+                    <tr *ngIf="data?.aplId" class="d-flex">
+                        <td class="col-4"><strong>Appeal ID:</strong></td>
+                        <td class="col-6">{{data?.aplId}}</td>
+                    </tr>
+                    <tr *ngIf="data?.refId" class="d-flex">
+                        <td class="col-4"><strong>Referral ID:</strong></td>
+                        <td class="col-6">{{data?.refId}}</td>
+                    </tr>
+                    <tr *ngIf="data?.paeId" class="d-flex">
+                        <td class="col-4"><strong>PAE ID:</strong></td>
+                        <td class="col-6">{{data?.paeId}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <button mat-stroked-button mat-flat-button color="primary"
+                    class="perlss-click-button-white person-details-button" (click)="showCommentSection()">Add New
+                    Note</button>
+            </div>
+       </div>
+        <div class="comment-section" *ngIf="showAddNotes">
+            <mat-divider class="perlss-section-divider"></mat-divider>
+            <form [formGroup]="addNoteForm">
+                <div style="margin-top: 5px;" class="row">
+                    <div class="col-md-6">
+                        <mat-label>
+                            <mat-label class="required-color">*</mat-label>
+                            <strong class="note-label">Note Type</strong>
+                        </mat-label>
+                        <mat-form-field appearance="outline" style="width: 100%;">
+                            <mat-select formControlName="noteType" required>
+                                <mat-option value=''></mat-option>
+                                <mat-option *ngFor="let noteType of noteTypeValues" [value]='noteType.code'>
+                                    {{noteType.value}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="addNoteForm.get('noteType').hasError('required')">
+                                {{customValidation.A1}}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <mat-label>
+                        <mat-label class="required-color" style="margin-left: 15px;">*</mat-label>
+                        <strong class="note-label">Note Comments</strong>
+                    </mat-label>
+                    <mat-form-field appearance="outline" style="width: 100%; margin-left: 15px; margin-right: 15px;">
+                        <textarea matInput maxlength="2000" rows="2" formControlName="noteDescription"
+                            placeholder=""></textarea>
+                        <mat-hint align="end">{{addNoteForm.controls.noteDescription.value ?
+                            addNoteForm.controls.noteDescription.value.length : 0}} / 2000</mat-hint>
+                        <mat-error *ngIf="addNoteForm.get('noteDescription').hasError('required')">
+                            {{customValidation.A1}}
+                        </mat-error>
+                        <mat-error *ngIf="addNoteForm.get('noteDescription').errors?.pattern">
+                            {{customValidation.A2}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <div style="padding-left: 15px; margin-bottom: 30px; margin-top: 20px;">
+                        <span>
+                            <button mat-flat-button class="save-button" (click)="saveNotes()">SAVE</button>
+                        </span>
+                        <span style="padding-left: 60px;">
+                            <button mat-stroked-button style="color: #174A7C;"
+                                (click)="hideCommentSection()">CANCEL</button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+       </div>
+        <div *ngIf="isShowNotes" class="note-list">
+            <mat-divider class="perlss-section-divider"></mat-divider>
+            <div class="note-header">
+                Notes on File
+            </div>
+            <hr>
+            <div class="note-content">
+                <ul>
+                    <li *ngFor="let note of notesData; let i = index">
+                        <div class="note-description">
+                            <div style="color: black;">{{note.displayNote}}:</div>
+                            <div style="display: inherit; color: black;">
+                                <div style="margin-right: 5px;">
+                                    <p style="color: black;">{{note.createdDt}}</p>
+                                </div>
+                                <div (mouseover)="contactCardOver(note)" (mouseleave)="contactCardLeave(note)" class="material-icons" style="color: #1B365D;">
+                                    account_circle
+                                </div>
+                                <div class="contact-card">
+                                    <mat-card style="width: 100%; color: #1B365D;" *ngIf="note.showCard">
+                                        <mat-card-content>
+                                            <strong>Name: {{note.userName}}</strong><br /><br />
+                                            <strong>Username: {{note.createdBy}}</strong>
+                                        </mat-card-content>
+                                    </mat-card>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="note-detail">
+                            <p style="color: black;">{{note.notesComments}}</p>
+                        </div>
+                        <hr>
+                    </li>
+                </ul>
+            </div>
+       </div>
+    </div>
+</div>

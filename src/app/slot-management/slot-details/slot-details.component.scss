@@ -1,0 +1,160 @@
+@import '../../../colors.scss';
+
+ .label_name {
+    font-weight: bold;
+    color: black;
+}
+.inner-container {
+    background-color: $colorControlBackground;
+    padding: 15px;
+}
+.common{
+  color: #174A7C;
+  font-weight: bold;
+}
+.chkFloat{
+  float: left;
+}
+.required-color {
+  color: #f44336;
+}
+::ng-deep .toast-message{
+  color: white;
+  font-size: 16px;
+}
+//table
+*{
+    font-family: 'Open Sans';
+  }
+
+.app-sub-heading{
+  color: #174A7C;
+    font-weight: bold;
+    font-size: 18px ;
+    padding: 20px 0 15px 0;
+}
+
+.perlss-section-divider {
+    width: 100%;
+    padding-top: 15px;
+    padding-bottom: 15px
+  }
+  
+
+  table{
+    border: 1px solid #1B365D ;
+  }
+
+  table th:first-child tr {
+    border-bottom: 2px solid #1B365D !important;
+  }
+
+  table tr:last-child td {
+    border-bottom: 1px solid #1B365D;
+  }
+
+  ::ng-deep {
+    .mat-expansion-panel:not([class*=mat-elevation-z]) {
+      box-shadow: none;
+    }
+    .mat-expansion-panel-body{
+      padding: 30px 0 0 0 !important;
+    }
+    .expanded-row{
+      background-color: #EDF4FB !important;
+      font-weight: bold !important;
+    }
+    .mat-form-field-appearance-outline .mat-form-field-outline {
+      background-color: $colorControlBackground;
+      border-color: #CED4DA;
+    }
+    tr.mat-header-row{
+      border-bottom: 2px solid #1B365D !important;
+    }
+
+    .mat-expansion-panel-header-title {
+      color: #04537D;
+      font-size: 22px !important;
+    }
+  }
+
+
+.table-th{
+  font-size: 14px;
+  font-weight: bold;
+  color: #174A7C;
+  text-align: center;
+}
+
+tr.element-row:not(.expanded-row):hover {
+  background: $colorControlBackground;
+}
+tr.example-detail-row {
+  height: 0;
+}
+.example-element-detail {
+  overflow: hidden;
+}
+
+tr.element-row:not(.expanded-row):active {
+  background: $colorControlBackground;
+}
+
+
+.borderless td, .borderless th {
+  border: none;
+}
+
+.table-td{
+  font-size: 12px;
+}
+
+
+mat-card.dashboard-card{
+  border: 2px solid #659737;
+  height: 100%;
+  margin-left: 145px;
+}
+
+mat-card-title.dashboard-card-header {
+  padding: 7px;
+  font-size: 18px;
+  font-style: italic;
+  margin: 0;
+}
+
+mat-card-content {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-size: 13px;
+  font-weight: 900;
+  text-align: center;
+  .row{
+    padding: 18px;
+    .col{
+      .total-container{
+        padding: 0;
+        margin-top: 0.4vh;
+      }
+    }
+  }
+}
+.slots{
+padding-bottom: 0!important;
+margin: 24px!important;
+}
+.color{
+  color:black;
+}
+.padding{
+  margin-left: 24px;
+  color:black;
+}
+.perlss-click-button-white{
+  font-size: 15px;
+  margin-bottom:5px;
+  font-weight: bold;
+}
+.marginT{
+  margin-top:6px;
+}

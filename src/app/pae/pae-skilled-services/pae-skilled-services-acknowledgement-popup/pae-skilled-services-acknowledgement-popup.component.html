@@ -1,0 +1,58 @@
+<div class="popup-header-container">
+    <div class="row">
+      <div class="col-md-8">
+        <h4 id="heading">Acknowledgement</h4>
+      </div>
+      <div class="col-md-4">
+        <div style="text-align: right;">
+          <mat-icon class="popup-close-icon" (click)="closePopup()">highlight_off</mat-icon>
+          <div id="required">
+            * Required
+         </div>
+        </div>
+      </div>
+    </div>
+  
+  <mat-divider class="perlss-horizontal-divider"></mat-divider>
+  <br>
+
+  <p>Fraud - means an intentional deception or misrepresentation made by a person with the knowledge 
+    that the deception could result in some unauthorized benefit to himself or some other person. It 
+    includes any act that constitutes fraud under applicable federal or state law.</p>
+
+    <p>PAEs (Pre-Admission Evaluation forms) are submitted to TennCare for purposes of establishing 
+    eligibility for NF services. An approved PAE may also result in approval of Medicaid institutional 
+    eligibility and in a monetary capitation payment being generated to the Managed Care Organization 
+    (MCO) as well as payment of claims for physical and behavioral health, pharmacy and long-term 
+    services and supports. It is therefore critical that the information you are submitting on this PAE is 
+    complete and accurate, and does not result in unauthorized payments being made inappropriately to 
+    an MCO or provider.</p>
+
+    <p>As you know, the federal as well as Tennessee False Claims Acts (Tennessee Code Annotated
+        71-5-181 -- 71-5-185) specify that a person or entity who presents or causes to be presented a claim 
+        for payment under the Medicaid program knowing such claim is false or fraudulent, or who makes, 
+        uses, or causes to be made or used, a record or statement to get a false or fraudulent claim under 
+        the Medicaid program paid for or approved by the state knowing such record or statement is false is 
+        in violation of the Tennessee as well as Federal False Claims Acts and is subject to federal and state 
+        civil penalties. The state civil penalty is not less than five thousand dollars ($5,000) and not more than 
+        twenty-five thousand dollars ($25,000), plus three (3) times the amount of damages which the state 
+        sustains because of the act of that person or entity.</p>
+
+<br>
+<form [formGroup]="selectStatement">
+<mat-checkbox required formControlName="selectcheck" (change)="onackSt($event)">
+    <mat-label><span style="color:red">*</span>I have read and acknowledge the statement above.
+    </mat-label>
+    <mat-error *ngIf="(!isSelected && submitted)">{{customValidation.A1}}</mat-error>
+  </mat-checkbox>
+  </form>
+
+  <div class="col-md-6" style="float: right; padding-left:300px;">
+    <button mat-flat-button color="primary" class="perlss-click-button" type="submit" (click)="onSubmit()">
+      SUBMIT
+    </button>
+  </div>
+  <br>
+  
+  </div>
+    

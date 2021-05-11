@@ -1,0 +1,40 @@
+<div class="applicant-information">
+    <div class="grid-container">
+        <div>
+            <div class="row"><strong class="col-md-4 color-black">NAME:</strong>
+                <span *ngIf="appellantDemographic.firstName || appellantDemographic.lastName" class="col-md-4 color-black">{{appellantDemographic.firstName}} {{appellantDemographic.lastName}}</span>
+                <span *ngIf="!appellantDemographic.firstName && !appellantDemographic.lastName" class="col-md-4 color-black">---</span>
+            </div>
+        </div>
+        <div>
+            <div class="row"><strong class="col-md-4 color-black">Alias Name:</strong>
+                <span *ngIf="appellantDemographic.aliasFirstName || appellantDemographic.aliasLastName" class="col-md-4 color-black">{{appellantDemographic.aliasFirstName}} {{appellantDemographic.aliasLastName}}</span>
+                <span *ngIf="!appellantDemographic.aliasFirstName && !appellantDemographic.aliasLastName" class="col-md-4 color-black">---</span>
+            </div>
+        </div>
+        <div>
+            <div class="row"><strong class="col-md-4 color-black">SSN:</strong>
+                <span *ngIf="ssn" class="col-md-4 color-black">{{ssn}}</span>
+                <span *ngIf="!ssn" class="col-md-4 color-black">---</span>
+            </div>
+        </div>
+        <div>
+            <div class="row"><strong class="col-md-4 color-black">DATE OF BIRTH:</strong>
+                <span *ngIf="appellantDemographic.dobDt" class="col-md-4 color-black">{{appellantDemographic.dobDt | date: 'MM/dd/yyyy' }}</span>
+                <span *ngIf="!appellantDemographic.dobDt" class="col-md-4 color-black">---</span>
+            </div>
+        </div>
+        <div>
+            <div class="row"><strong class="col-md-4 color-black">Gender:</strong>
+                <span *ngIf="appellantDemographic.genderCd" class="col-md-4 color-black">{{appellantDemographic.genderCd}}</span>
+                <span *ngIf="!appellantDemographic.genderCd" class="col-md-4 color-black">---</span>
+            </div>
+        </div>
+        <div>
+            <div class="row"><strong class="col-md-4 color-black">Person ID:</strong>
+                <span *ngIf="appellantDemographic.prsnId" class="col-md-4 color-black">{{appellantDemographic.prsnId}}</span>
+                <span *ngIf="!appellantDemographic.prsnId" class="col-md-4 color-black">---</span>
+            </div>
+        </div>
+    </div>
+</div>

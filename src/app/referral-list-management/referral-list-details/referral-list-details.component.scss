@@ -1,0 +1,48 @@
+@import '../../../colors.scss';
+
+.label_name {
+    font-weight: bold;
+    color: black;
+}
+.inner-container {
+    background-color: $colorControlBackground;
+    padding: 15px;
+}
+.common{
+  color: #174A7C;
+  font-weight: bold;
+}
+
+.heading{
+  color: #4D7E20;
+  font-weight: bold;
+}
+
+.example-element-detail {
+  overflow: hidden;
+}
+table{
+  border: 1px solid #1B365D ;
+}
+
+table th:first-child tr {
+  border-bottom: 2px solid #1B365D !important;
+}
+
+.table-td{
+  font-size: 12px;
+  font-weight: normal !important;
+}
+
+tr.element-row:not(.expanded-row):hover {
+  background: $colorControlBackground;
+}
+tr.example-detail-row {
+  height: 0;
+}
+.example-element-detail {
+  overflow: hidden;
+}
+tr.element-row:not(.expanded-row):active {
+  background: $colorControlBackground;
+}

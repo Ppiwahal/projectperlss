@@ -1,0 +1,141 @@
+
+.wrapper{margin-top: 30px;}
+.character-count{
+    float: right;
+    margin-top: -24px;
+  }
+
+  
+.div-flex{
+    display: flex;
+    margin-top: 20px;
+    div{
+        margin-right: 5%;
+    }
+}
+
+.check-list{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-left: 8px;
+}
+
+h5{
+    color: #547E1A;
+    font-weight: bold;
+}
+
+.text-area{
+    margin-top: 30px;
+}
+
+.text-align-right {
+    flex: 1;
+    text-align: right;
+    padding-right: 20px;
+  }
+
+  table{
+    margin-top: 20px;
+}
+
+th{
+    width: 90%;
+}
+
+span{
+    cursor: pointer;
+}
+
+.cloud-upload{
+  color: #4C90D3;
+  margin-left: 25px;
+}
+.check{
+  color: #547E1A;
+  margin-right: 10px;
+}
+.remove{
+  color: red;
+}
+
+.table-div{
+    width: 100%;
+    border-left: 1.5px solid #174A7C;
+    border-right: 1.5px solid #174a7c;
+    border-bottom: 1.5px solid #174a7c;
+    padding: 30px;
+}
+
+.character-count{
+    float: right;
+    margin-top: -24px;
+  }
+
+  .row-dropdown{
+    display: flex;
+    div{
+        width: 40%;
+        margin-right: 10%;
+    }
+}
+
+.text-area{
+    margin-top: 25px;
+}
+
+.required{
+    color: red;
+}
+
+.doc-date{
+    text-align: center;
+    margin-top: 2%;
+}
+
+.icons-wrap{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+
+.share-icon-wrapper{
+    width: 350px;
+    color: #1B365D;
+    position: relative;
+    margin-left: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 30px;
+    cursor: pointer;
+    span{
+        position: absolute;
+        top: -8px;
+        left: -45px;
+        font-size: 30px;
+    }
+  }
+
+  
+.icon-wrapper{
+    color: red;
+    position: relative;
+    .disc-span{
+        position: absolute;
+        top: 6px;
+        left: 30px;
+        color: black;
+        text-decoration: underline;
+    }
+}
+
+div > .mat-form-field {
+    width: 100%;
+}
+
+table{
+    border: 1.5px solid #174a7c;
+}
+  

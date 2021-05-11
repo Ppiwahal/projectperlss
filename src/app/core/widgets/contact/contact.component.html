@@ -1,0 +1,36 @@
+<div class="popup-header-container">
+  <div class="row">
+    <div class="col">
+      <h4>Contact Us </h4>
+    </div>
+    <div class="col">
+      <div style="text-align: right;">
+        <mat-icon class="popup-close-icon" (click)="closePopup()">highlight_off</mat-icon>
+      </div>
+    </div>
+  </div>
+</div>
+<mat-divider class="perlss-horizontal-divider"></mat-divider>
+<div class="popup-body-container">
+  <div class="row" *ngFor="let contacts of contactInformation; index as i">
+    <div class="col">
+      <div class="contact-title">
+        <br>
+        {{contacts.typeCd}}
+      </div>
+      <div class="contact-description">
+        <div class="description" *ngIf="contacts.description">
+          {{contacts.description}}
+        </div>
+        <table class="contact-info">
+          <tr *ngFor="let info of contacts.contactInformations">
+            <td *ngIf="info.name"><span class="p-r"> {{info.name}}</span></td>
+            <td>{{info.no}}</td>
+          </tr>
+        </table> 
+      </div>
+      <br>
+      <mat-divider></mat-divider>
+    </div>
+  </div>
+</div>

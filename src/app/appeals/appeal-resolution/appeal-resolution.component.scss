@@ -1,0 +1,37 @@
+.wrapper {
+  width: 90%;
+  margin: auto;
+}
+
+.header-wrapper {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #547e1a;
+}
+
+.header {
+  font-size: 30px;
+  font-weight: bold;
+  color: #174A7C;
+}
+
+.required-tag, .required{
+  color: red;
+}
+
+.section {
+  margin-top: 30px;
+}
+
+.heading-green {
+  color: #4D7E20;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.black-heading {
+  font-weight: bold;
+}

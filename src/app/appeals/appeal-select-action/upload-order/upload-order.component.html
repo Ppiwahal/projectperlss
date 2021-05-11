@@ -1,0 +1,23 @@
+<form [formGroup]="uploadOrderForm">
+    <div class="mat-dropdowns">
+        <mat-form-field appearance="outline">
+            <mat-label><span class="required">*</span>Judge Writing Order </mat-label>
+            <input formControlName="judgeWritingOrder" placeholder="Enter Judge Name" aria-label="judge writing order" matInput>
+        </mat-form-field>
+        <mat-error *ngIf="isShowErrors && uploadOrderForm.get('judgeWritingOrder')?.hasError('required')">
+            <span>{{customValidation.A1}}</span>
+        </mat-error>
+    </div>
+</form>
+<div style="margin-top: 20px;">
+    <div class="row pointer">
+        <span class="col icon-width" (click)="openUploadRightNav()"><strong>Upload Reschedule Hearing</strong></span>
+        <span class="col material-icons" (click)="openUploadRightNav()">
+            cloud_upload
+        </span>
+    </div>
+</div>
+<div style="margin-top: 40px; margin-bottom: 20px;">
+    <button style="margin-right: 50px; color: #174A7C;" mat-stroked-button (click)="cancel()">CANCEL </button>
+    <button mat-stroked-button class="perlss-click-button" (click)="uploadOrder()">SAVE </button>
+</div>

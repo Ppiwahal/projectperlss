@@ -1,0 +1,94 @@
+<div class="pageMargin">
+<mat-vertical-stepper #stepper class="{{ 'last-edited-step-' + stepper.selectedIndex }}">
+    <ng-template matStepperIcon="edit" let-index="index"> {{index + 1}} </ng-template>
+    <mat-step>
+        <form [formGroup]="transitionForm">
+        <ng-template matStepLabel><strong>Search for the Person</strong></ng-template>
+        <div style="width: 100%">
+          <mat-form-field style="width: 100%" appearance="outline">
+            <mat-label>Person Search</mat-label>
+            <input matInput formControlName="personId" [matAutocomplete]="auto" #applicantNameInput
+              placeholder="Search by Applicant Name, Date Of Birth, SSN, Person ID, County">
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)='handleSelection($event.option.value)'>
+              <mat-option class="select-hr" *ngFor="let option of personOptions" [value]="option" (click)="selectPerson()">
+                <strong>Applicant Name: </strong>{{option.prsnDetail?.firstName}} {{option.prsnDetail?.lastName}}
+                <strong>Dob: </strong>{{option.prsnDetail?.dobDt}}
+                <strong>SSN: </strong>{{option.prsnDetail?.ssn}}
+                <strong>Person Id: </strong>{{option.prsnDetail?.prsnId}}
+                <strong>County: </strong>{{option.prsnDetail?.prsnCountyName}}
+              </mat-option>
+            </mat-autocomplete>
+            <button mat-button *ngIf="getFormData().personId?.value" matSuffix mat-icon-button aria-label="Clear"
+                (click)="getFormData().personId.setValue(null)">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+        </div>
+        </form>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel><strong>Select PAE</strong></ng-template>  
+            <table id="paedetailsTable" style = "border: 1px solid #04537d; box-shadow: 0px 5px 3px 0px #AAAAAA;" aria-describedby="false" mat-table [dataSource]="dataSource" 
+            class="mat-elevation-z0" *ngIf="dataExists">
+  
+            <ng-container matColumnDef="paeId">
+              <th mat-header-cell *matHeaderCellDef id="paeId">PAE ID</th>
+              <td mat-cell *matCellDef="let element"> {{element.paeId}} </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="paeStatus">
+              <th mat-header-cell *matHeaderCellDef id="paeStatus">PAE Status</th>
+              <td mat-cell *matCellDef="let element"> {{element.paeStatus}}
+                <div *ngIf="(element.paeStatus === '' || element.paeStatus === undefined || element.paeStatus === null)">
+                  ---</div> </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="enrollmentGrpCd">
+              <th mat-header-cell *matHeaderCellDef id="enrollmentGrpCd">Enrollment <br>Group</th>
+              <td mat-cell *matCellDef="let element"> {{element.enrollmentGrpCd}}
+                <div *ngIf="(element.enrollmentGrpCd === '' || element.enrollmentGrpCd === undefined || element.enrollmentGrpCd === null)">
+                  ---</div>
+              </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="lvlOfcare">
+              <th mat-header-cell *matHeaderCellDef id="lvlOfcare">Level of <br>Care</th>
+              <td mat-cell *matCellDef="let element">{{element.lvlOfcare}}
+                <div *ngIf="(element.lvlOfcare === '' || element.lvlOfcare === undefined || element.lvlOfcare === null || element.lvlOfcare === 'NW')">
+                  ---</div>
+              </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="enrollmentStatusCd">
+              <th mat-header-cell *matHeaderCellDef id="enrollmentStatusCd">Enrollment <br>Status</th>
+              <td mat-cell *matCellDef="let element"> {{element.enrollmentStatusCd}} 
+              <div *ngIf="(element.enrollmentStatusCd === '' || element.enrollmentStatusCd === undefined || element.enrollmentStatusCd === null)">
+                ---</div></td>
+            </ng-container>
+  
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef id="action">Action</th>
+              <td> <button mat-flat-button color="primary" class="perlss-click-button-white">
+                <span class="selectbutton">Select PAE</span>
+                <mat-icon class="offlinePin">offline_pin</mat-icon>
+              </button>
+                        </td>
+                      </ng-container>  
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            
+          </table>
+                
+          </mat-step>
+          
+          <mat-step>
+            <ng-template matStepLabel><strong>Choose Transition Type</strong></ng-template>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel><strong>Transition Details</strong></ng-template>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel><strong>Submit Transition request</strong></ng-template>
+          </mat-step>
+        </mat-vertical-stepper>
+        </div>

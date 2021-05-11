@@ -1,0 +1,42 @@
+<div class="accordian-content">
+    <div class="filter-wrapper">
+        <form [formGroup]="noticeForm">
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header style="background-color: #f5f5f5">
+                        <mat-panel-title>
+                            Update Notice Status
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="queue-accordion">
+
+                        <div class="col-md-4 update-dropdown">
+                            <mat-form-field appearance="outline">
+                                <mat-label class="label-heading"><mat-label class="required-color">*</mat-label>Notice Status</mat-label>
+                                    <mat-select formControlName="noticeStatus">
+                                      <mat-option value=''>Select an option</mat-option>
+                                      <mat-option *ngFor="let noticeStatusObj of noticeStatus" value={{noticeStatusObj.name}}>{{noticeStatusObj.value}}
+                                      </mat-option>
+                                    </mat-select>
+                                        <mat-error *ngIf="noticeForm.get('noticeStatus').hasError('required')">
+                                        {{customValidation.A1}}</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div style="color: black;">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Reason for Change</mat-label>
+                              <textarea #notesInput id="notesInput" matInput maxlength="2000" formControlName="reasonForChange" cols="45" rows="5"></textarea>
+                              <mat-hint align="end">{{ notesInput.value?.length }}/2000</mat-hint>                              
+                            </mat-form-field>                           
+                        </div>
+
+                        <div class="update-button">
+                            <button type="button" mat-flat-button class="perlss-click-button" (click)="search()">UPDATE</button>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+       </form>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="responsive">
+    <div class="scroller">
+        <div class="buttonArray">
+            <div *ngFor="let item of buttonData">
+                <h2 class="text-color">{{item.text}}</h2>
+                <div class="buttonItems">
+                    <ng-container *ngFor="let button of item.buttons">
+                        <ng-container *ngIf="showButton(button)">
+                            <button [ngClass]="{'blue': button.style == 'blue', 'fullWidth': button.style == 'fullWidth'}" 
+                            routerLink="{{'/ltss/changeManagement/' + button.action}}">{{button.text}}</button>
+                        </ng-container>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

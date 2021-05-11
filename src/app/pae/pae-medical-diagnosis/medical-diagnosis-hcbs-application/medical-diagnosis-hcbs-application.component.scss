@@ -1,0 +1,81 @@
+.popup-header-container{
+  padding-left: 45px;
+  padding-right: 45px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  margin-left: 10px;
+}
+
+.mat-dialog-container {
+  padding: 0;
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+  border-radius: 7px;
+  border: 2px solid #225282;
+}
+
+.popup-close-icon{
+  transform: scale(1.5);
+  cursor: pointer;
+  color: #8b99ac;
+}
+
+.note-container{
+  padding-top: 27px;
+  padding-bottom: 27px;
+  background-color: #f5f9fe;
+  padding-left: 45px;
+  padding-right: 45px;
+}
+
+.question-container{
+  padding-top: 20px;
+}
+
+.radio-container{
+  padding-top: 3.5px;
+  margin-left: 7px;
+}
+
+.form-container {
+  padding: 54px 54px 54px 54px;
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+#applicantName {
+  border: 2px solid;
+  border-color: #4D7E20;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+}
+.required-name {
+  color: #547e1a;
+  font-family: "Open Sans";
+  font-size: 22px;
+  line-height: 27px;
+  font-weight: 700;
+}
+
+.required-class {
+  color: #f44336;
+  
+}
+.textStyle{
+  font-family: "Open Sans";;
+    font-size: 18px;
+    line-height: 23.5px;
+    font-weight: 400;
+    color: #0b0b0b;
+}
+
+.buttonBar{
+  padding: 118px 45px 40px 4px !important;
+}

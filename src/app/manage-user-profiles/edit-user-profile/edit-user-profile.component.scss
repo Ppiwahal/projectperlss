@@ -1,0 +1,49 @@
+hr {
+  margin-top: 2px;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.close-icon {
+  color : #969190;
+  cursor: pointer;
+}
+
+tr {
+  line-height: 4px;
+}
+
+.row-header {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 0 0;
+}
+.perlss-section-divider {
+  width: 100%;
+  padding-top: 15px;
+  padding-bottom: 15px
+}
+
+.dialog-heading {
+  font-weight: bold;
+  font-size: 24px;
+  font-family: 'Open Sans';
+  color: #174A7C;
+}
+
+.required-color {
+  color: #f44336;
+}
+
+.save-button {
+  padding-top: 15px;
+}
+
+::ng-deep .toast-message{
+  color: black;
+  font-size: 16px;
+}
+
+::ng-deep .toast-warning {
+  background-color: #F89406 !important;
+}

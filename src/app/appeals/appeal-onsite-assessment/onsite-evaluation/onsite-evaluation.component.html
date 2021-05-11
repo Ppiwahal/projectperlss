@@ -1,0 +1,183 @@
+<div style="margin-top: 30px;">
+    <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header style="background-color: #f5f5f5">
+            <mat-panel-title>
+             Onsite Evaluation <span class="text-align-right"> Review Details </span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <form [formGroup]="onSiteEvaluationForm" (ngSubmit)="onSiteEvaluationSbmit(onSiteEvaluationForm)">
+                    <div class="wrapper">
+                        <p class="paragraph">
+                            Please provide the Appeal Approval Response. Also, provide a clear understanding of any score variations, inconsistencies,
+                            contradictions, omissions, and lack of supporting documentation and be submitted to TennCare with each onsite assessment.  
+                        </p>
+                        <div class="box-wrapper">
+                            <div class="box green-box">
+                                <div>
+                                    A
+                                </div><span>Approved</span>
+                            </div>
+                            <div class="box orange-box">
+                                <div>
+                                    P
+                                </div><span>Partially Approved</span>
+                            </div>
+                            <div class="box red-box">
+                                <div>
+                                    D
+                                </div><span>Denied</span>
+                            </div>
+                        </div>
+                            <table aria-describedby mat-table [dataSource]="dataSource1" multiTemplateDataRows class="mat-elevation-z8">
+                                <ng-container matColumnDef="functionalMeasure">
+                                    <th mat-header-cell *matHeaderCellDef id="name"> <p style="margin: 0; font-weight: bold; font-size: 14px;"> Functional Measure  </p> </th>
+                                    <td mat-cell *matCellDef="let element" (click)="expandedElement = expandedElement === element ? null : element"> {{element.name}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="adjudicatorsAction">
+                                    <th mat-header-cell *matHeaderCellDef id="ssn"> <p  class="style-p">Adjudicators</p> <p class="style-p">Action</p>  </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <div class="button-wrapper">
+                                            <button mat-stroked-button [ngClass]="(element.adjActionCd =='A')?'green':'grey'" type="button" (click)="adjActionSelected($event, element, 'A')">A</button>
+                                            <button mat-stroked-button [ngClass]="(element.adjActionCd =='P')?'orange':'grey'" type="button" (click)="adjActionSelected($event, element, 'P')">P</button>
+                                            <button mat-stroked-button [ngClass]="(element.adjActionCd =='D')?'red':'grey'" type="button" (click)="adjActionSelected($event, element, 'D')">D</button>
+                                        </div> 
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="adjudicatedResponse">
+                                    <th mat-header-cell *matHeaderCellDef id="age">  <p class="style-p">Adjudicated</p> <p class="style-p">Response</p>   </th>
+                                    <td mat-cell *matCellDef="let element" class="text-align"> 
+                                        <div style="margin-top: 10px;">
+                                            <mat-form-field appearance="outline">
+                                                <mat-select (selectionChange)="onAdjuResponseChanged(element, $event.value)" [(value)]="element.adjApprovalCd">
+                                                    <mat-option *ngFor = "let fa of  functionalAssessment" value={{fa.code}}>{{fa.value}}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="AdjudicatedAcuityScore">
+                                    <th mat-header-cell *matHeaderCellDef id="rId">  <p  class="style-p">Adjudicated</p> <p class="style-p"> Acuity Score</p>  </th>
+                                    <td mat-cell *matCellDef="let element" class="text-align" (click)="expandedElement = expandedElement === element ? null : element"> {{element.adjAcuityScoreNum}}</td>
+                                </ng-container>
+                                <ng-container matColumnDef="appealResponse">
+                                    <th mat-header-cell *matHeaderCellDef id="intakeOutcome"> <p  class="style-p">Appeal</p> <p class="style-p">Response</p>  </th>
+                                    <td mat-cell *matCellDef="let element"> 
+                                        <div style="margin-top: 10px;">
+                                            <mat-form-field appearance="outline">
+                                                <mat-select (selectionChange)="onAppealResponseChanged(element, $event.value)" [(value)]="element.aplRspCd">
+                                                    <mat-option *ngFor = "let fa of  functionalAssessment" value={{fa.code}}>{{fa.value}}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="appealAcuityScore">
+                                    <th mat-header-cell *matHeaderCellDef id="intakeOutcome"> <p class="style-p">Appeal Acuity Score</p> </th>
+                                    <td mat-cell *matCellDef="let element" style="padding-left: 5%;" (click)="expandElement(expandedElement, element)"> {{element.aplAcuityScore}}</td>
+                                </ng-container>
+                            
+                                <ng-container matColumnDef="expandedDetail">
+                                    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay1.length">
+                                        <div class="example-element-detail"
+                                            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                                            <div class="inside-table-wrapper">
+                                                <div>
+                                                    <mat-form-field appearance="outline" class="text-area">
+                                                        <mat-label><span class="required" *ngIf="element.adjApprovalCd !== element.aplRspCd">*</span>comments</mat-label>
+                                                        <textarea matInput #aplMistake maxlength="2000" (keyup)="onCommentChange(element, $event)">{{element.aplComments}}</textarea>
+                                                        <div class="comment-error" *ngIf="element.adjApprovalCd !== element.aplRspCd && element.aplComments === ''">
+                                                            This is a Mandatory Field.
+                                                        </div>
+                                                    </mat-form-field>
+                                                    <div class="character-count">
+                                                        {{aplMistake.value.length}}/2000
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </ng-container>
+                            
+                                <tr mat-header-row *matHeaderRowDef="columnsToDisplay1"></tr>
+                                <tr mat-row *matRowDef="let element; columns: columnsToDisplay1;" class="example-element-row"
+                                    [class.example-expanded-row]="expandedElement === element"
+                                    [class.active-class]="expandedElement === element"
+                                    [style.display]="element.funcMeasureCd ==='MOBW' ? displayMobWheelChair :'' " >
+                                </tr>
+                                <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+                            </table>
+                            <div style="margin-top:30px;">
+                                <p style="font-size:14px; color:black;">Below is the summary of the scoring based on the appeal responses selected</p>
+                                <table aria-describedby mat-table [dataSource]="dataSource2" class="mat-elevation-z8 table2">
+                                    <ng-container matColumnDef="assessmentGroup">
+                                        <th mat-header-cell *matHeaderCellDef id="name" style="width: 85%;"> <p style="margin: 0; font-weight: bold; font-size: 14px;">Assessment Group</p> </th>
+                                        <td mat-cell *matCellDef="let element"> 
+                                            {{element.assessmentGroup}} 
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="maxAcuityGroup">
+                                        <th mat-header-cell *matHeaderCellDef id="name"><p style="margin: 0; font-weight: bold; font-size: 14px;">Max Acuity score</p></th>
+                                        <td mat-cell *matCellDef="let element" class="text-align"> 
+                                            {{element.maxAcuityGroup}}
+                                        </td>
+                                    </ng-container>
+                                
+                                    <tr mat-header-row *matHeaderRowDef="columnsToDisplay2"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: columnsToDisplay2;"></tr>
+                                </table>
+                            </div>
+                            <div style="margin-top: 30px;">
+                                <div class="person-info">
+                                    <div style="width: 40%;">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label><span class="required">*</span>Assessed By</mat-label>
+                                            <input matInput formControlName="assessedBy">
+                                        </mat-form-field>
+                                    </div>
+                                    <div style="width: 40%;">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label><span class="required">*</span>Assessment Date</mat-label>
+                                            <input matInput [matDatepicker]="assessmentDt" formControlName="assessmentDate">
+                                            <mat-datepicker-toggle matSuffix [for]="assessmentDt"></mat-datepicker-toggle>
+                                            <mat-datepicker [startAt]="startDate" #assessmentDt></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="person-info">
+                                    <div  style="width: 40%;">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label><span class="required">*</span>Finalized By Registered Nurse Reviewer</mat-label>
+                                            <input matInput formControlName="finaByRegisNurseReviewer">
+                                        </mat-form-field>
+                                    </div>
+                                    <div  style="width: 40%;">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label><span class="required">*</span>Determinantion Date</mat-label>
+                                            <input matInput [matDatepicker]="determinationDt" formControlName="determinationDate">
+                                            <mat-datepicker-toggle matSuffix [for]="determinationDt"></mat-datepicker-toggle>
+                                            <mat-datepicker [startAt]="startDate" #determinationDt></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="person-info">
+                                    <div  style="width: 40%;">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Amended Date</mat-label>
+                                            <input matInput [matDatepicker]="amendedDate" formControlName="amendateDate">
+                                            <mat-datepicker-toggle matSuffix [for]="amendedDate"></mat-datepicker-toggle>
+                                            <mat-datepicker  [startAt]="startDate" #amendedDate></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 30px;">
+                                    <button mat-stroked-button type="button" style="margin-right: 50px;" > CANCEL </button>
+                                    <button mat-stroked-button  type="submit" class="perlss-click-button"> SAVE </button>
+                                </div>
+                                
+                            </div>
+                    </div>
+            </form>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>

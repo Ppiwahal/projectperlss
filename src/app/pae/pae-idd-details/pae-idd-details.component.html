@@ -1,0 +1,335 @@
+
+<div class="page-header-container">
+  <div class="row">
+    <div class="col-md-8">
+    
+    </div>
+    <div class="col-md-4" style="padding: 25px 60px 0px 30px;">
+      <div class="applicant-name-container">
+        <strong>APPLICANT NAME : </strong> {{applicantName}}
+      </div>
+    </div>
+  </div>
+</div>
+       <br>
+<div class="form-container">
+  <form [formGroup]="paeIddDetailsFormGroup">
+<mat-card class="mat-elevation-z8 mar-bot" style="background-color: #F6FAFF;">
+            <div class="row">
+              <div class="col-md-12">
+      <p>
+         Tennessee State law and regulation (33-1-101) defines a Developmental Disability (DD) as a 
+condition that:</p>
+<p>1.    Is attributable to a mental or physical impairment or combination of mental and physical impairments;</p>
+
+<p>2.    Manifested before twenty-two (22) years of age;</p>
+
+
+<p>3.    Is likely to continue indefinitely</p>
+
+<p>4.    Results in substantial functional limitations in three (3) or more of the following major life activities: (i) Self-care; (ii) Receptive and expressive language; (iii) Learning; (iv) Mobility; (v) Self-direction; (vi) Capacity for independent living; or; (vii) Economic self-sufficiency; and</p>
+
+<p>5.    Reflects the person's need for a combination and sequence of special interdisciplinary or generic services, supports, or other assistance that is likely to continue indefinitely and need to be individually planned and coordinated.</p>
+
+<p>
+Tennessee State law and regulation (33-1-101) defines an Intellectual Disability (ID) as substantial limitations in functioning:
+</p>
+
+<p>
+
+1.    As shown by significantly sub-average intellectual functioning that exists concurrently with related limitations in two (2) or more of the following adaptive skill areas: communication, self-care, home living, social skills, community use, self-direction, health and safety, functional academics, leisure, and work; and  /<p>
+
+<p>2.    That are manifested before eighteen (18) years of age.</p>
+
+     
+          </div></div>
+       </mat-card>
+
+        <div class="seperator-mar"></div>
+
+<div class="note-heading">
+      <p>
+        <strong><span class="note_style">NOTE:</span>  Functional Assessment Summary</strong>
+      </p>
+<p>Based on the responses to the Functional Assessment, the applicant has <strong>two (2)</strong> number of functional limitations that qualify for determination of a Developmental 
+Disability (DD) as outlined above.
+</p>
+
+<p>Based on the responses to the Functional Assessment, the applicant has <strong>five (5)</strong> number of functional limitations that qualify for determination of a Intellectual 
+Disability (ID) as outlined above.
+</p>
+
+     
+          
+        </div>
+
+        <h4 class="hd">Disability and IQ</h4>
+
+
+  <div class="row">
+      <div class="col-md-12">
+        <div class="question-container">
+          <mat-label>
+            <mat-label class="required-class">*</mat-label>
+         Has the individual been determined disabled by the Disability Determination Bureau (DDB) or Social Security Administration (SSA)?
+
+          </mat-label>
+       </div>
+        <div class="seperator-mar"></div>
+          <div *ngIf="getFormData().indvDeterDisabilitySw.hasError('required') && (getFormData().indvDeterDisabilitySw.touched || submitted)">
+          <mat-error>{{customValidation.A1}}</mat-error>
+       </div>
+        <div class="radio-container">
+            <mat-radio-group formControlName="indvDeterDisabilitySw">
+            <div>
+              <mat-radio-button value="Y">Yes</mat-radio-button>
+            </div>
+            <div>
+              <mat-radio-button value="N">No</mat-radio-button>
+            </div>
+          </mat-radio-group>
+       </div>
+      </div>
+    </div>
+
+
+  <div class="row">
+      <div class="col-md-12">
+        <div class="question-container">
+          <mat-label>
+            <mat-label class="required-class">*</mat-label>
+         Has the individual completed a Full-Scale IQ test?
+
+          </mat-label>
+       </div>
+        <div class="seperator-mar"></div>
+        <div *ngIf="getFormData().iqTest12MntsSw.hasError('required') && (getFormData().iqTest12MntsSw.touched || submitted)">
+          <mat-error>{{customValidation.A1}}</mat-error>
+       </div>
+        <div class="radio-container">
+            <mat-radio-group formControlName="iqTest12MntsSw" (change)="considerationYorN($event.value)">
+            <div>
+              <mat-radio-button value="Y">Yes</mat-radio-button>
+            </div>
+            <div>
+              <mat-radio-button value="N">No</mat-radio-button>
+            </div>
+          </mat-radio-group>
+       </div>
+      </div>
+    </div>
+
+  <div class="row" *ngIf="isfullScale">
+      <div class="col-md-6">
+        <div class="question-container">
+          <mat-label>
+            <mat-label class="required-class">*</mat-label>
+         If yes, what is the individual's Full-Scale IQ?
+
+          </mat-label>
+       </div>
+        <div class="seperator-mar"></div>
+          <div *ngIf="getFormData().iqScoreCd.hasError('required') && (getFormData().iqScoreCd.touched || submitted)">
+          <mat-error>{{customValidation.A1}}</mat-error>
+       </div>
+       <mat-form-field appearance="outline">
+      <mat-select placeholder="Please select"  formControlName="iqScoreCd">
+        <mat-option *ngFor="let option of iQScore" [value]="option.code">{{option.value}}</mat-option>
+      </mat-select>
+      </mat-form-field>
+      </div>
+    </div>
+
+<div class="row">
+      <div class="col-md-12">
+        <div class="question-container">
+          <mat-label>
+            <mat-label class="required-class">*</mat-label>
+        Does the individual have an autism diagnosis by a medical professional?
+          </mat-label>
+       </div>
+        <div class="seperator-mar"></div>
+        <div *ngIf="getFormData().autismDiagnsSw.hasError('required') && (getFormData().autismDiagnsSw.touched || submitted)">
+          <mat-error>{{customValidation.A1}}</mat-error>
+       </div>
+        <div class="radio-container">
+            <mat-radio-group formControlName="autismDiagnsSw">
+            <div>
+              <mat-radio-button value="Y">Yes</mat-radio-button>
+            </div>
+            <div>
+              <mat-radio-button value="N">No</mat-radio-button>
+            </div>
+          </mat-radio-group>
+       </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="question-container">
+          <mat-label>
+            <mat-label class="required-class">*</mat-label>
+        Does the individual have a profound communication disorder as diagnosed by a medical 
+professional?
+          </mat-label>
+       </div>
+        <div class="seperator-mar"></div>
+        <div *ngIf="getFormData().commDisorderSw.hasError('required') && (getFormData().commDisorderSw.touched || submitted)">
+          <mat-error>{{customValidation.A1}}</mat-error>
+       </div>
+        <div class="radio-container">
+            <mat-radio-group formControlName="commDisorderSw">
+            <div>
+              <mat-radio-button value="Y">Yes</mat-radio-button>
+            </div>
+            <div>
+              <mat-radio-button value="N">No</mat-radio-button>
+            </div>
+          </mat-radio-group>
+       </div>
+      </div>
+    </div>
+
+  <mat-divider class="perlss-horizontal-divider"></mat-divider>
+
+    <div class="seperator-mar"></div>
+
+        <h4 class="hd">Intellectual and/or Developmental Disability</h4>
+
+  <div class="row">
+      <div class="col-md-12">
+        <div class="question-container">
+          <mat-label>
+            <mat-label class="required-class">*</mat-label>
+       Does the individual have an intellectual and/or developmental disability as defined above which significantly diminishes his/her functional capacity and interferes with the ability to perform age appropriate activities?
+
+          </mat-label>
+       </div>
+        <div class="seperator-mar"></div>
+          <div *ngIf="getFormData().intDiminFuncCapSw.hasError('required') && (getFormData().intDiminFuncCapSw.touched || submitted)">
+          <mat-error>{{customValidation.A1}}</mat-error>
+       </div>
+        <div class="radio-container">
+            <mat-radio-group formControlName="intDiminFuncCapSw" (change)="intellectualYorN($event.value)">
+            <div>
+              <mat-radio-button value="Y">Yes</mat-radio-button>
+            </div>
+            <div>
+              <mat-radio-button value="N">No</mat-radio-button>
+            </div>
+          </mat-radio-group>
+       </div>
+      </div>
+    </div>
+
+  <div class="row" *ngIf="isintellectual">
+      <div class="col-md-6">
+        <div class="question-container">
+          <mat-label>
+            <mat-label class="required-class">*</mat-label>
+         Please indicate the intellectual and/or developmental disability the individual has.
+
+          </mat-label>
+       </div>
+        <div class="seperator-mar"></div>
+          <div *ngIf="getFormData().intDevDisabilityCd.hasError('required') && (getFormData().intDevDisabilityCd.touched || submitted)">
+          <mat-error>{{customValidation.A1}}</mat-error>
+       </div>
+       
+       <mat-form-field appearance="outline">
+      <mat-select placeholder="Please select" formControlName="intDevDisabilityCd">
+        <mat-option *ngFor="let option of iDDType" [value]="option.code">{{option.value}}</mat-option>
+    </mat-select>
+       </mat-form-field>
+      </div>
+    </div>
+
+  <div class="row">
+      <div class="col-md-12">
+        <div class="question-container">
+          <mat-label>
+            <mat-label class="required-class">*</mat-label>
+       Does the individual require assistance from others to complete everyday activities that is significantly beyond that which is routinely provided to adults and/or children of that age?
+
+          </mat-label>
+       </div>
+        <div class="seperator-mar"></div>
+          <div *ngIf="getFormData().assistRequiredSw.hasError('required') && (getFormData().assistRequiredSw.touched || submitted)">
+          <mat-error>{{customValidation.A1}}</mat-error>
+       </div>
+        <div class="radio-container">
+            <mat-radio-group formControlName="assistRequiredSw" (change)="assistanceReqYorN($event.value)">
+            <div>
+              <mat-radio-button value="Y">Yes</mat-radio-button>
+            </div>
+            <div>
+              <mat-radio-button value="N">No</mat-radio-button>
+            </div>
+          </mat-radio-group>
+       </div>
+      </div>
+    </div>
+
+  <div class="row" *ngIf="isAssistance">
+      <div class="col-md-6">
+        <div class="question-container">
+          <mat-label>
+            <mat-label class="required-class">*</mat-label>
+        Choose the best description of the daily level of assistance from others this individual requires:
+
+          </mat-label>
+       </div>
+        <div class="seperator-mar"></div>
+          <div *ngIf="getFormData().assistRequiredCd.hasError('required') && (getFormData().assistRequiredCd.touched || submitted)">
+          <mat-error>{{customValidation.A1}}</mat-error>
+       </div>
+       <mat-form-field appearance="outline">
+      <mat-select placeholder="Please select" formControlName="assistRequiredCd">
+          <mat-option *ngFor="let option of dailyAssistance" [value]="option.code">{{option.value}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+      </div>
+    </div>
+
+  <div class="row" *ngIf="isAssistance">
+      <div class="col-md-12">
+        <div class="question-container">
+          <mat-label>
+            <mat-label class="required-class">*</mat-label>
+      Does the individual have a co-occurring behavioral health support need in addition to their I/DD?
+
+          </mat-label>
+       </div>
+        <div class="seperator-mar"></div>
+          <div *ngIf="getFormData().cooccurrHthBehSuppSw.hasError('required') && (getFormData().cooccurrHthBehSuppSw.touched || submitted)">
+          <mat-error>{{customValidation.A1}}</mat-error>
+       </div>
+        <div class="radio-container">
+            <mat-radio-group formControlName="cooccurrHthBehSuppSw">
+            <div>
+              <mat-radio-button value="Y">Yes</mat-radio-button>
+            </div>
+            <div>
+              <mat-radio-button value="N">No</mat-radio-button>
+            </div>
+          </mat-radio-group>
+       </div>
+      </div>
+    </div>
+
+
+    <div class="seperator-mar-nonfebrile"></div>
+    <div class="row">
+      <div class="col-md-6">
+        <button type="submit" mat-stroked-button class="perlss-back-button" (click)="back()">BACK</button>
+         <button type="submit" mat-button class="perlss-save-button" (click)="saveAndExit()" >SAVE AND EXIT</button>
+      </div>
+
+      <div class="col-md-6" style="text-align: right;">
+        <button type="submit" class="submit-button" mat-flat-button color="primary" (click)="saveIddDetailsInfo()" >NEXT</button>
+      </div>
+    </div>
+
+  </form>
+</div>

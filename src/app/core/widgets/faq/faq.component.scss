@@ -1,0 +1,120 @@
+//new styles
+
+.cdk-overlay-pane.exp_popup {
+
+    margin: 0;
+    padding: 0;
+    border: 2px solid #1B365D;
+    width: 90%;
+    max-width: 1000px;
+    border: none;
+    
+  
+    > mat-dialog-container {
+      margin: 0;
+      padding: 0;
+      border-top-left-radius: 7px;
+      border-bottom-left-radius: 7px;
+      border-top-right-radius: 7px;
+      border-bottom-right-radius: 7px;
+      border-radius: 7px;
+      border: 2px solid #134597;
+  
+      > *.ng-star-inserted {
+  
+        overflow: hidden;
+        height: auto;
+        width: 100%;
+        display: block;
+    
+        .header {
+  
+          width: 100%;
+          height: 66.5px;
+          overflow: hidden;
+          display: block;
+          border-bottom: 1px solid #aaaaaa;
+          position: relative;
+
+          h1 {
+            font-size: 27px;
+            float: left;
+            font-weight: 700;
+            color: #265ba5;
+            margin: 18px 0 27px 54px;
+            width: calc(100% - 144px);
+          }
+
+          mat-icon {
+            display: block;
+            padding: 0;
+            background: transparent;
+            border: none;
+            font-size: 36px;
+            width: 36px;
+            height: 36px;
+            line-height: 39.5px;
+            margin: 0;
+            position: absolute;
+            top: 12.5px;
+            right: 18px;
+            color: #aaaaaa;
+          }
+  
+          + div {
+  
+            * {
+              font-family: 'Open Sans';
+            }
+  
+            height: auto;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 5.5px 75px 16px 75px;
+            max-height: 80vh;
+            margin: 0;
+  
+            p {
+              font-size:  20px;
+              line-height: 27px;
+              margin: 9px 9px 23.5px 3.5px;
+              padding: 0;
+              
+  
+              + h2 {
+                border-top: 1px solid #aaaaaa;
+              }
+  
+            }
+  
+            h2 {
+              font-size: 21.5px;
+              line-height: 25px;
+              font-weight: 700;
+              margin: 0;
+              padding:  20px 0 5.5px 0;
+              color: #547E1A;
+            }
+  
+            > .buttons {
+  
+              overflow: hidden;
+              width: 100%;
+              height: auto;
+              margin: 0;
+              padding: 0 0 27px 0;
+              
+              > button {
+                float: right;
+                display: block;
+                margin: 0 0 0 .90px;
+                padding: 3.5px 11px;
+                font-size: 16px;
+              } 
+            }
+          }
+        }
+      }
+    }
+  }
+  

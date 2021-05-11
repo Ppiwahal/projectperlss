@@ -1,0 +1,532 @@
+@import '/src/colors.scss';
+
+
+app-referral-dashboard{
+  scroll-behavior: smooth;
+}
+
+.pageMargin
+{
+    width:95%;
+}
+.dashboard-card-container{
+    display: table;
+    height:10%;
+    width: 100%;
+    line-height:0px;
+    .row{
+      .col-md-4{
+          padding-left: 5vw;
+          padding-right: 0px !important;
+          display: table-cell; /* Make elements inside the container behave like table cells */
+          
+          
+      }
+    }
+}
+  
+  .submit-text{
+    font-family: 'Open Sans';
+    font-weight: 900;
+    font-size: 16px;
+    color: #1B365C;
+    padding: 1.290px;
+  }
+  .perlss-section-divider{
+    margin-top: 36px;
+    margin-bottom: 36px;
+  }
+  
+  .transition-sub-desciption {
+    font-family: 'Open Sans';
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  
+  .page-Margin
+  {
+    width:100%;
+    padding-left: 13px;
+  }
+  .dashboard-card-transition
+  {
+    text-align: center;
+    cursor: pointer;
+    width:30%;
+
+  }
+  .due-text{
+    font-family: 'Open Sans';
+    font-weight: 900;
+    font-size: 22px;
+    padding: 7px;
+  }
+
+  .transition-dropdown-heading {
+    padding: 0 5px;
+    font-family: 'Open Sans';
+      font-weight: normal;
+      font-size: 22px;
+      color: #174A7C;
+  }
+  
+  .large-material-icons
+{
+  font-size: 55px; 
+  padding-left:5em; 
+  color: #1B365C;
+}
+
+  .dashboard-card-header-transition
+  {
+    text-align: center;
+    font-family: 'Open Sans';
+    font-weight: 900;
+    font-size: 15px;
+    color: #1B365C;
+    background-color: #CDDDF4;
+  }
+  
+  .dashboard-card-header{
+    text-align: center;
+    font-family: 'Open Sans';
+    font-weight: 600;
+    font-size: 20px;
+    color:black;
+    background-color: #CDDDF4;
+  }
+  
+  .dashboard-container{
+    text-align: center;
+    padding-left: 2vw;
+  }
+  
+  .dashboard-card{
+    border: 2px solid #CDDDF4 !important;
+    text-align: center;
+    cursor: pointer;
+    width: 45%;
+    height: 100%;
+  }
+  
+  .perlss-click-orange-button{
+    background-color:#ED6053;
+    color: white;
+  }
+  .dashboard-icon{
+    color: #ED6053;
+    font-size: 80px;
+    display: inline;
+    //padding-top: 9px;
+   // top: 10px;
+    position: relative; 
+  }
+  
+  mat-card.dashboard-card{
+    border-top-left-radius: 3.5px;
+    border-bottom-left-radius: 3.5px;
+    border-top-right-radius: 3.5px;
+    border-bottom-right-radius: 3.5px;
+    border-radius: 3.5px;
+    border: 1px solid #efeef0;
+    padding: 0;
+    
+  }
+  
+  mat-card-title.dashboard-card-header {
+    padding: 25px;
+    margin: 0;
+  }
+  
+  mat-card-content {
+  
+    font-family: 'Open Sans';
+    font-size: 13px;
+    font-weight: 900;
+    color:black;
+    .row{
+      width:100% -90px;
+      padding: 9px;
+      .col{
+        .total-container{
+          padding: 0;
+          margin-top: 0.4vh;
+          font-size:9px;
+          .total-pending-number{
+            text-align: center;
+            font-family: 'Open Sans';
+            font-weight: 900;
+            font-size: 13px;
+            color: #1B365C;
+            padding: .90px;
+          }
+        }
+      }
+    }
+  }
+  
+  .pending-submission{
+    padding-top: 72px;
+  }
+  
+  mat-divider.dashboard-card-divider {
+    border-color: #174A7C;
+    border-top-width: 2px;
+  }
+  
+
+mat-card-actions{
+  padding-top: 0;
+
+.submit-text{
+    text-align: center;
+    font-family: 'Open Sans';
+    font-weight: 900;
+    font-size: 21.5px;
+    color: #1B365C;
+    padding: 18px;
+  }
+}
+
+.total-container
+{
+  padding: 2px;
+}
+// .horiz-material-icons{
+//   padding-top: 90px;
+//   size:large;
+// }
+
+.dashboard-card-transition
+{
+  width:40%;
+}
+
+mat-divider.dashboard-card-divider {
+  border-color: #174A7C;
+  border-top-width: 2px;
+}
+
+#transitionTable
+{
+  tr.element-row:not(.expanded-row):hover {
+    background: $colorControlBackground;
+  }
+  tr.example-detail-row {
+    height: 0;
+  }
+  .example-element-detail {
+    overflow: hidden;
+  }
+
+  tr.element-row:not(.expanded-row):active {
+    background: $colorControlBackground;
+  }
+  .borderless td, .borderless th {
+    border: none;
+  }
+}
+.expandable-row-button{
+  background-color:#ED9924;
+  color: white;
+  display: inline-flex;
+  vertical-align: middle;
+  justify-content: center;
+  width: 100%;
+}
+
+.expandable-row-button-white{
+  background-color:white;
+  color: #1B365D;
+  display: inline-flex;
+  vertical-align: middle;
+  justify-content: center;
+  width: 100%;
+}
+
+table,
+  table.activityTable {
+    width: calc(100% - 54px);
+    margin: 20px 0 20px 0;
+    border-spacing: 0;
+    + .checkbox-group {
+      margin-top: 18px;
+    }
+
+    > thead > tr {
+      &:first-child {
+        > th:first-child {
+          text-align: left;
+        }
+      }
+      > th {
+        overflow: hidden;
+        color: black;
+        font-size: 18px;
+        line-height: 21.5px;
+        padding: 18px 18px 18px 18px;
+        height: 30px;
+        border: none;
+        background: $colorTableBorder;
+        vertical-align: bottom;
+        font-weight: 600;
+        text-align: center;
+        border-bottom: 2px solid #174a7c;
+
+        > &:first-child {
+          text-align: left;
+        }
+      }
+    }
+
+    > tbody > tr {
+      > td {
+        font-size: 15px;
+        text-align: center;
+        vertical-align: middle;
+        padding: 8.5px 18px;
+        border-right: none;
+        border-left: none;
+        border-bottom: 1px solid $colorTableBorder;
+        width: auto;
+
+        &.mat-cell > mat-icon,
+        > mat-icon {
+          font-size: 30px;
+          width: 30px;
+          height: 30px;
+          position: relative;
+          top: 1px;
+          vertical-align: middle;
+        }
+
+        &.red {
+          color: $colorRed;
+          > mat-icon {
+            color: $colorRed;
+          }
+        }
+
+        &:first-child {
+          text-align: left;
+          width: auto;
+          border-left: 2px solid $colorTableBorder;
+        }
+
+        &:last-child {
+          border-right: 2px solid $colorTableBorder;
+        }
+
+        > mat-checkbox.mat-checkbox {
+          margin: 0;
+          padding: 0;
+          > label {
+            > div.mat-checkbox-inner-container {
+              width: 18px;
+              height: 18px;
+              > div.mat-checkbox-frame {
+                border: 1px solid green;
+              }
+            }
+          }
+        }
+      }
+
+      &.strong {
+        font-weight: 800;
+      }
+    }
+  }
+
+#transitionTable
+{
+  table{
+    &:last-child {
+      border-bottom: 2px solid #cdddf4 !important;
+    }
+  }
+
+  th{
+    background-color: #cdddf4;
+    color:#3d3e40;
+    font-weight:600;
+    border-bottom: #1B365C 2px solid !important;
+    font-size:18px;
+  }
+
+  td{
+    font-size:15px;
+
+    &:hover
+    {
+      cursor:pointer;
+      text-decoration: underline;
+    }
+  }
+  tr {
+    > td {
+      font-size: 15px;
+      text-align: center;
+      vertical-align: middle;
+      padding: 8.5px 18px;
+      border-right: none;
+      border-left: none;
+      border-bottom: 1px solid $colorTableBorder;
+      width: auto;
+
+      &.mat-cell > mat-icon,
+      > mat-icon {
+        font-size: 30px;
+        width: 30px;
+        height: 30px;
+        position: relative;
+        top: 1px;
+        vertical-align: middle;
+      }
+
+      &.red {
+        color: $colorRed;
+        > mat-icon {
+          color: $colorRed;
+        }
+      }
+
+      &:first-child {
+        text-align: left;
+        width: auto;
+        border-left: 2px solid $colorTableBorder;
+      }
+
+      &:last-child {
+        border-right: 2px solid $colorTableBorder;
+      }
+
+      > mat-checkbox.mat-checkbox {
+        margin: 0;
+        padding: 0;
+        > label {
+          > div.mat-checkbox-inner-container {
+            width: 18px;
+            height: 18px;
+            > div.mat-checkbox-frame {
+              border: 1px solid green;
+            }
+          }
+        }
+      }
+    }
+
+    &.strong {
+      font-weight: 800;
+    }
+  }
+}
+
+.queue-text
+{
+  color:green;
+  font-weight: 600px;
+  font-size:22px;
+}
+
+#dashboardTable{
+
+  .mat-expansion-panel {
+      box-shadow: none;
+    }
+    .expanded-row{
+      background-color: #EDF4FB !important;
+      font-weight: bold !important;
+    }
+    .mat-form-field-appearance-outline .mat-form-field-outline {
+      background-color: $colorControlBackground;
+      border-color: #CED4DA;
+    }
+    .mat-expansion-panel-body{
+      padding: 0px;
+    }
+    .mat-expansion-panel-header-title {
+      color: #04537D;
+      font-size: 20px !important;
+      letter-spacing: 02px;
+    }
+    .mat-form-field{
+      width:100%;
+    }
+    
+    .mat-header-cell{
+      color: #04537D !important;
+      font-weight: 900;
+      border-top:none;
+      border-bottom: #1B365C 2px solid !important;
+      font-size: 15px;
+      padding-left: 28px !important;
+    }
+    .mat-header-row{
+      border:none;
+    }
+  
+    .mat-cell {
+      font-size: 15px;
+      padding-left: 25px;
+    }
+  
+    .mat-expansion-indicator::after {
+      color: #ED6053 !important;
+      height: 21.5px;
+      width: 21.5px;
+      top: 50%;
+  
+    }
+  }
+
+  .side-heading
+{
+  font-size:20px;
+  font-weight:600;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-top: 20px;
+  border-top: 1px solid $colorLightGray;
+  color:green;
+}
+  
+  :host::ng-deep #searchresultsTable{
+    
+    tr.element-row:not(.expanded-row):hover {
+      background: $colorControlBackground;
+    }
+    tr.example-detail-row {
+      height: 0;
+    }
+    .example-element-detail {
+      overflow: hidden;
+    }
+  
+    tr.element-row:not(.expanded-row):active {
+      background: $colorControlBackground;
+    }
+  
+    .borderless td, .borderless th {
+      border: none;
+    }
+  }
+  .expandable-row-button{
+    background-color:#ED9924;
+    color: white;
+    display: inline-flex;
+    vertical-align: middle;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .expandable-row-button-white{
+    background-color:white;
+    color: #1B365D;
+    display: inline-flex;
+    vertical-align: middle;
+    justify-content: center;
+    width: 100%;
+  }
+  

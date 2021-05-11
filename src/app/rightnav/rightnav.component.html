@@ -1,0 +1,50 @@
+<div class="modal right fade" style="position: absolute; z-index: 1050; display: none;"  id="rightNavModal" tabindex="-1" role="dialog" aria-labelledby="rightNavModalLabel"
+     data-backdrop="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: 500px;">
+      <button id="closeModalButton" [hidden]="true" data-toggle="modal"
+              data-target="#rightNavModal" class="btn btn-default"
+              data-dismiss="modal">Close</button>
+      <button id="openModalButton" [hidden]="true" data-toggle="modal"
+              data-target="#rightNavModal" class="btn btn-default"
+              >Open</button>
+      <div class="modal-body">
+        <app-view-documents-popup *ngIf="componentType === 'VIEW_DOC'" [data]="data" (closeDialogEvent)="handleDialogClosure()"></app-view-documents-popup>
+        <app-upload-documents-popup *ngIf="componentType === 'UPLOAD_DOC'" [data]="data" (closeDialogEvent)="handleDialogClosure()"></app-upload-documents-popup>
+        <app-add-notes-popup *ngIf="componentType === 'NOTES'" [data]="data" (closeDialogEvent)="handleDialogClosure()"></app-add-notes-popup>
+        <app-view-notices *ngIf="componentType === 'NOTICES'" [data]="data" (closeDialogEvent)="handleDialogClosure()"></app-view-notices>
+        <app-tasks *ngIf="componentType === 'NEW_TASK'" [data]="data" (closeDialogEvent)="handleDialogClosure()"></app-tasks>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="rightnavFlag" class="page-footer-container">
+    <div class="icon-bar clown mat-elevation-z6">
+        <div matTooltip="Upload Documents" class="outter-icon">
+            <div class="inner-icon cloud-icon" data-target="#rightNavModal" (click)="openModalDialog('UPLOAD_DOC')">
+                <mat-icon>cloud_upload</mat-icon>
+            </div>
+       </div>
+        <div matTooltip="View Documents" class="outter-icon">
+            <div class="inner-icon folder-icon" data-target="#rightNavModal" (click)="openModalDialog('VIEW_DOC')">
+                <mat-icon>folder_open</mat-icon>
+            </div>
+       </div>
+        <div matTooltip="Notes" class="outter-icon">
+            <div class="inner-icon note-icon" (click)="openModalDialog('NOTES')">
+                <mat-icon>description</mat-icon>
+            </div>
+       </div>
+        <div  matTooltip="View Notices" class="outter-icon">
+            <div class="inner-icon email-icon" (click)="openModalDialog('NOTICES')">
+                <mat-icon>email</mat-icon>
+            </div>
+       </div>
+        <div matTooltip="Tasks" class="outter-icon last-element">
+            <div class="inner-icon alarm-icon" (click)="openModalDialog('NEW_TASK')">
+                <mat-icon>alarm_on</mat-icon>
+            </div>
+       </div>
+    </div>
+</div>

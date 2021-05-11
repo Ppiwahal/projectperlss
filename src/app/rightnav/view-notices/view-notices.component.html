@@ -1,0 +1,79 @@
+<div class="note-wrapper">
+    <div class="header-row">
+        <div>
+            <p style="color: #1B365D; font-size: 25px; font-weight: bold;">View Notices</p>
+       </div>
+        <div>
+            <span class="close-icon" style="cursor: pointer;">
+                <mat-icon (click)=closeDialog()>highlight_off</mat-icon>
+            </span>
+       </div>
+    </div>
+    <mat-divider class="perlss-section-divider"></mat-divider>
+
+    <div>
+        <div class="person-details">
+            <div class="table-header-content">
+                <table aria-describedby="Applicant" style="width: 100%;">
+                    <tr *ngIf="data?.applicantName" class="d-flex">
+                        <th id="applicantName" class="col-5"><strong>Applicant Name:</strong></th>
+                        <td class="col-7">{{data?.applicantName}}</td>
+                    </tr>
+                    <tr *ngIf="data?.aplId" class="d-flex">
+                        <td class="col-5"><strong>Appeal ID:</strong></td>
+                        <td class="col-7">{{data?.aplId}}</td>
+                    </tr>
+                    <tr *ngIf="data?.refId" class="d-flex">
+                        <td class="col-5"><strong>Referral ID</strong></td>
+                        <td class="col-7">{{data?.refId}}</td>
+                    </tr>
+                    <tr *ngIf="data?.paeId" class="d-flex">
+                        <td class="col-5"><strong>PAE ID:</strong></td>
+                        <td class="col-7">{{data?.paeId}}</td>
+                    </tr>
+                </table>
+            </div>
+       </div>
+
+        <div class="note-list">
+            <mat-divider class="perlss-section-divider"></mat-divider>
+            <div class="note-header">
+                Notice Type
+                <span class="notices-header">
+                    Generate Date
+                </span>
+            </div>
+
+            <hr>
+            <div class="note-content">
+                <ul>
+                    <li *ngFor="let note of notesData; let i = index">
+                        <div class="note-description">
+                            <div class="icon-wrapper">
+                                <div style="color: black;">
+                                    <mat-icon class=" icon-span note-icon">description</mat-icon>
+                                    <span (click)="viewPdf('EN',note.noticeId)" style="cursor: pointer;">
+                                        {{note.noticesType}}
+                                    </span>
+                                    <span (click)="viewPdf('SP',note.noticeId)" *ngIf = "note.langCd === 'SP'" style="cursor: pointer;">
+                                        (Spanish)
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div style="display: inherit; color: black;">
+                                <div style="margin-right: 5px;">
+                                    <p style="color: black;">{{note.generateDt}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="note-detail">
+                            <p style="color: black;">Notice ID: {{note.noticeId}}</p>
+                        </div>
+                        <hr>
+                    </li>
+                </ul>
+            </div>
+       </div>
+    </div>
+</div>

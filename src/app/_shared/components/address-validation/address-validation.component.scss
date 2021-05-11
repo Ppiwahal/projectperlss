@@ -1,0 +1,45 @@
+@import '../../../../colors.scss';
+
+.address-wrapper{
+    overflow: hidden;
+}
+
+.address-header-row {
+    margin: 12px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.address-lists {
+    margin: 30px;
+    width: 100%;
+}
+
+.close-icon {
+    color: #1B365D;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.no-address {
+    color: black;
+    font-size: 17px;
+    margin-left: 20px;
+    margin-right: 15px;
+    margin-top: 100px;
+}
+
+.entered-address {
+    display: flex;
+    margin-top: 30px;
+    margin-right: 50px;
+}
+
+.right {
+    margin-left: auto;
+}
+
+.submit {
+    font-weight: bold;
+}

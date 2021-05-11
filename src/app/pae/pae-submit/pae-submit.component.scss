@@ -1,0 +1,363 @@
+h4 {
+  font-size: 25px;
+  line-height: 36px;
+  font-weight: 700;
+  margin: 0;
+  padding:  20px 0 5.5px 0;
+  color: #547e1a;
+  font-family: "Open Sans";
+  margin: 0 0 9px 0;
+}
+
+.page-header-container {
+  .row {
+    .col-md-4 {
+      max-width: 100%;
+      width: 100%;
+    }
+  }
+}
+
+.applicant-name-container {
+  padding: 18px;
+  vertical-align: middle;
+  justify-content: center;
+  font-size:  20px;
+  border: 2px solid;
+  border-color: #4d7e20;
+  text-align: center;
+}
+.supporting-docs{
+  padding-left: 30px;
+  padding-right: 30px;
+}
+/*
+.form-container {
+  padding-top: 27px;
+
+  .row {
+    padding-bottom: 27px;
+
+    .col-md-6 {
+      .is-activated {
+        height: 72px;
+        width: 70%;
+        margin-top: 9px;
+        margin-bottom: 9px;
+        padding-left: 18px;
+        text-align: left;
+        border: solid 1px;
+        border-color: #1b365c;
+
+        .button-icon {
+          float: right;
+          margin-top: 9px;
+          margin-bottom: 9px;
+        }
+      }
+
+      .is-deactivated {
+        width: 70%;
+        height: 72px;
+        padding-left: 18px;
+        margin-top: 9px;
+        margin-bottom: 9px;
+        text-align: left;
+        border: solid 1px;
+        border-color: #1b365c;
+        background-color: #1b365c;
+        color: white;
+
+        .button-icon {
+          float: right;
+          margin-top: 9px;
+          margin-bottom: 9px;
+          background-color: #1b365c;
+          color: WHITE;
+        }
+      }
+    }
+  }
+} */
+
+.button-container {
+  padding-top: 5vh;
+
+  .row {
+    .col-md-2 {
+      text-align: left;
+    }
+
+    .col-md-4 {
+      text-align: left;
+    }
+
+    .col-md-6 {
+      text-align: right;
+    }
+
+    .perlss-click-button,
+    .perlss-click-button-white-noborder,
+    .perlss-click-button-white {
+      font-size: 25px !important;
+    }
+  }
+}
+
+.required-color {
+  color: #ee3524;
+}
+
+#skilledSummary,
+#serviceScore,
+#fileUpload {
+  font-family: "Open Sans";
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #35485b;
+  padding: 18px;
+  text-align: center;
+
+  .left {
+    text-align: left;
+  }
+}
+
+#skilledSummary td,
+#skilledSummary th,
+#serviceScore td,
+#serviceScore th,
+#fileUpload td,
+#fileUpload th {
+  padding: 18px;
+  border-bottom: 0.5px solid #999999;
+
+  .green {
+    display: inline-flex;
+    vertical-align: middle;
+    color: rgb(47, 165, 0);
+  }
+
+  .red {
+    display: inline-flex;
+    vertical-align: middle;
+    color: #f31e1e;
+  }
+
+  span {
+    margin-left: 18px;
+  }
+}
+
+#skilledSummary th,
+#serviceScore th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #cdddf4;
+  border-bottom: 1px solid #35485b;
+}
+
+#fileUpload th,
+#fileUpload tr {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #35485b;
+}
+
+.wide {
+  width: 62.5%;
+}
+
+.wider {
+  width: 80%;
+}
+
+.services-needed-container,
+.file-upload-container {
+  padding-top: 36px;
+}
+
+.upload-icon {
+  color: rgb(76, 144, 211);
+}
+
+.stack-radio-button {
+  margin: 5px;
+}
+
+.mat-radio-button {
+  display: table !important;
+}
+
+.summary_align {
+  margin-left: 6px;
+}
+
+.enrollmentMessage {
+  border:1px solid black;
+  color: black;
+  padding: 12px;
+  width:50%
+}
+
+.LOCBTN {
+  top: -34px;
+  right: -155px;
+}
+
+.red-icon {
+  color: #ed6053;
+  transform: scale(0.8);
+}
+
+
+.tableContainer {
+  margin-left: 60px;
+  margin-right: 60px;
+}
+
+.mat-table {
+  border: 2px solid #cdddf4
+}
+
+.mat-header-cell {
+  color: black !important;
+}
+
+.perlss-section-divider {
+  margin-top: 28px !important;
+  margin-bottom: 28px !important;
+}
+
+.statHeader {
+  font-weight: bold;
+  font-size: large;
+}
+
+.applicant-heading {
+  color: #6E7073;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 45px;
+}
+
+.gotoDetailsLink:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.checkbox-label {
+  padding-bottom: 20px;
+}
+button:disabled{
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.column-date{
+  width: 35% !important;
+}
+
+.mat-table {
+  border: 2px solid #cdddf4;
+}
+.notes {
+  border: 1px solid;
+  padding-top: 7px;
+  margin-top: 36px;
+  background-color: #f5f9fe;
+}
+
+.applicant-sub-heading {
+  color: #547e1a;
+  font-size: 10px;
+  margin-bottom: 25px;
+}
+
+.status-header {
+  padding-left: 35px;
+  font-weight: bold;
+  font-size: 16px;
+  background-color: #cdddf4;
+}
+
+.iconTextContainer {
+  position: relative;
+  padding-top: 4px;
+  text-align: center;
+  color: black;
+  font-weight: bold;
+}
+
+.statusText {
+  position: absolute;
+  padding-top: 2px;
+}
+
+.usrActions {
+  padding-left: 30px;
+  font-size: 14px;
+}
+
+.mat-header-cell {
+  color: black !important;
+}
+
+.perlss-section-divider {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.statHeader {
+  font-weight: bold;
+  font-size: large;
+}
+
+.applicant-heading {
+  color: #6e7073;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 45px;
+}
+
+.gotoDetailsLink:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.sub-pageMargin{
+  padding-left: 45px;
+  padding-right: 45px;
+}
+
+
+.edit_action {
+  color: red;
+  cursor: pointer;
+}
+
+.required-name {
+  color: #547e1a;
+  font-family: "Open Sans";
+  font-size: 20px !important;
+  line-height: 27px;
+  font-weight: 700;
+}
+.red {
+  color: red;
+}
+.green{
+  color: green;
+}
+.textStyle{
+  font-family: "Open Sans";;
+    font-size: 18px;
+    line-height: 23.5px;
+    font-weight: 400;
+    color: #0b0b0b;
+}
+.divider{
+  padding-top: 40px;
+}
+#Medicaid-source{
+  width: 65% !important;
+  padding-top: 30px;
+}

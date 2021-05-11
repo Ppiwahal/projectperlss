@@ -1,0 +1,33 @@
+<div class="wrapper">
+    <h5 class="heading">Appeal Representative</h5>
+    <p>Please add representatives associated to this appeal.</p>
+    <p>If the appeal filing method is phone and the caller is not the appellant, then please add the caller details.</p>
+    <div *ngIf="showRepresentaiveAccordion">
+        <app-appeal-representative-accordion 
+        [representativeFormData]="representativeFormData" 
+        [nameSuffix]="nameSuffix" 
+        [relationshipToAppellant]="relationshipToAppellant" 
+        [verificationSource]="verificationSource" 
+        [phoneType]="phoneType"
+        (updateRepresentativeEmitter)="finalRepresentativeList($event)"></app-appeal-representative-accordion>
+    </div>
+    <div class="add-representative" (click)="addRepresentatives()">
+        <span class="material-icons icon" *ngIf="toggleIcon">
+            add_circle
+        </span>
+        <span class="material-icons icon" *ngIf="!toggleIcon">
+            remove_circle
+        </span>
+        <h5>ADD REPRESENTATIVE</h5>
+    </div>
+    <div *ngIf="showRepresentativeForm">
+        <app-appeal-representative-details 
+        (saveRepresentaviveData)="saveRepresentaviveData($event)" 
+        (cancelEmit)="cancel()"
+        [nameSuffix]="nameSuffix" 
+        [relationshipToAppellant]="relationshipToAppellant" 
+        [verificationSource]="verificationSource" 
+        [phoneType]="phoneType"
+        ></app-appeal-representative-details>
+    </div>
+</div>

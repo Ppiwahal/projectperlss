@@ -1,0 +1,90 @@
+<div class="responsive">
+  <div class="form">
+    <div class="scroller">
+      <app-change-management-common>
+        <div>
+          <form [formGroup]="myForm" [ngClass]="{'submitted': submitted }">
+            <div>
+              <ng-container>
+                <div class="note">
+                  <div>
+                    <label>Note:</label>
+                    <p>An exception amount has already been submitted for the applicant for this calendar year.
+                  </div>
+                </div>
+                <div class="w30">
+                  <mat-form-field appearance="outline">
+                    <mat-label class="req">What would you like to do?</mat-label>
+                    <mat-select formControlName="actionTypeCd">
+                      <mat-option value="IT">Initiate Transaction</mat-option>
+                      <mat-option value="OTH">Other thing data table not provided</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-error *ngIf="controlError('action')">{{errorText['action']}}</mat-error>
+                </div>
+              </ng-container>
+              <div class="w50">
+                <mat-form-field appearance="outline">
+                  <mat-label class="req">Exception Amount</mat-label>
+                  <input matInput maxlength="8" formControlName="exceptionAmt">
+                </mat-form-field>
+                <mat-error *ngIf="controlError('exceptionAmt')">{{errorText['exceptionAmt']}}</mat-error>
+              </div>
+              <div class="w50">
+                <mat-form-field appearance="outline">
+                  <mat-label class="req">Effective Date</mat-label>
+                  <input matInput [matDatepicker]="effectiveDatePicker" formControlName="exceptionEffDt"
+                    (keydown)="dateFilter($event)">
+                  <mat-datepicker-toggle matSuffix [for]="effectiveDatePicker"></mat-datepicker-toggle>
+                  <mat-datepicker #effectiveDatePicker></mat-datepicker>
+                </mat-form-field>
+                <mat-error *ngIf="controlError('exceptionEffDt')">{{errorText['exceptionEffDt']}}</mat-error>
+              </div>
+              <div class="w80"><div class="textArea">
+                <mat-label class="req">Comments</mat-label>
+                <textarea formControlName="exceptionRsn"></textarea>
+                <mat-error *ngIf="controlError('exceptionRsn')">{{errorText['exceptionRsn']}}</mat-error>
+                <p>{{getControl('exceptionRsn').value.length}}/2000</p>
+              </div></div>
+              <div class="w80">
+                <table class="activityTable">
+                  <thead>
+                    <tr class="">
+                      <th class="btl-radius w-50">Form Type</th>
+                      <th class="btr-radius w-50">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody class="tight">
+                    <tr>
+                      <td class="bb bt bb-db pl-4">PAE Supporting Documents</td>
+                      <td class="bb bt bb-db">
+                        <div class="float-left" *ngIf="ismedUploaded">
+    
+                          <mat-icon class="button-icon blue"> file_upload
+                          </mat-icon>
+    
+                          <span style="cursor:pointer;"
+                            class="mat-input-element">add
+                            more</span>
+                        </div>
+                        <mat-icon class="button-icon green mr-13"
+                          *ngIf="ismedUploaded"> done </mat-icon>
+                        <mat-icon style="cursor:pointer;"*ngIf="!ismedUploaded"
+                          class="button-icon blue">cloud_upload</mat-icon>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="panelButtons onLeft">
+                <button type="submit" mat-flat-button color="primary" class="perlss-click-button"
+                  (click)="save()">SUBMIT</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </app-change-management-common>
+    </div>
+  </div>
+</div>

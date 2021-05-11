@@ -1,0 +1,141 @@
+<div class="responsive">
+  <div class="form">
+    <div class="scroller">
+      <app-change-management-common>
+        <div>
+          <form [formGroup]="myForm" [ngClass]="{'submitted': submitted}">
+            <div class="w70">
+              <mat-form-field appearance="outline">
+                <mat-label class="req">Level of Need</mat-label>
+                <mat-select formControlName="lvlOfNeedCd">
+                  <mat-option *ngFor="let option of levelOfNeeds" [value]="option.code">
+                    {{option.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-error *ngIf="controlError('lvlOfNeedCd')">{{errorText['lvlOfNeedCd']}}</mat-error>
+            </div>
+            <div class="w80">
+              <table class="activityTable">
+                <thead>
+                  <tr class="">
+                    <th class="btl-radius w-50">Form Type</th>
+                    <th class="btr-radius w-50">Status</th>
+                  </tr>
+                </thead>
+                <tbody class="tight">
+                  <tr>
+                    <td class="bb bt bb-db pl-4">Details of the additional services requested</td>
+                    <td class="bb bt bb-db">
+                      <div class="float-left" *ngIf="ismedUploaded">
+
+                        <mat-icon class="button-icon blue"> file_upload
+                        </mat-icon>
+
+                        <span style="cursor:pointer;" (click)="uploadDocument()"
+                          class="mat-input-element">add
+                          more</span>
+                      </div>
+                      <mat-icon class="button-icon green mr-13"
+                        *ngIf="ismedUploaded"> done </mat-icon>
+                      <mat-icon style="cursor:pointer;"*ngIf="!ismedUploaded"
+                        (click)="uploadDocument()"
+                        class="button-icon blue">cloud_upload</mat-icon>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="bb bt bb-db pl-4">Response(s) to questions from the safety request screens for the last 6 months</td>
+                    <td class="bb bt bb-db">
+                      <div class="float-left" *ngIf="ismedUploaded">
+
+                        <mat-icon class="button-icon blue"> file_upload
+                        </mat-icon>
+
+                        <span style="cursor:pointer;" (click)="uploadDocument()"
+                          class="mat-input-element">add
+                          more</span>
+                      </div>
+                      <mat-icon class="button-icon green mr-13"
+                        *ngIf="ismedUploaded"> done </mat-icon>
+                      <mat-icon style="cursor:pointer;"*ngIf="!ismedUploaded"
+                        (click)="uploadDocument()"
+                        class="button-icon blue">cloud_upload</mat-icon>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="bb bt bb-db pl-4">Current PCSP</td>
+                    <td class="bb bt bb-db">
+                      <div class="float-left" *ngIf="ismedUploaded">
+
+                        <mat-icon class="button-icon blue"> file_upload
+                        </mat-icon>
+
+                        <span style="cursor:pointer;" (click)="uploadDocument()"
+                          class="mat-input-element">add
+                          more</span>
+                      </div>
+                      <mat-icon class="button-icon green mr-13"
+                        *ngIf="ismedUploaded"> done </mat-icon>
+                      <mat-icon style="cursor:pointer;"*ngIf="!ismedUploaded"
+                        (click)="uploadDocument()"
+                        class="button-icon blue">cloud_upload</mat-icon>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="bb bt bb-db pl-4">ERC supporting documentation required if ERC is requested</td>
+                    <td class="bb bt bb-db">
+                      <div class="float-left" *ngIf="ismedUploaded">
+
+                        <mat-icon class="button-icon blue"> file_upload
+                        </mat-icon>
+
+                        <span style="cursor:pointer;" (click)="uploadDocument()"
+                          class="mat-input-element">add
+                          more</span>
+                      </div>
+                      <mat-icon class="button-icon green mr-13"
+                        *ngIf="ismedUploaded"> done </mat-icon>
+                      <mat-icon style="cursor:pointer;"*ngIf="!ismedUploaded"
+                        (click)="uploadDocument()"
+                        class="button-icon blue">cloud_upload</mat-icon>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="bb bt bb-db pl-4">Comprehensive Needs Assessment (Optional)</td>
+                    <td class="bb bt bb-db">
+                      <div class="float-left" *ngIf="ismedUploaded">
+
+                        <mat-icon class="button-icon blue"> file_upload
+                        </mat-icon>
+
+                        <span style="cursor:pointer;" (click)="uploadDocument()"
+                          class="mat-input-element">add
+                          more</span>
+                      </div>
+                      <mat-icon class="button-icon green mr-13"
+                        *ngIf="ismedUploaded"> done </mat-icon>
+                      <mat-icon style="cursor:pointer;"*ngIf="!ismedUploaded"
+                        (click)="uploadDocument()"
+                        class="button-icon blue">cloud_upload</mat-icon>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          <div class="w80"><div class="textArea">
+            <mat-label class="req">Comments</mat-label>
+            <textarea formControlName="commentTxt"></textarea>
+            <mat-error *ngIf="controlError('commentTxt')">{{errorText['commentTxt']}}</mat-error>
+            <p>{{getControl('commentTxt').value.length}}/2000</p>
+          </div></div>
+          <div>
+            <div>
+              <button  class="panelButtons" type="submit" mat-flat-button color="primary" class="perlss-click-button"
+                (click)="save()">SUBMIT</button>
+            </div>
+          </div>
+          </form>
+        </div>
+      </app-change-management-common>
+    </div>
+  </div>
+</div>

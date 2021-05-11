@@ -1,0 +1,41 @@
+<div class="popup-header-container">
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Attention</h4>
+    </div>
+    <div class="col-md-6">
+      <div style="text-align: right;">
+        <mat-icon class="popup-close-icon" (click)="closePopup()" >highlight_off</mat-icon>
+      </div>
+    </div>
+  </div>
+</div>
+<mat-divider class="perlss-horizontal-divider"></mat-divider>
+
+<div class="popup-container">
+  <div class="row">
+    <div class="col-md-12">
+      <div>
+        Your session will time out in <b>{{data.numbers}} seconds</b> and any unsaved updates will be lost.
+      </div>
+      <br>
+      <div>
+        If you want to continue with this session, click the <b>"Continue"</b> button below.
+      </div>
+      <br>
+      <div>
+        To log out now, click the <b>"Log Out"</b> button.
+      </div>
+      <br>
+      <br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6" style="text-align: left;">
+      <button mat-flat-button color="primary" class="popup-click-button-white" [mat-dialog-close]="true">LOG OUT</button>
+    </div>
+    <div class="col-md-6" style="text-align: right;">
+      <button mat-flat-button color="primary" class="popup-click-button" [mat-dialog-close]="false">CONTINUE</button>
+    </div>
+  </div>
+</div>

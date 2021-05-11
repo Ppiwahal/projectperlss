@@ -1,0 +1,51 @@
+<div class="popup-main-container">
+  <div class="popup-header">
+    <div class="header-items">
+      <div>
+        <h4 class="notify-title">Notifications</h4>
+      </div>
+      <div>
+        <mat-icon class="popup-bell-icon" (click)="closePopup()"
+          >notifications_none</mat-icon
+        >
+      </div>
+    </div>
+  </div>
+  <mat-divider class="perlss-horizontal-divider"></mat-divider>
+  <div
+    *ngFor="let notification of data.notifications"
+    class="notification-tasks"
+  >
+    <div
+      class="notification-tasks-item"
+      (click)="notificationDetailsPopUp(notification)"
+    >
+      <div class="notification-name">
+        <span [ngClass]="{ bolded: clicked, unbold: !clicked }"
+          >{{ notification.notificationName || "Test Notification" }}
+        </span>
+        <span style="color: gray; font-size: small">{{
+          notification.time
+        }}</span>
+      </div>
+      <div class="notification-id">
+        <div *ngIf="notification.aplId !== null">{{ notification.aplId }}</div>
+        <div *ngIf="notification.enrId !== null">{{ notification.enrId }}</div>
+        <div *ngIf="notification.mergedPrsnId !== null">
+          {{ notification.mergedPrsnId }}
+        </div>
+        <div *ngIf="notification.paeId !== null">{{ notification.paeId }}</div>
+        <div *ngIf="notification.refId !== null">{{ notification.refId }}</div>
+        <div *ngIf="notification.trnstnId !== null">
+          {{ notification.trnstnId }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <mat-divider class="perlss-horizontal-divider"></mat-divider>
+  <div class="view-all">
+    <a href="javascript:void(0)" [routerLink]="['/ltss/inbox']" mat-dialog-close
+      >View All</a
+    >
+  </div>
+</div>

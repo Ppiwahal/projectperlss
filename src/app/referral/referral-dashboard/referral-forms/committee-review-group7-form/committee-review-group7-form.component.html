@@ -1,0 +1,184 @@
+<div class="responsive dialog">
+  <div class="header form-7">
+   <div class="left"><h1 mat-dialog-title>Committee Review Form - Group 7</h1></div>
+   <div class="right"> <label class="req">Required</label>
+    <mat-icon (click)="closePopup()"style="font-size: 35px;">highlight_off</mat-icon></div>
+  </div>
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()" >
+    <div class="scroller noPad">
+      <div class="note-container message">
+        <p>The following section shall be completed during the Intake visit to document the circumstances under
+          which the above-named person is believed to meet Group 7 reserve capacity criteria. This information
+          and all supporting documentation shall be reviewed by the Interdisciplinary Review Committee to
+          determine whether the person will proceed with application for enrollment in the Employment and
+          Community First CHOICES program in Group 7 in available reserve capacity set aside for such purposes:
+       </p>
+      </div>
+      <div class="padded" [ngClass]="{'submitted': submitted}">
+        <mat-radio-group formControlName="indvDvlpmntlIntlDisSw">
+          <mat-label class="req">Individual is age 20 years or younger and has a Developmental or Intellectual Disability.
+          </mat-label>
+          <mat-error *ngIf="controlError('indvDvlpmntlIntlDisSw')">{{errorText['indvDvlpmntlIntlDisSw']}}</mat-error>
+          <mat-radio-button value="Y">Yes</mat-radio-button>
+          <mat-radio-button value="N">No</mat-radio-button>
+       </mat-radio-group>
+
+        <mat-radio-group formControlName="indvPsyclgclBehSympSw">
+          <mat-label class="req">Individual exhibits severe psychiatric or behavioral symptoms that place the person or others at
+            significant risk of harm or that threaten the sustainability of the person living at home with
+            family.
+          </mat-label>
+          <mat-error *ngIf="controlError('indvPsyclgclBehSympSw')">{{errorText['indvPsyclgclBehSympSw']}}</mat-error>
+          <mat-radio-button value="Y">Yes</mat-radio-button>
+          <mat-radio-button value="N">No</mat-radio-button>
+       </mat-radio-group>
+
+        <div class="textArea">
+          <mat-label class="">
+            Description of documentation attached:
+          </mat-label>
+          <textarea maxlength="2000" formControlName="indvPsyclgclBehSympTxt"></textarea>
+          <mat-error *ngIf="controlError('indvBehRiskHomeTxt')">{{errorText['indvPsyclgclBehSympTxt']}}</mat-error>
+          <p>{{getFormData().indvPsyclgclBehSympTxt.value.length}}/2000</p>
+       </div>
+
+        <mat-radio-group formControlName="indvFamHigLvlSw">
+          <mat-label class="req">Individual currently lives with family or is
+            returning to the family home from a higher level of care <br/>
+            (e.g., hospitalization, residential treatment).
+          </mat-label>
+          <mat-error *ngIf="controlError('indvFamHigLvlSw')">{{errorText['indvFamHigLvlSw']}}</mat-error>
+          <mat-radio-button value="Y">Yes</mat-radio-button>
+          <mat-radio-button value="N">No</mat-radio-button>
+       </mat-radio-group>
+
+        <div class="textArea">
+          <mat-label class="">
+            Description of documentation attached:
+          </mat-label>
+          <textarea maxlength="2000" formControlName="indvFamHigLvlTxt"></textarea>
+          <mat-error *ngIf="controlError('indvFamHigLvlTxt')">{{errorText['indvFamHigLvlTxt']}}</mat-error>
+          <p>{{getFormData().indvFamHigLvlTxt.value.length}}/2000</p>
+       </div>
+
+        <mat-radio-group formControlName="indvHmInadSupSw">
+          <mat-label class="req">Less intensive in-home or community-based services
+            (e.g. ABA, CCFT, outpatient therapy) have been inadequate<br/>
+            without additional in-home support to maintain safety of the person, family, or community at large.
+          </mat-label>
+          <mat-error *ngIf="controlError('indvHmInadSupSw')">{{errorText['indvHmInadSupSw']}}</mat-error>
+          <mat-radio-button value="Y">Yes</mat-radio-button>
+          <mat-radio-button value="N">No</mat-radio-button>
+       </mat-radio-group>
+
+        <div class="textArea">
+          <mat-label class="">
+            Description of documentation attached (must include dates of previously<br/>
+            authorized services, length of service period, and outcome):
+          </mat-label>
+          <textarea maxlength="2000" formControlName="indvHmInadSupTxt"></textarea>
+          <mat-error *ngIf="controlError('indvHmInadSupTxt')">{{errorText['indvHmInadSupTxt']}}</mat-error>
+          <p>{{getFormData().indvHmInadSupTxt.value.length}}/2000</p>
+       </div>
+
+        <mat-radio-group formControlName="indvBehRiskHomeSw">
+          <mat-label class="req">The individual’s behavior creates a risk for
+            placement outside of the home (e.g. state custody, hospitalization,<br/>
+            residential treatment, incarceration).
+          </mat-label>
+          <mat-error *ngIf="controlError('indvBehRiskHomeSw')">{{errorText['indvBehRiskHomeSw']}}</mat-error>
+          <mat-radio-button value="Y">Yes</mat-radio-button>
+          <mat-radio-button value="N">No</mat-radio-button>
+       </mat-radio-group>
+
+        <div class="textArea">
+          <mat-label class="">
+            Description of documentation attached (if individual has experience out of home placement, list
+            dates and service setting with length of stay):
+          </mat-label>
+          <textarea maxlength="2000" formControlName="indvBehRiskHomeTxt"></textarea>
+          <mat-error *ngIf="controlError('indvBehRiskHomeTxt')">{{errorText['indvBehRiskHomeTxt']}}</mat-error>
+          <p>{{getFormData().indvBehRiskHomeTxt.value.length}}/2000</p>
+       </div>
+
+        <mat-radio-group formControlName="famEngSupSw">
+          <mat-label class="req">The family is willing to engage other natural,
+            informal supports so that the services offered do not supplant the family’s responsibility in the
+            person’s care. Family has signed the participation agreement and understands that failure to
+            participate to the extent agreed upon will result in discharge from the service.
+          </mat-label>
+          <mat-label>
+            If yes, attach completed and signed Family Participation Agreement form. Attach signed participation
+            agreement.
+          </mat-label>
+          <mat-error *ngIf="controlError('famEngSupSw')">{{errorText['famEngSupSw']}}</mat-error>
+          <mat-radio-button value="Y">Yes</mat-radio-button>
+          <mat-radio-button value="N">No</mat-radio-button>
+       </mat-radio-group>
+
+        <mat-radio-group formControlName="mcoRcmdGrp7Sw">
+          <mat-label class="req">There is a recommendation for Group 7 benefits from
+            the MCO Behavioral Supports Director, MCO Behavioral Health Director, and/or MCO ECF CHOICES
+            Director or the DIDD Qualified Mental Health Professional.
+          </mat-label>
+          <mat-error *ngIf="controlError('mcoRcmdGrp7Sw')">{{errorText['mcoRcmdGrp7Sw']}}</mat-error>
+          <mat-radio-button value="Y">Yes</mat-radio-button>
+          <mat-radio-button value="N">No</mat-radio-button>
+       </mat-radio-group>
+
+        <mat-radio-group formControlName="indvCurrBehSupSw">
+          <mat-label class="req">Does the person have a current Behavior Support (or
+            other Behavior Management plan) with the active, authorized, and on-going service of a qualified
+            treating professional (e.g. Behavior Analyst, Counselor, Therapist, Psychiatrist, Psychologist,
+            Primary Care Physician).
+          </mat-label>
+          <mat-label>If yes, Behavior Support (or other Behavior Management) plan must be attached.</mat-label>
+          <mat-error *ngIf="controlError('indvCurrBehSupSw')">{{errorText['indvCurrBehSupSw']}}</mat-error>
+          <mat-radio-button value="Y">Yes</mat-radio-button>
+          <mat-radio-button value="N">No</mat-radio-button>
+       </mat-radio-group>
+
+        <mat-divider></mat-divider>
+
+        <p>Signatures below indicate an attestation that the information provided in this request form is
+          accurate as provided by the applicant or informant and as observed by the person completing this form. It also
+          certifies
+          the person completing this form has attached all required documentation for review and that they are an ECF
+          Qualified Assessor as assigned by TennCare.
+       </p>
+
+        <div class="floatChildren">
+          <div class="w45">
+            <mat-form-field appearance="outline">
+              <mat-label class="req">Electronic Signature</mat-label>
+              <input matInput formControlName="electronicSignature">
+            </mat-form-field>
+            <mat-error *ngIf="controlError('electronicSignature')">{{errorText['electronicSignature']}}</mat-error>
+          </div>
+       </div>
+<!-- 
+        <div class="floatChildren">
+          <div class="w45">
+            <mat-form-field appearance="outline">
+              <mat-label class="req">ECF Qualified Assessor Code</mat-label>
+              <input matInput maxlength="8" formControlName="ecfQualAssessorCode">
+            </mat-form-field>
+            <mat-error *ngIf="controlError('ecfQualAssessorCode')">{{errorText['ecfQualAssessorCode']}}</mat-error>
+          </div>
+
+          <div class="w45">
+            <mat-form-field appearance="outline">
+              <mat-select placeholder="Credentials" formControlName="credentialsCd">
+                  <mat-option *ngFor="let row of credentialTable" [value]="row.code">{{row.text}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-error *ngIf="controlError('credentialsCd')">{{errorText['credentialsCd']}}</mat-error>
+          </div>
+       </div> -->
+      </div>
+    </div>
+    <div class="buttonBar floatedRight">
+      <button type="submit" mat-flat-button color="primary" class="perlss-click-button">SUBMIT</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,51 @@
+textarea {
+    width: 100% !important;
+    height: 180px !important;
+}
+.space {
+    padding: 10px;
+}
+.panelContents {
+    padding-left: 20px !important;
+}
+.highlight-button {
+    background-color: #174a7c !important;
+    color: white !important;
+    mat-icon {
+        fill: #174a7c !important;
+        .offlinePin {
+            fill: white;
+        }
+        .selectbutton {
+            fill: white;
+        }
+    }
+}
+.perlss-click-button-white {
+    font-size: 15px !important;
+}
+table {
+    border-color: #174a7c !important;
+}
+.panelResults {
+    border-color: #174a7c !important;
+}
+.offlinePin {
+    margin-top: 0% !important;
+}
+/* .selectbutton {
+    color: rgba(0, 0, 0, 0.87);
+} */
+.perlss-click-button-white {
+    color: #cccccc;
+    border: 1px solid #cccccc !important;
+}
+.perlss-click-button-white {
+    color: #666666;
+}
+.marginSpace{
+    margin-left: -3vw!important
+  }
+  button.submit[disabled]{
+      background-color: #cccccc !important;
+  }

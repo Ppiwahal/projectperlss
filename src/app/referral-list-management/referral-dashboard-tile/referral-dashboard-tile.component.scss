@@ -1,0 +1,67 @@
+@import '../../../colors.scss';
+
+.wrapper{
+    margin-bottom: 30px;
+}
+.tile-wrapper{
+    display: flex;
+    justify-content: space-between;
+    max-width: 1000px;
+    min-width: 500px;
+    width: 80%;
+    margin:  30px auto;
+   
+}
+.perlss_page_content .mat-table .mat-header-cell{
+    color: black !important;
+}
+.table-row{
+    display: flex;
+    justify-content: space-between;
+   
+        div{
+            color: black;
+        }
+    
+}
+th{
+    text-align: center !important;
+    border-bottom: #1B365C 2px solid !important;
+    background-color: $colorControlBackground;
+}
+.black{
+    color: black;
+}
+table{
+    height: 250px;
+    width: 400px !important;
+    box-shadow: 0px 5px 3px 0px #aaaaaa;
+}
+
+
+
+.button-wrapper{
+    max-width: 1000px;
+    min-width: 500px;
+    width: 80%;
+    margin: auto;
+}
+.custom-button{
+    width: 100%;
+    border: 1px solid #1B365D;
+    height: 50px;
+}
+.style-count{
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+
+
+
+
+
+
+

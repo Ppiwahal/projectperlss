@@ -1,0 +1,98 @@
+<div style="padding-top: 25px;" class="user-role-heading">Search Results</div>
+<div class="row" style="padding-top: 10px;">
+  <span style="padding-left: 16px;" class="col-md-6">
+  </span>
+  <span style="padding-left: 141px"class="col-md-6" style="width: 100%;" >
+    <mat-form-field appearance="outline" style="width: 50%;float: right;">
+      <mat-label>Search Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
+    </mat-form-field>
+  </span>
+</div>
+<table aria-describedby="myTasksTable" mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8" style="width: 100%;">
+    <ng-container matColumnDef="personId">
+        <th id="person_Id" mat-header-cell *matHeaderCellDef class='table-th'>Person ID</th>
+        <td mat-cell *matCellDef="let element">{{element.sourceRecipientId}}</td>
+    </ng-container>
+    <ng-container matColumnDef="name">
+        <th id="Name" mat-header-cell *matHeaderCellDef class='table-th'>Name</th>
+        <td mat-cell *matCellDef="let element">{{element.name.firstName}} {{element.name.lastName}}</td>
+    </ng-container>
+    <ng-container matColumnDef="dob">
+        <th id="person_dob" mat-header-cell *matHeaderCellDef class='table-th'>DOB</th>
+        <td mat-cell *matCellDef="let element">{{element.dateOfBirth}}</td>
+    </ng-container>
+    <ng-container matColumnDef="ssn">
+        <th id="person_ssn" mat-header-cell *matHeaderCellDef class='table-th'>SSN</th>
+        <td mat-cell *matCellDef="let element">{{element.ssn}}</td>
+    </ng-container>
+    <ng-container matColumnDef="matchType">
+        <th id="matchtype" mat-header-cell *matHeaderCellDef class='table-th'>Match Type</th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-flat-button color="primary" class="yellow-color-button perlss-view-click-button" *ngIf="element.matchCode === 'PARTIALMATCH'">Partial</button>
+          <button mat-flat-button color="primary" class="green-color-button perlss-view-click-button" *ngIf="element.matchCode === 'FULLMATCH'">Full</button>
+       </td>
+    </ng-container>
+
+    <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+          <div class="example-element-detail"
+               [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+            <div class="subrow-top row subrow-header">
+              <div class="col-md-2">
+                    Alias Name
+              </div>
+              <div class="col-md-2">
+                    Physical Address
+              </div>
+              <div class="col-md-2">
+                    Mailing Address
+              </div>
+            </div>
+            <div class="secondSubrow-top row subrow-content">
+              <div class="col-md-2">
+               
+              </div>
+              <div [innerHTML] = "getAddress(element,'residential')" class="col-md-2">
+                {{getAddress(element,'residential')}}
+              </div>
+              <div class="col-md-2">
+                {{getAddress(element,'mailing')}}
+              </div>
+              <div class="col-md-2">
+              </div>
+              <div class="col-md-2">
+              </div>
+              <div class="col-md-2">
+                <div class="text-align-right subrow-continue-button">
+                    <button mat-flat-button color="primary" class="perlss-click-button-white"
+                    (click)="selectPerson(element.sourceRecipientId, element.matchCode)">
+                        SELECT THIS Person <mat-icon>offline_pin</mat-icon>
+                    </button>
+                </div>
+              </div>
+            </div>
+          </div>
+       </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+          class="element-row"
+          [class.expanded-row]="expandedElement === element"
+          (click)="expandedElement = expandedElement === element ? null : element">
+      </tr>
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+<div class="text-align-right">
+  <div class="create-manualtask-button">
+      <button mat-flat-button class="perlss-continue-click-button" [ngClass]="{'enable-button-color': ((selectedPersonIds.length > 1) && (selectedMatchCodes.indexOf('FULLMATCH') > -1)), 'disable-button-color':((selectedPersonIds.length <= 1) || (selectedPersonIds.length > 1 && selectedMatchCodes.indexOf('FULLMATCH') < 0))}" (click)="initiateLink()">INITIATE LINK</button>
+  </div>
+  <div class="create-manualtask-button">
+      <button mat-flat-button class="perlss-update-click-button-white" [ngClass]="{'enable-button-color':selectedPersonIds.length >= 1 , 'disable-button-color':selectedPersonIds.length  < 1}" (click)="associateIndividuals()">ASSOCIATE INDIVIDUALS</button>
+  </div>
+  <div class="create-manualtask-button">
+    <button mat-flat-button class="perlss-update-click-button-white" [ngClass]="{'enable-button-color':selectedPersonIds.length === 0 , 'disable-button-color':selectedPersonIds.length >= 1}" (click)="newIndividual()">CONTINUE AS NEW INDIVIDUAL</button>
+  </div>
+</div>

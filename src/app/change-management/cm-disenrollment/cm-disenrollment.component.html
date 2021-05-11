@@ -1,0 +1,99 @@
+<div class="responsive">
+  <div class="form">
+    <div class="scroller">
+      <app-change-management-common>
+        <div [ngClass]="{'submitted': submitted}">
+          <form [formGroup]="myForm" >
+            <div class="w40">
+              <mat-form-field appearance="outline">
+                <mat-label class="req">Disenrollment Type</mat-label>
+                <mat-select formControlName="disenrTypeCd" (selectionChange)="disenrollmentTypeChange()">
+                  <mat-option value='VOL'>Voluntary Disenrollment</mat-option>
+                  <mat-option value='INV'>Involuntary Disenrollment</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-error *ngIf="controlError('disenrTypeCd')">{{errorText['disenrTypeCd']}}</mat-error>
+            </div>
+            <div class="w70">
+              <mat-form-field appearance="outline">
+                <mat-label class="req">Disenrollment Reason</mat-label>
+                <mat-select formControlName="disenrRsnCd">
+                  <mat-option *ngFor="let option of disEnrollmentReasonCd" [value]="option.code">
+                    {{option.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-error *ngIf="controlError('disenrRsnCd')">{{errorText['disenrRsnCd']}}</mat-error>
+            </div>
+            <div class="w30">
+              <mat-form-field appearance="outline">
+                <mat-label class="req">Enrollment End Date</mat-label>
+                <input matInput [matDatepicker]="enrollmentEndDatePicker" formControlName="enrEndDt"
+                  (keydown)="dateFilter($event)">
+                <mat-datepicker-toggle matSuffix [for]="enrollmentEndDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #enrollmentEndDatePicker></mat-datepicker>
+              </mat-form-field>
+              <mat-error *ngIf="controlError('enrEndDt')">{{errorText['enrollmentEndDateError']}}</mat-error>
+            </div>
+            <div class="w30">
+              <mat-form-field appearance="outline">
+                <mat-label class="req">Hospice Effective Date</mat-label>
+                <input matInput [matDatepicker]="effectiveDatePicker" formControlName="hospiceEffDt"
+                  (keydown)="dateFilter($event)">
+                <mat-datepicker-toggle matSuffix [for]="effectiveDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #effectiveDatePicker></mat-datepicker>
+              </mat-form-field>
+              <mat-error *ngIf="controlError('hospiceEffDt')">{{errorText['effectiveDateError']}}</mat-error>
+            </div>
+            <div class="w60" *ngIf="selectedMenu == 'KB Part A'"><mat-label>Average Cost of Care for Individual</mat-label>
+              <mat-form-field appearance="outline" formControlName="avgCostOfCareAmt">
+                  <input matInput placeholder="Average Cost Amount">
+              </mat-form-field>
+          </div>
+          <div class="w80">
+            <table class="activityTable">
+              <thead>
+                <tr class="">
+                  <th class="btl-radius w-50">Form Type</th>
+                  <th class="btr-radius w-50">Status</th>
+                </tr>
+              </thead>
+              <tbody class="tight">
+                <tr>
+                  <td class="bb bt bb-db pl-4">PAE Supporting Documents</td>
+                  <td class="bb bt bb-db">
+                    <div class="float-left" *ngIf="ismedUploaded">
+
+                      <mat-icon class="button-icon blue"> file_upload
+                      </mat-icon>
+
+                      <span style="cursor:pointer;"
+                        class="mat-input-element">add
+                        more</span>
+                    </div>
+                    <mat-icon class="button-icon green mr-13"
+                      *ngIf="ismedUploaded"> done </mat-icon>
+                    <mat-icon style="cursor:pointer;"*ngIf="!ismedUploaded"
+                      class="button-icon blue">cloud_upload</mat-icon>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="w80"><div class="textArea">
+            <mat-label class="req">Comments</mat-label>
+            <textarea formControlName="comments"></textarea>
+            <mat-error *ngIf="controlError('comments')">{{errorText['comments']}}</mat-error>
+            <p>{{getControl('comments').value.length}}/2000</p>
+          </div></div>
+          <div>
+            <div>
+              <button  class="panelButtons" type="submit" mat-flat-button color="primary" class="perlss-click-button"
+                (click)="save()">SUBMIT</button>
+            </div>
+          </div>
+          </form>
+        </div>
+      </app-change-management-common>
+    </div>
+  </div>
+</div>

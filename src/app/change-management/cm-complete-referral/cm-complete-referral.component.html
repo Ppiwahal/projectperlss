@@ -1,0 +1,58 @@
+<div class="responsive">
+  <div class="form">
+    <div class="scroller">
+      <app-change-management-common mode="referral">
+        <div>
+          <form [formGroup]="refrralForm">
+            <div class="w80">
+              <table aria-describedby="table" class="activityTable">
+                <thead>
+                  <tr class="">
+                    <th id="form" class="btl-radius w-50">Form Type</th>
+                    <th id="status" class="btr-radius w-50">Status</th>
+                  </tr>
+                </thead>
+                <tbody class="tight">
+                  <tr>
+                    <td class="bb bt bb-db pl-4">Target Population Documentation</td>
+                    <td class="bb bt bb-db">
+                      <div class="float-left" *ngIf="ismedUploaded">
+
+                        <mat-icon class="button-icon blue"> file_upload
+                        </mat-icon>
+
+                        <span style="cursor:pointer;" (click)="uploadDocument()" class="mat-input-element">add
+                          more</span>
+                      </div>
+                      <mat-icon class="button-icon green mr-13" *ngIf="ismedUploaded"> done </mat-icon>
+                      <mat-icon style="cursor:pointer;" *ngIf="!ismedUploaded" (click)="uploadDocument()"
+                        class="button-icon blue">cloud_upload</mat-icon>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="text-area">
+              <mat-form-field appearance="outline">
+                <mat-label class="req">Comments</mat-label>
+                <textarea matInput class="note-textarea" #aplExpectOutcome maxlength="2000"
+                  formControlName="commentTxt"></textarea>
+                <mat-error *ngIf="refrralForm.get('commentTxt').hasError('required')">
+                  {{customValidation.A1}}</mat-error>
+              </mat-form-field>
+              <div class="character-count">
+                {{aplExpectOutcome.value.length}}/2000
+              </div>
+            </div>
+            <div class="row">
+              <div class="col margin">
+                <button mat-flat-button color="primary" class="perlss-click-button submit" (click)="onProceed()">PROCEED
+                  TO INTAKE</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </app-change-management-common>
+    </div>
+  </div>
+</div>

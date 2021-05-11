@@ -1,0 +1,43 @@
+<div class="note-wrapper">
+  <div class="header-row">
+      <div>
+          <p style="color: #1B365D;">Denial Reasons</p>
+      </div>
+      <div>
+          <span class="close-icon" style="cursor: pointer;">
+              <mat-icon (click)=closeDialog()>highlight_off</mat-icon>
+          </span>
+      </div>
+  </div>
+</div> 
+
+<div id="note">
+  Please select <b>ALL</b> denial statements that apply:
+</div>
+
+<div class="checkbox-group">
+  <div>
+    <mat-checkbox value="1">You didn't give us proof that you have an IQ of 70 or below that started before age 18.</mat-checkbox>
+  </div> 
+  <div>
+    <mat-checkbox value="2">You didn't give us proof that you have a mental or physical impairment or both that started 
+      before age 22 and is expected <br>to be life-long.
+    </mat-checkbox>
+  </div>
+  <div>
+    <mat-checkbox value="3">We do a check to help decide if you have an intellectual or developmental disability. This is called a Life 
+      Skills Assessment <br>(or LSA). Your LSA score is (24).
+    </mat-checkbox>
+  </div>
+</div>
+
+<div class="button-container">
+  <div class="row">
+    <div class="col-md-2">
+      <button mat-flat-button color="primary" class="perlss-click-button" type="submit">SUBMIT</button>
+    </div>
+    <div class="col-md-2">
+      <button mat-flat-button color="primary" class="perlss-click-button-white-noborder" (click)=closeDialog()>CANCEL</button>
+    </div>
+  </div>
+</div>

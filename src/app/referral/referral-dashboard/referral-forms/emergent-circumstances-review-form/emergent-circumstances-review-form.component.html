@@ -1,0 +1,240 @@
+<div class="responsive dialog">
+  <div class="header ECR">
+    <div class="left">
+    <h1 mat-dialog-title>Emergent Circumstances Review Form</h1>
+  </div>
+  <div class="right">
+    <label class="req">Required</label>
+    <mat-icon (click)="closePopup()" style="font-size: 35px;">highlight_off</mat-icon>
+  </div>
+  </div>
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div class="scroller noPad">
+      <div class="note-container message">
+        <p>The following section shall be completed during the Intake visit to document the circumstances under
+          which the above-named person is believed to meet "Emergent" criteria. This information shall be
+          reviewed by the Interagency Review Committee to determine whether the person will proceed with
+          application for enrollment in the Employment and Community First CHOICES program in available
+          reserve capacity set aside for such purposes:
+       </p>
+      </div>
+      <div class="padded" [ngClass]="{'submitted': submitted}">
+        <mat-radio-group formControlName="cargvrRecentIncapSw">
+          <mat-label class="req">The person’s primary caregiver is recently deceased / permanently incapacitated and
+            there is no other
+            caregiver available to provide needed long-term supports.</mat-label>
+          <mat-error *ngIf="controlError('cargvrRecentIncapSw')">{{errorText['cargvrRecentIncapSw']}}</mat-error>
+          <mat-radio-button value="Y">Yes</mat-radio-button>
+          <mat-radio-button value="N">No</mat-radio-button>
+       </mat-radio-group>
+
+        <mat-radio-group formControlName="caregvrPermIncapSw">
+          <mat-label class="req">The person’s primary caregiver is permanently incapacitated and there is no other
+            caregiver available to
+            provide needed long-term supports.</mat-label>
+          <mat-error *ngIf="controlError('caregvrPermIncapSw')">{{errorText['caregvrPermIncapSw']}}</mat-error>
+          <mat-radio-button value="Y">Yes</mat-radio-button>
+          <mat-radio-button value="N">No</mat-radio-button>
+       </mat-radio-group>
+
+        <mat-radio-group formControlName="abuseCurrLivSw">
+          <mat-label class="req">There is clear evidence of serious abuse, neglect, or exploitation in the current
+            living arrangement; the
+            person must move from the living arrangement to prevent further abuse, neglect or exploitation; and there is
+            no alternative living arrangement available.</mat-label>
+          <mat-error *ngIf="controlError('abuseCurrLivSw')">{{errorText['abuseCurrLivSw']}}</mat-error>
+          <mat-radio-button value="Y">Yes</mat-radio-button>
+          <mat-radio-button value="N">No</mat-radio-button>
+       </mat-radio-group>
+
+        <mat-radio-group formControlName="enrolEcfTranLongSw">
+          <mat-label class="req">Enrollment into ECF CHOICES is necessary in order to facilitate transition out of a
+            long-term care
+            institution, i.e., a NF or a private or public ICF/IID into a more integrated community-based setting.
+          </mat-label>
+          <mat-error *ngIf="controlError('enrolEcfTranLongSw')">{{errorText['enrolEcfTranLongSw']}}</mat-error>
+          <mat-radio-button value="Y">Yes</mat-radio-button>
+          <mat-radio-button value="N">No</mat-radio-button>
+       </mat-radio-group>
+
+        <mat-radio-group formControlName="ovr21AdltEnrolEcfSw">
+          <mat-label class="req">The person is an adult age 21 or older enrolled in ECF CHOICES Group 4 (Essential
+            Family Supports) or ECF
+            CHOICES Group 5 (Essential Support for Employment and Independent Living) and has recently experienced a
+            significant change in needs or circumstances. TennCare has determined via a Safety Determination that the
+            person can no longer be safely served within the array of benefits available in ECF CHOICES Group 4
+            (Essential Family Supports) or 5 (Essential Supports for Employment and Independent Living), or the Self
+            Determination Waiver, as applicable, the person meets NF level of care, and must be transitioned to ECF
+            CHOICES Group 6 in order to sustain community living in the most integrated setting.</mat-label>
+          <mat-error *ngIf="controlError('ovr21AdltEnrolEcfSw')">{{errorText['ovr21AdltEnrolEcfSw']}}</mat-error>
+          <mat-radio-button value="Y">Yes</mat-radio-button>
+          <mat-radio-button value="N">No</mat-radio-button>
+       </mat-radio-group>
+
+        <mat-radio-group formControlName="behHlthCrisisPrevSw">
+          <mat-label class="req">The health, safety or welfare of the person or others is in immediate and ongoing risk
+            of serious harm or
+            danger, other interventions including Behavioral Health Crisis Prevention, Intervention and Stabilization
+            services, where applicable, have been tried but were not successful in minimizing the risk of serious harm
+            to the person or others without additional services available in ECF CHOICES, and the situation cannot be
+            resolved absent the provision of such services available in ECF CHOICES.</mat-label>
+          <mat-error *ngIf="controlError('behHlthCrisisPrevSw')">{{errorText['behHlthCrisisPrevSw']}}</mat-error>
+          <mat-radio-button value="Y">Yes</mat-radio-button>
+          <mat-radio-button value="N">No</mat-radio-button>
+       </mat-radio-group>
+
+        <mat-radio-group formControlName="adltTrnstnCustdySw">
+          <mat-label class="req">An adult’s transition upon aging out of state custody, discharge from an inpatient
+            psychiatric hospital
+            (including regional mental health institute), or release from incarceration is contingent on the
+            availability of services and supports in ECF because other appropriate services/supports are not available,
+            and the services available in ECF (including covered physical and behavioral health services) will be
+            sufficient to safely meet the person’s needs in the community.</mat-label>
+          <mat-error *ngIf="controlError('adltTrnstnCustdySw')">{{errorText['adltTrnstnCustdySw']}}</mat-error>
+          <mat-radio-button value="Y">Yes</mat-radio-button>
+          <mat-radio-button value="N">No</mat-radio-button>
+       </mat-radio-group>
+
+        <mat-radio-group formControlName="srvcUrgntNeededSw">
+          <mat-label class="req">Services/supports in ECF CHOICES are urgently needed because
+            of the recent loss of the person’s living arrangement, including (as applicable), caregiver supports
+            provided in that living arrangement that will not be available to the person going forward.</mat-label>
+          <mat-error *ngIf="controlError('srvcUrgntNeededSw')">{{errorText['srvcUrgntNeededSw']}}</mat-error>
+          <mat-radio-button value="Y">Yes</mat-radio-button>
+          <mat-radio-button value="N">No</mat-radio-button>
+       </mat-radio-group>
+
+        <mat-divider></mat-divider>
+
+        <p>Please complete the information below and submit with all supporting
+          documentation to TennCare, via designated process, for referral to the Interagency
+          Review Committee.</p>
+
+        <div class="textArea">
+          <mat-label class="req">Justification</mat-label>
+          <textarea maxlength="2000" formControlName="justification"></textarea>
+          <mat-error *ngIf="controlError('justification')">{{errorText['justification']}}</mat-error>
+          <p>{{f.justification.value.length}}/2000</p>
+       </div>
+
+        <div class="textArea">
+          <mat-label class="req">Critical Circumstance(s):</mat-label>
+          <textarea maxlength="2000" formControlName="criticalCircumTxt"></textarea>
+          <mat-error *ngIf="controlError('criticalCircumTxt')">{{errorText['criticalCircumTxt']}}</mat-error>
+          <p>{{f.criticalCircumTxt.value.length}}/2000</p>
+       </div>
+
+        <div class="textArea">
+          <mat-label class="req">Detail current treatment / therapies being
+            received for each medical and/or behavioral health condition:</mat-label>
+          <textarea maxlength="2000" formControlName="currTreatBehCondTxt"></textarea>
+          <mat-error *ngIf="controlError('currTreatBehCondTxt')">{{errorText['currTreatBehCondTxt']}}</mat-error>
+          <p>{{f.currTreatBehCondTxt.value.length}}/2000</p>
+       </div>
+
+        <div class="textArea">
+          <mat-label class="req">Support Needs:</mat-label>
+          <textarea maxlength="2000" formControlName="supNeededTxt"></textarea>
+          <mat-error *ngIf="controlError('supNeededTxt')">{{errorText['supNeededTxt']}}</mat-error>
+          <p>{{f.supNeededTxt.value.length}}/2000</p>
+       </div>
+
+        <div class="textArea">
+          <mat-label class="req">Additional detail regarding current emergent circumstance(s):</mat-label>
+          <textarea maxlength="2000" formControlName="addCurrEmrgTxt"></textarea>
+          <mat-error *ngIf="controlError('addCurrEmrgTxt')">{{errorText['addCurrEmrgTxt']}}</mat-error>
+          <p>{{f.addCurrEmrgTxt.value.length}}/2000</p>
+       </div>
+
+        <div class="textArea">
+          <mat-label class="req">Recent events that led to current circumstance(s):</mat-label>
+          <textarea maxlength="2000" formControlName="rcntEvntCurCircuTxt"></textarea>
+          <mat-error *ngIf="controlError('rcntEvntCurCircuTxt')">{{errorText['rcntEvntCurCircuTxt']}}</mat-error>
+          <p>{{f.rcntEvntCurCircuTxt.value.length}}/2000</p>
+       </div>
+
+        <div class="textArea">
+          <mat-label class="req">How the person is being supported now:</mat-label>
+          <textarea maxlength="2000" formControlName="howPrsnIsSupTxt"></textarea>
+          <mat-error *ngIf="controlError('howPrsnIsSupTxt')">{{errorText['howPrsnIsSupTxt']}}</mat-error>
+          <p>{{f.howPrsnIsSupTxt.value.length}}/2000</p>
+       </div>
+
+        <div class="textArea">
+          <mat-label class="req">Options that have been tried that did not work:</mat-label>
+          <textarea maxlength="2000" formControlName="optTriedNotWorkTxt"></textarea>
+          <mat-error *ngIf="controlError('optTriedNotWorkTxt')">{{errorText['optTriedNotWorkTxt']}}</mat-error>
+          <p>{{f.optTriedNotWorkTxt.value.length}}/2000</p>
+       </div>
+
+
+        <div class="textArea">
+          <mat-label class="req">Anticipated changes in these supports, and the
+            expected timing of such changes:</mat-label>
+          <textarea maxlength="2000" formControlName="anticipateChngSupTxt"></textarea>
+          <mat-error *ngIf="controlError('anticipateChngSupTxt')">{{errorText['anticipateChngSupTxt']}}</mat-error>
+          <p>{{f.anticipateChngSupTxt.value.length}}/2000</p>
+       </div>
+
+        <div class="textArea">
+          <mat-label class="req">Other supports that are available or that could be
+            developed:</mat-label>
+          <textarea maxlength="2000" formControlName="othrSupAvailTxt"></textarea>
+          <mat-error *ngIf="controlError('othrSupAvailTxt')">{{errorText['othrSupAvailTxt']}}</mat-error>
+          <p>{{f.othrSupAvailTxt.value.length}}/2000</p>
+       </div>
+
+        <div class="textArea">
+          <mat-label class="req">Intake Assessor additional Observations / Comments:</mat-label>
+          <textarea maxlength="2000" formControlName="intakeAssessorObservTxt"></textarea>
+          <mat-error *ngIf="controlError('intakeAssessorObservTxt')">{{errorText['intakeAssessorObservTxt']}}</mat-error>
+          <p>{{f.intakeAssessorObservTxt.value.length}}/2000</p>
+       </div>
+
+        <div class="checkbox-group">
+          <mat-label class="">Please check all supporting documentation being provided with this request:</mat-label>
+          <mat-checkbox formControlName="verifTrgtPoplationSw">Verification of target
+            population</mat-checkbox>
+          <mat-checkbox formControlName="adaptBehLsaResSw" >
+            Adaptive Behavior / Life Skills Assessment results</mat-checkbox>
+          <mat-checkbox formControlName="legalDocsSw">
+            Legal documents</mat-checkbox>
+          <mat-checkbox formControlName="phyclClinicalNoteSw" >Physician / clinical
+            note(s)</mat-checkbox>
+          <div class="inline">
+            <mat-checkbox id="othrSw" (click)="otherClick()" formControlName="othrSw">Other:
+            </mat-checkbox>
+            <div class="inline-wrapper">
+              <ng-container *ngIf="f.othrSw.value">
+                <input formControlName="othrDesc" placeHolder="Other Documentation" type="text"
+                  [ngClass]="{ 'is-invalid': f.othrSw.value && !f.othrDesc.value && !f.othrDesc.touched }" />
+              </ng-container>
+              <ng-container *ngIf="!f.othrSw.value">
+                <input formControlName="othrDesc" class="disabled" type="text" disabled>
+              </ng-container>
+              <mat-error *ngIf="controlError('othrDesc')">{{errorText['othrDesc']}}</mat-error>
+            </div>
+          </div>
+       </div>
+
+        <mat-divider></mat-divider>
+        <p>Signatures below indicates an attestation that the information provided in this
+          request form is accurate as provided by the potential applicant or informant and as observed
+          by the person completing this form.</p>
+
+        <div class="floatChildren">
+          <div class="w45">
+            <mat-form-field appearance="outline">
+              <mat-label class="req">Electronic Signature</mat-label>
+              <input matInput formControlName="electronicSignature" maxlength="65">
+            </mat-form-field>
+            <mat-error *ngIf="controlError('electronicSignature')">{{errorText['electronicSignature']}}</mat-error>
+          </div>
+       </div>
+      </div>
+    </div>
+    <div class="buttonBar floatedRight">
+      <button type="submit" mat-flat-button color="primary" class="perlss-click-button">SUBMIT</button>
+    </div>
+  </form>
+</div>

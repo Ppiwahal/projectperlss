@@ -1,0 +1,25 @@
+<ngx-spinner
+  bdColor = "rgba(0, 0, 0, 0.8)"
+  size="medium"
+  color="#fff"
+  type="square-jelly-box"
+>
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+<div *ngIf="isLoginPage">
+  <div *ngIf="isCheckRoute"><app-login [isCheckRoute]="isCheckRoute"></app-login></div>
+</div>
+<div *ngIf="!isLoginPage">
+  <app-header></app-header>
+  <ng-container *ngIf="isUserLoggedIn">
+  <div class="profile-heading" *ngIf="!isProfileComplete; else elseDive" style="position: absolute;top: 200px;">
+      Your profile has not been completed. Please check with your administrator to confirm when you will be able to access this application.
+  </div>
+  <ng-template #elseDive>
+    <div class="profile-heading" *ngIf="!isActiveUser" style="position: absolute;top: 200px;">
+      Your profile is currently Inactive. Please check with your administrator to reactivate your account if necessary. 
+    </div>
+  </ng-template>
+  </ng-container>
+   <router-outlet *ngIf="((isActiveUser && isProfileComplete) || skipAuthCheck)"></router-outlet>
+</div>

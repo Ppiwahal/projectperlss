@@ -1,0 +1,27 @@
+<div class="pageMargin">
+  <div class="headerText">Employment and Community First CHOICES Referral Form</div>
+  <mat-horizontal-stepper class="perlss-stepper margin" class="{{ 'last-edited-step-' + currentForm }}" [linear]="isLinear"
+    #stepper labelPosition="bottom" [selectedIndex]="currentForm">
+    <ng-template matStepperIcon="edit">
+      <mat-icon>done</mat-icon>
+    </ng-template>
+    <mat-step  completed=false label="Start Referral" [ngClass]="{'completed': currentForm > 0}">
+      <app-extref-start [stepper]="stepper"(completedStart)="selectedIndex($event)"></app-extref-start>
+    </mat-step>
+    <mat-step completed=false label="Applicant Information"  [ngClass]="{'completed': currentForm > 1, 'active': currentForm == 1 }" >
+      <app-extref-applicant-information [stepper]="stepper" (completedApplicant)="selectedIndex($event)"></app-extref-applicant-information>
+    </mat-step>
+    <mat-step  completed=false label="Contact Information"  [ngClass]="{'completed': currentForm > 2, 'active': currentForm == 2 }" >
+      <app-extref-contact-information [stepper]="stepper" (completedContact)="selectedIndex($event)"></app-extref-contact-information>
+    </mat-step>
+    <mat-step  completed=false label="School and Work" [ngClass]="{'completed': currentForm > 3, 'active': currentForm == 3 }" >
+      <app-extref-school-work [stepper]="stepper" (completedSchoolWork)="selectedIndex($event)"></app-extref-school-work>
+    </mat-step>
+    <mat-step  completed=false label="Care and Support"  [ngClass]="{'completed': currentForm > 4, 'active': currentForm == 4 }">
+      <app-extref-care-support [stepper]="stepper" (completedCareAndSupport)="selectedIndex($event)"></app-extref-care-support>
+    </mat-step>
+    <mat-step  completed=false label="Submit Referral"  [ngClass]="{'active': currentForm == 5 }">
+      <app-extref-submit (completedSubmit)="selectedIndex($event)"></app-extref-submit>
+    </mat-step>
+  </mat-horizontal-stepper>
+  </div>

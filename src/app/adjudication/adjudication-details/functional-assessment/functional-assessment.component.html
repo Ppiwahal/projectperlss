@@ -1,0 +1,276 @@
+<div style="padding-top: 20px;" class="user-role-heading"></div>
+<div style="width: 92%; padding-left: 50px;">
+  <div class="row" style="float: right; padding-bottom: 15px;">
+    <div class="col-md-12">
+      <button mat-button class="approved_btn_border">A</button><span class="text_space">Approved</span>
+      <button mat-button class="partially_btn_border">P</button><span class="text_space">Partially Approved</span>
+      <button mat-button class="denied_btn_border">D</button><span class="text_space">Denied</span>
+    </div>
+  </div>
+  <br />
+  <br />
+  <br />
+  <ng-container *ngIf="functionalAsessmentMainFormGroup != null" [formGroup]="functionalAsessmentMainFormGroup">
+    <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8"
+      style="width: 100%; text-align: center;" formArrayName="functionalAsessmentFormGroupArray">
+
+      <ng-container matColumnDef="select">
+        <th style="border-bottom: 3px solid #1B365D;" mat-header-cell *matHeaderCellDef>
+        </th>
+      </ng-container>
+
+      <ng-container matColumnDef="functionalmeasure">
+        <th mat-header-cell *matHeaderCellDef class='table-th' style="text-align:left">Functional Measure</th>
+        <td mat-cell *matCellDef="let element; let index = dataIndex" style="text-align:left">
+          {{element.functionalmeasure}}<mat-icon class="material-icons-outlined" #tooltip="matTooltip"
+            matTooltip="{{element.description}}" style="color:red; font-size:15px; padding-left:3px; text-align:left;">
+            info
+          </mat-icon>
+        </td>
+        <td mat-footer-cell *matFooterCellDef>Total Acuity Score</td>
+      </ng-container>
+
+      <ng-container matColumnDef="submitterresponse">
+        <th mat-header-cell *matHeaderCellDef class='table-th'>Submitter<br>Response</th>
+        <td mat-cell *matCellDef="let element; let index = dataIndex">
+          {{getFunctionalAssessmentValue(index)}}
+        </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <ng-container matColumnDef="submittedacuityscore">
+        <th mat-header-cell *matHeaderCellDef class='table-th'>Submitted <br>Acuity Score</th>
+        <td mat-cell *matCellDef="let element; let index = dataIndex">
+          {{functionalAsessmentMainFormGroup.get('functionalAsessmentFormGroupArray').get('' +
+          index).get('sbmttrAcuityScoreNum').value}}
+        </td>
+        <td mat-footer-cell *matFooterCellDef>{{getTotalSubActScr()}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="revieweraction">
+        <th mat-header-cell *matHeaderCellDef class='table-th'>Reviewer Action</th>
+        <td mat-cell *matCellDef="let element; let index = dataIndex">
+          <button mat-button class='inner-button' *ngIf="expandedElement != element"
+            [ngClass]="{'approved_btn_border': functionalAsessmentMainFormGroup.get('functionalAsessmentFormGroupArray').get('' + index).get('rnActionCd').value === 'A'}"
+            (click)="openExpandedTable('A', element, index)" [disabled]="displayEditButton"
+            style="margin-right: 10px;">A</button>
+          <button mat-button class='inner-button'
+            [ngClass]="{'approved_btn_border': functionalAsessmentMainFormGroup.get('functionalAsessmentFormGroupArray').get('' + index).get('rnActionCd').value === 'A'}"
+            *ngIf="expandedElement == element" [class.expanded]="expandedElement == undefined"
+            (click)="expandedElement = undefined" [disabled]="displayEditButton" style="margin-right: 10px;">A</button>
+          <button mat-button class='inner-button' *ngIf="expandedElement != element"
+            [ngClass]="{'partially_btn_border': functionalAsessmentMainFormGroup.get('functionalAsessmentFormGroupArray').get('' + index).get('rnActionCd').value === 'P'}"
+            (click)="openExpandedTable('P', element, index)" [disabled]="displayEditButton"
+            style="margin-right: 10px;">P</button>
+          <button mat-button class='inner-button'
+            [ngClass]="{'partially_btn_border': functionalAsessmentMainFormGroup.get('functionalAsessmentFormGroupArray').get('' + index).get('rnActionCd').value === 'P'}"
+            *ngIf="expandedElement == element" [class.expanded]="expandedElement == undefined"
+            (click)="expandedElement = undefined" [disabled]="displayEditButton" style="margin-right: 10px;">P</button>
+          <button mat-button class='inner-button' *ngIf="expandedElement != element"
+            [ngClass]="{'denied_btn_border': functionalAsessmentMainFormGroup.get('functionalAsessmentFormGroupArray').get('' + index).get('rnActionCd').value === 'D'}"
+            (click)="openExpandedTable('D', element, index)" [disabled]="displayEditButton"
+            style="margin-right: 10px;">D</button>
+          <button mat-button class='inner-button'
+            [ngClass]="{'denied_btn_border': functionalAsessmentMainFormGroup.get('functionalAsessmentFormGroupArray').get('' + index).get('rnActionCd').value === 'D'}"
+            *ngIf="expandedElement == element" [class.expanded]="expandedElement == undefined"
+            (click)="expandedElement = undefined" [disabled]="displayEditButton" style="margin-right: 10px;">D</button>
+        </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <ng-container matColumnDef="adjudicatedacuityscore">
+        <th mat-header-cell *matHeaderCellDef class='table-th'>Adjudicated <br>Acuity Score</th>
+        <td mat-cell *matCellDef="let element; let index = dataIndex">
+          {{functionalAsessmentMainFormGroup?.get('functionalAsessmentFormGroupArray')?.get('' +
+          index)?.get('adjudicatedAcuityScoreNum')?.value}}
+        </td>
+        <td mat-footer-cell *matFooterCellDef>{{getTotalScr()}}</td>
+      </ng-container>
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element; let index = dataIndex" [attr.colspan]="displayedColumns.length">
+          <form [formGroupName]="index">
+            <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+              <div class="row secondary-data-content" style="padding-top: 25px">
+                <div class="col-md-4">
+                  <mat-form-field *ngIf="selectedButton === 'A'" appearance="outline" style="width: 80%;"
+                    class="rn-reviewer-field">
+                    <mat-label>
+                      <mat-label class="label">RN Reviewer Response:</mat-label>
+                    </mat-label>
+                    <mat-select formControlName="rnApprovalCd">
+                      <mat-option *ngFor="let r of rnResponseForAP" [value]="r.code">{{r.value}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field *ngIf="selectedButton === 'P'" appearance="outline" style="width: 80%;"
+                    class="rn-reviewer-field">
+                    <mat-label>
+                      <mat-label class="label">RN Reviewer Response:</mat-label>
+                    </mat-label>
+                    <mat-select formControlName="rnApprovalCd" (selectionChange)="onRnApprovalCdChange(index, $event)">
+                      <mat-option *ngFor="let r of getRnResponseForP(index)" [value]="r.code">{{r.value}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field *ngIf="selectedButton === 'D'" appearance="outline" style="width: 80%;"
+                    class="rn-reviewer-field">
+                    <mat-label>
+                      <mat-label class="label">RN Reviewer Response:</mat-label>
+                    </mat-label>
+                    <mat-select formControlName="rnDenialCd">
+                      <mat-option *ngFor="let r of rnResponseForD" [value]="r.code">{{r.value}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-label>
+                    <mat-label class="acuity-val" style="margin-left: 25px;">
+                      Acuity Value: {{functionalAsessmentMainFormGroup?.get('functionalAsessmentFormGroupArray')?.get(''
+                      +
+                      index)?.get('rnAcuityScoreNum')?.value}}
+                    </mat-label>
+                  </mat-label>
+                </div>
+                <div class="col-md-4" *ngIf="userRole === 'appealsUser'">
+                  <mat-form-field *ngIf="selectedButton === 'A'" appearance="outline" style="width: 80%;">
+                    <mat-label>
+                      <mat-label class="label">Appeal Approval Response</mat-label>
+                    </mat-label>
+                    <mat-select formControlName="aplApprovalCd">
+                      <mat-option *ngFor="let r of rnResponseForAP" [value]="r.code"
+                        (selectionChange)="onAplApprovalCdChange(index, $event)">{{r.value}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field *ngIf="selectedButton === 'P' " appearance="outline" style="width: 80%;">
+                    <mat-label>
+                      <mat-label class="label">Appeal Approval Response</mat-label>
+                    </mat-label>
+                    <mat-select formControlName="aplApprovalCd">
+                      <mat-option *ngFor="let r of getRnResponseForP(index)" [value]="r.code"
+                        (selectionChange)="onAplApprovalCdChange(index, $event)">{{r.value}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field *ngIf="selectedButton === 'D' " appearance="outline" style="width: 80%;">
+                    <mat-label>
+                      <mat-label class="label">Appeal Denial Response</mat-label>
+                    </mat-label>
+                    <mat-select formControlName="aplDenialCd">
+                      <mat-option *ngFor="let r of rnResponseForD" [value]="r.code"
+                        (selectionChange)="onAplApprovalCdChange(index, $event)">{{r.value}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-label>
+                    <mat-label class="acuity-val">
+                      Acuity Value: {{functionalAsessmentMainFormGroup?.get('functionalAsessmentFormGroupArray')?.get(''
+                      +
+                      index)?.get('aplAcuityScoreNum')?.value}}
+                    </mat-label>
+                  </mat-label>
+                </div>
+                <div class="col-md-4" *ngIf="taskMasterId === 46">
+                  <mat-form-field *ngIf="selectedButton === 'A'" appearance="outline" style="width: 80%;">
+                    <mat-label>
+                      <mat-label class="label">Audit Approval Response</mat-label>
+                    </mat-label>
+                    <mat-select formControlName="auditApprovalCd" (selectionChange)="onAplAuditCdChange(index, $event)">
+                      <mat-option *ngFor="let r of rnResponseForAP" [value]="r.code">{{r.value}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field *ngIf="selectedButton === 'P'" appearance="outline" style="width: 80%;">
+                    <mat-label>
+                      <mat-label class="label">Audit Approval Response</mat-label>
+                    </mat-label>
+                    <mat-select formControlName="auditApprovalCd" (selectionChange)="onAplAuditCdChange(index, $event)">
+                      <mat-option *ngFor="let r of getRnResponseForP(index)" [value]="r.code">{{r.value}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field *ngIf="selectedButton === 'D'" appearance="outline" style="width: 80%;">
+                    <mat-label>
+                      <mat-label class="label">Audit Denial Response</mat-label>
+                    </mat-label>
+                    <mat-select formControlName="auditDenialCd" (selectionChange)="onAplAuditCdChange(index, $event)">
+                      <mat-option *ngFor="let r of rnResponseForD" [value]="r.code">{{r.value}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-label>
+                    <mat-label class="acuity-val">
+                      Acuity Value: {{functionalAsessmentMainFormGroup?.get('functionalAsessmentFormGroupArray')?.get(''
+                      +
+                      index)?.get('auditAcuityScoreNum')?.value}}
+                    </mat-label>
+                  </mat-label>
+                </div>
+              </div>
+              <div class="row secondary-data-content" style="padding-top: 25px">
+                <div class="col-md-4">
+                  <mat-form-field appearance="outline" style="width: 80%;">
+                    <mat-label>
+                      <mat-label class="label">RN Reviewer Comments:</mat-label>
+                    </mat-label>
+                    <input matInput placeholder="RN Reviewer Comments" formControlName="rnComment">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4" *ngIf="userRole === 'appealsUser'">
+                  <mat-form-field appearance="outline" style="width: 80%;">
+                    <mat-label>
+                      <mat-label class="label">Appeal Comments</mat-label>
+                    </mat-label>
+                    <input matInput placeholder="Appeal Comments" formControlName="aplComment">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4" *ngIf="taskMasterId === 46">
+                  <mat-form-field appearance="outline" style="width: 80%;">
+                    <mat-label>
+                      <mat-label class="label">Audit Comments</mat-label>
+                    </mat-label>
+                    <input matInput placeholder="Audit Comments" formControlName="auditComment">
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </form>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let element; columns: displayedColumns; let index = dataIndex;" matRipple
+        class="element-row" [ngStyle]="{
+        'background': functionalAsessmentMainFormGroup.get('functionalAsessmentFormGroupArray').get('' + index).invalid 
+                       && functionalAsessmentMainFormGroup.get('functionalAsessmentFormGroupArray').get('' + index).touched
+                         ? '#ffecec' : 'none',
+        'display': functionalAsessmentMainFormGroup.get('functionalAsessmentFormGroupArray').get('' + index).get('sbmttrAcuityCd').value == null
+           || functionalAsessmentMainFormGroup.get('functionalAsessmentFormGroupArray').get('' + index).get('sbmttrAcuityCd').value === ''
+            ? 'none'
+            : null
+      }"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail'];"
+        [@detailExpand]="row == expandedElement ? 'expanded' : 'collapsed'" style="overflow: hidden">
+      </tr>
+      <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+    </table>
+  </ng-container>
+  <br />
+  <div class="row">
+    <button *ngIf="displayEditButton" mat-flat-button
+      style=" min-width: 100px; line-height: 20px !important; background:#1d61a0 !important; color:white; font-size: 15px"
+      (click)="onEdit()">Edit</button>
+    <button mat-flat-button *ngIf="!isFormValid() || displayEditButton" [disabled] class="saveButton"
+      (click)="onSave()">Save</button>
+    <div class="col-md-6" *ngIf="isFormValid() && !displayEditButton">
+      <button mat-flat-button [disabled]="displaySpinner" class="saveButton" (click)="onSave()">Save
+        <mat-progress-spinner *ngIf="displaySpinner" class="example-margin" [color]="color" [mode]="mode"
+          [value]="value" [diameter]="20" style="margin-left:25px; margin-top:-22px">
+        </mat-progress-spinner>
+      </button>
+      <button mat-button [disabled]="displaySpinner" class="cancelButton" (click)="onCancel()">CANCEL</button>
+    </div>
+  </div>
+  <div style="padding-top: 20px;" *ngIf="submitted">
+    <div class="row" style="width: 80%; border: 1px solid; margin-left: 93px; padding-top: 15px;">
+      <Label style="font-style: italic; padding-left: 30px; padding-bottom: 6px;">Based on the responses for Functional
+        Assessment, Total Adjudicated Acuity Score is {{getTotalScr()}}.</Label>
+    </div>
+  </div>
+</div>

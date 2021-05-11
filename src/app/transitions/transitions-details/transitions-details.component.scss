@@ -1,0 +1,39 @@
+.pageMargin
+{
+    margin: 0px 20px 20px 0px;
+}
+
+// ::ng-deep .mat-step-icon * {
+//     color: white !important;
+//   }
+  
+  ::ng-deep .mat-step-header .mat-step-icon {
+    background-color: white;
+    color:grey !important;
+    border: 1px solid grey !important;
+  }
+  
+  ::ng-deep .mat-step-header .mat-step-icon-selected {
+    background-color: green !important;
+    color: white !important;
+    .mat-stepper-vertical-line 
+    {
+        background-color: rgb(52, 158, 52);
+    }
+  }
+  
+  ::ng-deep .mat-step-header .mat-step-icon-state-done {
+    background-color: green !important;
+    color:white !important;
+    .mat-stepper-vertical-line 
+    {
+        background-color: rgb(52, 158, 52);
+    }
+  }
+  
+  
+  ::ng-deep .mat-step-header .mat-step-icon-state-edit {
+    background-color: green !important;
+    color:white !important;
+  }
+

@@ -1,0 +1,544 @@
+
+<div class="responsive">
+  <div class="form">
+    <div class="scroller noPad">
+      <div class="padded">
+        <div *ngIf="!pastDueDt" class="intakeDate">{{dueDate| date:'MM/dd/yyyy' }}</div>
+        <div *ngIf="pastDueDt" class="intakeDate chkBordr">{{dueDate| date:'MM/dd/yyyy' }}</div>
+        <h4>Intake Outcome</h4>
+        <div *ngIf="error" class="note">
+          <div>
+            <label>Error Messages:</label>
+            <div>
+              <p *ngFor="let errorItem of errorMessages">{{errorItem}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!showResult && !error" class="waiting">
+        <p><span>Fetching Data ... please wait</span></p>
+      </div>
+      <ng-container *ngIf="showResult">
+        <div class="applicantData">
+          <ng-container *ngFor="let row of applicantData">
+            <ng-container *ngIf="row == 'separator'">
+              <hr />
+            </ng-container>
+            <div *ngIf="row !== 'separator'">
+              <div *ngFor="let item of row">
+                <ng-container *ngIf="item.label==='REFERRAL ID'">
+                <label>{{item.label}}:</label>
+                <div *ngIf="item.value" (click)="generatePdf()" style="cursor:pointer"><u>{{item.value}}</u></div>
+                <div *ngIf="!item.value" class="tbd">---</div>
+              </ng-container>
+              <ng-container *ngIf="item.label !=='REFERRAL ID'">
+                <label>{{item.label}}:</label>
+                <div *ngIf="item.value">{{item.value}}</div>
+                <div *ngIf="!item.value" class="tbd">---</div>
+              </ng-container>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+        <div class="padded centered" *ngIf="this.refDocLinks">
+          <table class="refTable w60">
+            <thead>
+            <tr>
+              <th style="width: 30%"></th>
+              <th>Referral ID</th>
+              <th style="width: 30%">Referral Received&nbsp;Date</th>
+              <th style="width: 30%">Referral Submitter</th>
+            <tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of this.refDocLinks">
+              <td>
+                <mat-icon class="material-icons" style="color:#EA5E52">description</mat-icon></td>
+                <td (click)="generatePdf()" style="cursor: pointer;"><u>{{item.refId}}</u></td>
+              <td>{{item.receivedDt | date:'MM/dd/yyyy'}}</td>
+              <td>{{submittingCdMap.get(item.submittedBy)}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="pageLoaded">
+        <div class="accordion-container">
+          <mat-accordion>
+            <mat-expansion-panel [ngClass]="{'complete': options.intakeValidation.saved }" [hideToggle]="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Intake Validations
+               </mat-panel-title>
+                <mat-panel-title class="right-aligned">
+                  <mat-icon *ngIf="!intakeValidationPresent">add_circle_outline</mat-icon>
+                  <mat-label *ngIf="!intakeValidationPresent">&nbsp;&nbsp;ADD DETAILS</mat-label>
+                  <mat-label *ngIf="intakeValidationPresent">&nbsp;&nbsp;VIEW DETAILS</mat-label>
+                  <mat-icon *ngIf="intakeValidationPresent" class="check-green">offline_pin</mat-icon>
+               </mat-panel-title>
+             </mat-expansion-panel-header>
+             <div class="">
+              <form class="form-container" [formGroup]="forms.intakeValidation"
+                    [ngClass]="{'submitted': options['intakeValidation'].submitted}">
+                <div *ngIf="!showFirstPanel" class="waiting">
+                  <p><span>Fetching Data ... please wait</span></p>
+                </div>
+                <ng-container *ngIf="showFirstPanel">
+
+                  <div class="floatChildren">
+                    <div class="w100" *ngIf="isHHorPDN">
+                      <mat-radio-group formControlName="hhPdnOverLimitSw">
+                        <mat-label class='req'>Is this a person receiving Home Health (HH) or Private Duty Nursing (PDN) above the adult benefit limits?
+                        </mat-label>
+                        <mat-error *ngIf="controlError('hhPdnOverLimitSw')">{{controlErrorText['hhPdnOverLimitSw']}}
+                        </mat-error>
+                        <mat-radio-button value="Y">Yes</mat-radio-button>
+                        <mat-radio-button value="N">No</mat-radio-button>
+                      </mat-radio-group>
+                    </div>
+                    <div class="w100" *ngIf="valueMatch(['Y'], 'hhPdnOverLimitSw')">
+                      <div class="checkbox-group">
+                        <mat-label class="req">If Yes, please select from below. (Select ALL that apply)</mat-label>
+                        <mat-error *ngIf="groupError['noneSw']">{{groupError['noneSw']}}</mat-error>
+                        <mat-checkbox formControlName="srvcNowSw">
+                          <mat-label>Requesting enrollment in ECF CHOICES now?</mat-label>
+                        </mat-checkbox>
+                        <mat-checkbox formControlName="rqstEcfChoicesSw">
+                          <mat-label>Planning for transition, but not requesting in ECF CHOICES now? (deferred)
+                          </mat-label>
+                        </mat-checkbox>
+                        <mat-checkbox formControlName="rqstEcfChoices21Sw">
+                          <mat-label>Requesting enrollment in ECF CHOICES at 21st birthday?</mat-label>
+                        </mat-checkbox>
+                        <mat-checkbox formControlName="noneSw">
+                          <mat-label>None of the above</mat-label>
+                        </mat-checkbox>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="control" *ngIf="dcsCustodyYes">
+                    <mat-radio-group formControlName="dcsToClsPlanSw">
+                      <mat-label class='req'>Is this a person in DCS custody planning to transition to Community Living Supports (CLS)?
+                      </mat-label>
+                      <mat-error *ngIf="controlError('dcsToClsPlanSw')">{{controlErrorText['dcsToClsPlanSw']}}
+                      </mat-error>
+                      <mat-radio-button value="Y">Yes</mat-radio-button>
+                      <mat-radio-button value="N">No</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                  <div class="control" *ngIf="dcsCustodyYes">
+                    <mat-radio-group formControlName="dcsFmlylvngPlanSw">
+                      <mat-label class='req'>Is this a person in DCS custody planning to transition a Family Living
+                        Arrangement?</mat-label>
+                      <mat-error *ngIf="controlError('dcsFmlylvngPlanSw')">{{controlErrorText['dcsFmlylvngPlanSw']}}
+                      </mat-error>
+                      <mat-radio-button value="Y">Yes</mat-radio-button>
+                      <mat-radio-button value="N">No</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                  <div div class="floatChildren">
+                    <div class="w50">
+                      <mat-form-field appearance="outline">
+                        <mat-label class="req">Confirm Applicant's Living Arrangement</mat-label>
+                        <mat-select formControlName="appLvngArgnmtCd">
+                          <mat-option value="LTC">Long-term care facility&mdash;e.g., nursing home, ICF</mat-option>
+                          <mat-option value="HJC">Harold Jordan Center</mat-option>
+                          <mat-option value="MEN">Mental health residence&mdash;behavioral health group home
+                          </mat-option>
+                          <mat-option value="HOM">Family member's home/own home</mat-option>
+                          <mat-option value="NON">Living with non-relative&mdash;e.g. apartment or house with friend
+                            or
+                            roommate(s)</mat-option>
+                          <mat-option value="JAL">Jail</mat-option>
+                          <mat-option value="FOS">Foster Home</mat-option>
+                          <mat-option value="MED">Medical Hospital</mat-option>
+                          <mat-option value="SHL">Homeless/Shelter</mat-option>
+                          <mat-option value="HLS">Psychiatric hospital or unit</mat-option>
+                          <mat-option value="RMH">Regional Mental Health Institute</mat-option>
+                          <mat-option value="RTC">Residential Treatment Center for youth</mat-option>
+                          <mat-option value="SCH">Specialized school&mdash;e.g., school for deaf, blind</mat-option>
+                          <mat-option value="OTH">Other</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-error *ngIf="controlError('appLvngArgnmtCd')">{{controlErrorText['appLvngArgnmtCd']}}
+                      </mat-error>
+                    </div>
+                  </div>
+                  <div class="control" *ngIf="valueMatch(['OTH'], 'appLvngArgnmtCd')">
+                    <mat-form-field appearance="outline">
+                      <mat-label class="req">Describe Living Arrangement</mat-label>
+                      <input matInput formControlName="lvngArrgmnt">
+                    </mat-form-field>
+                    <mat-error *ngIf="controlError('lvngArrgmnt')">{{controlErrorText['lvngArrgmnt']}}</mat-error>
+                  </div>
+                  <div div class="floatChildren" *ngIf="valueMatch(['LTC','RMH'], 'appLvngArgnmtCd')">
+                    <div class="w30">
+                      <mat-form-field appearance="outline">
+                        <mat-label class="req">Date of Admission</mat-label>
+                        <input matInput [matDatepicker]="admissionDt" formControlName="admissionDt">
+                        <mat-datepicker-toggle matSuffix [for]="admissionDt"></mat-datepicker-toggle>
+                        <mat-datepicker #admissionDt></mat-datepicker>
+                      </mat-form-field>
+                      <mat-error *ngIf="controlErrorText['admissionDt']">{{controlErrorText['admissionDt']}}
+                      </mat-error>
+                    </div>
+                    <div class="w30">
+                      <mat-form-field appearance="outline">
+                        <mat-label class="req">Planned Transition Date</mat-label>
+                        <input matInput [matDatepicker]="planTrnstnDt" formControlName="planTrnstnDt">
+                        <mat-datepicker-toggle matSuffix [for]="planTrnstnDt"></mat-datepicker-toggle>
+                        <mat-datepicker #planTrnstnDt></mat-datepicker>
+                      </mat-form-field>
+                      <mat-error *ngIf="controlErrorText['planTrnstnDt']">{{controlErrorText['planTrnstnDt']}}
+                      </mat-error>
+                    </div>
+                  </div>
+                  <div class="control"  *ngIf="valueMatch(['HOM'], 'appLvngArgnmtCd') && (age>=18 && age<21)">
+                    <mat-radio-group formControlName="clsReqSw">
+                      <mat-label class='req'>Does the person require Community Living Supports (CLS)?</mat-label>
+                      <mat-error *ngIf="controlError('clsReqSw')">{{controlErrorText['clsReqSw']}}</mat-error>
+                      <mat-radio-button value="Y">Yes</mat-radio-button>
+                      <mat-radio-button value="N">No</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                  <div class="panelButtons">
+                    <button *ngIf="!options.intakeValidation.saved || options.intakeValidation.edit" class="orange"
+                            (click)="saveClick('intakeValidation')">SAVE</button>
+                    <button *ngIf="options.intakeValidation.saved && !options.intakeValidation.edit" class="orange"
+                            (click)="edit('intakeValidation')">EDIT</button>
+                    <button class="transparent" *ngIf="options.intakeValidation.dirty || options.intakeValidation.edit"
+                            (click)="cancel('intakeValidation')">CANCEL</button>
+                  </div>
+                </ng-container>
+              </form>
+            </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+        <div class="accordion-container">
+          <mat-accordion>
+            <mat-expansion-panel [hideToggle]="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Life Skills Assessment
+               </mat-panel-title>
+                <mat-panel-title class="right-aligned">
+                  <mat-icon *ngIf="!isLsaformComplete">add_circle_outline</mat-icon>
+                  <mat-label *ngIf="!isLsaformComplete">&nbsp;&nbsp;ADD DETAILS</mat-label>
+                  <mat-label *ngIf="isLsaformComplete">&nbsp;&nbsp;VIEW DETAILS</mat-label>
+                  <mat-icon *ngIf="isLsaformComplete" class="check-green">offline_pin</mat-icon>
+               </mat-panel-title>
+             </mat-expansion-panel-header>
+             <div class="">
+              <div class="form-container">
+                <div class="padded">
+                  <h2>Summary</h2>
+                  <p>Please complete the assessment by selecting the form below</p>
+                  <div class="formBox lsa-form" (click)="lsaFormPopup()">
+                    <label class="formName lsa-form">Life Skills Assessment Form</label>
+                    <span class="right">
+                      <label class="start lsa-form" *ngIf="isLsaformStart">Start</label>
+                      <label class="start lsa-form" *ngIf="isLsaformEdit">Edit</label>
+                      <label class="start lsa-form" *ngIf="isLsaformComplete">Complete</label>
+                    </span>
+                  </div>
+                  <div class="assessmentTable" *ngIf="isDisplayLsaSummary">
+                    <table>
+                      <thead>
+                      <tr class="greybar">
+                        <th colspan="4">
+                          <label>Life Sklls Assessment Summary</label>
+                          <label><span>Completion Date:</span>{{options.lifeSkillsCompletionDate}}</label>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th>Major Life Activity</th>
+                        <th>Substantial Functional Limitation</th>
+                        <th>No Subtantial Functional Limitation</th>
+                        <th>Possible Functional Limitation</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of getLsaTableDataResponse">
+                          <td>{{lifeSkillsSummary[item.description]}}</td>
+                          <td> {{item.substantialLimitation}}
+                          </td>
+                          <td> {{item.noSubstantialLimitation}}
+                          </td>
+                          <td>{{item.possibleLimitation}}</td>
+                        </tr>
+                        <tr class="greybar">
+                          <td>TOTAL</td>
+                          <td *ngFor="let item of lifeSkillsSummaryTotals">{{item}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+        <div class="accordion-container">
+          <mat-accordion>
+            <mat-expansion-panel [ngClass]="{'complete': options.intakeOutcomeResult.saved}" [hideToggle]="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Intake Outcome Results
+               </mat-panel-title>
+                <mat-panel-title class="right-aligned">
+                  <mat-icon *ngIf="isIntakeOutcomePresent">add_circle_outline</mat-icon>
+                  <mat-label *ngIf="isIntakeOutcomePresent">&nbsp;&nbsp;ADD DETAILS</mat-label>
+                  <mat-label *ngIf="!isIntakeOutcomePresent">&nbsp;&nbsp;VIEW DETAILS</mat-label>
+                  <mat-icon *ngIf="!isIntakeOutcomePresent" class="check-green">offline_pin</mat-icon>
+               </mat-panel-title>
+             </mat-expansion-panel-header>
+             <div class="">
+              <form class="form-container" [formGroup]="forms.intakeOutcomeResult" (ngSubmit)="onSubmit()"
+                    [ngClass]="{'submitted': options['intakeOutcomeResult'].submitted}">
+                <div class="floatChildren">
+                  <div class="w40">
+                    <mat-form-field appearance="outline">
+                      <mat-label class="req">Target Population Diagnosis</mat-label>
+                      <mat-select formControlName="trgtPopltnDiagnsCd" [disabled]="makeReadOnly">
+                        <mat-option *ngFor="let trgtPopltnDiagnsCd of trgtPopltnDiagnsCdList"
+                                    [value]="trgtPopltnDiagnsCd.code">
+                          {{trgtPopltnDiagnsCd.value}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-error *ngIf="controlError('trgtPopltnDiagnsCd')">
+                      {{controlErrorText['trgtPopltnDiagnsCd']}}</mat-error>
+                  </div>
+
+                  <div class="w60">
+                    <div class="note floated">
+                      <div>
+                        <mat-icon class="material-bulb" style="margin-top:0px; font-size:20px">
+                          lightbulb_outline
+                        </mat-icon>
+                        <label>Hint:</label>
+                        <p>If LSA Score for ID is &lt; 2 or Score for DD is &lt; 3, it implies that the applicant does not meet target population.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="control">
+                  <mat-radio-group formControlName="aplntSrvcNowSw" (change)="getGroupTable()" [disabled]="makeReadOnly">
+                    <mat-label class='req'>If the applicant qualifies for services and there is a slot available, does
+                      the applicant want services now?</mat-label>
+                    <mat-error *ngIf="controlError('aplntSrvcNowSw')">{{controlErrorText['aplntSrvcNowSw']}}</mat-error>
+                    <mat-radio-button value="Y">Yes</mat-radio-button>
+                    <mat-radio-button value="N">No</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+
+                <div class="w50" *ngIf="valueMatch(['Y'], 'aplntSrvcNowSw')">
+                  <mat-form-field appearance="outline">
+                    <mat-label class="req">Intake Outcome Result</mat-label>
+                    <mat-select formControlName="intakeOutcomeCd" (selectionChange)="getGroupTable()" [disabled]="makeReadOnly">
+                      <mat-option value="PG">Priority Group</mat-option>
+                      <mat-option value="RC">Reserve Capacity Group</mat-option>
+                      <mat-option value="NO">Does not meet Target Population</mat-option>
+                      <mat-option value="TP">Does not meet Aged Caregiver Reserve Capacity or Priority Criteria</mat-option>
+                      <mat-option value="WT">Waiver Transition - Proceed to enrollment</mat-option>
+                      <mat-option value="CT">CHOICES HCBS Transition</mat-option>
+                      <mat-option value="DEF">Deferred</mat-option>
+                      <mat-option value="IT">Initiate Transition</mat-option>
+                      <mat-option value="RE">Remain in current program</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-error *ngIf="controlError('intakeOutcomeCd')">{{controlErrorText['intakeOutcomeCd']}}</mat-error>
+                </div>
+                <div class="w50" *ngIf="valueMatch(['N'], 'aplntSrvcNowSw')">
+                  <mat-form-field appearance="outline">
+                    <mat-label class="req">Intake Outcome Result</mat-label>
+                    <mat-select formControlName="intakeOutcomeCd" [(ngModel)]="selected">
+                      <mat-option value="DEF">Deferred</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <ng-container *ngIf="showGroupTable">
+                  <div class="groupCheck">
+                    <h2>{{groupTable.title}}</h2>
+                    <table style="width: 100% !important;">
+                      <thead>
+                      <tr>
+                        <th>User</th>
+                        <th class="reserveCapacityTable" *ngFor="let col of groupTable.columns">{{col.title}}</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let row of groupTable.rows, let rowIndex = index">
+                        <td>{{row.title}}</td>
+                        <ng-container>
+                          <td *ngFor="let col of groupTable.columns, let ci = index">
+                            <ng-container *ngIf="rowIndex == options.pageStateIndex">
+                              <button (click)="groupTableSelect($event)"
+                                      [ngClass]="{'selected': groupTableSelection[rowIndex] == col.id }"
+                                      [attr.rowId]="pageStates[rowIndex]" [attr.colIndex]="ci" [attr.rowIndex]="rowIndex"
+                                      [attr.groupId]="groupTable.id">offline_pin</button>
+                            </ng-container>
+                            <ng-container *ngIf="rowIndex != options.pageStateIndex">
+                                <span [ngClass]="{'selected': groupTableSelection[rowIndex] == col.id }">
+                                  {{ rowIndex < options.pageStateIndex ? 'offline_pin' : 'not_interested' }}</span>
+                            </ng-container>
+                          </td>
+                        </ng-container>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </ng-container>
+
+                <div class="note">
+                  <div>
+                    <label>Note:</label>
+                    <p>Please make sure to add your supporting documentation by clicking on the cloud icon or from the
+                      quick links widget on the right hand side</p>
+                  </div>
+                </div>
+
+                <div class="{{makeReadOnly ? 'noClicks' : 'docTable'}}" *ngIf="documents">
+                  <div class="title">Supporting Documentation</div>
+                  <div *ngFor="let docLink of documents, let i = index">
+                    <ng-container *ngIf="docLink.saved">
+                      <label [ngClass]="{'req': docLink.required}" [attr.index]='i' class="asLink"
+                             (click)="docLinkOpenPopupLink($event)">{{docLink.title}}</label>
+                    </ng-container>
+                    <ng-container *ngIf="!docLink.saved">
+                      <label [ngClass]="{'req': docLink.required}">{{docLink.title}}</label>
+                    </ng-container>
+                    <div>
+                      <div class="available">
+                        <label *ngIf="docLink.type == 'cloud' && !docLink.saved && docLink.showUnavailable" class="done"
+                               [ngClass]="{'checked': docLink.unAvailable}" [attr.index]='i'
+                               (click)="docLinkSetAvailable($event)">
+                          <span class="check">
+                            <mat-icon>done</mat-icon>
+                          </span><span>Not Available</span>
+                        </label>&nbsp;
+                      </div>
+                      <div class="linkItem">
+                        <div class="popupLink" *ngIf="docLink.type == 'popup' && !docLink.saved" [attr.index]='i'
+                             (click)="docLinkOpenPopup($event)">Fill E-form</div>
+                        <mat-icon class="green" *ngIf="docLink.saved">done</mat-icon>
+                        <label [attr.index]='i' (click)=docLinkCloudLoad($event)
+                               *ngIf="docLink.type == 'cloud' && !docLink.saved && !docLink.unAvailable">
+                          <mat-icon class="blue">backup</mat-icon>
+                        </label>
+                        <mat-icon *ngIf="docLink.type == 'cloud' && !docLink.saved && docLink.unAvailable" class="grey">
+                          backup</mat-icon>&nbsp;
+                      </div>
+                      <div class="delete">
+                        <label [attr.index]='i' (click)="docLinkDelete($event)">
+                          <mat-icon class="red" *ngIf="docLink.saved">delete</mat-icon>
+                        </label>&nbsp;
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="floatChildren">
+                  <div class="w40">
+                    <mat-form-field appearance="outline">
+                      <mat-label class="req">Qualified Assessor Name</mat-label>
+                      <mat-select matInput formControlName="qualifiedAssessorName" [(ngModel)]="this.assessorSelected">
+                      <div *ngFor="let assessorName of uniqueQualifiedArray">
+                      <mat-option *ngIf="assessorName.programCd==='ECF' && assessorName.statusCd==='A'"
+                                      [value]="assessorName.assessorId">
+                        {{assessorName.firstName}} {{assessorName.lastName}}
+                          </mat-option></div>
+                          </mat-select>
+                    </mat-form-field>
+                    <mat-error *ngIf="controlError('qualifiedAssessorName')">
+                      {{controlErrorText['qualifiedAssessorName']}}</mat-error>
+                  </div>
+                  <div class="w40">
+                    <mat-form-field appearance="outline">
+                      <mat-label class="req">Qualified Assessor Code</mat-label>
+                      <input matInput formControlName="qualifiedAssessorCd" (input)="onCodeIncorrect($event)">
+                    </mat-form-field>
+                    <mat-error *ngIf="controlError('qualifiedAssessorCd')">{{controlErrorText['qualifiedAssessorCd']}}
+                    </mat-error>
+                      <mat-error *ngIf="incorrectCode">
+                        {{customValidation.A37}}
+                      </mat-error>
+
+                  </div>
+                </div>
+                <ng-container *ngIf="options.in_nurseReview">
+                  <div class="floatChildren">
+                    <div class="w30">
+                      <mat-form-field appearance="outline">
+                        <mat-label class="req">Nurse Review Result</mat-label>
+                        <mat-select formControlName="nurseReviewResultCd" (selectionChange)="trackNurseReviewResult($event)">
+                          <mat-option *ngFor="let nurseReviewResultCd of nurseReviewResultCdList"
+                                      [value]="nurseReviewResultCd.code">
+                            {{nurseReviewResultCd.value}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-error *ngIf="controlError('nurseReviewResultCd')">{{controlErrorText['nurseReviewResultCd']}}
+                      </mat-error>
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="options.in_iarcReview || options.in_nurseReview">
+                  <div class="floatChildren" *ngIf="options.in_iarcReview">
+                    <div class="w30">
+                      <mat-form-field appearance="outline">
+                        <mat-label class="req">IARC Review Result</mat-label>
+                        <mat-select formControlName="iarcReviewResultCd" (selectionChange)="trackIarcReviewResult($event)">
+                          <mat-option *ngFor="let iarcReviewResultCd of iarcReviewResultCdList"
+                                      [value]="iarcReviewResultCd.code">
+                            {{iarcReviewResultCd.value}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-error *ngIf="controlError('iarcReviewResultCd')">{{controlErrorText['iarcReviewResultCd']}}
+                      </mat-error>
+                    </div>
+                    <div class="w30">
+                      <mat-form-field appearance="outline">
+                        <mat-label class="req">Select Committee Members</mat-label>
+                        <input matInput formControlName="selectedCommitteeMember">
+                      </mat-form-field>
+                      <mat-error *ngIf="controlError('selectedCommitteeMember')">
+                        {{controlErrorText['selectedCommitteeMember']}}
+                      </mat-error>
+                    </div>
+                  </div>
+                  <div class="floatChildren" *ngIf="needAdditionalInfo">
+                    <div class="w60">
+                      <div class="textArea">
+                        <mat-label class="req">Additional Information Requested</mat-label>
+                        <textarea formControlName="addInfoReview" maxlength="2000"></textarea>
+                        <mat-error *ngIf="controlError('addInfoReview')">
+                          {{controlErrorText['addInfoReview']}}
+                        </mat-error>
+                        <p>{{getLength('addInfoReview')}}/2000</p>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+                <div class="panelButtons">
+                  <button class="blue" [disabled]="!enableSaveClick || incorrectCode" *ngIf="enableButton"
+                          (click)="saveClick('intakeOutcomeResult')">{{options.in_intake
+                    ? 'SUBMIT FOR REVIEW':
+                    'SUBMIT'}}</button>
+					<mat-spinner *ngIf="showSpinner" class="chkMargin" [diameter]="24" color="warn" mode="indeterminate"></mat-spinner>
+                </div>
+              </form>
+            </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+        <div class="padded">
+          <!-- <a class="actionLink" *ngIf="options.hasAppeal" href="#">PROCEED TO APPEAL RESOLUTION</a>Commented out because we need a user role-->
+          <a class="actionLink" [routerLink]="['/ltss/referral/referralIntakeActions']">GO BACK TO INTAKE ACTIONS</a>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,203 @@
+<div class="pageMargin">
+
+  <div class="page-header-container">
+    <div class="row">
+      <div class="col-md-8">
+        <h4>Summary</h4>
+      </div>
+      <div class="col-md-4">
+        <div class="applicant-name-container">
+          <strong>APPLICANT NAME : </strong> {{applicantName}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-container">
+
+    <div class="row">
+      <div class="col-md-12">
+        <mat-label><strong>Indicate if the applicant needs skilled nursing or rehabilitative services:
+          </strong></mat-label>
+      </div>
+    </div>
+    <br>
+
+    <div class="row">
+      <div class="col-md-6">
+        <button [class]="isSkilledServices?'is-deactivated':'is-activated'" mat-stroked-button
+          (click)="isSkilledServicesNeeded()" type="button">NEED SKILLED SERVICES
+          <mat-icon class="button-icon">offline_pin</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <button [class]="isSkilledServicesNotRequired?'is-deactivated':'is-activated'" mat-stroked-button
+          (click)="isSkilledServicesNotNeeded()" type="button">DOES NOT NEED SKILLED SERVICES
+          <mat-icon class="button-icon">offline_pin</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    
+    <div *ngIf="isSkilledServices" class="question-container">
+    <hr>
+    <div [formGroup]="skilledServiceSummaryForm">
+      <div class="row">
+        <div class="col-md-12">
+          <mat-label>
+            <mat-label class="required-color">*</mat-label><strong> Does the applicant need Enhanced Respiratory
+              Care?</strong>
+          </mat-label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <mat-radio-group formControlName = "needRespiratoryCareSw" (change)="enhanceRespiratoryNeeded($event)" >
+            <div>
+              <mat-radio-button value="Y" #value1>Yes</mat-radio-button>
+            </div>
+            <div>
+              <mat-radio-button value="N" #value2 >No</mat-radio-button>
+            </div>
+          </mat-radio-group>
+        </div>
+      </div>
+      </div>
+      <hr>
+    </div>
+    
+
+    <ng-container *ngIf="isEnhancedRespiratory">
+      <div class="row">
+        <div class="col-md-12">
+          <mat-label><strong>Please make sure to provide the details for each section below. If you have supporting
+              documentation, select the cloud icon to upload the documents.
+            </strong></mat-label>
+        </div>
+      </div>
+
+      <div class="summary-container">
+        <div class="row">
+          <div class="col-md-12">
+
+            <table id="skilledSummary" aria-describedBy="false">
+              <col span="1" class="wide">
+              <tr>
+                <th id="skilledServiceSummary" class="left">Skilled Services Summary</th>
+                <th id="status">Status</th>
+                <th id="userActions">User Actions</th>
+              </tr>
+              <tr *ngFor ="let skilledSummaryData of skilledServicesSummarydata | slice:0:tableRowends" >
+                <td class="left">{{skilledSummaryData.pageTitle}}</td>
+                
+                <td *ngIf="skilledSummaryData.status !== 'InComplete'">
+                  <mat-icon class="green">check</mat-icon> <span>Complete</span>
+                </td>
+                <td *ngIf="skilledSummaryData.status === 'InComplete'">
+                  <mat-icon class="red">close</mat-icon> <span>Incomplete</span>
+                </td>
+                <td *ngIf="skilledSummaryData.pageId==='PPSSD'" style = "cursor:pointer" (click) = "postUpdatedPage('PPSSD')">
+                <u><strong>GO TO
+                        DETAILS</strong></u>
+                        </td>
+                        
+                <td  *ngIf="skilledSummaryData.pageId==='PPSSE'" style = "cursor:pointer" (click) = "postUpdatedPage('PPSSE')">
+                    <u><strong>GO TO
+                        DETAILS</strong></u>
+                        </td>
+                     
+                    
+              </tr>
+            </table>
+
+          </div>
+        </div>
+      </div>
+
+    </ng-container>
+
+
+   <div class="services-needed-container" *ngIf = "isserviceScoreNeeded">
+
+    <hr>
+
+      <div class="row">
+        <div class="col-md-12">
+          <h4>Services Needed</h4>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+
+          <table id="serviceScore" aria-describedBy="false">
+            <col span="1" class="wider">
+            <tr>
+              <th id="service" class="left" style="padding-left: 4.5vw;">Service</th>
+              <th id="score">Score</th>
+            </tr>
+            <tr *ngFor="let skilledSummaryScore of skilledServicesSummaryScoreData">
+              <ng-container *ngIf="skilledSummaryScore.sectionCode !=='Maximum Skilled Service Acuity Score'">
+              <td class="left"  style="padding-left: 4.0vw;">{{skilledSummaryScore.sectionCode}}</td>
+              <td>{{skilledSummaryScore.sectionScore}}</td>
+            </ng-container>
+          </tr>
+            <tr *ngFor="let skilledSummaryScore of skilledServicesSummaryScoreData">
+            <ng-container *ngIf="skilledSummaryScore.sectionCode ==='Maximum Skilled Service Acuity Score'">
+              <td class="left" style="padding-left: 4.0vw;"><strong>{{skilledSummaryScore.sectionCode}}</strong></td>
+              <td><strong>{{skilledSummaryScore.sectionScore}}</strong></td>
+            </ng-container>
+            </tr>
+
+          </table>
+        </div>
+      </div>
+
+   <hr>
+
+      <div class="file-upload-container">
+        <div class="row">
+          <div class="col-md-12">
+
+            <table id="fileUpload" aria-describedBy="false" class="mat-elevation-z6">
+              <col span="1" class="wider">
+              <tr>
+                <th id="supportingDocumentation" class="left" style="padding-left: 2.5vw;">Supporting Documentation</th>
+                <th id="icon"></th>
+              </tr>
+
+              <tr>
+                <td class="left" style="padding-left: 2.5vw;">Skilled Nursing Services</td>
+                <td><mat-icon class="upload-icon">backup</mat-icon></td>
+              </tr>
+
+              <tr>
+                <td class="left" style="padding-left: 2.5vw;">Enhanced Respiratory Care</td>
+                <td><mat-icon class="upload-icon">backup</mat-icon></td>
+              </tr>
+
+              <tr *ngIf="isnonKB">
+                <td class="left" style="padding-left: 2.5vw;">Intensity Therapy Services</td>
+                <td><mat-icon class="upload-icon">backup</mat-icon></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+</div>
+
+<div class="buttonBar">
+  <button mat-flat-button type="button" class="perlss-click-button-white" (click)="back()">BACK</button>
+  <button mat-flat-button color="primary" class="perlss-click-button-white-noborder" (click)="saveAndExit()"><span
+      class="hoverClass">SAVE AND EXIT</span></button>
+    <button mat-flat-button color="primary" class="perlss-click-button"
+    (click)="nextClicked()">NEXT</button>
+</div>

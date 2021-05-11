@@ -1,0 +1,551 @@
+@import '../../../colors.scss';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.applicant-information-label {
+  font-size : 18px;
+  color : #008000;
+  padding-left:5vw;
+}
+
+.page-width
+{
+  margin-top:4vw;
+  margin-bottom: 4vw;
+
+}
+
+.adj-results
+{
+  border-width: 1px;
+  border-color:rgb(92, 160, 92);
+  border-style: solid;
+  margin-top:10px;
+  margin-bottom:10px;
+  padding-bottom: 25px;
+  width:100%;
+}
+
+.applicant-info-background {
+  margin-top: 1.5vw;
+  margin-bottom: 1.5vw;;
+  width: 100%;
+}
+.text-align-right {
+  flex: 1;
+  text-align: right;
+  padding-right: 20px;
+  font-size: 16px;
+}
+
+.mmis-buttn {
+  background: #1d61a0 !important;
+  font-size: 16px;
+  padding: 5px 25px;
+  margin-top: 2vw;
+  color: white;
+  margin-right: 55px;
+}
+.applicant-information-details {
+  margin-top: 2vw;
+  background-color: #f8f8f8;
+  width: 100%;
+  padding-left: 40px;
+}
+
+.divider {
+  margin-top: 2vw;
+  background-color: #E6F0F3;
+  width: 100%;
+}
+
+
+  .mmis-eligibility-button{
+    float: right;
+    font-size: 16px;  
+    padding: 15px 25px; 
+    background-color: #174A7C;
+    
+  }
+
+.pageMargin {
+  padding: 0px;
+  padding-top: 25px;
+}
+
+.accordian {
+  margin-top: 8vw;
+}
+.feButton {
+  background-color: rgba(238, 153, 36, 1) !important;
+  color: white !important;
+  padding: 10px 20px 10px 20px;
+  margin-top: 30px;
+  margin-left: 7px;
+}
+
+.transition-accordian {
+  width: 100%;
+  color: #174A7C;
+}
+
+.accordian-title {
+  //background-color: #E6F0F3;
+  font-size: 20px;
+  color: #04537d;
+  padding-left: 60px;
+}
+
+.table-width
+{
+
+  margin-right: 11vw;
+  margin-left: 75px;
+  margin-top: 20px;
+
+}
+
+
+
+
+.iconStyle {
+  margin-bottom: 30px;
+  padding-right: 85px;
+}
+.green {
+  color: green;
+  margin-bottom:0px;
+}
+.review-details {
+  //background-color: #E6F0F3;
+  font-size: 20px;
+  color: #04537d;
+  position: relative;
+  float: right;
+  padding-right: 10px;
+}
+.pasrr-label-custom {
+  width: 250px;
+  padding: 28px;
+  padding-bottom: 20px;
+  font-weight: bold;
+}
+
+.pasrr-label-value-cls {
+  width: 200px;
+  justify-content: center;
+}
+
+.mat-label-custom {
+  width: 100%;
+  padding: 7px;
+  font-weight: bold;
+}
+
+.mat-label-value-cls {
+  width: 150px;
+  margin-left: 10px;
+}
+
+table {
+  width: 100%;
+}
+
+::ng-deep .row {
+  margin-left: 0px;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
+
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: $colorControlBackground;
+  border-radius: 5px;
+  border-color: #CED4DA;
+}
+
+.adjudication-sub-heading {
+  font-weight: bold;
+  color: #547E1A;
+  font-size: 35;
+}
+.perlss-section-divider {
+  width: 100%;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+#applicant-physical-address {
+  margin-left: 5px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+#searchPersonTable {
+  width: 100%;
+  -moz-box-shadow: 0 0 1px 1px #888;
+  -webkit-box-shadow: 0 0 1px 1px#888;
+  box-shadow: 0 0 1px 1px #888;
+}
+#searchPersonTable th {
+  text-align: center;
+  color: #547E1A;
+  padding: 25px;
+
+} 
+
+#addressTable {
+  text-align: center;
+  width: 100%;
+  -moz-box-shadow: 0 0 1px 1px #888;
+  -webkit-box-shadow: 0 0 1px 1px#888;
+  box-shadow: 0 0 1px 1px #888;
+}
+#addressTable td {
+  padding: 20px;
+}
+#searchPersonTable tr {
+  border: 0.5px solid #174A7C;
+}
+
+#searchPersonTable td{
+  text-align: center;
+  background-color: #EDF4FB;
+  padding: 10px;
+}
+
+h1 {
+  font-family: "Open Sans";
+  letter-spacing: 0.1rem;
+  font-size: 28px;
+  color: #174A7C;
+  padding: 42px 15px;
+}
+
+.adjudication-dropdown-heading {
+  padding: 0 5px;
+
+}
+
+.enrollment-sub-desciption {
+  font-family: "Open Sans";
+  font-size: 16px;
+  padding: 10px;
+  border: 1px Solid rgb(243, 107, 89);
+  margin-top: 35px;
+  font-size: 15px;
+  margin-left: 22px;
+}
+
+.mat-header-class {
+  background: #16A545;
+  font-size: 12px;
+  font-weight: bold;
+
+}
+
+.enrollment-queue-label {
+  font-size : 16px;
+  color : #EB4926;
+}
+
+#person {
+  margin-left: 2px;
+  padding-top: 40px;
+}
+
+mat-form-field {
+  width: 100%;
+  padding: 7px;
+}
+
+mat-label {
+  width: 100%;
+  padding: 7px;
+  font-weight: bold;
+}
+
+.adjudication-search-results-label {
+  font-family: "Open Sans";
+  letter-spacing: 50;
+  font-weight: bold;
+  font-size: 16px;
+  color:#ED6053;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  padding: 20px 15px;
+}
+
+.adjudication-search-box {
+  padding: 0 0.75em 0 0.75em;
+  margin-top: -1.25em;
+  margin-left: 28.2em;
+  position: relative;
+  width: 61%;
+  text-align: left;
+}
+
+.summary-label {
+  font-size : 16px;
+  font-weight: 500px;
+  color : #000A04;
+  margin-left:35px;
+  margin-bottom:1.5vw;
+  margin-top:3vw;
+}
+
+.sumarry-tool
+{
+  color: #225282;
+  border-color: #225282;
+  height: 30%;
+  background-color: white;
+  border: 1px solid !important;
+}
+
+.divider{
+  width: 90%;
+  margin-right: 50px;
+  margin-left: 30px;
+}
+
+.link-class {
+  margin-top:3.25em;
+  margin-left:10px;
+}
+
+
+.liability-popup{
+  font-size: 18px;
+  text-decoration: underline;
+  color: #225282;
+  cursor: pointer;
+}
+
+.required-color {
+  color: #ed6053;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: $colorControlBackground;
+  border-radius: 5px;
+  border-color: #CED4DA;
+}
+
+
+:host::ng-deep {
+  .mat-expansion-panel:not([class*="mat-elevation-z"]) {
+    box-shadow: none;
+  }
+  .expanded-row{
+    background-color: #EDF4FB !important;
+    font-weight: bold !important;
+  }
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: $colorControlBackground;
+    border-color: #CED4DA;
+  }
+  .mat-expansion-panel-body{
+    padding: 0px;
+  }
+  .mat-expansion-panel-header-title {
+    color: #04537D;
+    font-size: 20px !important;
+    letter-spacing: 0.1vw;
+  }
+  .mat-form-field{
+    width:100%;
+  }
+  .mat-table{
+    font-family: "Open Sans" !important;
+    font-size: 15px;
+    width: 100%;
+    border-left: 1px solid grey !important ;
+    border-right: 1px solid grey !important;
+    border-bottom: 1px solid grey !important;
+
+  }
+  .mat-header-cell{
+    border-bottom: none;
+    font-weight: bold;
+    font-size : 15px;
+    border-top: 1px solid grey !important;
+    color: black;
+    background-color: rgb(240, 240, 240);
+    
+  }
+  .mat-header-row{
+    text-align: center;
+    padding-left:6vw;
+
+  }
+  .mat-expansion-indicator::after {
+    color: #174A7C !important;
+    height: 1.2vw;
+    width: 1.2vw;
+    top: 50%;
+
+  }
+  #comments-cls {
+    margin-top: 30px;
+  }
+ 
+}
+
+.suggest-start
+{
+  border-color:rgb(92, 160, 92);
+  border-style:solid; 
+  border-width: 1px;  
+  padding-bottom:0vw;
+  margin-left:1vw;
+  margin-top: -2vw;
+  padding-top: 1vw;
+  padding-left: 0.5vw;
+}
+
+
+
+.page-length
+{
+  margin-left:8vw;
+  margin-right:8vw;
+}
+
+.perlss-click-button-white {
+  background-color: #174A7C !important;
+  color: white !important;
+}
+
+.recordsContent {
+  border: 1px solid #225282 !important;
+  width: 66vw;
+  border-top: none !important;
+ }
+ 
+ .headerContainer {
+  padding-top: 1vw;
+  padding-bottom: 1vw;
+ }
+
+ .recordsHeader {
+  border: 1px solid #225282 !important;
+  width: 66vw;
+  margin-top: 1vw;
+ }
+
+.saveButton {
+  background-color: rgba(238, 153, 36, 1) !important;
+  min-width: 100px;
+  line-height: 20px !important;
+  font-size: 15px;
+  color: white;
+  float: left;
+  margin-left: 22px;
+}
+.cancelButton {
+  margin-left: 10px;
+  background-color: white;
+  color: rgba(27, 87, 128);
+  font-size: 15px;
+  min-width: 100px;
+  line-height: 20px !important;
+  float: left;
+}
+.editButton {
+  margin-left: 22px;
+  color: white;
+  background-color: rgba(238, 153, 36, 1);
+  font-size: 15px;
+  min-width: 100px;
+  line-height: 20px !important;
+  float: left;
+  padding:0.5vw;
+}
+
+
+
+.rowElement{
+  display: flex;
+ }
+
+ .accordian-title-summary {
+  //background-color: #E6F0F3;
+  font-size: 20px;
+  color: #04537d;
+  padding-left: 10px;
+}
+
+.accordian-head-summary
+{
+  //background-color: #E6F0F3;
+  font-size: 20px;
+  color:black;
+  padding-left: 10px;
+}
+
+.enrollmentTable
+{
+  th
+  {
+    padding-left:2vw;
+    background-color:#f5f5f5;
+    color: black;
+  }
+  td {
+    padding-left:2vw;
+  };
+}
+
+#enrollment-table{
+  td,th {
+  width: 100%; 
+  padding-left: 1vw;
+  }
+  th{
+    background-color: #CDDDF4;
+    width: 100%;
+    margin-left: 2vw;
+  }
+}

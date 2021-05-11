@@ -1,0 +1,205 @@
+<div class="responsive dialog">
+  <div class="header Mcf">
+    <div class="left">
+    <h1 mat-dialog-title>Multiple Complex Health Conditions Review Form</h1>
+  </div>
+  <div class="right">
+    <label class="req">Required</label>
+    <mat-icon (click)="closePopup()" style="font-size: 35px;">highlight_off</mat-icon>
+  </div>
+  </div>
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div class="scroller noPad">
+      <div class="note-container message">
+        <p>Please ensure the potential applicant does not appear to qualify for potential enrollment in an open
+          Priority Category before submitting a request for review of Multiple Complex Health Conditions. If a potential
+          applicant appears to meets criteria for both an open Priority Category and Multiple Complex Health Conditions
+          –
+          you must proceed with an application for potential enrollment in the appropriate open Priority Category.</p>
+      </div>
+      <div class="padded" [ngClass]="{'submitted': submitted}">
+
+        <mat-label style="font-weight: bold;">Multiple Complex Health Conditions Components (Potential Applicant
+          must meet ALL components.)</mat-label>
+
+        <mat-radio-group formControlName="complxChrHlthCndtnSw">
+          <mat-label class="req">The person has multiple complex chronic or acquired health
+            conditions.</mat-label>
+          <mat-error *ngIf="controlError('complxChrHlthCndtnSw')">{{errorText['complxChrHlthCndtnSw']}}</mat-error>
+          <mat-radio-button value="Y">Yes</mat-radio-button>
+          <mat-radio-button value="N">No</mat-radio-button>
+       </mat-radio-group>
+
+        <mat-radio-group formControlName="hlthSignifiBarEmpSw">
+          <mat-label class="req">The person’s health conditions
+            present significant barriers or challenges to employment and community integration without
+            supports available in&nbsp;ECF&nbsp;CHOICES.</mat-label>
+          <mat-error *ngIf="controlError('hlthSignifiBarEmpSw')">{{errorText['hlthSignifiBarEmpSw']}}</mat-error>
+          <mat-radio-button value="Y">Yes</mat-radio-button>
+          <mat-radio-button value="N">No</mat-radio-button>
+       </mat-radio-group>
+
+        <mat-radio-group formControlName="urgntNeedOfSupSw">
+          <mat-label class="req">The person is in urgent need of
+            supports in order to maintain the current living arrangement and delay or prevent the need
+            for more&nbsp;expensive&nbsp;services.</mat-label>
+          <mat-error *ngIf="controlError('urgntNeedOfSupSw')">{{errorText['urgntNeedOfSupSw']}}</mat-error>
+          <mat-radio-button value="Y">Yes</mat-radio-button>
+          <mat-radio-button value="N">No</mat-radio-button>
+       </mat-radio-group>
+
+        <mat-radio-group formControlName="condExpctdContSw">
+          <mat-label class="req">The person’s conditions are expected to continue.</mat-label>
+          <mat-error *ngIf="controlError('condExpctdContSw')">{{errorText['condExpctdContSw']}}</mat-error>
+          <mat-radio-button value="Y">Yes</mat-radio-button>
+          <mat-radio-button value="N">No</mat-radio-button>
+       </mat-radio-group>
+
+        <mat-divider></mat-divider>
+
+        <p>Please complete the information below and submit with all supporting
+          documentation to TennCare, via designated process, for referral to the Interagency
+          Review Committee.</p>
+        <p>
+          Please do not provide repetitive information in multiple response boxes below. Each
+          area needs to be addressed specific to the information being requested.
+       </p>
+
+        <div class="textArea">
+          <mat-label class="req">Please explain why this person does not appear to qualify for
+            enrollment in an open Priority Category:</mat-label>
+          <textarea maxlength="2000" formControlName="qualifiedEnrolPriCatTxt"></textarea>
+          <mat-error *ngIf="controlError('qualifiedEnrolPriCatTxt')">{{errorText['qualifiedEnrolPriCatTxt']}}</mat-error>
+          <p>{{f.qualifiedEnrolPriCatTxt.value.length}}/2000</p>
+       </div>
+
+        <div class="textArea">
+          <mat-label class="req">Detail regarding each complex health condition, including
+            diagnosis, when the condition began, severity of symptoms, expected duration, etc.:</mat-label>
+          <textarea maxlength="2000" formControlName="cmpxHlthCondDiagTxt"></textarea>
+          <mat-error *ngIf="controlError('cmpxHlthCondDiagTxt')">{{errorText['cmpxHlthCondDiagTxt']}}</mat-error>
+          <p>{{f.cmpxHlthCondDiagTxt.value.length}}/2000</p>
+       </div>
+
+        <div class="textArea">
+          <mat-label class="req">Treatment being received for each health condition:</mat-label>
+          <textarea maxlength="2000" formControlName="treatRcvdHlthCndTxt"></textarea>
+          <mat-error *ngIf="controlError('treatRcvdHlthCndTxt')">{{errorText['treatRcvdHlthCndTxt']}}</mat-error>
+          <p>{{f.treatRcvdHlthCndTxt.value.length}}/2000</p>
+       </div>
+
+        <div class="textArea">
+          <mat-label class="req">How the health conditions impact the person’s daily life:</mat-label>
+          <textarea maxlength="2000" formControlName="hlthCndDlyLifeTxt"></textarea>
+          <mat-error *ngIf="controlError('hlthCndDlyLifeTxt')">{{errorText['hlthCndDlyLifeTxt']}}</mat-error>
+          <p>{{f.hlthCndDlyLifeTxt.value.length}}/2000</p>
+       </div>
+
+        <div class="textArea">
+          <mat-label class="req">How the health conditions present barriers or challenges to
+            employment and community integration:</mat-label>
+          <textarea maxlength="2000" formControlName="hlthCndBarEmpTxt"></textarea>
+          <mat-error *ngIf="controlError('hlthCndBarEmpTxt')">{{errorText['hlthCndBarEmpTxt']}}</mat-error>
+          <p>{{f.hlthCndBarEmpTxt.value.length}}/2000</p>
+       </div>
+
+        <div class="textArea">
+          <mat-label class="req">Options for support that have been tried that did not work
+            (include evaluations/assessments/authorizations for use of technology where appropriate,
+            other&nbsp;paid or unpaid caregivers, etc.):</mat-label>
+          <textarea maxlength="2000" formControlName="optDidNotWorkTxt"></textarea>
+          <mat-error *ngIf="controlError('optDidNotWorkTxt')">{{errorText['optDidNotWorkTxt']}}</mat-error>
+          <p>{{f.optDidNotWorkTxt.value.length}}/2000</p>
+       </div>
+
+        <div class="textArea">
+          <mat-label class="req">How the person is being supported now (include who provides
+            support, whether the support is paid or unpaid, etc.):</mat-label>
+          <textarea maxlength="2000" formControlName="prsnSupTxt"></textarea>
+          <mat-error *ngIf="controlError('prsnSupTxt')">{{errorText['prsnSupTxt']}}</mat-error>
+          <p>{{f.prsnSupTxt.value.length}}/2000</p>
+       </div>
+
+        <div class="textArea">
+          <mat-label class="req">Anticipated changes in these supports, and the expected
+            timing of such changes:</mat-label>
+          <textarea maxlength="2000" formControlName="antiChngsExpTimeTxt"></textarea>
+          <mat-error *ngIf="controlError('antiChngsExpTimeTxt')">{{errorText['antiChngsExpTimeTxt']}}</mat-error>
+          <p>{{f.antiChngsExpTimeTxt.value.length}}/2000</p>
+       </div>
+
+        <div class="textArea">
+          <mat-label class="req">Recent events that led to the person needing additional
+            support to maintain the current living arrangement and delay or prevent the need for more
+            expensive&nbsp;services:</mat-label>
+          <textarea maxlength="2000" formControlName="prsnNeedAddSupTxt"></textarea>
+          <mat-error *ngIf="controlError('prsnNeedAddSupTxt')">{{errorText['prsnNeedAddSupTxt']}}</mat-error>
+          <p>{{f.prsnNeedAddSupTxt.value.length}}/2000</p>
+       </div>
+
+        <div class="textArea">
+          <mat-label class="req">Other supports that are available/resources for support that
+            have been explored, or that could be developed:</mat-label>
+          <textarea maxlength="2000" formControlName="othrSupResTxt"></textarea>
+          <mat-error *ngIf="controlError('othrSupResTxt')">{{errorText['othrSupResTxt']}}</mat-error>
+          <p>{{f.othrSupResTxt.value.length}}/2000</p>
+       </div>
+
+        <div class="textArea">
+          <mat-label class="req">Intake Assessor Observations:</mat-label>
+          <textarea maxlength="2000" formControlName="intakeAssesObsrvTxt"></textarea>
+          <mat-error *ngIf="controlError('intakeAssesObsrvTxt')">{{errorText['intakeAssesObsrvTxt']}}</mat-error>
+          <p>{{f.intakeAssesObsrvTxt.value.length}}/2000</p>
+       </div>
+
+        <div class="checkbox-group">
+          <mat-label class="">Please check all supporting documentation being provided
+            with this request:</mat-label>
+          <mat-checkbox class="checkbox-element" formControlName="verifTrgtPopulatinSw">
+            Verification of target population</mat-checkbox>
+          <mat-checkbox class="checkbox-element" formControlName="adaptBehLsaResSw">
+            Adaptive Behavior / Life Skills Assessment results</mat-checkbox>
+          <mat-checkbox class="checkbox-element" formControlName="legalDocsSw">
+            Legal documents</mat-checkbox>
+          <mat-checkbox class="checkbox-element" formControlName="mediDocumentationSw">
+            Medical documentation (including but not limited to support of
+            diagnosis)</mat-checkbox>
+          <mat-checkbox class="checkbox-element" formControlName="phyclClinicalNoteSw">
+            Physician / clinical note(s)</mat-checkbox>
+          <div class="inline">
+            <mat-checkbox (click)="otherClick()" formControlName="othrSw">Other:</mat-checkbox>
+            <div class="inline-wrapper">
+              <ng-container *ngIf="f.othrSw.value">
+                <input formControlName="othrDesc" placeHolder="Other Documentation" type="text"
+                  [ngClass]="{ 'is-invalid': f.othrSw.value && !f.othrDesc.value && !f.othrDesc.touched }" />
+              </ng-container>
+              <ng-container *ngIf="!f.othrSw.value">
+                <input formControlName="othrDesc" maxlength="2000" class="disabled" type="text" disabled>
+              </ng-container>
+              <mat-error *ngIf="controlError('othrDesc')">{{errorText['othrDesc']}}</mat-error>
+            </div>
+          </div>
+       </div>
+
+        <mat-divider></mat-divider>
+
+        <p>Signatures below indicate an attestation that the information provided in this
+          request form is accurate as provided by the potential applicant or informant and as observed
+          by the person completing this form.</p>
+
+        <div class="checkbox-group w40">
+          <mat-form-field appearance="outline" class="w40">
+            <mat-label class="req">Electronic Signature</mat-label>
+            <input matInput placeholder="Electronic Signature" maxlength="65" formControlName="electronicSignature"
+              [ngClass]="{ 'is-invalid': f.electronicSignature.touched && !f.electronicSignature.value }" />
+            <mat-error *ngIf="controlError('electronicSignature')">{{errorText['electronicSignature']}}</mat-error>
+          </mat-form-field>
+       </div>
+      </div>
+    </div>
+    <div class="buttonBar">
+      <button color="primary" type="submit"
+        class="mat-focus-indicator mat-flat-button mat-button-base mat-primary">Submit</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,165 @@
+tr.element-row:not(.expanded-row):hover {
+  background: #f6faff;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+}
+
+tr.element-row:not(.expanded-row):active {
+  background: #f6faff;
+}
+
+tr.expanded-row {
+  background: #edf4fb;
+  font-weight: bold;
+}
+
+.align-right {
+  flex: 1;
+  text-align: right;
+}
+
+.table-th {
+  font-size: 14px;
+  font-weight: bold;
+  color: #04537d;
+  border-bottom: 3px solid #1b365d;
+  padding-right: 10px;
+  text-align:center;
+}
+
+.user-role-heading {
+  color: #4d7e20;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.required {
+  font-size: 12px;
+  justify-content: flex-end;
+  display: flex;
+}
+
+table {
+  border: 1px solid #1b365d;
+}
+
+table tr:last-child td {
+  border-bottom: 1px solid #1b365d;
+}
+
+.mat-paginator {
+  background: none !important;
+}
+
+::ng-deep .mat-checkbox-indeterminate .mat-checkbox-background {
+  background-color: #ed6053 !important;
+}
+
+::ng-deep .mat-checkbox.mat-accent {
+  &.mat-checkbox-checked .mat-checkbox-background {
+    background-color: #f6faff;
+    border: 1px solid #b3b3b3;
+  }
+
+  .mat-checkbox-checkmark-path {
+    stroke: #ed6053 !important;
+  }
+}
+
+.subrow-header {
+  font-weight: bold;
+}
+
+.subrow-continue-button {
+  padding-bottom: 15px;
+  padding-left: 50%;
+}
+
+.subrow-update-button {
+  padding-left: 50%;
+}
+
+.subrow-content {
+  padding-bottom: 12px;
+}
+
+.subrow-continue-button-width {
+  width: 111px;
+}
+
+.mat-button.mat-small {
+  min-width: 1%;
+}
+
+.button {
+  min-width: 1%;
+}
+
+.example-form-field {
+  margin: 0 8px 16px 0;
+}
+
+.disabledCalendar {
+  cursor: not-allowed;
+}
+
+.approved_btn_border {
+  border: 2px solid #4d7e20 !important;
+  color: #4d7e20;
+  font-weight: bold;
+  padding: 5px;
+  min-width: 33px !important;
+  line-height: 7px !important;
+}
+
+.partially_btn_border {
+  border: 1px solid #d4792f;
+  color: #d4792f;
+  font-weight: bold;
+}
+
+.denied_btn_border {
+  border: 2px solid red !important;
+  color: red;
+  font-weight: bold;
+  padding: 5px;
+  margin-left:10px;
+  min-width: 33px !important;
+  line-height: 7px !important;
+}
+
+.customButton {
+  min-width: 33px !important;
+  line-height: 7px !important;
+  padding: 5px;
+  margin:7px;
+  border: 1px solid;
+}
+
+.text_space {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.saveButton {
+  background-color: rgba(238, 153, 36, 1) !important;
+  min-width: 100px;
+  line-height: 25px !important;
+  font-size: 15px;
+  color:white;
+}
+
+.cancelButton {
+  margin-left: 10px;
+  background-color: white;
+  color: rgba(27, 87, 128);
+  font-size: 15px;
+  min-width: 100px;
+  line-height: 20px !important;
+}

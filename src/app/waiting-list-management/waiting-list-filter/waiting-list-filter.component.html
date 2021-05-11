@@ -1,0 +1,96 @@
+<div class="wrapper">
+  <div class="filter-wrapper">
+      <form  [formGroup]="referralPersonSearch" (ngSubmit)="search()">
+          <mat-accordion>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header style="background-color: #f5f5f5">
+                  <mat-panel-title>
+                    Additional Filter Criteria
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                  <div class="queue-accordion">
+                      <mat-label class="label-heading">Person Search</mat-label>
+                        <mat-form-field appearance="outline">
+                          <mat-label>Search by Applicant Name, Date of Birth, SSN, Person ID, Country</mat-label>
+                          <input [matAutocomplete]="auto" #searchInput matInput autocomplete="off"
+                            placeholder="Search by Applicant Name, Date of Birth, SSN, Person ID, Country"
+                            formControlName="searchText"/>
+                          <mat-autocomplete #auto="matAutocomplete" (optionSelected)='handleSelection($event.option.id)'>
+                            <mat-option class="select-hr" *ngFor="let option of personOptions" [value]="option.prsnDetailTxt" [id]="option.personId">
+                              <span [innerHTML] = option.prsnDetailHtmlTxt></span>
+                            </mat-option>
+                          </mat-autocomplete>
+                          <button mat-button *ngIf="f.searchText?.value" matSuffix mat-icon-button aria-label="Clear"
+                                  (click)="f.searchText.setValue(null)">
+                            <mat-icon>close</mat-icon>
+                          </button>
+                        </mat-form-field>
+
+                        <div class="filter-dropdown">
+                          <div>
+                              <mat-label class="label-heading">Referral ID</mat-label>
+                                <mat-form-field  appearance="outline">
+                                  <input matInput type="text" formControlName="refId">
+                              </mat-form-field>
+                          </div>
+                          <div>
+                              <mat-label class="label-heading">Waiting List Status</mat-label>
+                        <mat-form-field appearance="outline">
+                              <mat-select formControlName="waitingListStatus">
+                                  <mat-option value=''>Select an option</mat-option>
+                                  <mat-option *ngFor = "let waitingStatus of  waitingListStatus" value={{waitingStatus.code}}>{{waitingStatus.value}}</mat-option>
+                              </mat-select>
+                        </mat-form-field>
+                          </div>
+                        </div>
+
+                        <div class="filter-dropdown">
+                          <div>
+                              <mat-label class="label-heading">Program Type</mat-label>
+                              <mat-form-field appearance="outline">
+                                    <mat-select formControlName="programType">
+                                      <mat-option value=''>Select an option</mat-option>
+                                      <mat-option *ngFor = "let programType of  programTypes" value={{programType.code}}>{{programType.value}}</mat-option>
+                                    </mat-select>
+                              </mat-form-field>
+                          </div>
+                          <div>
+                              <mat-label class="label-heading">Reassessment Date</mat-label>
+                              <mat-form-field appearance="outline">
+                                    <mat-select formControlName="reassessmentDate">
+                                      <mat-option value=''>Select an option</mat-option>
+                                        <mat-option *ngFor = "let reassessmentDate of  reassessmentDates" value={{reassessmentDate.code}}>{{reassessmentDate.value}}</mat-option>
+                                    </mat-select>
+                              </mat-form-field>
+                          </div>
+                        </div>
+
+                        <div class="filter-dropdown">
+                          <div>
+                              <mat-label class="label-heading">Task Queue</mat-label>
+                              <mat-form-field appearance="outline">
+                                    <mat-select formControlName="taskQueue">
+                                      <mat-option value=''>Select an option</mat-option>
+                                      <mat-option *ngFor = "let taskQueue of  taskQueues" value={{taskQueue.code}}>{{taskQueue.value}}</mat-option>
+                                    </mat-select>
+                              </mat-form-field>
+                          </div>
+                          <div>
+                              <mat-label class="label-heading">Task Status</mat-label>
+                              <mat-form-field appearance="outline">
+                                    <mat-select formControlName="taskStatus">
+                                      <mat-option value=''>Select an option</mat-option>
+                                      <mat-option *ngFor = "let taskStatusValue of  taskStatus" value={{taskStatusValue.code}}>{{taskStatusValue.value}}</mat-option>
+                                    </mat-select>
+                              </mat-form-field>
+                          </div>
+                        </div>
+                        <div>
+                          <button type="submit" mat-flat-button color="primary" class="perlss-click-button">SEARCH</button>
+                        </div>
+                  </div>
+              </mat-expansion-panel>
+          </mat-accordion>
+      </form>
+  </div>
+</div>

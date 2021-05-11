@@ -1,0 +1,44 @@
+.app-sub-heading{
+    color: #659737;
+      font-weight: bold;
+      font-size: 18px ;
+      padding: 20px 0 15px 0;
+  }
+  .slot-table{
+    outline: 1px solid #174A7C;
+    border:none;
+    color:black;
+    font-size: small;
+    th{
+    background-color: #cdddf4;
+    font-weight: bold;
+    }
+    td,th{
+    border-bottom: 2px solid #d5d5d5;
+    padding:10px;
+    text-align: center;
+    }
+    }
+    .slot-table tr:last-child{ background-color: #ededed;}
+    .slot-table tr td:first-child,.slot-table tr th:first-child{ border-right: 2px solid #6c7288;}
+   
+    .slot-status{
+     color:black;
+     text-align: center;
+     h2{
+       font-size: 18px;
+       color: black;
+       font-weight: bold;
+     }
+     .field-status{
+       display:block;
+       max-width: 140px;
+       font-weight: bold;
+       font-size: small;
+       margin: 0 auto;
+       margin-bottom: 15px;
+       padding: 5px;
+       border:2px solid #b2b2b2;
+       background-color: #f4f7fd;
+     }
+    }

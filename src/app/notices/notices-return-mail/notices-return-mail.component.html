@@ -1,0 +1,121 @@
+<div class="pageMargin">
+    <mat-vertical-stepper #stepper >
+        <form [formGroup]="noticeReturnForm">
+          <ng-template matStepperIcon="edit" let-index="index">{{index + 1}}</ng-template>
+            <mat-step completed= false>
+                <ng-template matStepLabel><strong>Enter Mail Piece ID</strong></ng-template>
+                <div class="filter-dropdown">
+                    <div>
+                        <mat-form-field appearance="outline" style="width: 100%;">
+                            <mat-label class="required-color">*</mat-label><mat-label>
+                                Mail Piece ID
+                            </mat-label>
+                            <input matInput formControlName="mailPieceId" type="text">
+                          <mat-error *ngIf="f.mailPieceId.errors?.required">{{customValidation.A1}}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row stepOne-button-content">
+                    <div class="col-6">
+                        <button type="submit" mat-button (click)="handleMailId(stepper)" mat-flat-button color="primary" class="perlss-click-button">
+                            NEXT
+                        </button>
+                    </div>
+                </div>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel><strong>Return Mail Details</strong></ng-template>
+                <div class="filter-dropdown">
+                    <div style="width: 25%;">
+                        <mat-form-field appearance="outline">
+                            <mat-label class="required-color">*</mat-label><mat-label>Returned Date</mat-label>
+                            <input matInput formControlName="dobDt" placeholder="mm/dd/yyyy" [max]="startDate ? startDate : today" [matDatepicker]="picker">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker [startAt]="startDate" #picker></mat-datepicker>
+                                <mat-error *ngIf="getFormData().dobDt.errors != null">
+                                    <mat-error *ngIf="noticeReturnForm.get('dobDt').hasError('required')">
+                                      {{customValidation.A1}}
+                                    </mat-error>
+                                </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <app-notice-upload-pdf [personId]="personId" [allowMultiple]="false"  (emitUploadForm)="handleNoticeFormSubmit($event)"></app-notice-upload-pdf>
+                <div class="row button-content">
+                    <div class="col-6 back-button">
+                        <button mat-flat-button matStepperPrevious color="primary" class="perlss-click-button-white">
+                            BACK
+                        </button>
+                    </div>
+                    <div class="col-6 next-button">
+                        <button mat-button  (click)="handleMailDetails(stepper)"  mat-flat-button color="primary" class="perlss-click-button">
+                            NEXT
+                        </button>
+                    </div>
+                </div>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel><strong>Update Notice Details</strong></ng-template>
+
+                <table aria-describedby style="border: 1px solid green;">
+                    <tr>
+                      <th id="noticesType" style="padding: 30px; color:black">
+                        <span><strong>Noitce Type:</strong> Approval Notice <br></span>
+                        <div class="retun-notice-font-color">
+                            The address on file <strong>has been updated</strong> since this notice was generated.
+                        </div>
+                      </th>
+                      <br>
+                    </tr>
+                </table>
+
+                <div class="row">
+                    <div class="box">
+                        <div style="color:black; font-weight: bold;">
+                            Old Address
+                        </div>
+                        <p class="status-name">
+                          {{oldAddress?.addrLine1}},<br>
+                          {{oldAddress?.city}}, {{oldAddress?.stateCd}} {{oldAddress?.zip}}
+                        </p>
+                    </div>
+    
+                    <div class="box2">
+                        <div style="color:black; font-weight: bold;">
+                            Updated Address
+                        </div>
+                        <p class="box-status-name">
+                          {{updatedAddress?.addrLine1}}, <br>
+                          {{updatedAddress?.city}}, {{updatedAddress?.stateCd}} {{updatedAddress?.zip}}
+                        </p>
+                    </div>
+                </div>
+              <div class="row">
+                <div class="col-md-4 mail-proceed">
+                  <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-label><mat-label class="required-color">*</mat-label><strong>How Would You Like To Procees?</strong></mat-label>
+                          <mat-select formControlName="mailtoproceed" required>
+                              <mat-option value=''>Select an option</mat-option>
+                              <mat-option *ngFor="let retunNoticeType of retunNoticeTypes" value={{retunNoticeType.code}}>{{retunNoticeType.value}}</mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="noticeReturnForm.get('mailtoproceed').hasError('required') && submitted">
+                              {{customValidation.A1}}</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+                <div class="row button-content">
+                    <div class="col-6 back-button">
+                        <button mat-flat-button (click)="submitReturnMailForm()" color="primary" class="perlss-click-button-white">
+                            SUBMIT
+                        </button>
+                    </div>
+                </div>
+            </mat-step>
+       </form>
+    </mat-vertical-stepper>
+    <div class="row">
+        <div class="col go_back">
+            <a routerLink="/ltss/notices/noticesDashboard"><u>GO BACK TO NOTICE HOME</u></a><br>
+        </div>
+    </div>
+</div>

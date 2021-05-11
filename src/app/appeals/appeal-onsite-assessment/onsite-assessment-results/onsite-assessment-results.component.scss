@@ -1,0 +1,49 @@
+.wrapper{
+  margin-top: 30px;
+}
+
+.text-align-right {
+    flex: 1;
+    text-align: right;
+    padding-right: 20px;
+  }
+
+  .check-list{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-left: 8px;
+}
+.character-count{
+  float: right;
+  margin-top: -24px;
+}
+.required{
+  color: red;
+}
+
+.share-icon-wrapper{
+  width: 350px;
+  color: #1B365D;
+  position: relative;
+  margin-left: 50px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 30px;
+  span{
+      position: absolute;
+      top: -8px;
+      left: -45px;
+      font-size: 30px;
+  }
+}
+
+
+.submit-buttom{
+  background: none!important;
+  border: none;
+  padding: 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #1B365D;
+}

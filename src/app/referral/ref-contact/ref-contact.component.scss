@@ -1,0 +1,105 @@
+@import '../../../colors.scss';
+
+
+.sub-heading {
+  font-family: "Open Sans";
+  letter-spacing: 50;
+  font-weight: bold;
+  font-size: 32px;
+  color: #174a7c;
+}
+.required {
+  float: right;
+  color: #ED6053;
+  font-family: "Open Sans";
+  margin-top: 20px;
+}
+.required-color {
+  color: #ed6053;
+  padding-right: 5px;
+}
+::ng-deep .mat-form-field {
+  width: 100%;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: $colorControlBackground;
+  border-radius: 5px;
+  border-color: #ced4da;
+}
+
+.page-sub-heading {
+  font-family: "Open Sans";
+  font-weight: bold;
+  color: #4D7E20;
+  font-size: 24px;
+}
+
+.perlss-section-divider {
+  width: 100%;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+
+.pageMargin {
+  padding-top: 0;
+}
+
+
+.push-right-note{
+  padding-left: 54px;
+}
+.cardStyle {
+  background-color: $colorControlBackground;
+  border-top: 2px solid #4b7f1e;
+  color: #6E7073;
+  font-family: 'Open Sans';
+}
+
+.red-icon {
+  color: #ed6053;
+  transform: scale(0.8);  
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+
+.button-container{
+  padding-top: 36px;
+}
+
+mat-radio-group {
+  margin-left: 10px;
+}
+:host::ng-deep.ng-select.ng-invalid.ng-touched .ng-select-container{
+  border-color: red;
+  
+}
+/* Arrow Color */
+:host::ng-deep.ng-select.ng-invalid.ng-touched .ng-arrow-wrapper .ng-arrow{
+  border-color: red transparent transparent
+}
+/* Placeholder Color */
+:host::ng-deep.ng-select.ng-invalid.ng-touched .ng-select-container .ng-placeholder{
+  color:  2px solid red !important;
+}
+:host::ng-deep.ng-select .ng-select-container {
+  /* border-radius: 4px; */
+ border: 1px solid #6E7073;
+  min-height: 40px;
+  align-items: center;
+  background-color: #f6faff;
+  height: 40px;
+  &:hover{
+    border: 2px solid #6E7073 !important;
+  }
+}
+
+.chkFloat {
+  float: right;
+}
+
+.chkW{
+  width: 8vw !important;
+}

@@ -1,0 +1,47 @@
+<div class="app-sub-heading col-md-7" style="width: 100% !important;">
+  Referral / Waiting List
+</div>
+<div class="dashboard-card-container">
+  <div class="row">
+    <div class="col-md-3">
+      <mat-card class="dashboard-card" (click)=Onclick()>
+        <mat-card-content>
+          <div class="heading">ECF CHOICES Referral List</div>
+       </mat-card-content>
+        <mat-card-actions>
+          <div class="count" *ngIf="slotReferralList">{{slotReferralList.ecfChoicesReferralListCount}}</div>
+       </mat-card-actions>
+      </mat-card>
+    </div>
+    <div class="col-md-3">
+      <mat-card class="dashboard-card" (click)=OnclickKatiePartA()>
+        <mat-card-content>
+          <div class="heading">Katie Beckett Part A Waiting List</div>
+       </mat-card-content>
+        <mat-card-actions>
+          <div class="count" *ngIf="slotReferralList">{{slotReferralList.kbPartaWaitingListCount}}</div>
+       </mat-card-actions>
+      </mat-card>
+    </div>
+    <div class="col-md-3">
+      <mat-card class="dashboard-card" (click)=OnclickKatiePartB()>
+        <mat-card-content>
+          <div class="heading">Katie Beckett Part B Waiting List</div>
+       </mat-card-content>
+        <mat-card-actions>
+          <div class="count" *ngIf="slotReferralList">{{slotReferralList.kbPartbWaitingListCount}}</div>
+       </mat-card-actions>
+      </mat-card>
+    </div>
+    <div class="col-md-3">
+      <mat-card class="dashboard-card" (click)=OnclickChoices()>
+        <mat-card-content>
+          <div class="heading">CHOICES 2 Waiting List</div>
+       </mat-card-content>
+        <mat-card-actions>
+          <div class="count" *ngIf="slotReferralList">{{slotReferralList.choices2WaitingListCount}}</div>
+       </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

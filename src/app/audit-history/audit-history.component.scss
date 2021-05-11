@@ -1,0 +1,35 @@
+.row{
+  padding: 10px;
+}
+.mat-flat-button{
+  background-color: #174A7C;
+  color: white;
+
+}
+table{
+  width: 100%;
+}
+th, td {
+  overflow: hidden;
+  width: 200px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.perlss-audit-detail-icon{
+  font-size: 20px;
+  cursor: pointer
+}
+
+.mat-table {
+  font-family: "Open Sans";
+}
+.mat-header-cell{
+  background-color: #ED6053;
+  border-top-color: #1b365d;
+  color: #eeeeee;
+}
+
+.mat-row{
+  cursor: pointer;
+}
+

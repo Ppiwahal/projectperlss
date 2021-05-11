@@ -1,0 +1,83 @@
+@import '../../../../../colors.scss';
+
+h4 {
+  font-size: 25px;
+  line-height: 36px;
+  font-weight: 700;
+  margin: 0;
+  padding:  20px 0 5.5px 0;
+  color: #547e1a;
+  font-family: "Open Sans";
+  margin: 14.5px 0 9px 0;
+}
+
+.required-color {
+  color: #ee3524;
+}
+
+.heading-container,
+.accordion-container {
+  padding-bottom: 36px;
+  mat-accordion {
+    mat-expansion-panel {
+      border: 1px solid green;
+      justify-content: space-between;
+      font-weight: 500;
+      font-size: 23.5px;
+      mat-expansion-panel-header{
+        background-color:  $colorControlBackground;
+      }
+      mat-panel-title{
+        font-weight: 500;
+        font-size: 23.5px;
+      }
+      mat-panel-title.right-aligned {
+        flex-grow: 0;
+        font-weight: 500;
+        font-size: 23.5px;
+      }
+    }
+  }
+
+  .accordion-content-container{
+    padding-top: 18px;
+    padding-left: 36px;
+    padding-right: 36px;
+    font-family: 'Open Sans';
+    font-weight: 500;
+    .row{
+      padding-top: 27px;
+      padding-bottom: 18px;
+    }
+    mat-radio-button{
+      padding-top: 9px;
+    }
+  }
+  .expandable-row-button{
+    background-color:#ED9924;
+    color: white;
+    display: inline-flex;
+    vertical-align: middle;
+    justify-content: center;
+  }
+}
+
+.button-container{
+  padding-top: 5vh;
+  .row{
+    .col-md-2{
+      text-align: left;
+    }
+    .col-md-4{
+      text-align: left;
+    }
+    .col-md-6{
+      text-align: right;
+    }
+    .perlss-click-button, .perlss-click-button-white-noborder, .perlss-click-button-white{
+      font-size: 25px !important;
+    }
+  }
+}
+
+

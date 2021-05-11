@@ -1,0 +1,58 @@
+<div class="address-wrapper">
+  <div class="address-header-row">
+    <div>
+      <p style="color: #1B365D; font-size: 25px; font-weight: bold;">Address Validation</p>
+    </div>
+    <div>
+      <span class="close-icon">
+        <mat-icon (click)=closeDialog()>highlight_off</mat-icon>
+      </span>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div>
+    <div *ngIf="noAddress" class="no-address">
+      We do not have any suggestions. Please continue with the address <br />you entered.
+    </div>
+    <div *ngIf="addressFound" class="address-lists">
+      <div style="color: black; margin-top: 25px;">
+        Please confirm your address from the suggestions below.
+      </div>
+      <div style="color: #1B365D; font-size: 20px; font-weight: bold; margin-top: 30px;">
+        Physical Address
+      </div>
+      <div>
+        <div style="color: black; font-weight: bold; margin-top: 30px;">
+          Address We Found
+       </div>
+        <div class="entered-address">
+          <div style="color: black;">
+            {{addressObj.addrLine1}}, <span *ngIf="data.addrLine2">{{addressObj.addrLine2}},</span><br /><br />
+            {{addressObj.city}}, {{addressObj.state}} {{addressObj.zipCode}} - {{addressObj.ext}}
+          </div>
+          <div class="right">
+            <button type="submit" mat-flat-button color="primary" class="perlss-click-button submit"
+              (click)="useThisAddress(addressObj, 'new')">USE THIS ADDRESS</button>
+          </div>
+       </div>
+        
+        <hr style="margin-right: 50px; margin-top: 30px;" />
+      </div>
+      <div>
+        <div style="color: black; font-weight: bold; margin-top: 30px;">
+          Address You Entered
+        </div>
+        <div class="entered-address">
+          <div style="color: black;">
+            {{data.addrLine1}}, <span *ngIf="data.addrLine2">{{data.addrLine2}},</span><br /><br />
+            {{data.city}}, {{data.state}} {{data.zipCode}} <span *ngIf="data.ext">- {{data.ext}}</span>
+          </div>
+          <div class="right">
+            <button type="submit" mat-flat-button color="primary" class="perlss-click-button submit"
+              (click)="useThisAddress(data, 'old')">USE THIS ADDRESS</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

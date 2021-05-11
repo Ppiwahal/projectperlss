@@ -1,0 +1,24 @@
+<div class="pageMargin">
+  <app-referral-dashboard-tile
+      [intakeOutComeData]="intakeOutComeData"
+      [agedCareGiverData]="agedCareGiverData"
+      [ecfReferralCountData]="ecfReferralCountData"
+      (emitReferralTile)="emitReferralTile($event)"></app-referral-dashboard-tile>
+  <mat-divider></mat-divider>
+  <app-referral-dashboard-queue
+    [taskQueueData]="taskQueueData"
+    [taskTableShowResult]="taskTableShowResult"
+    (emitReferralQueue)="emitReferralQueue($event)"></app-referral-dashboard-queue>
+    <mat-divider></mat-divider>
+    <app-referral-dashboard-filter
+      [referralListStatus]="referralListStatus"
+      [intakeOutCome]="intakeOutCome"
+      [outReachDue]="outReachDue"
+      [taskQueue]="taskQueue"
+      [taskStatus]="taskStatus"
+      (emitSearchQueryParam)="emitSearchQueryParam($event)"></app-referral-dashboard-filter>
+  <mat-divider></mat-divider>
+  <app-referral-dashboard-table
+      [searchResultData]="searchResultData"
+      [showNoRecordsFound]="showNoRecordsFound"></app-referral-dashboard-table>
+</div>

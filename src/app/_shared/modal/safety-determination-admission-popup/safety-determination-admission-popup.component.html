@@ -1,0 +1,111 @@
+<div class="popup-header-container">
+  <div class="row">
+    <div class="col">
+      <h4>Details</h4>
+    </div>
+    <div class="col">
+      <div style="text-align: right;">
+        <mat-icon class="popup-close-icon" (click)="closePopup()" >highlight_off</mat-icon>
+      </div>
+    </div>
+  </div>
+</div>
+<mat-divider class="perlss-horizontal-divider"></mat-divider>
+
+<form [formGroup]="admissionInfoForm">
+<div class="popup-container">
+  <div class="row ht-body">
+    <div class="col-md-12">
+      <div class="card">
+      <div class="card-header card-head-custom">
+        <div class="row">
+          <div class="col-md-4"><b>Type</b></div>
+          <div class="col-md-3"><b>Admit/Visit Date</b></div>
+          <div class="col-md-3"><b>Discharge Date</b></div>
+          <div class="col-md-2"><b>User Actions</b></div>
+       </div>
+      </div>
+      <ng-container formArrayName="admissions">
+      <div class="row" *ngFor="let admission of getAdmissionInfoForm.admissions['controls']; index as i">
+        <ng-container [formGroupName]="i">
+            <div class="col-md-4">
+              <mat-form-field appearance="outline">
+              <mat-select placeholder="Select Type" formControlName="type">
+                  <mat-option *ngFor="let row of admissionTypes" [value]="row.code">
+                   {{row.text}}
+                </mat-option>
+              </mat-select>
+              <mat-error>
+                <p *ngIf="getAdmissionInfoForm.admissions['controls'][i]['controls'].type.errors?.typeRequiredWhenDateSet && (getAdmissionInfoForm.admissions['controls'][i]['controls'].admitDate.touched || getAdmissionInfoForm.admissions['controls'][i]['controls'].admitDate.dirty || getAdmissionInfoForm.admissions['controls'][i]['controls'].dischargeDate.touched || getAdmissionInfoForm.admissions['controls'][i]['controls'].dischargeDate.dirty)">{{customValidation.A28}}</p>
+              </mat-error>
+            </mat-form-field>
+            </div>
+            <div class="col-md-3">
+              <mat-form-field appearance="outline" >
+                <input matInput [matDatepicker]="pickeradmit" (dateChange)="checkIfDateSelectedTypeEmpty(getAdmissionInfoForm.admissions['controls'][i])" placeholder="Admit Date" formControlName="admitDate">
+                <mat-datepicker-toggle matSuffix [for]="pickeradmit"></mat-datepicker-toggle>
+                <mat-datepicker #pickeradmit></mat-datepicker>
+                <mat-error>
+                  <p *ngIf="getAdmissionInfoForm.admissions['controls'][i]['controls'].admitDate.errors?.dateInFuture">
+                    {{customValidation.A5}}
+                  </p>
+                  <p *ngIf="getAdmissionInfoForm.admissions['controls'][i]['controls'].admitDate.errors?.datePriorToInitialDate">
+                    {{customValidation.A6}}
+                  </p>
+              </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-3">
+
+              <mat-form-field appearance="outline" >
+                <input matInput [matDatepicker]="pickerdischarge" placeholder="Discharge Date" formControlName="dischargeDate" (dateChange)="checkIfDateSelectedTypeEmpty(getAdmissionInfoForm.admissions['controls'][i])">
+                <mat-datepicker-toggle matSuffix [for]="pickerdischarge"></mat-datepicker-toggle>
+                <mat-datepicker #pickerdischarge></mat-datepicker>
+                  <mat-error>
+                  <p *ngIf="getAdmissionInfoForm.admissions['controls'][i]['controls'].dischargeDate.errors?.dateInFuture">
+                    {{customValidation.A5}}
+                  </p>
+                  <p *ngIf="getAdmissionInfoForm.admissions['controls'][i]['controls'].dischargeDate.errors?.datePriorToInitialDate">
+                    {{customValidation.A6}}
+                  </p>
+              </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-2 user-action">
+              <span class="material-icons icon-action" (click)="deleteAdmission(i)">delete_forever</span>
+              <span class="material-icons icon-action">edit</span>
+            </div>
+          </ng-container>
+      </div>
+      </ng-container>
+      <div class="row">
+        <div class="col-md-8">
+          <mat-form-field appearance="outline">
+                <mat-label>Reason</mat-label>
+                <input matInput formControlName="reason" placeholder="Reason">
+            </mat-form-field>
+       </div>
+         
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <button (click)="addNewAdmission()" color="primary" mat-icon-button><span class="material-icons">
+add_circle
+</span>&nbsp; ADD NEW</button>
+    </div>
+  </div>
+  
+
+  <div class="row" mat-dialog-actions>
+    <div class="col-md-3">
+      <button mat-flat-button color="primary" class="popup-click-button" [mat-dialog-close]="true">SAVE</button>
+    </div>
+    <div class="col-md-3">
+      <button mat-stroked-button class="popup-click-button-white" [mat-dialog-close]="false">CANCEL</button>
+    </div>
+  </div>
+</div>
+</form>

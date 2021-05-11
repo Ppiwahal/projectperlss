@@ -1,0 +1,537 @@
+.perlss_page_content {
+  margin: 0 !important;
+  padding: 0 !important;
+  position: relative !important;
+  overflow: hidden;
+}
+
+form.responsive {
+  .applicantName {
+    &::before {
+      content: "APPLICANT NAME:";
+      display: inline-block;
+      font-weight: 600;
+      margin-right: 5.5px;
+      padding: 0;
+    }
+
+    z-index: 2;
+    position: absolute;
+    background: white;
+    top: 18px;
+    right: 54px;
+    width: auto;
+    font-size: 14.5px;
+    line-height: 16px;
+    height: auto;
+    border: 2px solid #999999;
+    font-size: 21.5px;
+    padding: 11px 18px 11px 14.5px;
+  }
+
+  .showRequired::after {
+    font-family: "Open Sans";
+    font-size: 18px;
+    content: "*Required";
+    color: #e21515;
+    float: right;
+    margin: 14.5px 57.5px 0 0;
+  }
+
+  .row.wide {
+    padding: 21.5px 0;
+
+    .perlss-click-button {
+      width: calc(100% - 36px);
+    }
+  }
+
+  h3 {
+    font-size: 18px;
+    font-family: "Open Sans";
+    margin: 23.5px 0 12.5px 0 !important;
+    font-weight: 600;
+    color: rgba(218, 15, 15, 0.938);
+
+    + div {
+      padding-left: 18px;
+      width: calc(100% - 18px);
+    }
+
+    &.lineAbove {
+      margin-left: 3.5px;
+
+      &::before {
+        content: "";
+        display: block;
+        margin: 18px 0 9px 0;
+
+        padding: 0;
+        border-top: 1px solid #cccccc;
+      }
+    }
+  }
+
+  p {
+    font-size: 18px;
+    width: calc(100% - 72px);
+    margin: 0 0 9px 2px;
+  }
+
+  .activityTable {
+    width: calc(100% - 54px);
+    margin: 0 0 9px 0;
+    border-collapse: separate;
+    border-spacing: 0;
+
+    > thead > th {
+      overflow: hidden;
+      font-size: 18px;
+      padding: 12.5px 18px;
+      height: 36px;
+      background: #cdddf4;
+      vertical-align: middle;
+      font-weight: 600;
+      text-align: center;
+
+      &:first-child {
+        text-align: left;
+        border-top-left-radius: 9px;
+      }
+
+      &:last-child {
+        border-top-right-radius: 9px;
+      }
+    }
+
+    > tbody > tr {
+      > td {
+        font-size: 16px;
+        text-align: center;
+        padding: 12.5px 18px;
+        border-right: 2px solid #cdddf4;
+        border-bottom: 2px solid #cdddf4;
+
+        &:first-child {
+          text-align: left;
+          border-left: 2px solid #cdddf4;
+        }
+      }
+
+      &:last-child > td:first-child {
+        border-bottom-left-radius: 9px;
+      }
+
+      &:last-child > td:last-child {
+        border-bottom-right-radius: 9px;
+      }
+    }
+  }
+
+  .perlss-horizontal-divider {
+    padding: 2px;
+    width: calc(100% - 2px);
+  }
+
+  .bottomBar {
+    width: auto;
+    padding: 18px 54px;
+    position: absolute;
+    bottom: 30px;
+    right: 0;
+    left: 0;
+    width: auto;
+    height: 45px;
+    z-index: 3;
+
+    button.perlss-click-button-white-noborder,
+    button.perlss-click-button,
+    button.perlss-click-button-white {
+      font-size: 16px;
+      padding: 2px 9px !important;
+      min-width: 72px;
+      float: left;
+      padding: 3.5px 3.5px;
+      margin: 0 36px 0 0;
+
+      &:last-child {
+        float: right;
+        margin: 0;
+      }
+    }
+  }
+
+  .mat-card-header {
+    > h1 {
+      font-size: 36px;
+      margin: 0 0 9px 0;
+    }
+  }
+
+  .row {
+    margin: 0;
+    padding: 0;
+  }
+
+  mat-radio-group.mat-radio-group {
+    padding: 0;
+    margin: 0;
+
+    > mat-label {
+      display: block;
+      margin: 0 0 9px 9px;
+      font-size: 18px;
+    }
+
+    > mat-radio-button {
+      display: block;
+      margin-left: 21.5px;
+    }
+
+    div.mat-radio-label-content {
+      font-size: 18px;
+      display: inline-block;
+      padding: 0;
+      margin: 0 0 0 7px;
+    }
+  }
+
+  .mat-card-header.showRequired::after {
+    right: 57.5px;
+  }
+
+  h1 {
+    font-size: 39.5px;
+    margin: 36px 0 0 0;
+  }
+
+  h3 {
+    margin: 0 0 36px 0;
+    font-size: 23.5px;
+  }
+}
+
+mat-checkbox + mat-icon.red-icon {
+  padding-left: 3.5px;
+}
+
+.page {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: calc(40px + 36px);
+  left: 0;
+  padding: 36px 54px;
+  margin: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  div.textAreaWide {
+    width: calc(100% - 72px);
+    padding: 0;
+    margin: 0;
+    display: block;
+    height: auto;
+
+    > textarea {
+      display: block;
+      margin: 5.5px 0 9px 34px;
+      padding: 5.5px;
+      width: calc(100% - 211px);
+      height: 108px;
+      border: 1px solid #888888;
+    }
+  }
+  .req {
+    text-indent: -7px;
+    margin-left: 18px;
+
+    &::before {
+      content: "*";
+      color: #e21515;
+      position: relative;
+      display: inline-block;
+      font-size: 23.5px;
+      width: 9px;
+      top: 3.5px;
+    }
+  }
+
+  .note {
+    background: #e4f1fb;
+    padding: 14.5px 18px;
+    width: calc(100% - 36px);
+    margin: 0 0 18px 0;
+    width: calc(100% - 54px);
+    padding: 16px;
+
+    p {
+      margin: 0;
+      padding: 0;
+      font-size: 16px;
+      top: 5.5px;
+    }
+  }
+
+  .message {
+    padding: 3.5px 0;
+    > label {
+      width: 360px;
+    }
+  }
+
+  h3 + mat-radio-group {
+    top: -9px;
+  }
+
+  mat-divider {
+    margin: 18px 0;
+  }
+
+  p {
+    padding: 0 0 12.5px 0;
+  }
+
+  div,
+  p,
+  mat-label,
+  mat-checkbox-label {
+    font-size: 21.5px;
+  }
+
+  &.fullWidth {
+    width: calc(100% - 360px);
+    max-width: calc(100% - 360px);
+  }
+
+  .padded {
+    padding: 21.5px 0;
+  }
+
+  .spaceAbove1 {
+    padding-top: 9px;
+  }
+
+  .spaceAbove2 {
+    padding-top: 18px;
+  }
+
+  .spaceAbove3 {
+    padding-top: 27px;
+  }
+
+  div,
+  div.row {
+    &.indent1 {
+      margin-left: 2px;
+      width: calc(100% - 2px);
+    }
+
+    &.indent2 {
+      margin: 0 0 0 5.5px;
+      width: calc(100% - 5.5px);
+    }
+
+    &.indent3 {
+      margin: 0 0 0 16px;
+      width: calc(100% - 16px);
+    }
+  }
+
+  .spaceBelow2 {
+    padding-bottom: 36px;
+  }
+
+  mat-radio-group {
+    padding: 0 0 18px 0;
+
+    label,
+    mat-label {
+      padding: 0 18px 0 0;
+    }
+
+    mat-radio-button {
+      label {
+        padding: 0 9px 0 0;
+      }
+    }
+  }
+
+  mat-radio-group.itemsBelow {
+    label,
+    mat-label {
+      & + mat-radio-button {
+        padding-left: 9px;
+      }
+    }
+
+    > mat-label,
+    > label {
+      padding-bottom: 3.5px;
+    }
+  }
+
+  .col-md-6 {
+    > mat-radio-group.itemsBelow {
+      top: -9px;
+    }
+  }
+
+  .blockHeading {
+    font-size: 30.5px;
+    padding-bottom: 27px;
+  }
+}
+
+table.searchPersonTable {
+  margin: 54px 5.5px 0;
+
+  tr.addressRow {
+    > td {
+      > div {
+        > div {
+          height: 90px;
+          font-size: 21.5px;
+          line-height: 25px;
+          width: calc((100% - 324px) / 3);
+          padding-bottom: 7px;
+
+          > * {
+            font-size: 18px;
+            line-height: 21.5px;
+            margin: 12.5px 0 0 0;
+          }
+
+          > p {
+            margin: 5.5px 0 0 0;
+          }
+
+          &:last-child {
+            width: 324px;
+
+            > div {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              height: 100%;
+              width: 100%;
+              margin: 0;
+              padding: 0;
+
+              > button.perlss-click-button-white {
+                font-size: 18px;
+                padding: 2px 9px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.dropDownIcons {
+  mat-icon {
+    font-size: 72px;
+  }
+}
+
+mat-checkbox.mat-checkbox.checkbox-element.mat-accent {
+  margin: 0 0 0 14.5px;
+  padding: 0;
+
+  > label.mat-checkbox-layout {
+    margin: 0;
+    padding: 0;
+
+    > .mat-checkbox-inner-container {
+      height:  20px;
+      width:  20px;
+      margin: 0 9px 0 9px;
+
+      > div.mat-checkbox-frame {
+        color: green;
+      }
+      > div.mat-checkbox-background {
+        color: green;
+      }
+    }
+    span.mat-checkbox-label {
+      font-size: 18px;
+      display: inline-block;
+      font-weight: 400;
+      margin: 0;
+      position: relative;
+      top: -3.5px;
+      padding: 0;
+      line-height: 21.5px;
+    }
+  }
+}
+
+.checkbox-group,
+.stackedButtons .checkbox-group {
+  padding: 12.5px 0 0 0;
+
+  > mat-label {
+    padding: 0 0 9px 2px;
+    display: block;
+    margin: 0;
+    font-weight: 500;
+    font-size: 18px;
+  }
+
+  mat-checkbox {
+    margin-left: 29px;
+    width: 360px;
+
+    &.w2 {
+      width:  774px;
+    }
+
+    label.mat-checkbox-layout {
+      margin-right: 36px;
+    }
+    mat-label {
+      margin-right: 36px;
+    }
+  }
+}
+
+.checkbox-list {
+  padding: 0 0 18px 0;
+
+  > mat-label {
+    padding: 18px 0 9px 0;
+  }
+
+  .row {
+    padding: 0 0 0 36px;
+    width: calc(100% - 36px);
+  }
+
+  textarea {
+    width: calc(100% - 54px);
+  }
+}
+
+.checkbox-list.stacked,
+mat-radio-group.stacked,
+.stackedButtons .page mat-radio-group {
+  margin-left: 7px;
+  margin-top: 18px;
+  width: calc(100% - 36px);
+
+  > label,
+  > mat-label {
+    & + mat-radio-button,
+    & + mat-checkbox {
+      padding-top: 9px;
+    }
+  }
+
+  > mat-radio-button,
+  > mat-checkbox {
+    padding: 0 0 5.5px 12.5px;
+  }
+}

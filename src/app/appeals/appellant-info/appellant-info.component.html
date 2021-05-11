@@ -1,0 +1,48 @@
+<div style="display: flex; justify-content: space-around;background-color: #F6FAFF;
+        border-top: 2px solid green; padding-top: 15px;box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);">
+            <div style="display: flex;justify-content: space-between;width: 35%;">
+                <div class="info">
+                    <p>APPLICANT NAME:</p>
+                    <p>PERSON ID:</p>
+                    <p>DATE OF BIRTH:</p>
+                    <P>SSN:</P>
+                    <P>SSI ELIGIBILE:</P>
+                    <P>PROGRAM TYPE:</P>
+                    <P>LINKED RECORD:</P>
+                    <P>COB STATUS:</P>
+                </div>
+                <div>
+                    <P>{{appellantInfo?.firstName}} {{appellantInfo?.midInitial}} {{appellantInfo?.lastName}}</P>
+                    <P>{{appellantInfo?.prsnId}}</P>
+                    <P>{{appellantInfo?.dobDt | date: 'MM/dd/yyyy'}}</P>
+                    <P>{{appellantInfo?.ssn}}</P>
+                    <P>{{appellantInfo?.ssiEligible == null ? '---' : appellantInfo.ssiEligible}}</P>
+                    <P>{{programType == undefined ? '---' : programType}}</P>
+                    <P>{{appellantInfo?.linkedRecord == null ? '---' : appellantInfo.linkedRecord}}</P>
+                    <P>{{cobStatus == undefined ? '---' : cobStatus}}</P>
+                </div>
+            </div>
+            <div  style="display: flex;justify-content: space-between;width: 35%;">
+                <div class="info">
+                    <p>APPEAL ID:</p>
+                    <p>APPEAL RECIEVED DATE:</p>
+                    <p>DUE DATE:</p>
+                    <P>APPEAL TYPE:</P>
+                    <P>APPEAL STATUS:</P>
+                    <P>ONSITE ASSESSMENT:</P>
+                    <P>APPEAL HEARING:</P>
+                    <P>APPEAL AGE:</P>
+                </div>
+                <div>
+                    <P>{{appellantInfo?.aplId == null ? '---' : appellantInfo?.aplId}}</P>
+                    <P *ngIf="!showAppealDateFrmStartScrn">{{appellantInfo?.aplRcvdDt == null ? '---' : appellantInfo?.aplRcvdDt | date: 'MM/dd/yyyy'}}</P>
+                    <P *ngIf="showAppealDateFrmStartScrn">{{appealReceivedtDate | date: 'MM/dd/yyyy' }}</P>
+                    <P>{{appellantInfo?.dueDt == null ? '---' : appellantInfo?.dueDt | date: 'MM/dd/yyyy'}}</P>
+                    <P>{{appealType == undefined ? '---' : appealType}}</P>
+                    <P>{{appealStatus == undefined ? '---' : appealStatus}}</P>
+                    <P>{{onsiteAssessmentStatus == undefined ? '---' : onsiteAssessmentStatus}}</P>
+                    <P>{{(appealHearingStatus == undefined) ? '---' : appealHearingStatus}}</P>
+                    <P>{{appellantInfo?.aplAge == null ? '---' : appellantInfo?.aplAge}}</P>
+                </div>
+            </div>
+        </div>

@@ -1,0 +1,309 @@
+<div style="padding-top: 45px;">
+  <div class="row" style="padding-left: 65px">
+    <div class="col-md-6">
+      <p class="common">Applicant Information</p>
+    </div>
+    <div class="col-md-6" *ngIf="adjStatusCd === 'CO'" style="padding-bottom: 12px; padding-left: 160px">
+      <button mat-raised-button style="color: #174A7C; ">Send for Audit</button>
+    </div>
+  </div>
+  <div class="inner-container">
+    <div class="row">
+      <div class="col-md-3">
+        <p class="label_name">APPLICANT NAME:</p>
+      </div>
+      <div class="col-md-3">
+        <p>{{firstName}} {{lastName}} {{midInitial}}</p>
+      </div>
+      <div class="col-md-3">
+        <p class="label_name">PAE ID:</p>
+      </div>
+      <div class="col-md-3">
+        <p>{{paeId ? paeId : '---'}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <p class="label_name">PERSON ID:</p>
+      </div>
+      <div class="col-md-3">
+        <p>{{person_id ? person_id : '---'}}</p>
+      </div>
+      <div class="col-md-3">
+        <p class="label_name">PAE CERTIFICATION DATE:</p>
+      </div>
+      <div class="col-md-3">
+        <p>{{certificateDt ? (certificateDt | date:'MM/dd/yyyy') : '---'}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <p class="label_name">DATE OF BIRTH:</p>
+      </div>
+      <div class="col-md-3">
+        <p>{{dobDt ? (dobDt | date:'MM/dd/yyyy') : '---'}}</p>
+      </div>
+      <div class="col-md-3">
+        <p class="label_name">PAE SUBMIT DATE:</p>
+      </div>
+      <div class="col-md-3">
+        <p>{{submitDt ? (submitDt | date:'MM/dd/yyyy') : '---'}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <p class="label_name">SSN:</p>
+      </div>
+      <div class="col-md-3">
+        <p mask="000-00-0000">{{ssn ? ssn : '---'}}</p>
+      </div>
+      <div class="col-md-3">
+        <p class="label_name">ADJUDICATION STATUS:</p>
+      </div>
+      <div class="col-md-3">
+        <p>{{adjStatus ? adjStatus : '---'}}</p>
+      </div>
+    </div>
+    <br>
+    <mat-divider></mat-divider>
+    <br>
+    <div *ngIf="program_name_cd=== 'EC'" class="row">
+      <div class="col-md-3">
+        <p class="label_name">REFERRAL ID:</p>
+      </div>
+      <div class="col-md-3">
+        <p>{{refId ? refId : '---'}}</p>
+      </div>
+      <div class="col-md-3">
+        <p class="label_name">INTAKE OUTCOME:</p>
+      </div>
+      <div class="col-md-3">
+        <p>{{intakeOutcome ? intakeOutcome : '---'}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <p class="label_name">PROGRAM REQUESTED:</p>
+      </div>
+      <div class="col-md-3">
+        <p>{{program_name ? program_name : '---'}}</p>
+      </div>
+      <div class="col-md-3">
+        <p class="label_name">GRANDFATHERED:</p>
+      </div>
+      <div class="col-md-3">
+        <p *ngIf="grandfatheredSw === null || grandfatheredSw === ''">---</p>
+        <p *ngIf="grandfatheredSw === 'Y'">Yes</p>
+        <p *ngIf="grandfatheredSw === 'N'">No</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <p class="label_name">PROGRAM APPROVED:</p>
+      </div>
+      <div class="col-md-3">
+        <p>{{program_approved ? program_approved : '---'}}</p>
+      </div>
+      <div class="col-md-3">
+        <p class="label_name">INTERIM:</p>
+      </div>
+      <div class="col-md-3">
+        <p *ngIf="interimSw === null || interimSw === ''">---</p>
+        <p *ngIf="interimSw === 'Y'">Yes</p>
+        <p *ngIf="interimSw === 'N'">No</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <p class="label_name">SLOT STATUS:</p>
+      </div>
+      <div class="col-md-3">
+        <p>{{sltStatus ? sltStatus : '---'}}</p>
+      </div>
+      <div class="col-md-3">
+        <p class="label_name">APPEAL FILED:</p>
+      </div>
+      <div class="col-md-3">
+        <p *ngIf="appealField === 'Y'">Yes</p>
+        <p *ngIf="appealField === 'N'">No</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <p class="label_name">REVISED PAE:</p>
+      </div>
+      <div class="col-md-3">
+        <p *ngIf="revisedPaeSw === null || revisedPaeSw === ''">---</p>
+        <p *ngIf="revisedPaeSw === 'Y'">Yes</p>
+        <p *ngIf="revisedPaeSw === 'N'">No</p>
+      </div>
+      <div class="col-md-3">
+        <p class="label_name">ASSIGNED MCO:</p>
+      </div>
+      <div class="col-md-3">
+        <p *ngIf="assignedMcoSw === null || assignedMcoSw === ''">---</p>
+        <p *ngIf="assignedMcoSw === 'Y'">Yes</p>
+        <p *ngIf="assignedMcoSw === 'N'">No</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <p class="label_name">TRANSITION PAE:</p>
+      </div>
+      <div class="col-md-3">
+        <p *ngIf="transitionPae === null || transitionPae === ''">---</p>
+        <p *ngIf="transitionPae === 'Y'">Yes</p>
+        <p *ngIf="transitionPae === 'N'">No</p>
+      </div>
+      <div class="col-md-3">
+        <p class="label_name">TRANSITION ID:</p>
+      </div>
+      <div class="col-md-3">
+        <p>{{tnsId ? tnsId : '---'}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <p class="label_name">TRANSITION FROM:</p>
+      </div>
+      <div class="col-md-3">
+        <p>{{transFrom ? transFrom : '---'}}</p>
+      </div>
+      <div class="col-md-3">
+        <p class="label_name">TRANSITION TO:</p>
+      </div>
+      <div class="col-md-3">
+        <p>{{transTo ? transTo : '---'}}</p>
+      </div>
+    </div>
+    <div class="applicantDetails">
+      <div class="row">
+        <div *ngIf="program_name_cd != 'ICF' || program_name_cd != 'CAC'" class="col-md-4">
+          <p class="label_name">SUBMITTED ACUITY SCORE:</p>
+        </div>
+        <div class="col-md-2">
+          <p>{{sbmttrAcuityScoreNum ? sbmttrAcuityScoreNum : '---'}}</p>
+        </div>
+        <div class="col-md-4">
+          <p class="label_name">SKILLED SERVICES REQUESTED:</p>
+        </div>
+        <div class="col-md-2">
+          <p>{{skilledServicesRequested ? skilledServicesRequested : '---'}}</p>
+        </div>
+      </div>
+      <div class="row" *ngIf="program_name_cd=== 'ICF' || program_name_cd=== 'CAC'">
+        <div class="col-md-4">
+          <p class="label_name">SUBMITTED FUNCTIONAL DEFICITS:</p>
+        </div>
+        <div class="col-md-2">
+          <p>{{submittedFunDeficits ? submittedFunDeficits : '---'}}</p>
+        </div>
+        <div class="col-md-4">
+          <p class="label_name">SUBMITTED IQ SCORE:</p>
+        </div>
+        <div class="col-md-2">
+          <p>{{iqTestScore ? iqTestScore : '---'}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pageMargin" style="padding-left: 0px; padding-right: 0px">
+    <mat-accordion *ngIf="rqstdEnrGrpCd === 'CG1'">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header class="expansion-pannel-header">
+          <mat-panel-title style="margin:10px">
+            PASSR Outcome <span class="text-align-right">REVIEW DETAILS</span>
+          </mat-panel-title>
+          <mat-icon *ngIf="!savedPassr" class="iconStyle">error_outline</mat-icon>
+          <mat-icon *ngIf="savedPassr" class="iconStyle green">check_circle</mat-icon>
+        </mat-expansion-panel-header>
+        <app-pasrr-outcome (savedPassr)="changeSavedPassr($event)"></app-pasrr-outcome>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion>
+      <mat-expansion-panel style="padding-top: 15px">
+        <mat-expansion-panel-header class="expansion-pannel-header">
+          <mat-panel-title style="margin:10px">
+            Supporting Documents <span class="text-align-right">REVIEW DETAILS</span>
+          </mat-panel-title>
+          <!-- <mat-icon *ngIf="!savedSdoc" class="iconStyle">error_outline</mat-icon> -->
+          <mat-icon class="iconStyle green">check_circle</mat-icon>
+        </mat-expansion-panel-header>
+        <app-supporting-documents></app-supporting-documents>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion>
+      <mat-expansion-panel style="padding-top: 15px">
+        <mat-expansion-panel-header class="expansion-pannel-header">
+          <mat-panel-title style="margin:10px">
+            Functional Assessment <span class="text-align-right">REVIEW DETAILS</span>
+          </mat-panel-title>
+          <mat-icon *ngIf="!savedFa" class="iconStyle">error_outline</mat-icon>
+          <mat-icon *ngIf="savedFa" class="iconStyle green">check_circle</mat-icon>
+        </mat-expansion-panel-header>
+        <app-functional-assessment (savedFa)="changeSavedFa($event)"></app-functional-assessment>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <!-- <mat-accordion>
+        <mat-expansion-panel style="padding-top: 15px">
+          <mat-expansion-panel-header class="expansion-pannel-header">
+            <mat-panel-title style="margin:10px">
+              Assessment of Capabilities and needs <span class="text-align-right">REVIEW DETAILS</span>
+           </mat-panel-title>
+            <mat-icon *ngIf="!savedFac" class="iconStyle">error_outline</mat-icon>
+            <mat-icon  *ngIf="savedFac" class="iconStyle green">check_circle</mat-icon>
+         </mat-expansion-panel-header>
+          <app-functional-assessment-capabilities (savedFac)="changeSavedFa($event)"></app-functional-assessment-capabilities>
+       </mat-expansion-panel>
+     </mat-accordion>-->
+    <mat-accordion>
+      <mat-expansion-panel style="padding-top: 15px">
+        <mat-expansion-panel-header class="expansion-pannel-header">
+          <mat-panel-title style="margin:10px">
+            Skilled Services <span class="text-align-right">REVIEW DETAILS</span>
+          </mat-panel-title>
+          <mat-icon *ngIf="!savedSkilled" class="iconStyle">error_outline</mat-icon>
+          <mat-icon *ngIf="savedSkilled" class="iconStyle green">check_circle</mat-icon>
+        </mat-expansion-panel-header>
+        <app-skilled-service (savedSkilled)="changeSavedSkilled($event)"></app-skilled-service>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion *ngIf="displaySafety">
+      <mat-expansion-panel style="padding-top: 15px">
+        <mat-expansion-panel-header class="expansion-pannel-header">
+          <mat-panel-title style="margin:10px">
+            Safety Determination <span class="text-align-right">REVIEW DETAILS</span>
+          </mat-panel-title>
+          <mat-icon *ngIf="!savedSafety" class="iconStyle">error_outline</mat-icon>
+          <mat-icon *ngIf="savedSafety" class="iconStyle green">check_circle</mat-icon>
+        </mat-expansion-panel-header>
+        <app-safety-determination (savedSafety)="changeSavedSafety($event)"
+          (displaySafety)="changeDisplaySafety($event)"></app-safety-determination>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion>
+      <mat-expansion-panel style="padding-top: 15px">
+        <mat-expansion-panel-header class="expansion-pannel-header">
+          <mat-panel-title style="margin:10px">
+            Adjudication Determination <span class="text-align-right">REVIEW DETAILS</span>
+          </mat-panel-title>
+          <mat-icon *ngIf="!savedDetermn" class="iconStyle">error_outline</mat-icon>
+          <mat-icon *ngIf="savedDetermn" class="iconStyle green">check_circle</mat-icon>
+        </mat-expansion-panel-header>
+        <app-adjudication-determination (savedDetermn)="changeSavedDetermn($event)"></app-adjudication-determination>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion *ngIf="fromChangeManagement">
+      <mat-expansion-panel style="padding-top: 15px">
+        <mat-expansion-panel-header class="expansion-pannel-header">
+          <mat-panel-title style="margin:10px">
+            Override Adjudication Determination <span class="text-align-right">REVIEW DETAILS</span>
+          </mat-panel-title>
+          <mat-icon *ngIf="!savedDetermnOverride" class="iconStyle">error_outline</mat-icon>
+          <mat-icon *ngIf="savedDetermnOverride" class="iconStyle green">check_circle</mat-icon>
+        </mat-expansion-panel-header>
+        <app-adjudication-determination (savedDetermnOverride)="changeOverrideSavedDetermn($event)"></app-adjudication-determination>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>

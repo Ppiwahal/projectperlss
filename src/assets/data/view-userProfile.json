@@ -1,0 +1,28 @@
+{
+    "id": 1,
+    "archiveDt": "2020-10-06T15:59:29.503+00:00",
+    "classificationCd": "Test",
+    "createDt": "2020-10-06T15:59:29.503+00:00",
+    "createUserId": 12,
+    "deprovisionedDt": "2020-06-08",
+    "email": "admin@gmail.com",
+    "firstName": "Admin",
+    "lastLoginDt": "2020-10-06T15:59:29.503+00:00",
+    "lastModifiedBy": "Admin",
+    "lastModifiedDt": "2020-10-08T04:38:38.534+00:00",
+    "lastName": "Admin",
+    "entityId": 32,
+    "userRoles": [
+        "role","Urole"
+    ],
+    "userMangedRoles": "URole",
+    "mi": null,
+    "phone": "1231231212",
+    "provisionedDt": "2020-09-08T04:38:38.534+00:00",
+    "createdDt": "2020-09-08T04:38:38.534+00:00",
+    "recordVersion": 32,
+    "regionCd": "TN",
+    "statusCd": "APPR",
+    "sufName": "SName",
+    "userId": 30
+}

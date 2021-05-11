@@ -1,0 +1,295 @@
+<div class="responsive">
+    <div class="form">
+        <div class="scroller">
+            <div class="applicantName">{{applicantName}}</div>
+            <div class="note">
+                <div>
+                    <label>Note:</label>
+                    <div>
+                        <p>Below is the table that summarizes all the documentation required
+                            to submit this PAE. Once all the required documents are uploaded, you will be able to submit
+                            this PAE for TennCare Nurse Review.
+                        </p>
+
+                        <div id="wrapper">
+                            <div class="linkicon" *ngFor="let item of supportingDocuments, let i = index">
+                                <mat-icon class="button-icon" [ngClass]="item.class">{{item.icon}}</mat-icon>
+                                <span class="mat-input-element">
+                                    {{item.name}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form [formGroup]="paeFormGroup">
+                <h3>Required Documents</h3>
+                <table class="activityTable">
+                    <thead>
+                        <tr>
+                            <th class="btl-radius w-50">Form Type</th>
+                            <th class="btr-radius w-50">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tight">
+                        <tr>
+                            <td class="bb bt bb-db pl-4"><a (click)="openDocument(sampleDocument)"
+                                    href="javascript:void()">Recent History and Physical</a></td>
+                            <td class="bb bt bb-db">
+                                <mat-icon style="cursor:pointer;" *ngIf="!isphyhisUploaded" (click)="uploadDocument()"
+                                    class="button-icon blue">cloud_upload</mat-icon>
+                                <mat-icon class="button-icon green" *ngIf="isphyhisUploaded">done</mat-icon>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="bb bt bb-db pl-4"><a (click)="openDocument(sampleDocument)"
+                                    href="javascript:void()">Physician Certification</a></td>
+                            <td class="bb bt bb-db">
+                                <mat-icon style="cursor:pointer;" *ngIf="!isPhyUploaded" (click)="uploadDocument()"
+                                    class="button-icon blue">cloud_upload</mat-icon>
+                                <mat-icon class="button-icon green" *ngIf="isPhyUploaded">done</mat-icon>
+                            </td>
+                        </tr>
+                        <tr *ngIf="isReqForIcap">
+                            <td class="bb bt bb-db pl-4"><a (click)="openDocument(sampleDocument)"
+                                    href="javascript:void()">ICAP</a></td>
+                            <td class="bb bt bb-db">
+                                <mat-icon style="cursor:pointer;" *ngIf="!isIcapUploaded" (click)="uploadDocument()"
+                                    class="button-icon blue">cloud_upload</mat-icon>
+                                <mat-icon class="button-icon green" *ngIf="isIcapUploaded">done</mat-icon>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody class = "tight" *ngIf = "isPhyUploaded">
+
+                              <tr>
+                            <td>
+                                <label> <sup class="red">*</sup> <strong>LOC Certifier Name:</strong></label>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="locCertifierName" />
+                                      <mat-error
+                        *ngIf="paeFormGroup.get('locCertifierName').errors?.required && (paeFormGroup.get('locCertifierName').touched || paeFormGroup.get('locCertifierName').dirty)">
+                        {{customValidation.A1}}
+                      </mat-error>
+                        <mat-error *ngIf="paeFormGroup.get('locCertifierName').errors?.specialCharacterValidator">
+                           {{customValidation.A2}}
+                        </mat-error>
+                        <mat-error *ngIf="paeFormGroup.get('locCertifierName').errors?.maxLength">
+                           Max 45 charecters allowed
+                        </mat-error>
+                                </mat-form-field>
+
+                            </td>
+                            <td>
+                                <label class="mll-5"> <strong>NPI:</strong></label>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="nPI" />
+                                      <mat-error
+                        *ngIf="paeFormGroup.get('nPI').errors?.required && (paeFormGroup.get('nPI').touched || paeFormGroup.get('nPI').dirty)">
+                        {{customValidation.A1}}
+                      </mat-error>
+                        <mat-error *ngIf="paeFormGroup.get('nPI').errors?.specialCharacterValidator">
+                           {{customValidation.A2}}
+                        </mat-error>
+                        <mat-error *ngIf="paeFormGroup.get('nPI').errors?.maxLength">
+                           Max 45 charecters allowed
+                        </mat-error>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label> <strong>Medicaid ID:</strong></label>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="medicaidId" />
+                                      <mat-error
+                        *ngIf="paeFormGroup.get('medicaidId').errors?.required && (paeFormGroup.get('medicaidId').touched || paeFormGroup.get('medicaidId').dirty)">
+                        {{customValidation.A1}}
+                      </mat-error>
+                        <mat-error *ngIf="paeFormGroup.get('medicaidId').errors?.specialCharacterValidator">
+                           {{customValidation.A2}}
+                        </mat-error>
+                        <mat-error *ngIf="paeFormGroup.get('medicaidId').errors?.maxLength">
+                           Max 45 charecters allowed
+                        </mat-error>
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <label class="mll-5"> <strong>Credentials:</strong></label>
+                                <mat-form-field appearance="outline">
+                                    <input matInput formControlName="credentials" />
+                                    <mat-label>Select an option</mat-label>
+                                  <select formControlName="credentials" matNativeControl>
+                                    <option value="audi">Option1</option>
+                                  </select>
+                                    <mat-error
+                        *ngIf="paeFormGroup.get('credentials').errors?.required && (paeFormGroup.get('credentials').touched || paeFormGroup.get('credentials').dirty)">
+                        {{customValidation.A1}}
+                      </mat-error>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><button mat-stroked-button type="button"
+                            class="expandable-row-button" >SAVE</button></td>
+                        </tr>
+
+
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td class="bb bt bb-db pl-4"> <a (click)="openForm()"
+                                    href="javascript:void()">
+                                    Certification of Assessment</a></td>
+                            <td class="bb bt bb-db">
+                                <mat-icon class="button-icon green mr-13" *ngIf="iscertUploaded"> done </mat-icon>
+                                <a style="cursor:pointer; " *ngIf="!iscertUploaded" (click)="openForm()"
+                                    class="button-icon blue">Fill E-Form</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr *ngIf="isSisInformant">
+                            <td class="bb bt bb-db pl-4"> <a>
+                                    SIS Informant Form</a></td>
+                            <td class="bb bt bb-db">
+                                <mat-icon class="button-icon green mr-13" *ngIf="isSisInformantFormFinished"
+                                > done </mat-icon>
+                                <a style="cursor:pointer; " (click)="sisInformantPopup()"
+                                    class="button-icon blue" *ngIf="!isSisInformantFormFinished">Fill E-Form</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                      <tbody *ngIf="isEC5Program">
+                        <tr>
+                            <td class="bb bt bb-db pl-4"> <a (click)="openFormSa()"
+                                    href="javascript:void()">
+                                    Safety Attestation</a></td>
+                            <td class="bb bt bb-db">
+                                <mat-icon class="button-icon green mr-13" *ngIf="isSaUploaded"> done </mat-icon>
+                                <a style="cursor:pointer; " *ngIf="!isSaUploaded" (click)="openFormSa()"
+                                    class="button-icon blue">Fill E-Form</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+            <hr>
+
+            <form [formGroup]="paeFormGroup">
+                <h3>Supporting Documents</h3>
+                <table class="activityTable">
+                    <thead>
+                        <tr class="">
+                            <th class="btl-radius w-50">Document Type</th>
+                            <th class="btr-radius w-50">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tight">
+
+
+                        <tr>
+                            <td class="bb bt bb-db pl-4">Medical Diagnosis</td>
+                            <td class="bb bt bb-db">
+                                <div class="float-left" *ngIf="ismedUploaded">
+
+                                    <mat-icon class="button-icon blue "> file_upload </mat-icon>
+
+                                    <span style="cursor:pointer;" (click)="uploadDocument()"
+                                        class="mat-input-element ">add
+                                        more</span>
+                                </div>
+                                <mat-icon class="button-icon green mr-13" *ngIf="ismedUploaded"> done </mat-icon>
+                                <mat-icon style="cursor:pointer; " *ngIf="!ismedUploaded" (click)="uploadDocument()"
+                                    class="button-icon blue">cloud_upload</mat-icon>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="bb bt bb-db pl-4">Functional Assessment</td>
+                            <td class="bb bt bb-db">
+                                <div class="float-left" *ngIf="isfunUploaded">
+
+                                    <mat-icon class="button-icon blue ">file_upload</mat-icon>
+
+                                    <span style="cursor:pointer;" (click)="uploadDocument()"
+                                        class="mat-input-element ">add
+                                        more</span>
+                                </div>
+                                <mat-icon class="button-icon green mr-13" *ngIf="isfunUploaded"> done </mat-icon>
+                                <mat-icon style="cursor:pointer; " *ngIf="!isfunUploaded" (click)="uploadDocument()"
+                                    class="button-icon blue">cloud_upload</mat-icon>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="bb bt bb-db pl-4">Skilled Services</td>
+                            <td class="bb bt bb-db">
+                                <div class="float-left" *ngIf="isskillUploaded">
+
+                                    <mat-icon class="button-icon blue ">file_upload</mat-icon>
+
+                                    <span style="cursor:pointer;" (click)="uploadDocument()"
+                                        class="mat-input-element ">add
+                                        more</span>
+                                </div>
+
+                                <mat-icon class="button-icon green mr-13" *ngIf="isskillUploaded"> done </mat-icon>
+                                <mat-icon style="cursor:pointer;" *ngIf="!isskillUploaded" (click)="uploadDocument()"
+                                    class="button-icon blue">cloud_upload</mat-icon>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="bb bt bb-db pl-4">Safety Assessment</td>
+                            <td class="bb bt bb-db">
+                                <div class="float-left" *ngIf="issafetyUploaded">
+
+                                    <mat-icon class="button-icon blue "> file_upload </mat-icon>
+
+                                    <span style="cursor:pointer;" (click)="uploadDocument()"
+                                        class="mat-input-element ">add
+                                        more</span>
+                                </div>
+
+                                <mat-icon class="button-icon green mr-13" *ngIf="issafetyUploaded"> done </mat-icon>
+                                <mat-icon style="cursor:pointer;" *ngIf="!issafetyUploaded" (click)="uploadDocument()"
+                                    class="button-icon blue">cloud_upload</mat-icon>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+
+            <!-- <hr>
+
+            <form [formGroup]="paeFormGroup">
+                <h3>Addtional Documents</h3>
+                <table class="activityTable">
+                    <thead>
+                        <tr class="">
+                            <th class="btl-radius w-50">Form Type</th>
+                            <th class="btr-radius w-50">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tight">
+                        <tr>
+                            <td class="bb "><a (click)="openDocument(sampleDocument)" href="javascript:void()">SAMS
+                                    ILA
+                                    Assesment</a></td>
+                            <td class="bb">
+                                <mat-icon style="cursor:pointer;" (click)="uploadDocument()" class="button-icon blue">
+                                    cloud_upload</mat-icon>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </form> -->
+        </div>
+        <div class="buttonBar">
+            <button mat-flat-button color="primary" class="perlss-click-button-white" (click)="gotoback()">BACK</button>
+            <button mat-flat-button color="primary" class="perlss-click-button-white-noborder" (click)="saveAndExit()">SAVE AND
+                EXIT</button>
+            <button mat-flat-button color="primary" class="perlss-click-button m-0" (click)="next()">NEXT</button>
+        </div>
+    </div>
+</div>

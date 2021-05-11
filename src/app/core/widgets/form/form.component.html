@@ -1,0 +1,163 @@
+<div class="dialog">
+  <div class="header">
+    <h4>Forms</h4>
+    <mat-icon (click)="closePopup()">highlight_off</mat-icon>
+  </div>
+  <div class="form perlss_page_content">
+    <div *ngIf="initialForm">
+      <br>
+      <div class="row">
+        <div class="col-md-12">
+          <div>
+            <u><b>Acceptable Use Policy</b></u>
+          </div>
+          <br>
+          <div>
+            <u><b>ECF CHOICES Disenrollment Form</b></u>
+          </div>
+          <br>
+          <div>
+            <u><b>Group 7 (IBCTSS) certification form</b></u>
+          </div>
+          <br>
+          <div>
+            <u><b>Group 8 (IBCTSS) certification form</b></u>
+          </div>
+          <br>
+          <div>
+            <u><b>MCO - LTSS Eligibility Checklist</b></u>
+          </div>
+          <br>
+          <div>
+            <u><b>Sustain Family Living Arrangement RC Form</b></u>
+          </div>
+          <br>
+          <div>
+            <u><b>TPAES Access Instructions and Training</b></u>
+          </div>
+          <br>
+          <br>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col" style="text-align: right;">
+        </div>
+        <div class="col" style="text-align: right; margin-top: 40px;">
+          <button mat-flat-button color="primary" class="popup-click-button-white"
+            (click)="openFormsEdit()">EDIT</button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="editable">
+      <div class="row">
+        <div class="col-md-12">
+          <div *ngFor="let form of formInformation;">
+            <div>
+              <mat-label class="required-color">*</mat-label>
+              Form Name
+            </div>
+            <mat-form-field appearance="outline">
+              <input matInput readonly placeholder="{{form.formDesc}}">
+            </mat-form-field>
+            <mat-icon class="required-color">close</mat-icon>
+            <br>
+            <div>
+              <mat-icon class="required-color">description</mat-icon>
+              <span>{{form.formCd}}.pdf </span>
+              <mat-icon class="required-color"
+                (click)="runShowHide1(form.formCd); downloadPdf(form.formDoc, form.formCd)">edit</mat-icon>
+            </div>
+            <br>
+            <div *ngIf="form.formCd === TST2">
+              <div>
+                <mat-label class="required-color">*</mat-label>
+                Upload Form
+              </div>
+              <div class="fileDropContainer">
+                <input type="file" #fileDropRef id="fileDropRef" accept="application/pdf" (change)="fileBrowseHandler($event)" />
+                <div>
+                  <mat-icon class="required-color file_upload">cloud_upload</mat-icon>
+                  <div>Drag and Drop Files Here</div>
+                  <div class="smallLabel">(Maximum File Size is 5 MB)</div>
+                  <div>
+                    <button mat-flat-button class="uploadButton">Browse</button>
+                    <div class="files-list">
+                      <div class="single-file" *ngFor="let file of files; let i = index">
+                        <span>
+                          {{ file?.name }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bottomText">
+                    Acceptable document formats:<br>*.pdf
+                    
+                  </div>
+                </div>
+              </div>
+              <br>
+            </div>
+            <mat-divider class="perlss-horizontal-divider"></mat-divider>
+            <br>
+          </div>
+          <br>
+          <div (click)="toggleIcon()">
+           <a> <mat-icon class="required-color-blue">{{icon}}</mat-icon>
+            <span><b>&nbsp;ADD FORM </b></span></a>
+          </div>
+          <br>
+          <div *ngIf="showHide">
+            <form [formGroup]="documentForm">
+              <div>
+                <mat-label class="required-color">*</mat-label>
+                Form Name
+              </div>
+              <mat-form-field appearance="outline">
+                <input matInput formControlName="formDesc">
+              </mat-form-field>
+              <br>
+              <div>
+                <mat-label class="required-color">*</mat-label>
+                Upload Form
+              </div>
+              <div class="fileDropContainer">
+                <input type="file" #fileDropRef id="fileDropRef"  accept="application/pdf" (change)="handleFileSelect($event)" />
+                <div>
+                  <mat-icon class="required-color file_upload">cloud_upload</mat-icon>
+                  <div>Drag and Drop Files Here</div>
+                  <div class="smallLabel">(Maximum File Size is 5 MB)</div>
+                  <div>
+                    <button mat-flat-button class="uploadButton">Browse</button>
+                    <div class="files-list">
+                      <div class="single-file" *ngFor="let file of files; let i = index">
+                        <span>
+                          {{ file?.name }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bottomText">
+                    Acceptable document formats:<br>*.pdf
+                    <!-- <div>
+                      <mat-error>{{pdfValidationMesage}}</mat-error>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="footerButtons">
+        <div class="col" style="text-align: right;">
+          <button mat-flat-button color="primary" class="perlss-click-button-white-noborder"
+            (click)="closePopup()">CANCEL</button>
+          <button mat-flat-button color="primary" class="perlss-click-button" (click)="postData()">SAVE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

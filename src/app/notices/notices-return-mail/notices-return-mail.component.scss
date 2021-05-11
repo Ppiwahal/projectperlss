@@ -1,0 +1,112 @@
+::ng-deep .mat-step-icon * {
+    color: white !important;
+  }
+  
+  ::ng-deep .mat-step-header .mat-step-icon {
+    background-color: grey;
+    border: 1px solid green !important;
+  }
+  
+  ::ng-deep .mat-step-header .mat-step-icon-selected {
+    background-color: green !important;
+    color: white !important;
+  
+  
+  }
+  
+  ::ng-deep .mat-step-header .mat-step-icon-state-done {
+    background-color: green !important;
+  }
+  
+  
+  ::ng-deep .mat-step-header .mat-step-icon-state-edit {
+    background-color: green !important;
+  }
+  
+  .button-content{
+    padding-top: 60px;
+  }
+  
+  .radio-button{
+    margin-left: 35px;
+  }
+  
+  .required-color {
+    color: #ed6053;
+    padding-right: 5px;
+  }
+
+  .stepOne-button-content{
+    padding-top: 20px;
+  }
+  
+  .back-button{
+    text-align: left;
+  }
+  
+  .next-button{
+    right: 0;
+    text-align: right;
+    position: absolute;
+  }
+
+  .filter-dropdown{
+    display: flex;
+    justify-content: space-between;
+}
+
+.filter-dropdown div{
+    width: 45%;
+}
+
+.retun-notice-font-color{
+  color: black;
+  padding-top: 25px;
+  font-style: italic;
+}
+
+.box{
+  text-align: left;
+  padding-top: 25px;
+  padding-left: 35px;
+}
+
+.box2{
+  padding-top: 25px;
+  margin-left: 110px;
+}
+
+.status-name{
+  font-size: 16px;
+  padding-top: 8px;
+}
+
+.box-status-name{
+  font-size: 16px;
+  padding-top: 8px;
+}
+
+.required-color {
+  color: #f44336;
+}
+
+.mail-proceed{
+  padding-top: 30px;
+}
+
+div > .mat-form-field {
+  width: 100%;
+}
+
+.go_back {
+  padding-top: 55px;
+  font-weight: bold;
+  margin-top: 16px;
+  text-align:center;
+  display:block;
+  color:#174A7C;
+}
+
+
+
+  

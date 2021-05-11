@@ -1,0 +1,153 @@
+.wrapper {
+  margin-top: 30px;
+}
+
+.header{
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-heading {
+  color: #4D7E20;
+}
+
+.filter-field {
+  width: 30%;
+}
+
+.example-element-row td {
+border-bottom-width: 0;
+}
+
+.example-element-detail {
+overflow: hidden;
+display: flex;
+}
+
+tr.example-detail-row {
+height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+background: whitesmoke;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+background: #efefef;
+}
+
+.innerTable{
+display: flex;
+justify-content: space-between;
+}
+
+.inner-icon{
+font-size: 20px;
+cursor: pointer;
+}
+
+.note-icon{
+color: rgb(238, 73, 86);
+}
+
+.table-content{
+color: black; 
+font-weight: bold;
+}
+
+.paddingrow-content{
+padding-left: 270px;
+margin-top: 15px;
+float: right;
+}
+
+.paddingrow-firstChild{
+padding-left: 270px;
+}
+
+.paddingrow-Secondchild{
+padding-bottom: 10px;
+}
+
+.active-class{
+background-color: #EDF4FB;
+border-bottom: 1px solid lightgray;
+}
+
+.on-hover:hover{
+background-color: #EDF4FB;
+cursor: pointer;
+}
+
+.icon-wrapper{
+font-weight: bold;
+margin-left: 25px;
+position: relative;
+margin-bottom: 10px;
+cursor: pointer;
+.icon-span{
+    position: absolute;
+    top: -3px;
+    left: -27px;
+}
+}
+
+.icon-SecondWrapper{
+font-weight: bold;
+margin-left: 25px;
+position: relative;
+margin-bottom: 10px;
+padding-right: 10vh;
+cursor: pointer;
+.SecondRowicon-span {
+  top: -3px;
+  left: -28px;
+  position: absolute;
+}
+}
+
+.second-innerTable{
+display: flex;
+justify-content: space-between;
+}
+
+.innertable-one{
+display: flex;
+width: 47.5%;
+justify-content: space-between;
+}
+
+.innertable-two{
+margin-right: 7%;
+}
+
+.disabled {
+cursor: not-allowed !important;
+}
+
+.subtable-content {
+padding-top: 10px;
+}
+
+#mainTable th{
+font-size: 14px;
+font-weight: bold;
+color: #04537D;
+border-bottom: 3px solid #1B365D;
+}
+
+#mainTable {
+border: 1px solid #1B365D;
+}
+
+div > .mat-form-field {
+width: 100%;
+}
+
+#mainTable td:last-child  {
+  border-bottom: 1px solid #1B365D;
+}
+
+#secondTable td:last-child {
+  border-bottom: none;
+}

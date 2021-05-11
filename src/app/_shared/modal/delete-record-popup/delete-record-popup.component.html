@@ -1,0 +1,36 @@
+<div class="dialog">
+  <div class="deleteHeader">
+    <h1>Attention</h1>
+    <mat-icon (click)="closePopup()">highlight_off</mat-icon>
+  </div>
+
+  <div class="form">
+    <br>
+    <div class="row">
+      <div class="col-md-12">
+        <div>
+          You are about to delete a record.
+        </div>
+        <br>
+        <div>
+          Click the "Delete" button to confirm.
+        </div>
+        <br>
+        <div>
+          Click the "Cancel" button to keep the record.
+        </div>
+        <br>
+        <br>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="text-right btn-margin">
+          <button mat-flat-button (click)="closePopup()" color="primary"
+            class="perlss-click-button-white-noborder">CANCEL</button> &nbsp;
+          <button mat-flat-button (click)="delete()" color="primary" class="perlss-click-button">DELETE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

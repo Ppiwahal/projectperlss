@@ -1,0 +1,416 @@
+<div class="responsive">
+  <form [formGroup]="myForm" class="form-container">
+    <div class="scroller">
+      <div class="applicantName">{{applicantName}}</div>
+      <div class="note">
+        <div>
+          <label>Note:</label>
+          <p>Each member will have an Individual Cost Neutrality Cap that is based on the average cost of the level of NF reimbursement that would be paid if the Member were institutionalized in a NF. The services to be put in place to meet this person’s needs should be accurately reflected in the information below. 
+          </p>
+       </div>
+      </div>
+      <div *ngIf="hasPaeIdError" class="note"><label class="red">Error:</label><p>PaeId was not specified, so this page will not work correctly</p></div>
+      <h2>Ongoing HCBS</h2>
+      <p>Please click Add Service to provide details.</p>
+      <ng-container *ngIf="options.ONH.hasItems">
+        <ng-container formArrayName="ONH" *ngFor="let control of faONH.controls; index as i">
+          <ng-container [formGroupName]="i">
+            <div class="panel" [ngClass]="{'open': options.ONH.openedIndex == i}" style="border: 1px solid #9bb972;">
+              <div *ngIf="!options.ONH.status[i].saved" class="panelHead">
+                <mat-icon>remove_circle_outline</mat-icon>
+                <span>ADD SERVICE PROVIDED</span>
+              </div>
+              <ng-container *ngIf="options.ONH.status[i].saved">
+                <div class="panelHead saved" [ngClass]="{'locked':
+                    options['ONH'].locked }" (click)="toggleOpen('ONH', i)">
+                  <h3 class="textword">{{mapValue('ONH',
+                    getControl('ONH_type', i).value)}}</h3>
+                  <div class="toggle">View Details<mat-icon>keyboard_arrow_down</mat-icon>
+                  </div>
+                </div>
+              </ng-container>
+              <div class="panelBody" *ngIf="options.ONH.status[i].ready">
+                <div class="floatChildren">
+                  <div class="w100">
+                    <mat-form-field appearance="outline">
+                      <mat-label class="req">Service Type</mat-label>
+                      <mat-select formControlName="ONH_type">
+                        <mat-option *ngFor="let item of getFilteredTypes('ONH',i)" [value]="item.code">{{item.value}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-error *ngIf="controlError('ONH_type', i)">{{controlErrorText['ONH_type'][i]}}
+                    </mat-error>
+                    <input type="hidden" formControlName="ONH_id">
+                  </div>
+                </div>
+                <div class="floatChildren">
+                  <div class="w50">
+                    <mat-form-field appearance="outline">
+                      <mat-label class="req">Amount</mat-label>
+                      <input matInput minlength="2" maxlength="20" formControlName="ONH_amount" type="number">
+                    </mat-form-field>
+                    <mat-error *ngIf="controlError('ONH_amount', i)">
+                      {{controlErrorText['ONH_amount'][i]}}</mat-error>
+                  </div>
+                  <div class="w50">
+                    <mat-form-field appearance="outline">
+                      <mat-label class="req">Frequency</mat-label>
+                      <mat-select formControlName="ONH_frequency">
+                        <mat-option *ngFor="let item of dropdownData.cost_frequency" [value]="item.code">{{item.value}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-error *ngIf="controlError('ONH_frequency', i)">{{controlErrorText['ONH_frequency'][i]}}</mat-error>
+                  </div>
+                </div>
+                <div class="panelButtons">
+                  <button *ngIf="!options.ONH.status[i].saved ||
+                      options.ONH.status[i].edit" class="orange" (click)="saveClick('ONH', i)">SAVE</button>
+                  <button *ngIf="options.ONH.status[i].saved &&
+                      !options.ONH.status[i].edit" class="orange" (click)="edit('ONH', i)">EDIT</button>
+                  <button *ngIf="options.ONH.status[i].saved" class="orange" (click)="delete('ONH', i)">DELETE</button>
+                  <button class="transparent" *ngIf="options.ONH.status[i].dirty &&
+                      options.ONH.status[i].edit ||
+                      !options.ONH.status[i].saved" (click)="cancel('ONH', i)">CANCEL</button>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+       </ng-container>
+      </ng-container>
+      <div class="panel" *ngIf="options.ONH.showAddButton">
+        <div (click)="addFormRow('ONH')" class="panelHead" [ngClass]="{disabled: options['ONH'].locked }">
+          <mat-icon>add_circle</mat-icon><span>ADD SERVICE PROVIDED</span>
+       </div>
+      </div>
+      <mat-divider class="perlss-section-divider"></mat-divider>
+      <h2>One-Time HCBS</h2>
+      <p>Please click Add Service to provide details.</p>
+      <ng-container *ngIf="options.OTH.hasItems">
+        <ng-container formArrayName="OTH" *ngFor="let control of faOTH.controls; index as i">
+          <ng-container [formGroupName]="i">
+            <div class="panel" [ngClass]="{'open': options.OTH.openedIndex == i }" style="border: 1px solid #9bb972;">
+              <div *ngIf="!options.OTH.status[i].saved" class="panelHead">
+                <mat-icon>remove_circle_outline</mat-icon>
+                <span>ADD SERVICE PROVIDED</span>
+              </div>
+              <ng-container *ngIf="options.OTH.status[i].saved">
+                <div class="panelHead saved" [ngClass]="{'locked':
+                    options['OTH'].locked }" (click)="toggleOpen('OTH', i)">
+                  <h3>{{mapValue('OTH',
+                    getControl('OTH_type', i).value)}}</h3>
+                  <div class="toggle">View Details<mat-icon>keyboard_arrow_down</mat-icon>
+                  </div>
+                </div>
+              </ng-container>
+              <div class="panelBody" *ngIf="options.OTH.status[i].ready">
+                <div class="floatChildren">
+                  <div class="w100">
+                    <mat-form-field appearance="outline">
+                      <mat-label class="req">Service Type</mat-label>
+                      <mat-select formControlName="OTH_type">
+                        <mat-option *ngFor="let item of getFilteredTypes('OTH',i)" [value]="item.code">{{item.value}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-error *ngIf="controlError('OTH_type', i)">{{controlErrorText['OTH_type'][i]}}
+                    </mat-error>
+                    <input type="hidden" formControlName="OTH_id">
+                  </div>
+                </div>
+                <div class="floatChildren">
+                  <div class="w50">
+                    <mat-form-field appearance="outline">
+                      <mat-label class="req">Amount</mat-label>
+                      <input matInput minlength="2" maxlength="20" formControlName="OTH_amount" type="number">
+                    </mat-form-field>
+                    <mat-error *ngIf="controlError('OTH_amount', i)">
+                      {{controlErrorText['OTH_amount'][i]}}</mat-error>
+                  </div>
+                  <div class="w50">
+                    <mat-form-field appearance="outline">
+                      <mat-label class="req">Frequency</mat-label>
+                      <mat-select formControlName="OTH_frequency">
+                        <mat-option *ngFor="let item of dropdownData.cost_frequency" [value]="item.code">{{item.value}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-error *ngIf="controlError('OTH_frequency', i)">{{controlErrorText['OTH_frequency'][i]}}
+                    </mat-error>
+                  </div>
+                </div>
+                <div class="panelButtons">
+                  <button *ngIf="!options.OTH.status[i].saved ||
+                      options.OTH.status[i].edit" class="orange"
+                    (click)="saveClick('OTH', i)">SAVE</button>
+                  <button *ngIf="options.OTH.status[i].saved &&
+                      !options.OTH.status[i].edit" class="orange"
+                    (click)="edit('OTH', i)">EDIT</button>
+                  <button *ngIf="options.OTH.status[i].saved" class="orange"
+                    (click)="delete('OTH', i)">DELETE</button>
+                  <button class="transparent" *ngIf="options.OTH.status[i].dirty &&
+                      options.OTH.status[i].edit ||
+                      !options.OTH.status[i].saved" (click)="cancel('OTH', i)">CANCEL</button>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+       </ng-container>
+      </ng-container>
+      <div class="panel" *ngIf="options.OTH.showAddButton">
+        <div (click)="addFormRow('OTH')" class="panelHead"
+          [ngClass]="{disabled: options['OTH'].locked }">
+          <mat-icon>add_circle</mat-icon><span>ADD SERVICE PROVIDED</span>
+       </div>
+      </div>
+      <mat-divider class="perlss-section-divider"></mat-divider>
+      <h2>Short-term HCBS or Short-term Increases in Ongoing HCBS</h2>
+      <p>Please click Add Service to provide details.</p>
+      <ng-container *ngIf="options.STH.hasItems">
+        <ng-container formArrayName="STH" *ngFor="let control of faSTH.controls; index as i">
+          <ng-container [formGroupName]="i">
+            <div class="panel" [ngClass]="{ 'open': options.STH.openedIndex == i}" style="border: 1px solid #9bb972;">
+              <div *ngIf="!options.STH.status[i].saved" class="panelHead">
+                <mat-icon>remove_circle_outline</mat-icon>
+                <span>ADD SERVICE PROVIDED</span>
+              </div>
+              <ng-container *ngIf="options.STH.status[i].saved">
+                <div class="panelHead saved" [ngClass]="{'locked':
+                    options['STH'].locked }" (click)="toggleOpen('STH', i)">
+                  <h3>{{mapValue('STH',
+                    getControl('STH_type', i).value)}}</h3>
+                  <div class="toggle">View Details<mat-icon>keyboard_arrow_down</mat-icon>
+                  </div>
+                </div>
+              </ng-container>
+              <div class="panelBody" *ngIf="options.STH.status[i].ready">
+                <div class="floatChildren">
+                  <div class="w100">
+                    <mat-form-field appearance="outline">
+                      <mat-label class="req">Service Type</mat-label>
+                      <mat-select formControlName="STH_type">
+                        <mat-option *ngFor="let item of getFilteredTypes('STH',i)" [value]="item.code">{{item.value}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-error *ngIf="controlError('STH_type', i)">
+                      {{controlErrorText['STH_type'][i]}}
+                    </mat-error>
+                    <input type="hidden" formControlName="STH_id">
+                  </div>
+                </div>
+                <div class="floatChildren">
+                  <div class="w50">
+                    <mat-form-field appearance="outline">
+                      <mat-label class="req">Amount</mat-label>
+                      <input matInput minlength="2" maxlength="20" formControlName="STH_amount" type="number">
+                    </mat-form-field>
+                    <mat-error *ngIf="controlError('STH_amount', i)">
+                      {{controlErrorText['STH_amount'][i]}}</mat-error>
+                  </div>
+                  <div class="w50">
+                    <mat-form-field appearance="outline">
+                      <mat-label class="req">Frequency</mat-label>
+                      <mat-select formControlName="STH_frequency">
+                        <mat-option *ngFor="let item of dropdownData.cost_frequency" [value]="item.code">{{item.value}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-error *ngIf="controlError('STH_frequency', i)">{{controlErrorText['STH_frequency'][i]}}</mat-error>
+                  </div>
+                </div>
+                <div class="panelButtons">
+                  <button *ngIf="!options.STH.status[i].saved ||
+                      options.STH.status[i].edit" class="orange"
+                    (click)="saveClick('STH', i)">SAVE</button>
+                  <button *ngIf="options.STH.status[i].saved &&
+                      !options.STH.status[i].edit" class="orange"
+                    (click)="edit('STH', i)">EDIT</button>
+                  <button *ngIf="options.STH.status[i].saved" class="orange"
+                    (click)="delete('STH', i)">DELETE</button>
+                  <button class="transparent" *ngIf="options.STH.status[i].dirty &&
+                      options.STH.status[i].edit ||
+                      !options.STH.status[i].saved" (click)="cancel('STH', i)">CANCEL</button>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+       </ng-container>
+      </ng-container>
+      <div class="panel" *ngIf="options.STH.showAddButton">
+        <div (click)="addFormRow('STH')" class="panelHead"
+          [ngClass]="{disabled: options['STH'].locked }">
+          <mat-icon>add_circle</mat-icon><span>ADD SERVICE PROVIDED</span>
+       </div>
+      </div>
+      <mat-divider class="perlss-section-divider"></mat-divider>
+      <h2>Ongoing Home Health (HH) or Private Duty Nursing (PDN)</h2>
+      <p>Please click Add Service to provide details.</p>
+      <ng-container *ngIf="options.OGP.hasItems">
+        <ng-container formArrayName="OGP" *ngFor="let control of faOGP.controls; index as i">
+          <ng-container [formGroupName]="i">
+            <div class="panel" [ngClass]="{'open': options.OGP.openedIndex == i }" style="border: 1px solid #9bb972;">
+              <div *ngIf="!options.OGP.status[i].saved" class="panelHead">
+                <mat-icon>remove_circle_outline</mat-icon>
+                <span>ADD SERVICE PROVIDED</span>
+              </div>
+              <ng-container *ngIf="options.OGP.status[i].saved">
+                <div class="panelHead saved" [ngClass]="{'locked':
+                    options['OGP'].locked }" (click)="toggleOpen('OGP', i)">
+                  <h3>{{mapValue('OGP',
+                    getControl('OGP_type', i).value)}}</h3>
+                  <div class="toggle">View Details<mat-icon>keyboard_arrow_down</mat-icon>
+                  </div>
+                </div>
+              </ng-container>
+              <div class="panelBody" *ngIf="options.OGP.status[i].ready">
+                <div class="floatChildren">
+                  <div class="w100">
+                    <mat-form-field appearance="outline">
+                      <mat-label class="req">Service Type</mat-label>
+                      <mat-select formControlName="OGP_type">
+                        <mat-option *ngFor="let item of getFilteredTypes('OGP',i)" [value]="item.code">{{item.value}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-error *ngIf="controlError('OGP_type', i)">
+                      {{controlErrorText['OGP_type'][i]}}
+                    </mat-error>
+                    <input type="hidden" formControlName="OGP_id">
+                  </div>
+                </div>
+                <div class="floatChildren">
+                  <div class="w50">
+                    <mat-form-field appearance="outline">
+                      <mat-label class="req">Amount</mat-label>
+                      <input matInput minlength="2" maxlength="20" formControlName="OGP_amount" type="number">
+                    </mat-form-field>
+                    <mat-error *ngIf="controlError('OGP_amount', i)">
+                      {{controlErrorText['OGP_amount'][i]}}</mat-error>
+                  </div>
+                  <div class="w50">
+                    <mat-form-field appearance="outline">
+                      <mat-label class="req">Frequency</mat-label>
+                      <mat-select formControlName="OGP_frequency">
+                        <mat-option *ngFor="let item of dropdownData.cost_frequency" [value]="item.code">
+                          {{item.value}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-error *ngIf="controlError('OGP_frequency', i)">{{controlErrorText['OGP_frequency'][i]}}</mat-error>
+                    </div>
+                </div>
+                <div class="panelButtons">
+                  <button *ngIf="!options.OGP.status[i].saved ||
+                      options.OGP.status[i].edit" class="orange"
+                    (click)="saveClick('OGP', i)">SAVE</button>
+                  <button *ngIf="options.OGP.status[i].saved &&
+                      !options.OGP.status[i].edit" class="orange"
+                    (click)="edit('OGP', i)">EDIT</button>
+                  <button *ngIf="options.OGP.status[i].saved" class="orange"
+                    (click)="delete('OGP', i)">DELETE</button>
+                  <button class="transparent" *ngIf="options.OGP.status[i].dirty &&
+                      options.OGP.status[i].edit ||
+                      !options.OGP.status[i].saved" (click)="cancel('OGP', i)">CANCEL</button>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+       </ng-container>
+      </ng-container>
+      <div class="panel" *ngIf="options.OGP.showAddButton">
+        <div (click)="addFormRow('OGP')" class="panelHead"
+          [ngClass]="{disabled: options['OGP'].locked }">
+          <mat-icon>add_circle</mat-icon><span>ADD SERVICE PROVIDED</span>
+       </div>
+      </div>
+      <mat-divider class="perlss-section-divider"></mat-divider>
+      <h2>Short-term HH/PDN or Short-term Increase in HH/PDN</h2>
+      <p>Please click Add Service to provide details.</p>
+      <ng-container *ngIf="options.STP.hasItems">
+        <ng-container formArrayName="STP" *ngFor="let control of faSTP.controls; index as i">
+          <ng-container [formGroupName]="i">
+            <div class="panel" [ngClass]="{'open': options.STP.openedIndex == i}" style="border: 1px solid #9bb972;">
+              <div *ngIf="!options.STP.status[i].saved" class="panelHead">
+                <mat-icon>remove_circle_outline</mat-icon>
+                <span>ADD SERVICE PROVIDED</span>
+              </div>
+              <ng-container *ngIf="options.STP.status[i].saved">
+                <div class="panelHead saved" [ngClass]="{'locked':
+                    options['STP'].locked }" (click)="toggleOpen('STP', i)">
+                  <h3>{{mapValue('STP', getControl('STP_type', i).value)}}</h3>
+                  <div class="toggle">View Details<mat-icon>keyboard_arrow_down</mat-icon>
+                  </div>
+                </div>
+              </ng-container>
+              <div class="panelBody" *ngIf="options.STP.status[i].ready">
+                <div class="floatChildren">
+                  <div class="w100">
+                    <mat-form-field appearance="outline">
+                      <mat-label class="req">Service Type</mat-label>
+                      <mat-select formControlName="STP_type">
+                        <mat-option *ngFor="let item of getFilteredTypes('STP',i)" [value]="item.code">{{item.value}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-error *ngIf="controlError('STP_type', i)">
+                      {{controlErrorText['STP_type'][i]}}
+                    </mat-error>
+                    <input type="hidden" formControlName="STP_id">
+                  </div>
+                </div>
+                <div class="floatChildren">
+                  <div class="w50">
+                    <mat-form-field appearance="outline">
+                      <mat-label class="req">Amount</mat-label>
+                      <input matInput  minlength="2" maxlength="20" formControlName="STP_amount" type="number">
+                    </mat-form-field>
+                    <mat-error *ngIf="controlError('STP_amount', i)">
+                      {{controlErrorText['STP_amount'][i]}}</mat-error>
+                  </div>
+                  <div class="w50">
+                    <mat-form-field appearance="outline">
+                      <mat-label class="req">Frequency</mat-label>
+                      <mat-select formControlName="STP_frequency">
+                        <mat-option *ngFor="let item of dropdownData.cost_frequency" [value]="item.code">
+                          {{item.value}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field><mat-error *ngIf="controlError('STP_frequency', i)">{{controlErrorText['STP_frequency'][i]}}
+                    </mat-error>
+                  </div>
+                </div>
+                <div class="panelButtons">
+                  <button *ngIf="!options.STP.status[i].saved ||
+                      options.STP.status[i].edit" class="orange"
+                    (click)="saveClick('STP', i)">SAVE</button>
+                  <button *ngIf="options.STP.status[i].saved &&
+                      !options.STP.status[i].edit" class="orange"
+                    (click)="edit('STP', i)">EDIT</button>
+                  <button *ngIf="options.STP.status[i].saved" class="orange"
+                    (click)="delete('STP', i)">DELETE</button>
+                  <button class="transparent" *ngIf="options.STP.status[i].dirty &&
+                      options.STP.status[i].edit ||
+                      !options.STP.status[i].saved" (click)="cancel('STP', i)">CANCEL</button>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+       </ng-container>
+      </ng-container>
+      <div class="panel" *ngIf="options.STP.showAddButton">
+        <div (click)="addFormRow('STP')" class="panelHead"
+          [ngClass]="{disabled: options['STP'].locked }">
+          <mat-icon>add_circle</mat-icon><span>ADD SERVICE PROVIDED</span>
+       </div>
+      </div>
+    </div>
+  </form>
+  <div class="buttonBar">
+    <button mat-flat-button color="primary" (click)="back()" class="perlss-click-button-white">BACK</button>
+    <button mat-flat-button color="primary" (click)="saveAndExit()" class="perlss-click-button-white-noborder">SAVE
+      AND EXIT</button>
+    <button mat-flat-button color="primary" (click)="next()" class="perlss-click-button">NEXT</button>
+  </div>
+</div>

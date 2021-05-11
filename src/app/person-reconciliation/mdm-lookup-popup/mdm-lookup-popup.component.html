@@ -1,0 +1,66 @@
+<div class="recipient-wrapper">
+    <div class="mdm-recipient-header-row">
+      <div class="mdm-heading">
+        MDM Lookup - Person ID {{personId}}
+      </div>
+      <div>
+        <span class="close-icon">
+          <mat-icon (click)=closeDialog()>highlight_off</mat-icon>
+       </span>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="recipient-card">
+      <div class="row row-cols-2">
+        <div style="padding: 20px;" class="col">
+          <span style="padding-left: 15px;"><strong>NAME:</strong></span>
+          <span style="padding-left: 15px;">{{recipientData.name.firstName}} {{recipientData.name.middleInitial}} {{recipientData.name.lastName}}</span>
+        </div>
+        <div style="padding: 20px;" class="col" *ngIf="recipientData.aliases[0].name == ' ' ">
+          <span style="padding-left: 15px;"><strong>ALIAS:</strong></span>
+          <span style="padding-left: 15px;" *ngIf="recipientData.aliases">{{recipientData.aliases[0].name.firstName}} {{recipientData.aliases[0].name.lastName}}</span>
+          <span style="padding-left: 15px;" *ngIf="!recipientData.aliases">N/A</span>
+        </div>
+        <div style="padding: 20px;" class="col">
+          <span style="padding-left: 15px;"><strong>DATE OF BIRTH:</strong></span>
+          <span style="padding-left: 15px;">{{recipientData.dateOfBirth | date:'MM/dd/yyyy'}}</span>
+        </div>
+        <div style="padding: 20px;" class="col">
+          <span style="padding-left: 15px;"><strong>EMAIL:</strong></span>
+          <span style="padding-left: 15px;">{{(recipientData?.electronicAddresses?.value ? recipientData.electronicAddresses.value : "---")}}</span>
+
+        </div>
+        <div style="padding: 20px;" class="col">
+          <span style="padding-left: 15px;"><strong>SOURCE:</strong></span>
+          <span style="padding-left: 15px;">{{recipientData.sourceSystemId}}</span>
+        </div>
+        <div style="padding: 20px;" class="col">
+          <span style="padding-left: 15px;"><strong>DATE OF DEATH:</strong></span>
+          <span style="padding-left: 15px;">N/A</span>
+        </div>
+        <div style="padding: 20px;" class="col">
+          <span style="padding-left: 15px;"><strong>SSN:</strong></span>
+          <span style="padding-left: 15px;">{{recipientData.ssn}}</span>
+        </div>
+        <div style="padding: 20px;" class="col">
+          <span style="padding-left: 15px;"><strong>STATUS:</strong></span>
+          <span style="padding-left: 15px;">N/A</span>
+        </div>
+        <div style="padding: 20px;" class="col">
+          <span style="padding-left: 15px;"><strong>GENDER:</strong></span>
+          <span style="padding-left: 15px;">{{recipientData.gender}}</span>
+        </div>
+        <div style="padding-left: 15px; padding-bottom: 50px;" class="row">
+            <div style="padding-left: 15px;">
+              <span style="padding-left: 15px;"><strong>ADDRESS:</strong></span>
+            </div>
+            <div style="padding-left: 105px;" class="row">
+              <span style="padding-left: 15px; margin-top: -21px;">
+                <span>{{recipientData.addresses[0].street1}}<br></span>
+                <span>{{recipientData.addresses[0].city}}, {{recipientData.addresses[0].state}} {{recipientData.addresses[0].zipCode}}</span>
+              </span>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>

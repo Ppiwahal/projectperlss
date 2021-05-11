@@ -1,0 +1,79 @@
+.required {
+  color: #EE3524;
+  margin-top: 0;
+  text-align: right !important;
+  margin-right:28px;
+  font-size: 10px;
+}
+
+.required-color {
+  color: #f44336;
+}
+
+.back-button-content {
+  color:#174A7C;
+  font-family: 'Open Sans';
+  font-weight: 550;
+}
+
+h3 {
+  font-family: 'Permian Slab';
+  letter-spacing: 50;
+  font-weight: normal;
+  font-size: 19px;
+  color: #174A7C;
+}
+
+hr {
+  margin-top: 2px;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.close-icon {
+  transform: scale(1.0);
+  cursor: pointer;
+  color: #8b99ac;
+}
+.row-header {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.button-content {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+  margin-right: 32px;
+  margin-bottom: 10px;
+}
+
+.text-area-hint {
+  text-align: right;
+  margin-right: 112px;
+  font-size: 75%;
+  font-family:'Open Sans'
+}
+
+.dialog-container mat-dialog-container {
+  padding: 0 !important;
+  overflow:hidden !important;
+}
+
+::ng-deep .toast-message {
+  color: white;
+  font-size: 16px;
+}
+
+.content-top{
+  padding-top: 18px;
+}
+.cancel-appointment-button{
+  text-align: right;
+  width: 60%;
+}
+
+::ng-deep .toast-message{
+  color: white;
+  font-size: 16px;
+}

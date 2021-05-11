@@ -1,0 +1,72 @@
+@import '../../../../../colors.scss';
+.accordion-container {
+  margin-bottom: 36px;
+  mat-accordion {
+    mat-expansion-panel {
+      justify-content: space-between;
+      font-weight: 500;
+      font-size: 23.5px;
+      font-family: 'Open Sans';
+      background-color:  $colorControlBackground;
+      mat-expansion-panel-header{
+        width: 100%;
+        padding: 0 7vw 0  3vw;
+      }
+      mat-panel-title{
+        font-weight: 500;
+        font-size: 23.5px;
+      }
+      mat-panel-title.right-aligned {
+        flex-grow: 0;
+        font-weight: 500;
+        font-size: 23.5px;
+        mat-label{
+          margin-top: 2px;
+          font-size: 20px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+.accordion-content-container{
+  padding-top: 18px;
+  padding-left: 36px;
+  padding-right: 36px;
+  padding-bottom: 18px;
+  font-family: 'Open Sans';
+  font-weight: 500;
+  background-color: white;
+  .row{
+    padding-bottom: 13.5px;
+    width: calc(100% - 4.90px);
+    .col-md-3{
+      text-align: right;
+    }
+  }
+}
+:host::ng-deep .mat-expansion-panel-body {
+  padding: 0 !important;
+}
+.required-color {
+  color: #ed6053;
+}
+
+.check-green{
+  color: #547E1A;
+  padding-left: 9px;
+}
+
+#appointmentTable{
+  width: 60%;
+}
+#appointmentTable th, #appointmentTable td{
+  padding: 5.5px;
+}
+.disabledButton, .perlss-click-button:disabled{
+  color:gray;
+}
+.disabledDiv , .accordion-content-container:disabled{
+  pointer-events: none;
+  opacity: 0.4;
+}

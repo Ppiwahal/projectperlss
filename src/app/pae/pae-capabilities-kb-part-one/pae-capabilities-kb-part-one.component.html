@@ -1,0 +1,297 @@
+<div class="responsive">
+  <form [formGroup]="myForm">
+    <div class="scroller">
+      <div class="applicantName">Jessica Jones</div>
+
+      <div class="note">
+       <div>
+          <label>Note:</label>
+          <p>Please select the checkboxes below if the child requires consistent assistance in these activities of
+            daily living or major skill areas for the next 12 months across all settings, including home, school, and
+            community. The activities listed below are loaded based on the child's current age.
+          </p>
+       </div>
+      </div>
+
+      <h3>Transfer</h3>
+      <table class="activityTable">
+        <thead>
+          <tr>
+          <th>Activity</th>
+          <th>Reported Response</th>
+          <th>Confirmed Response</th>
+          </tr>
+       </thead>
+        <tbody>
+          <tr>
+            <td>The child needs physical help with transfers.</td>
+            <td>
+              <mat-checkbox formControlName="needPhyRepResSw" ></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox formControlName="neddPhyConResSw" ></mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>The child uses mechanical lifts.</td>
+            <td>
+              <mat-checkbox formControlName="mechLiftRepResSw" ></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox formControlName="mechLiftConResSw" ></mat-checkbox>
+            </td>
+          </tr>
+       </tbody>
+      </table>
+      <mat-error *ngIf="groupError['transferNoneSw']">
+        {{groupError['transferNoneSw']}}
+      </mat-error>
+
+      <div class="checkbox-group">
+        <mat-label>If no selection displayed applies for the Activity of Daily Living, please indicate that
+          below:</mat-label>
+        <mat-checkbox formControlName="transferNoneSw">None of the
+          statements above apply</mat-checkbox>
+      </div>
+
+      <hr/>
+
+      <h3>Mobility</h3>
+      <table class="activityTable">
+        <thead>
+          <tr>
+          <th>Activity</th>
+          <th>Reported Response</th>
+          <th>Confirmed Response</th>
+          <tr>
+       </thead>
+        <tbody>
+          <tr>
+            <td>Unable to maintain sitting position when placed.</td>
+            <td>
+              <mat-checkbox formControlName="sitPositionRepResSw"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox formControlName="sitPositionConResSw"></mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>Unable to move self by rolling, crawling, or creeping.</td>
+            <td>
+              <mat-checkbox formControlName="rollingRepResSw"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox formControlName="rollingConResSw"></mat-checkbox>
+            </td>
+          </tr>
+       </tbody>
+      </table>
+      <mat-error *ngIf="groupError['mobilityNoneSw']">
+        {{groupError['mobilityNoneSw']}}
+      </mat-error>
+      <div class="checkbox-group">
+        <mat-label>If no selection displayed applies for the Activity of Daily Living, please indicate that
+          below:</mat-label>
+        <mat-checkbox formControlName="mobilityNoneSw">None
+          of the statements above apply</mat-checkbox>
+      </div>
+      
+      <hr/>
+
+      <h3>Eating</h3>
+      <table class="activityTable">
+        <thead>
+          <tr>
+          <th>Activity</th>
+          <th>Reported Response</th>
+          <th>Confirmed Response</th>
+          </tr>
+       </thead>
+        <tbody>
+          <tr>
+            <td>The child needs to be fed.</td>
+            <td>
+              <mat-checkbox formControlName="needsFedRepResSw"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox formControlName="needsFedConResSw"></mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>The child needs one on one monitoring to prevent choking, aspiration, or other
+              serious complications.</td>
+            <td>
+              <mat-checkbox formControlName="chokingRepResSw"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox formControlName="chokingConResSw"></mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>The child needs help with tube feeding or TPN.</td>
+            <td>
+              <mat-checkbox formControlName="tubeFeedRepResSw"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox formControlName="tubeFeedConResSw"></mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>The child does not use language to share information besides basic needs or wants.</td>
+            <td>
+              <mat-checkbox formControlName="needsWantsRepResSw"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox formControlName="needsWantsConResSw"></mat-checkbox>
+          </tr>
+       </tbody>
+      </table>
+      <mat-error *ngIf="groupError['eatingNoneSw']">
+        {{groupError['eatingNoneSw']}}
+      </mat-error>
+
+      <div class="checkbox-group">
+
+        <mat-label>If no selection displayed applies for the Activity of Daily Living, please indicate that
+          below:</mat-label>
+        <mat-checkbox formControlName="eatingNoneSw">None of the statements above apply</mat-checkbox>
+       
+      </div>
+     
+      <hr/>
+
+      <h3>Toileting</h3>
+
+      <table class="activityTable">
+        <thead>
+          <tr>
+          <th>Activity</th>
+          <th>Reported Response</th>
+          <th>Confirmed Response</th>
+          </tr>
+       </thead>
+        <tbody>
+          <tr>
+            <td>The child is inconsistent during the day(of bowel and/or bladder).</td>
+            <td>
+              <mat-checkbox formControlName="incontDayRepResSw"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox formControlName="incontDayConResSw"></mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>The child of inconsistent of bowel during the night.</td>
+            <td>
+              <mat-checkbox formControlName="incontNightRepResSw"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox formControlName="incontNightConResSw"></mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>The child is inconsistent of bowel and/or bladder.</td>
+            <td>
+              <mat-checkbox formControlName="bowelBladdRepResSw"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox formControlName="bowelBladdConResSw"></mat-checkbox>
+            </td>
+          </tr>
+       </tbody>
+      </table>
+      <mat-error *ngIf="groupError['toiletingNoneSw']">
+        {{groupError['toiletingNoneSw']}}
+      </mat-error>
+
+      <div class="checkbox-group">
+        <mat-label>If no selection displayed applies for the Activity of Daily Living, please indicate that
+          below:</mat-label>
+        <mat-checkbox formControlName="toiletingNoneSw">None of the statements above apply</mat-checkbox>
+       
+      </div>
+    
+      <hr/>
+
+      <h3>Bathing</h3>
+
+      <table class="activityTable">
+        <thead>
+          <tr>
+            <th>Activity</th>
+            <th>Reported Response</th>
+            <th>Confirmed Response</th>
+          </tr>
+       </thead>
+        <tbody>
+          <tr>
+            <td>The child is combative during bathing (e.g. flails, takes 2 caregivers to accomplish
+              task).
+            </td>
+            <td>
+              <mat-checkbox formControlName="combatBathRepResSw"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox formControlName="combatBathConResSw"></mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>The child need physical help with bathing tasks.</td>
+            <td>
+              <mat-checkbox formControlName="phyHelpBathRepResSw"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox formControlName="phyHelpBathConResSw"></mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>The child needs to be lifted in and out of the bathtub or shower.</td>
+            <td>
+              <mat-checkbox formControlName="bathtubRepResSw"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox formControlName="bathtubConResSw"></mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>The child need step-by-step cueing to complete the task.</td>
+            <td>
+              <mat-checkbox formControlName="cueingRepResSw"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox formControlName="cueingConResSw"></mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>The child lacks an understanding of risk and must be supervised for safety.
+            <td>
+              <mat-checkbox formControlName="riskSafetyRepResSw"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox formControlName="riskSafetyConResSw"></mat-checkbox>
+            </td>
+          </tr>
+       </tbody>
+      </table>
+      <mat-error *ngIf="groupError['bathingNoneSw']">
+        {{groupError['bathingNoneSw']}}
+      </mat-error>
+      <div class="checkbox-group">
+        <mat-label>If no selection displayed applies for the Activity of Daily Living, please indicate that
+          below:</mat-label>
+        <mat-checkbox formControlName="bathingNoneSw">
+          None of the statements above apply</mat-checkbox>
+      </div>
+      <hr/>
+    </div>
+
+   
+    <div class="buttonBar">
+      <button mat-flat-button color="primary" (click)="back()" class="perlss-click-button-white">BACK</button>
+      <button mat-flat-button color="primary" (click)="save()" class="perlss-click-button-white-noborder">Save and
+        Exit</button>
+      <button mat-flat-button color="primary" (click)="next()"
+        class="perlss-click-button">NEXT</button>
+    </div>
+  </form>
+</div>

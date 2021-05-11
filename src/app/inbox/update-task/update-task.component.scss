@@ -1,0 +1,85 @@
+@import '../../../colors.scss';
+
+.close-icon {
+    transform: scale(1.0);
+    cursor: pointer;
+    color: #8b99ac;
+  }
+  .row-header {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 17px 0 10px 0;
+  }
+
+  .dialog-heading {
+    font-weight: bold;
+    font-size: 22px;
+    font-family: 'Open Sans';
+    color: #174A7C;
+  }
+  .task-dialog-heading{
+    font-weight: bold;
+    font-size: 16px;
+    font-family: 'Open Sans';
+    color: #547E1A;
+  }
+
+  .update-task-content {
+    overflow-y: scroll;
+    overflow-x:hidden;
+    height: 400px;
+  }
+
+  .search-heading {
+    font-weight: bold;
+    font-size: 14px;
+    font-family: 'Open Sans';
+    color: #547E1A;
+  }
+
+  .assignuser-search-box {
+    padding-left: 32px;
+    padding-top: 25px;
+  }
+
+  .mat-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button {
+    line-height: 20px !important;
+  }
+
+  .button-table-content{
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+
+  .button-height{
+    height: 50px;
+  }
+
+  .sendtoback-button{
+    padding-left: 170px;
+  }
+
+  .search-users-text {
+    border: 1px solid #B3B3B3;
+    width: 95%;
+    min-height: 40px;
+    padding-left:10px;
+    background-color: $colorControlBackground;
+  }
+
+  .create-manualtask-button{
+    padding-left: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  .second-span{
+    padding-left: 10px;
+  }
+
+  .content-head{
+    padding-bottom:25px; 
+    padding-top:25px; 
+    padding-left: 50px; 
+    font-size: 11px;
+  }

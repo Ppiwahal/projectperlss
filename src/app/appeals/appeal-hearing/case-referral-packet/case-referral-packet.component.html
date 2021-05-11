@@ -1,0 +1,197 @@
+<mat-accordion>
+    <mat-expansion-panel (opened)="getDocByAplId()" #mapanel="matExpansionPanel">
+        <mat-expansion-panel-header style="background-color: #f5f5f5">
+            <mat-panel-title>
+                Case Referral Packet
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="wrapper">
+            <h5>Case Referral Packet</h5>
+            <mat-label>Please select the documents below that should be included in the case referral packet.
+            </mat-label>
+            <div *ngIf="isShowDocs" class="table-one">
+                <table aria-describedby mat-table [dataSource]="dataSource" class="mat-elevation-z8 first-table">
+                    <ng-container matColumnDef="documentType">
+                        <th id="documentType" mat-header-cell *matHeaderCellDef>Document Type</th>
+                        <td mat-cell *matCellDef="let element">
+                            <mat-icon style="cursor: pointer;" (click)="docSearch(element)">search</mat-icon>
+                            <span>{{element.docType}}</span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="selection">
+                        <th id="selection" mat-header-cell *matHeaderCellDef>Selection</th>
+                        <td mat-cell *matCellDef="let element" class="table-td">
+                            <div (click)="documentSelected(element)" style="width: 25%;">
+                                <mat-icon [ngClass]="(element.isSelected)?'selected':'un-selected'">offline_pin
+                                </mat-icon>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </div>
+            <button mat-stroked-button type="button" (click)="submitOGC()" class="perlss-click-button"
+                style="margin-top: 25px;"> SUBMIT FOR
+                OGC REVIEW </button>
+            <div *ngIf="isShowDownloadZip">
+                <span class="material-icons cloud-upload">cloud_download</span>
+                <button mat-stroked-button type="button" (click)="getAllDocZipByAplId()" class="cloud-upload-zip"
+                    style="margin-top: 25px;">DOWNLOAD CASE REFERRAL PACKET</button>
+            </div>
+            <div *ngIf="isNohDueDate">
+                <h5>Notice of Hearing</h5>
+                <p>NOH Due Date: {{nohDueDate}}</p>
+            </div>
+            <div *ngIf="isShowNoh">
+                <table aria-hidden="true" mat-table [dataSource]="dataSource2" multiTemplateDataRows
+                    class="mat-elevation-z8">
+                    <ng-container matColumnDef="actionPerformed">
+                        <th mat-header-cell *matHeaderCellDef id="actionPerformed"> <strong> Action Performed </strong>
+                        </th>
+                        <td mat-cell *matCellDef="let element"> {{element.nohActionPerformeCd}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell *matHeaderCellDef id="date"> Date </th>
+                        <td mat-cell *matCellDef="let element"> {{element.createdDate | date:'MM/dd/yyyy'}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="user">
+                        <th mat-header-cell *matHeaderCellDef id="user"> User </th>
+                        <td mat-cell *matCellDef="let element"> {{element.createdBy}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="NOHStatus">
+                        <th mat-header-cell *matHeaderCellDef id="NOHStatus">NOH Status </th>
+                        <td mat-cell *matCellDef="let element"> {{element.statusCd}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="userActions">
+                        <th mat-header-cell *matHeaderCellDef id="userActions">User Actions</th>
+                        <td mat-cell *matCellDef="let element"> View Details</td>
+                    </ng-container>
+                    <ng-container matColumnDef="expandedDetail">
+                        <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns2.length">
+                            <div class="example-element-detail"
+                                [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                                <div class="inside-table-wrapper">
+                                    <div class="innerTable" *ngIf="true">
+                                        <div>
+                                            <div style="position: relative;">
+                                                <span class="material-icons cloud-upload" (click)="uploadRightNav()">
+                                                    cloud_upload
+                                                </span>
+                                                <span class="text-span">
+                                                    Notice of Hearing
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <button mat-stroked-button type="button" (click)="submitNOH()"
+                                                class="perlss-click-button">SUBMIT</button>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="false">
+                                        <div class="innerTable">
+                                            <div>
+                                                <div style="position: relative; margin-top: 2%;">
+                                                    <input aria-label="cloud upload" type="file"
+                                                        (click)="uploadRightNav()" #file
+                                                        style="display: none;">
+                                                    <span class="material-icons cloud-upload" (click)="file.click()">
+                                                        cloud_upload
+                                                    </span>
+                                                    <div class="text-span">
+                                                        Notice of Hearing
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="margin-right: 15%; width: 35%;">
+                                                <mat-form-field appearance="outline">
+                                                    <mat-select>
+                                                        <mat-option value=''> Select </mat-option>
+                                                        <mat-option *ngFor="let hp of hearingPersonnel"
+                                                            value={{hp.code}}>{{hp.value}}</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div class="innerTable">
+                                            <div style="width: 85%;">
+                                                <mat-form-field appearance="outline">
+                                                    <mat-label> <span class="required">*</span> Docket Number
+                                                    </mat-label>
+                                                    <input aria-label="docket number" matInput>
+                                                </mat-form-field>
+                                            </div>
+                                            <div>
+                                                <button mat-stroked-button type="button" class="perlss-click-button">
+                                                    SUBMIT </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="false">
+                                        <div class="innerTable">
+                                            <div style="width: 85%;">
+                                                <mat-form-field appearance="outline">
+                                                    <mat-label> <span class="required">*</span> Details on Correction
+                                                        Needed</mat-label>
+                                                    <input aria-label="correction needed" matInput>
+                                                </mat-form-field>
+                                            </div>
+                                            <div>
+
+                                            </div>
+                                        </div>
+                                        <div class="innerTable">
+                                            <div>
+                                                <div style="position: relative; margin-top: 2%;">
+                                                    <input aria-label="cloud upload" type="file"
+                                                        (change)="upload(file.files, element)" #file
+                                                        style="display: none;">
+                                                    <span class="material-icons cloud-upload" (click)="file.click()">
+                                                        cloud_upload
+                                                    </span>
+                                                    <div class="text-span">
+                                                        Notice of Hearing
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <button mat-stroked-button type="button" class="perlss-click-button">
+                                                    SUBMIT </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="false">
+                                        <div class="upload-noh">
+                                            <div style="width: 35%;">
+                                                <mat-form-field appearance="outline">
+                                                    <mat-label><span class="required">*</span>NOH Mailed Date
+                                                    </mat-label>
+                                                    <input aria-label="NOH Mailed Date" matInput
+                                                        [matDatepicker]="nohMailedDt" autocomplete="off">
+                                                    <mat-datepicker-toggle matSuffix [for]="nohMailedDt">
+                                                    </mat-datepicker-toggle>
+                                                    <mat-datepicker  [startAt]="startDate" #nohMailedDt></mat-datepicker>
+                                                </mat-form-field>
+                                            </div>
+                                            <div style="margin-right: 1% 20% 0 0">
+                                                <button mat-stroked-button type="button" class="perlss-click-button">
+                                                    SUBMIT </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                    <tr mat-row *matRowDef="let element; columns: displayedColumns2;"
+                        class="example-element-row on-hover" [class.example-expanded-row]="expandedElement === element"
+                        [class.active-class]="expandedElement === element"
+                        (click)="expandedElement = expandedElement === element ? null : element">
+                    </tr>
+                    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+                </table>
+            </div>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>

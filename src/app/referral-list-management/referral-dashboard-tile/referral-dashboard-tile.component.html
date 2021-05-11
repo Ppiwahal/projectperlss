@@ -1,0 +1,48 @@
+<div class="responsive">
+<div class="wrapper">
+    <div class="tile-wrapper">
+        <div class="tile">
+            <table aria-describedby = "Intake" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <ng-container matColumnDef="intakeOutcome">
+                <th mat-header-cell *matHeaderCellDef id="intakeOutcome" class="black">Intake Outcome</th>
+                <td mat-cell *matCellDef="let element">
+                    <div class="table-row">
+                        <div>
+                            {{element.value}}
+                        </div>
+                        <div class="style-count" (click)="emitDataToRefferalResult(element)">
+                            {{element.count}}
+                        </div>
+                    </div>
+                </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+       </div>
+        <div class="tile">
+            <table aria-describedby = "Outcome" mat-table [dataSource]="dataSource1" class="mat-elevation-z8">
+                <ng-container matColumnDef="agedCareGivers">
+                <th mat-header-cell *matHeaderCellDef id="caregiver" class="black">Evaluate Aged Caregiver</th>
+                <td mat-cell *matCellDef="let element">
+                    <div class="table-row"  *ngIf="element.value !== undefined">
+                        <div>
+                            {{element.value}}
+                        </div>
+                        <div class="style-count" (click)="emitDataToRefferalResult(element)">
+                            {{element.count}}
+                        </div>
+                    </div>
+                </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+            </table>
+       </div>
+    </div>
+    <div class="button-wrapper">
+        <button mat-stroked-button class="custom-button black" (click)="emitDataToRefferalResult(ecfData)"><strong>EMPLOYMENT AND COMMUNITY FIRST CHOICES (ECF) REFERRAL LIST
+            &nbsp;&nbsp; {{ecfData?.ecfCount}}</strong></button>
+    </div>
+</div>
+</div>

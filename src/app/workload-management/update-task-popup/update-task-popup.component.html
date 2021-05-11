@@ -1,0 +1,105 @@
+<div>
+    <div class="task-header">
+            <div><p>Update Task</p></div>
+            <div>
+                <span class="close-icon" style="cursor: pointer;">
+                    <mat-icon (click)=closeDialog()>highlight_off</mat-icon>
+               </span>
+           </div>
+   </div>
+    <mat-divider></mat-divider>
+    <div class="main-content">
+        <div class="task-summary">
+          <div class="container">
+          <div class="row row-cols-2">
+            <div class="col">
+              <mat-label class="update-titles">Task Queue: </mat-label>
+              <span>{{getQueueNameByCode(taskDetails?.queueCd)}}</span>
+            </div>
+            <div class="col"  *ngIf="entityName !== 'LTSS'">
+              <mat-label class="update-titles">Grand Region: </mat-label>
+              <span>{{getNameByCode(taskDetails?.grandRegionCd,'GR')}}</span>
+            </div>
+            <div class="col">
+              <mat-label class="update-titles">Task Priority: </mat-label>
+              <span>{{getNameByCode(taskDetails?.prioritySw,'TP')}}</span>
+            </div>
+
+            <div class="col">
+              <mat-label class="update-titles">Task Status: </mat-label>
+              <span>{{getNameByCode(taskDetails?.taskStatusCd,'TS')}}</span>
+            </div>
+            <div class="col">
+              <mat-label class="update-titles">Person Name: </mat-label>
+              <span>{{taskDetails?.firstName}} {{taskDetails?.midInitial}} {{taskDetails?.lastName}}</span>
+            </div>
+            <div class="col">
+              <mat-label class="update-titles">Record ID: </mat-label>
+              <span>{{taskDetails?.refId}}</span>
+            </div>
+            <div class="col">
+              <mat-label class="update-titles">Task Created: </mat-label>
+              <span>{{taskDetails?.createDte}}</span>
+          </div>
+            <div class="col">
+              <mat-label class="update-titles">Task Due Date: </mat-label>
+              <span>{{taskDetails?.dueDate}}</span>
+          </div>
+          </div>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+        <app-task-details [taskDetails]="taskDetails"></app-task-details>
+        <app-task-closure [taskDetails]="taskDetails"></app-task-closure>
+        <app-assign-task  [taskIds]="data.data.taskId" [taskDetails]="taskDetails"></app-assign-task>
+        <mat-divider></mat-divider>
+        <div class="task-history">
+                <p class="history-header">Task Status History</p>
+                <div>
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                        <!--- Note that these columns can be defined in any order.
+                              The actual rendered columns are set as a property on the row definition" -->
+
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="taskQueue">
+                          <th id="taskQueue" mat-header-cell *matHeaderCellDef class='table-th'>Task Queue</th>
+                          <td mat-cell *matCellDef="let element">{{getQueueNameByCode(element.taskQueue)}}</td>
+                       </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="taskPriority">
+                          <th id="taskQueue" mat-header-cell *matHeaderCellDef class='table-th'>Task Priority</th>
+                          <td mat-cell *matCellDef="let element">{{getNameByCode(element.taskPriority,'TP')}}</td>
+                       </ng-container>
+
+                        <!-- Weight Column -->
+                        <ng-container matColumnDef="taskStatus">
+                          <th id="taskQueue" mat-header-cell *matHeaderCellDef class='table-th'>Task Status</th>
+                          <td mat-cell *matCellDef="let element">{{getNameByCode(element.taskStatus,'TS')}}</td>
+                       </ng-container>
+
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="updateDate">
+                          <th id="taskQueue" mat-header-cell *matHeaderCellDef class='table-th'>Updated date</th>
+                          <td mat-cell *matCellDef="let element">{{element.updateDate  }}</td>
+                       </ng-container>
+                           <!-- Symbol Column -->
+                           <ng-container matColumnDef="updateUser">
+                            <th id="taskQueue" mat-header-cell *matHeaderCellDef class='table-th'>Updated User</th>
+                            <td mat-cell *matCellDef="let element">{{element.updateByUser}}</td>
+                         </ng-container>
+
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="assignedUser">
+                         <th id="taskQueue" mat-header-cell *matHeaderCellDef class='table-th'>Assigned User</th>
+                         <td mat-cell *matCellDef="let element">{{element.assignedUser}}</td>
+                      </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                     </table>
+               </div>
+       </div>
+   </div>
+</div>

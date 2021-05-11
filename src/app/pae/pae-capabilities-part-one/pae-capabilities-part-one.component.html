@@ -1,0 +1,97 @@
+<div class="responsive">
+  <form [formGroup]="myForm">
+    <div class="scroller">
+      <div class="side-application"><div class="applicantName">{{applicantName}}</div></div>
+      <h3 class="spacing">Transfers</h3>
+      <mat-radio-group formControlName="trnsfrCd">
+        <mat-label class="req">Can the applicant self-transfer to and from bed or chair without physical help from others?</mat-label>
+        <mat-error *ngIf="submitted && f.trnsfrCd.errors && f.trnsfrCd.errors?.required">{{customValidation.A1}}
+        </mat-error>
+        <mat-radio-button value="CA">Capable of self-transfer.</mat-radio-button>
+        <mat-radio-button value="UC">Usually capable of self-transfer but occasionally may
+          require assistance from others or standby assistance.</mat-radio-button>
+        <mat-radio-button value="IC">Incapable of self-transfer.</mat-radio-button>
+      </mat-radio-group>
+      <mat-divider class="perlss-section-divider"></mat-divider>
+
+      <h3 class="spacing">Mobility by Ambulation or Wheelchair</h3>
+      <mat-radio-group formControlName="mobilityCd">
+        <mat-label class="req">Can applicant walk without physical help from others?</mat-label>
+        <mat-error *ngIf="submitted && f.mobilityCd.errors && f.mobilityCd.errors?.required">{{customValidation.A1}}
+        </mat-error>
+        <mat-radio-button value="CA">Capable of mobility by ambulation or wheelchair without
+          assistance.</mat-radio-button>
+        <mat-radio-button value="UC">Capable of mobility by ambulation or wheelchair but
+          may require either mechanical assistance (walker, crutch, cane, or other mobility aid), standby
+          assistance, or occasional physical assistance provided by others.</mat-radio-button>
+        <mat-radio-button value="IC">Usually or always incapable of mobility by walking and
+          by use of a wheelchair unless physical assistance is provided by others.</mat-radio-button>
+      </mat-radio-group>
+      <mat-divider class="perlss-section-divider"></mat-divider>
+
+      <h3 class="spacing">Eating / Feeding</h3>
+      <mat-radio-group formControlName="eatingCd">
+        <mat-label class="req">Can the applicant eat prepared meals without physical help from others?</mat-label>
+        <mat-error *ngIf="submitted && f.eatingCd.errors && f.eatingCd.errors?.required">{{customValidation.A1}}
+        </mat-error>
+        <mat-radio-button value="CA">Feeds self with a spoon or with a fork without assistance.
+        </mat-radio-button>
+        <mat-radio-button value="UC">Capable of self-feeding with a spoon or with a fork but requires
+          some assistance(e.g., setting up for the food tray, cutting up meat, or simple encouragement to eat or
+          to eat less rapidly).</mat-radio-button>
+        <mat-radio-button value="IC">Incapable of self-feeding without continual supervision and
+          assistance with multiple eating problems (excluding supervision of obesity or weight reduction).
+        </mat-radio-button>
+        <mat-radio-button value="TU">Requires feeding by nasogastic or gastrostomy tube.
+        </mat-radio-button>
+      </mat-radio-group>
+      <mat-divider class="perlss-section-divider"></mat-divider>
+
+      <h3 class="spacing">Toileting and Toileting Hygiene</h3>
+      <mat-radio-group formControlName="toiletingCd" >
+        <mat-label class="req">Can applicant toilet without physical help from others?
+          <br>(This does not include transferring)</mat-label>
+        <mat-error *ngIf="submitted && f.toiletingCd.errors && f.toiletingCd.errors?.required">{{customValidation.A1}}
+        </mat-error>
+        <mat-radio-button value="CA">Can use a toilet and care for toileting hygiene without
+          assistance.</mat-radio-button>
+        <mat-radio-button value="UC">Can use a toilet and usually can care for
+          toileting
+          hygiene; requires supervision and minor assistance (e.g., adjustment of clothing, cueing).
+        </mat-radio-button>
+        <mat-radio-button value="IC">Incapable of self-execution of toileting or
+          toileting
+          hygiene in the absence of continual supervision and physical assistance (e.g., scheduled toileting).
+        </mat-radio-button>
+      </mat-radio-group>
+      <mat-divider class="perlss-section-divider"></mat-divider>
+
+      <h3 class="spacing">Bathing</h3>
+
+      <mat-radio-group formControlName="bathingCd">
+        <mat-label class="req">Can applicant bathe without physical help from others?</mat-label>
+        <mat-error *ngIf="submitted && f.bathingCd.errors && f.bathingCd.errors?.required">{{customValidation.A1}}
+        </mat-error>
+        <mat-radio-button value="CA">Capable of bathing without assistance.
+        </mat-radio-button>
+        <mat-radio-button value="UC">Capable of bathing but requires some assistance
+          (e.g.
+          sitting up in the bath, adjusting the water temperatures, assistance into the bath, encouragement to
+          bathe, or assistance with clothing).</mat-radio-button>
+        <mat-radio-button value="IC">Incapable of bathing without continual
+          supervision
+          and assistance and requires assistance with multiple bathing functions in order to complete the
+          bathing
+          process.</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <mat-divider class="perlss-section-divider"></mat-divider>
+    <div class="buttonBar">
+      <button type="button" mat-flat-button color="primary" class="perlss-click-button-white"
+        (click)="openLeavePagePopup()">BACK</button>
+      <button type="button" mat-flat-button color="primary" class="perlss-click-button-white-noborder"
+        (click)="saveAndExit()">SAVE AND EXIT</button>
+      <button type="button" mat-flat-button color="primary" class="perlss-click-button" (click)="onSubmit()">NEXT</button>
+    </div>
+  </form>
+</div>

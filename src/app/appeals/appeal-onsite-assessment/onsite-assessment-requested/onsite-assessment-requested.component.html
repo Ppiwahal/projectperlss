@@ -1,0 +1,27 @@
+<div class="wrapper" *ngIf="onsiteAssessmentOnLoad?.onsiteAssmntSw == 'Y'">
+    <h5> <em> What's requsted with this Onsite Assessment?</em></h5>
+   <ul class="dashed">
+       <li *ngIf="onsiteAssessmentOnLoad?.faceFaceAssmntSw == 'Y'">
+        Face-to-Face Assessment (Consisting of Applicant and Collateral tools as appropriate in addition to obtaining current supporting Medical Documentation)
+       </li>
+       <li *ngIf="onsiteAssessmentOnLoad?.finalLocEligDeterSw == 'Y'">Render a final level of care eligibility determination</li>
+       <li *ngIf="onsiteAssessmentOnLoad?.safetyRefFormSw == 'Y'">Safety Justification for:
+            <ul class="inner-list dashed">
+                <li>
+                    Behaviors, Transfers
+                </li>
+            </ul>
+       </li>
+       <li>
+            <ul class="inner-list dashed" *ngIf="onsiteAssessmentOnLoad?.addInfoComments && onsiteAssessmentOnLoad?.addInfoComments !== '' ">
+                <li>
+                <strong>Additional Information requested:</strong>
+                </li>
+                <li>
+                   {{onsiteAssessmentOnLoad?.addInfoComments}}
+                </li>
+            </ul> 
+       </li>
+           
+   </ul>
+</div>

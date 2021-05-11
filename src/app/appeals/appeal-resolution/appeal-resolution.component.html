@@ -1,0 +1,44 @@
+<div class="wrapper">
+  <div class="header-wrapper">
+    <p class="header">Appeal Resolution</p>
+    <p class="required-tag"> <span class="required">*</span> Required </p>
+  </div>
+  <div *ngIf="isAppellantInfo">
+    <app-appellant-info [appellantInfoStatus]="appellantInfoStatus" [appellantInfo]="appellantInfo">
+    </app-appellant-info>
+  </div>
+  <div *ngIf="isAppealReviewOnLoad" class="section">
+    <app-linked-record-summary [linkedRecordSummary]="appealReviewOnLoad"
+      [passrRefrenceTableData]="passrRefrenceTableData"></app-linked-record-summary>
+  </div>
+  <div class="heading-green">
+    Appeal Resolution Details
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <mat-form-field appearance="outline" style="width:100% !important">
+        <mat-label><span class="required">*</span><span class="black-heading">Reason For Appeal Resolution</span>
+        </mat-label>
+        <mat-select (selectionChange)="onReasonChange($event)" placeholder="Select Status">
+          <mat-option value=''>Select an option</mat-option>
+          <mat-option *ngFor="let reason of reasonForAppeal" [value]="reason.code">{{reason.value}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div *ngIf="isClosure">
+    <app-appeal-resolution-closure (appellantInfoUpdate)="updateAppellantInfo($event)" [appellantInfo]="appellantInfo"
+      (navigateBackToAppealHearing)="navigateBack()">
+    </app-appeal-resolution-closure>
+  </div>
+  <div *ngIf="isApproval">
+    <app-appeal-resolution-approval (appellantInfoUpdate)="updateAppellantInfo($event)" [appellantInfo]="appellantInfo"
+      (navigateBackToAppealHearing)="navigateBack()">
+    </app-appeal-resolution-approval>
+  </div>
+  <div *ngIf="isHearing">
+    <app-appeal-resolution-hearing (appellantInfoUpdate)="updateAppellantInfo($event)" [appellantInfo]="appellantInfo"
+      (navigateBackToAppealHearing)="navigateBack()">
+    </app-appeal-resolution-hearing>
+  </div>
+</div>

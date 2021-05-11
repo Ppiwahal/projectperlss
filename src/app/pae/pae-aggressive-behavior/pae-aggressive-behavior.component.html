@@ -1,0 +1,319 @@
+<div class="pageMargin">
+
+  <div class="pageMargin">
+
+    <div class="applicantName">{{applicantName}}</div>
+    <div>
+      Please complete all required questions regarding the child's physically aggressive behavior toward others.
+    </div>
+    <br>
+    <div class="accordion-container">
+      <mat-accordion class="example-headers-align">
+        <mat-expansion-panel hideToggle #panel1>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Physically Aggressive Behavior
+            </mat-panel-title>
+            <ng-container *ngIf="!isPhysicallyAggressiveSaved; else view">
+              <mat-icon>{{panel1.expanded ? 'remove_circle_outline' : 'add_circle_outline'}}</mat-icon>
+              &nbsp;<span> ADD DETAILS</span>
+            </ng-container>
+            <ng-template #view>
+              <span class="self-center"> VIEW DETAILS </span> &nbsp; <mat-icon>{{panel1.expanded ? 'arrow_drop_up' : 'arrow_drop_down'}}</mat-icon>
+            </ng-template>
+          </mat-expansion-panel-header>
+          <form [formGroup]="paePhysicallyAggressiveBehaviorFormGroup">
+            <div class="accordion-content-container" [ngClass]="(!isPhysicallyAggressiveSaved || physicallyAggressiveEditMode) ? 'edit' : 'viewonly'">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="question-container">
+                    <mat-label>
+                      <mat-label class="required-class">*</mat-label>
+                      Does the child exhibit a persistent pattern of physically aggressive behaviors not explained by
+                      the age or lack of maturity of the aggressor that results in serious harm to others, or that would
+                      result in serious harm without intervention or restraints?
+                      <mat-icon class="mattoolip-icon"
+                        matTooltip=" Includes targeting of violent behaviors against a parent, sibling or other that results in serious harm, or that was intended to inflict serious harm even if actual harm did not occur, or if the act was interrupted and not carried out. May include hitting (using a hand or arm with a closed or open fist to make forceful physical contact with another person), hitting with objects (whether held or thrown), kicking (with foot or leg), headbutting (using the head or face to make forceful physical contact with another person), biting, scratching that breaks skin, pinching when hard enough to cause severe pain, forceful pushing, or hair pulling.">
+                        help_outline</mat-icon>
+                    </mat-label>
+                  </div>
+                  <div
+                    *ngIf="getFormData(1).childAggressiveBehavior.hasError('required') && (getFormData(1).childAggressiveBehavior.touched || submitted)">
+                    <mat-error>{{customValidation.A1}}</mat-error>
+                  </div>
+                  <div class="radio-container">
+                    <mat-radio-group formControlName="childAggressiveBehavior" >
+                      <div>
+                        <mat-radio-button value="Y">Yes</mat-radio-button>
+                      </div>
+                      <div>
+                        <mat-radio-button value="N">No</mat-radio-button>
+                      </div>
+                    </mat-radio-group>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="question-container">
+                    <mat-label>
+                      <mat-label class="required-class">*</mat-label>
+                      How often does this behavior (physically aggressive behavior) require continuous, <b>within
+                        arm's-reach intervention</b>, environmental or other restraints, and engagement of behavioral
+                      health
+                      professionals for treatment or support?
+                    </mat-label>
+                  </div>
+                  <div
+                    *ngIf="getFormData(1).armReachIntervention.hasError('required') && (getFormData(1).armReachIntervention.touched || submitted)">
+                    <mat-error>{{customValidation.A1}}</mat-error>
+                  </div>
+                  <div class="radio-container">
+                    <mat-radio-group formControlName="armReachIntervention">
+                      <div>
+                        <mat-radio-button value="Y">Yes</mat-radio-button>
+                      </div>
+                      <div>
+                        <mat-radio-button value="N">No</mat-radio-button>
+                      </div>
+                    </mat-radio-group>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="question-container">
+                    <mat-label>
+                      <mat-label class="required-class">*</mat-label>
+                      How often does this behavior (physically aggressive behavior) require <b>crisis intervention</b>,
+                      including behavior crisis teams, law enforcement, or emergency medical treatment to prevent
+                      serious harm to the child or others?
+                    </mat-label>
+                  </div>
+                  <div
+                    *ngIf="getFormData(1).crisisIntervention.hasError('required') && (getFormData(1).crisisIntervention.touched || submitted)">
+                    <mat-error>{{customValidation.A1}}</mat-error>
+                  </div>
+                  <div class="radio-container">
+                    <mat-radio-group formControlName="crisisIntervention">
+                      <div>
+                        <mat-radio-button value="Y">Yes</mat-radio-button>
+                      </div>
+                      <div>
+                        <mat-radio-button value="N">No</mat-radio-button>
+                      </div>
+                    </mat-radio-group>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="question-container">
+                    <mat-label>
+                      <mat-label class="required-class">*</mat-label>
+                      Have the support needs for this behavior (physically aggressive behavior) persisted for 6 months
+                      and expected to last at least 12 months?
+                    </mat-label>
+                  </div>
+                  <div
+                    *ngIf="getFormData(1).supportNeedsBehavior.hasError('required') && (getFormData(1).supportNeedsBehavior.touched || submitted)">
+                    <mat-error>{{customValidation.A1}}</mat-error>
+                  </div>
+                  <div class="radio-container">
+                    <mat-radio-group formControlName="supportNeedsBehavior">
+                      <div>
+                        <mat-radio-button value="Y">Yes</mat-radio-button>
+                      </div>
+                      <div>
+                        <mat-radio-button value="N">No</mat-radio-button>
+                      </div>
+                    </mat-radio-group>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="row" *ngIf="!isPhysicallyAggressiveSaved || physicallyAggressiveEditMode">
+              <div class="col-md-6">
+                <button type="button" mat-flat-button class="perlss-back-button"
+                  (click)="savePhysicallyAggressiveBehaviorInfo(); panel1.expanded = paePhysicallyAggressiveBehaviorFormGroup.valid ? false : true;">SAVE</button>
+                <button type="button" mat-button class="perlss-save-button"
+                  (click)=" panel1.expanded = false; cancel(1)">CANCEL</button>
+              </div>
+            </div>
+            <div class="row" *ngIf="isPhysicallyAggressiveSaved && !physicallyAggressiveEditMode">
+              <div class="col-md-12">
+                <button type="button" mat-flat-button class="perlss-back-button"
+                  (click)="edit(1)">EDIT</button>
+                <button type="submit" mat-button class="perlss-save-button pull-right"
+                  (click)="delete(1)">DELETE</button>
+              </div>
+            </div>
+          </form>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    <div class="accordion-container">
+      <mat-accordion class="example-headers-align">
+        <mat-expansion-panel hideToggle #panel2>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Sexually Aggressive Behavior
+            </mat-panel-title>
+            <ng-container *ngIf="!isSexuallyAggressiveSaved; else view1">
+              <mat-icon>{{panel2.expanded ? 'remove_circle_outline' : 'add_circle_outline'}}</mat-icon>
+              &nbsp;<span> ADD DETAILS</span>
+            </ng-container>
+            <ng-template #view1>
+              <span class="self-center"> VIEW DETAILS </span> &nbsp; <mat-icon>{{panel2.expanded ? 'arrow_drop_up' : 'arrow_drop_down'}}</mat-icon>
+            </ng-template>
+          </mat-expansion-panel-header>
+          <form [formGroup]="paeSexuallyAggressiveBehaviorFormGroup">
+            <div class="accordion-content-container" [ngClass]="(!isSexuallyAggressiveSaved || sexuallyAggressiveEditMode) ? 'edit' : 'viewonly'">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="question-container">
+                    <mat-label>
+                      <mat-label class="required-class">*</mat-label>
+                      Does the child exhibit the behaviors of sexually aggressive behavior?
+                      <mat-icon class="mattoolip-icon"
+                        matTooltip="Includes targeting of violent behaviors against a parent, sibling or other that results in serious harm, or that was intended to inflict serious harm even if actual harm did not occur, or if the act was interrupted and not carried out. May include hitting (using a hand or arm with a closed or open fist to make forceful physical contact with another person), hitting with objects (whether held or thrown), kicking (with foot or leg), headbutting (using the head or face to make forceful physical contact with another person), biting, scratching that breaks skin, pinching when hard enough to cause severe pain, forceful pushing, or hair pulling.">
+                        help_outline</mat-icon>
+                    </mat-label>
+                  </div>
+                  <div
+                    *ngIf="getFormData(2).childAggressiveBehavior.hasError('required') && (getFormData(2).childAggressiveBehavior.touched || submitted)">
+                    <mat-error>{{customValidation.A1}}</mat-error>
+                  </div>
+                  <div class="radio-container">
+                    <mat-radio-group formControlName="childAggressiveBehavior">
+                      <div>
+                        <mat-radio-button value="Y">Yes</mat-radio-button>
+                      </div>
+                      <div>
+                        <mat-radio-button value="N">No</mat-radio-button>
+                      </div>
+                    </mat-radio-group>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="question-container">
+                    <mat-label>
+                      <mat-label class="required-class">*</mat-label>
+                      How often does this behavior (sexually aggressive behavior) require continuous,<b> within
+                        arm's-reach intervention,</b> environmental or other restraints, and engagement of
+                      behavioral health professionals for treatment of support?"
+                    </mat-label>
+                  </div>
+                  <div
+                    *ngIf="getFormData(2).armReachIntervention.hasError('required') && (getFormData(2).armReachIntervention.touched || submitted)">
+                    <mat-error>{{customValidation.A1}}</mat-error>
+                  </div>
+                  <div class="radio-container">
+                    <mat-radio-group formControlName="armReachIntervention">
+                      <div>
+                        <mat-radio-button value="4">4 or more times per week on average</mat-radio-button>
+                      </div>
+                      <div>
+                        <mat-radio-button value="3">1-3 times per week on average</mat-radio-button>
+                      </div>
+                      <div>
+                        <mat-radio-button value="N">Never</mat-radio-button>
+                      </div>
+                    </mat-radio-group>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="question-container">
+                    <mat-label>
+                      <mat-label class="required-class">*</mat-label>
+                      How often does this behavior (sexually aggressive behavior) require <b>crisis intervention,</b>
+                      including behavior crisis teams, law enforcement, or emergency medical treatment to prevent
+                      serious harm to the child or others?
+                    </mat-label>
+                  </div>
+                  <div
+                    *ngIf="getFormData(2).crisisIntervention.hasError('required') && (getFormData(2).crisisIntervention.touched || submitted)">
+                    <mat-error>{{customValidation.A1}}</mat-error>
+                  </div>
+                  <div class="radio-container">
+                    <mat-radio-group formControlName="crisisIntervention">
+                      <div>
+                        <mat-radio-button value="1">1 or more times per week on average</mat-radio-button>
+                      </div>
+                      <div>
+                        <mat-radio-button value="3">less than 1 time per week on average</mat-radio-button>
+                      </div>
+                      <div>
+                        <mat-radio-button value="N">Never</mat-radio-button>
+                      </div>
+                    </mat-radio-group>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="question-container">
+                    <mat-label>
+                      <mat-label class="required-class">*</mat-label>
+                      Have the support needs for this behavior (sexually aggressive behavior) persisted for 6 months and
+                      expected to last atleast 12 months?
+                    </mat-label>
+                  </div>
+                  <div
+                    *ngIf="getFormData(2).supportNeedsBehavior.hasError('required') && (getFormData(2).supportNeedsBehavior.touched || submitted)">
+                    <mat-error>{{customValidation.A1}}</mat-error>
+                  </div>
+                  <div class="radio-container">
+                    <mat-radio-group formControlName="supportNeedsBehavior">
+                      <div>
+                        <mat-radio-button value="Y">Yes</mat-radio-button>
+                      </div>
+                      <div>
+                        <mat-radio-button value="N">No</mat-radio-button>
+                      </div>
+                    </mat-radio-group>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <mat-divider class="perlss-horizontal-divider"></mat-divider>-->
+
+            <div class="seperator-mar"></div>
+            <div class="seperator-mar"></div>
+
+            <br>
+            <div class="row" *ngIf="!isSexuallyAggressiveSaved || sexuallyAggressiveEditMode">
+              <div class="col-md-6">
+                <button type="button" mat-flat-button class="perlss-back-button"
+                  (click)="saveSexuallyAggressiveBehaviorInfo(); panel2.expanded = paeSexuallyAggressiveBehaviorFormGroup.valid ? false : true;">SAVE</button>
+                <button type="button" mat-button class="perlss-save-button"
+                  (click)=" panel2.expanded = false; cancel(2)">CANCEL</button>
+              </div>
+            </div>
+            <div class="row" *ngIf="isSexuallyAggressiveSaved && !sexuallyAggressiveEditMode">
+              <div class="col-md-12">
+                <button type="button" mat-flat-button class="perlss-back-button"
+                  (click)="edit(2)">EDIT</button>
+                <button type="submit" mat-button class="perlss-save-button pull-right"
+                  (click)="delete(2)">DELETE</button>
+              </div>
+            </div>
+          </form>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+  <div class="buttonBar">
+    <button type="submit" mat-flat-button color="primary" class="perlss-click-button-white"
+      (click)="back()">BACK</button>
+    <button type="submit" mat-button class="perlss-save-button" (click)="saveAndExit();">SAVE AND EXIT</button>
+    <button type="submit" mat-flat-button color="primary" class="perlss-click-button"
+       (click)="next()">NEXT</button>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+
+.icon-wrapper{
+    cursor: pointer;
+    color: #1B365D;
+    width: 20%;
+    position: relative;
+    margin-top: 15px;
+    .span-icon-text{
+        position: absolute;
+        top: 5px;
+        font-size: 14px;
+        font-weight: bold;
+        margin-left: 5px;
+    }
+}
+
+  .radio-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    .example-radio-group{
+        display: flex;
+        flex-direction: column;
+        margin-top: 5px;
+        margin-left: 5px;
+        width: 1%;
+    }
+}
+
+.section-2{
+    margin-top: 30px;
+}
+
+h5{
+    font-weight: bold;
+    color: green;
+    font-size: 16px;
+}

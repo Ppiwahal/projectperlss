@@ -1,0 +1,66 @@
+@import '../../../colors.scss';
+
+.body-font-style {
+  font-size: 14px;
+  padding-left: 20px;
+}
+
+::ng-deep .mat-form-field {
+  width: 100%;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: $colorControlBackground;
+  border-radius: 5px;
+  border-color: #ced4da;
+}
+
+.red-icon {
+  color: red;
+  transform: scale(0.8);
+}
+
+.page-sub-heading {
+  font-weight: bold;
+  color: #ed6053;
+  font-size: 24px;
+}
+
+.sub-heading {
+  font-family: "Open Sans";
+  letter-spacing: 50;
+  font-weight: bold;
+  font-size: 32px;
+  color: #174a7c;
+}
+
+.required-color {
+  color: #ed6053;
+}
+
+.perlss-section-divider {
+  width: 95%;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-top: 2px solid #4D7E20;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: $colorControlBackground;
+  border-radius: 5px;
+  border-color: #ced4da;
+}
+
+.button-container{
+  padding-top: 36px;
+}
+
+.chkStyle{
+  font-size: 20px;
+  padding: 15px 60px;
+  text-align: right;
+}
+
+.chkW{
+  width: 8vw;
+}

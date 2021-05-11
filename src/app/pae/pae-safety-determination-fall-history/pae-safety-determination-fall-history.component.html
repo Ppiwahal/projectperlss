@@ -1,0 +1,290 @@
+<div class="responsive">
+  <form [formGroup]="paeFallHistoryForm" class="responsive">
+    <div class="scroller">
+      <div class="applicantName">{{applicantName}}</div>
+      <br><br>
+      <h2>Fall History Information</h2>
+      <p>Please provide available information for falls occurring within the last 6 months. All fields are not required,
+        but providing all the details available will help ensure that the correct LOC is approved for this person.
+      </p>
+      <br><br>
+      <div>
+        <div class="row">
+          <div class="col-md-12">
+            <span class="required-color"><sup>*</sup></span>
+            <mat-label>How many falls did the applicant experience in the last 6 months?
+            </mat-label>
+          </div>
+       </div>
+        <br>
+        <div class="row" style="width:25%;margin-left: 1%;">
+          <div class="col-md-12">
+            <mat-form-field appearance="outline">
+              <mat-label></mat-label>
+              <input matInput formControlName="fallHistoryCount" maxlength="3" type="tel" mask="separator.0">
+            </mat-form-field> 
+            <mat-error
+              *ngIf="getFormData().fallHistoryCount.errors?.required && (getFormData().fallHistoryCount.touched || submitted)">
+              {{customValidation.A1}}
+            </mat-error>
+          </div>
+       </div>
+      </div>
+      <div id="top">
+        <mat-accordion>
+          <ng-container *ngFor="let item of dataSource" >
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" class="expPanel">   
+              <mat-expansion-panel-header class="accordion-header">
+                <mat-panel-title class="panel-title">
+                  Fall Date: {{item.fallDt}}
+                </mat-panel-title>
+                <mat-panel-description class="panel-description">
+                  VIEW DETAILS
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="col-md-12">
+                <mat-label class="required-color"><sup>*</sup></mat-label>
+                <mat-label>Location of Fall</mat-label>
+                <mat-form-field appearance="outline" style="width:100% !important">
+                  <input matInput readonly />{{item.locationOfFall}}
+                </mat-form-field>
+              </div>
+              <br>
+              <div class="row">               
+                <div class="col-md-6">
+                  <mat-label class="required-color"><sup>*</sup></mat-label>
+                  <mat-label>Date of Fall</mat-label>
+                  <mat-form-field appearance="outline" style="width:100% !important">
+                    <input matInput readonly />{{item.fallDt}}
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-label class="required-color">*</mat-label>
+                  <mat-label>Time of Fall</mat-label>
+                  <mat-form-field appearance="outline" style="width:100% !important">
+                    <input matInput readonly />{{item.fallTimeCd}}
+                  </mat-form-field>
+                </div>
+              </div>
+              <br><br>
+              <div class="row" style="margin-left: 21.5px;">
+                <mat-label>Factors contributing to Fall:</mat-label>
+              </div>     
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-checkbox class="checkbox-element" [checked]="item.fallFactorEnvSw=='Y'?true:false" disabled>
+                    <mat-label>Environment</mat-label>
+                  </mat-checkbox>
+                </div>
+                <div class="col-md-6">
+                  <mat-checkbox class="checkbox-element" [checked]="item.fallFactorLowBldSw=='Y'?true:false" disabled>
+                    <mat-label>Low Blood Sugar</mat-label>
+                  </mat-checkbox>
+                </div>
+              </div>
+      
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-checkbox class="checkbox-element" [checked]="item.fallFactorMedSw=='Y'?true:false" disabled>
+                    <mat-label>Medicine</mat-label>
+                  </mat-checkbox>
+                </div>
+      
+                <div class="col-md-6">
+                  <mat-checkbox class="checkbox-element" [checked]="item.fallFactorImpVisSw=='Y'?true:false" disabled>
+                    <mat-label>Impaired Vision</mat-label>
+                  </mat-checkbox>
+                </div>
+              </div>
+              <br><br>
+              <div class="row" style="margin-left: 21.5px;">
+                <mat-label>Additional Factors</mat-label>
+              </div>   
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field appearance="outline">
+                    <input matInput readonly />{{item.fallAdditionalFactor}}
+                  </mat-form-field>
+                </div>
+              </div>
+              <br><br>
+              <div class="row" style="margin-left: 21.5px">
+                <mat-label class="required-color"><sup>*</sup></mat-label>
+                <mat-label>Was an injury sustained related to fall?</mat-label>
+              </div><br>     
+              <div class="row">
+                <mat-radio-group>
+                  <div class="row" style="margin-left: 15px;">
+                    <mat-radio-button class="example-radio-button" [checked]="item.injurySustainSw=='Y'?true:false">
+                      {{item.injurySustainSw=='Y'?"Yes":"No"}}
+                    </mat-radio-button>
+                  </div>
+                </mat-radio-group>
+              </div>
+              <br>
+              <div class="col-md-12">
+                <mat-label class="required-color"><sup>*</sup></mat-label>
+                <mat-label>Describe the applicant's sustained injuries.</mat-label>
+                <mat-form-field appearance="outline" style="width:100% !important">
+                  <input matInput readonly />{{item.injuriesDesc}}
+                </mat-form-field>
+              </div>
+              <br><br>
+              <div class="col-md-12">
+                <mat-label class="required-color"><sup>*</sup></mat-label>
+                <mat-label>What mechanisms are in place to prevent fails?</mat-label>
+                <mat-form-field appearance="outline" style="width:100% !important">
+                  <input matInput readonly />{{item.preventMchnsmDesc}}
+                </mat-form-field>
+              </div>
+              <br><br>
+              <div class="col-md-12">
+                <mat-label class="required-color"><sup>*</sup></mat-label>
+                <mat-label>Why were these prevention mechanisms unsuccessful?</mat-label>
+                <mat-form-field appearance="outline" style="width:100% !important">
+                  <input matInput readonly />{{item.preventMchnsmUnsucsflDesc}}
+                </mat-form-field>
+              </div>
+            </mat-expansion-panel>
+            <br>
+          </ng-container>       
+       </mat-accordion>
+      </div>     
+      <br><br>
+      <div>
+        <button (click)="toggleShow()" id="fallDetl">ADD FALL DETAILS</button>
+      </div><br>
+      <div *ngIf="isShown">
+        <div class="col-md-12">
+          <mat-label class="required-color"><sup>*</sup></mat-label>
+          <mat-label>Location of Fall</mat-label>
+          <mat-form-field appearance="outline" style="width:100% !important">
+            <input matInput formControlName="locationOfFall" />
+          </mat-form-field>
+       </div>
+        <br>
+        <div class="row">
+          <div class="col-md-6">
+            <mat-label class="required-color"><sup>*</sup></mat-label>
+            <mat-label>Date of Fall</mat-label>
+            <mat-form-field appearance="outline" style="width:100% !important">
+              <input matInput readonly [matDatepicker]="picker" formControlName="fallDt" [min]="minDate" [max]="maxDate">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-label class="required-color"><sup>*</sup></mat-label>
+            <mat-label>Time of Fall</mat-label>
+            <mat-form-field appearance="outline">
+              <mat-label>
+                <mat-label class="required-color"><sup>*</sup></mat-label>Time of Fall
+              </mat-label>
+              <mat-select matNativeControl formControlName="fallTimeCd">
+                <mat-option *ngFor="let option of timeOptions" [value]="option.code">
+                  {{option.value}}</mat-option>
+              </mat-select>
+            </mat-form-field> 
+          </div>
+       </div>
+        <br><br>
+        <div class="row" style="margin-left: 21.5px;">
+          <mat-label>Factors contributing to Fall:</mat-label>
+       </div>     
+        <div class="row">
+          <div class="col-md-4">
+            <mat-checkbox class="checkbox-element" formControlName="fallFactorEnvSw">
+              <mat-label>Environment</mat-label>
+            </mat-checkbox>
+          </div>
+          <div class="col-md-6">
+            <mat-checkbox class="checkbox-element" formControlName="fallFactorLowBldSw">
+              <mat-label>Low Blood Sugar</mat-label>
+            </mat-checkbox>
+          </div>
+       </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <mat-checkbox class="checkbox-element" formControlName="fallFactorMedSw">
+              <mat-label>Medicine</mat-label>
+            </mat-checkbox>
+          </div>
+
+          <div class="col-md-6">
+            <mat-checkbox class="checkbox-element" formControlName="fallFactorImpVisSw">
+              <mat-label>Impaired Vision</mat-label>
+            </mat-checkbox>
+          </div>
+       </div>
+        <br><br>
+        <div class="row" style="margin-left: 21.5px;">
+          <mat-label>Additional Factors</mat-label>
+       </div>   
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field appearance="outline">
+              <input matInput formControlName="fallAdditionalFactor" />
+            </mat-form-field>
+          </div>
+       </div>
+        <br><br>
+        <div class="row" style="margin-left: 21.5px">
+          <mat-label class="required-color"><sup>*</sup></mat-label>
+          <mat-label>Was an injury sustained related to fall?</mat-label>
+       </div><br>     
+        <div class="row">
+          <mat-radio-group aria-labelledby="example-radio-group-label" formControlName="injurySustainSw">
+            <div class="row" >
+              <mat-radio-button value="Y">Yes</mat-radio-button>
+            </div>
+            <div class="row" >
+              <mat-radio-button value="N">No</mat-radio-button>
+            </div>
+          </mat-radio-group>
+       </div>
+        <br>
+        <div class="col-md-12">
+          <mat-label class="required-color"><sup>*</sup></mat-label>
+          <mat-label>Describe the applicant's sustained injuries.</mat-label>
+          <mat-form-field appearance="outline" style="width:100% !important">
+            <input matInput formControlName="injuriesDesc" />
+          </mat-form-field>
+       </div>
+        <br>
+        <div class="col-md-12">
+          <mat-label class="required-color"><sup>*</sup></mat-label>
+          <mat-label>What mechanisms are in place to prevent fails?</mat-label>
+          <mat-form-field appearance="outline" style="width:100% !important">
+            <input matInput formControlName="preventMchnsmDesc" />
+          </mat-form-field>
+       </div>
+        <br><br>
+        <div class="col-md-12">
+          <mat-label class="required-color"><sup>*</sup></mat-label>
+          <mat-label>Why were these prevention mechanisms unsuccessful?</mat-label>
+          <mat-form-field appearance="outline" style="width:100% !important">
+            <input matInput formControlName="preventMchnsmUnsucsflDesc" />
+          </mat-form-field>
+       </div>       
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row" style="margin-left: 2px; padding-top: 10px; width:95%;">
+              <div class="col-md-2" style="text-align: left;">
+                <button type="submit" (click)="saveNewRecord();clearForm();" mat-stroked-button class="expandable-row-button" >SAVE</button>
+              </div>
+              <div class="col-md-2" style="text-align: left;">
+                <button mat-flat-button color="primary" (click)="cancelForm();clearForm();" class="perlss-click-button-white-noborder">CANCEL</button>
+              </div>
+            </div>
+          </div>
+       </div>
+      </div>
+    </div>
+    <div class="buttonBar">
+      <button mat-flat-button color="primary" class="perlss-click-button-white" (click)="back()">BACK</button>
+      <button mat-flat-button color="primary" class="perlss-click-button-white-noborder" (click)="saveAndExit()">SAVE AND EXIT</button>
+      <button mat-flat-button color="primary" class="perlss-click-button" (click)="next()">NEXT</button>
+    </div>
+  </form>
+</div>

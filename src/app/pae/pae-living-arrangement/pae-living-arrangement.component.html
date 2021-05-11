@@ -1,0 +1,288 @@
+<div class="responsive">
+	<form [formGroup]="livingArrangementForm">
+		<div class="scroller">
+			<div class="applicantName styleCorrectn">{{applicantName}}</div>
+			<h2>Living Arrangement Details</h2>
+			<div class="row">
+				<div class="col-md-6">
+					<ng-container *ngIf="isKbProgram">
+						<mat-form-field appearance="outline">
+							<mat-label>
+								<mat-label class="required-color">*</mat-label>Current Living Arrangement </mat-label>
+							<mat-select formControlName="currLvngArrngCd" #currLvngArrngCd (selectionChange)='oncurrLvngArrngCdSelect(currLvngArrngCd.value)'>
+								<mat-option>None</mat-option>
+								<mat-option *ngFor="let kblivingArrangement of kblivingArrangementList" [value]="kblivingArrangement.code"> {{kblivingArrangement.value}}</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</ng-container>
+					<ng-container *ngIf="!isKbProgram">
+						<mat-form-field appearance="outline">
+							<mat-label>
+								<mat-label class="required-color">*</mat-label>Current Living Arrangement </mat-label>
+							<mat-select formControlName="currLvngArrngCd" #currLvngArrngCd (selectionChange)='oncurrLvngArrngCdSelect(currLvngArrngCd.value)'>
+								<mat-option>None</mat-option>
+								<mat-option *ngFor="let livingArrangement of livingArrangementList" [value]="livingArrangement.code"> {{livingArrangement.value}}</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</ng-container>
+				</div>
+				<div class="col-md-6" *ngIf="showLvngArngDesc">
+					<mat-form-field appearance="outline">
+						<mat-label>
+							<mat-label class="required-color">*</mat-label>Describe Living Arrangement </mat-label>
+						<input matInput formControlName="lvngArngDesc" placeholder="Describe Living Arrangement">
+						<mat-error *ngIf="getFormData().lvngArngDesc.errors?.maxlength == null"> {{customValidation.maxLen50}}</mat-error>
+						<mat-error *ngIf="getFormData().lvngArngDesc.errors?.required && (getFormData().lvngArngDesc.touched || getFormData().lvngArngDesc.dirty)"> {{customValidation.A1}} </mat-error>
+						<mat-error *ngIf="getFormData().lvngArngDesc.errors?.invalid && (getFormData().lvngArngDesc.touched || getFormData().lvngArngDesc.dirty)"> {{customValidation.A2}} </mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+			<div *ngIf="isLongTermFacility" class="long-term-facility-container">
+				<div class="row">
+					<div class="col-md-12">
+						<ng-container>
+							<mat-form-field appearance="outline">
+								<mat-label>
+									<mat-label class="required-color">*</mat-label>Facility Name </mat-label>
+								<mat-select formControlName="facilityName" #facilitySelect (selectionChange)='onfacilityNameSelect(facilitySelect.value)'>
+									<mat-option>None</mat-option>
+									<mat-option *ngFor="let facilityName of facilityNameList" [value]="facilityName.code"> {{facilityName.value}}</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</ng-container>
+					</div>
+				</div>
+        <div class="row" *ngIf="isOthFacility">
+					<div class="col-md-12">
+						<mat-form-field appearance="outline">
+							<mat-label>
+								<mat-label class="required-color">*</mat-label>Other Facility Name </mat-label>
+							<input matInput formControlName="othFacilityName" placeholder="Other Facility Name"> </mat-form-field>
+						<mat-error *ngIf="getFormData().othFacilityName.errors?.maxlength && (getFormData().othFacilityName.touched || getFormData().othFacilityName.dirty)"> {{customValidation.maxLen100}}</mat-error>
+						<mat-error *ngIf="getFormData().othFacilityName.errors?.required && (getFormData().othFacilityName.touched || getFormData().othFacilityName.dirty)"> {{customValidation.A1}} </mat-error>
+						<mat-error *ngIf="getFormData().othFacilityName.errors?.invalid && (getFormData().othFacilityName.touched || getFormData().othFacilityName.dirty)"> {{customValidation.A2}} </mat-error>
+					</div>
+        </div>  
+				<div class="row">
+					<div class="col-md-6">
+						<mat-form-field appearance="outline">
+							<mat-label>
+								<mat-label class="required-color">*</mat-label>Address Line 1 </mat-label>
+							<input matInput formControlName="addrLine1" placeholder="Address Line 1"> </mat-form-field>
+						<mat-error *ngIf="getFormData().addrLine1.errors?.maxlength && (getFormData().addrLine1.touched || getFormData().addrLine1.dirty)"> {{customValidation.maxLen100}}</mat-error>
+						<mat-error *ngIf="getFormData().addrLine1.errors?.required && (getFormData().addrLine1.touched || getFormData().addrLine1.dirty)"> {{customValidation.A1}} </mat-error>
+						<mat-error *ngIf="getFormData().addrLine1.errors?.invalid && (getFormData().addrLine1.touched || getFormData().addrLine1.dirty)"> {{customValidation.A2}} </mat-error>
+					</div>
+					<div class="col-md-6">
+						<mat-form-field appearance="outline">
+							<mat-label>Address Line 2</mat-label>
+							<input matInput formControlName="addrLine2" placeholder="Address Line 2"> </mat-form-field>
+						<mat-error *ngIf="getFormData().addrLine2.errors?.maxlength && (getFormData().addrLine2.touched || getFormData().addrLine2.dirty)"> {{customValidation.maxLen50}}</mat-error>
+						<mat-error *ngIf="getFormData().addrLine2.errors?.required && (getFormData().addrLine2.touched || getFormData().addrLine2.dirty)"> {{customValidation.A1}} </mat-error>
+						<mat-error *ngIf="getFormData().addrLine2.errors?.invalid && (getFormData().addrLine2.touched || getFormData().addrLine2.dirty)"> {{customValidation.A2}} </mat-error>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<mat-form-field appearance="outline">
+							<mat-label>
+								<mat-label class="required-color">*</mat-label>City </mat-label>
+							<input matInput formControlName="city" placeholder="City"> </mat-form-field>
+						<mat-error *ngIf="getFormData().city.errors?.maxlength && (getFormData().city.touched || getFormData().city.dirty)"> Cannot exceed 25 characters</mat-error>
+						<mat-error *ngIf="getFormData().city.errors?.required && (getFormData().city.touched || getFormData().city.dirty)"> {{customValidation.A1}}</mat-error>
+						<mat-error *ngIf="getFormData().city.errors?.invalid && (getFormData().city.touched || getFormData().city.dirty)"> {{customValidation.A2}} </mat-error>
+					</div>
+					<div class="col-md-6">
+						<mat-form-field appearance="outline">
+							<mat-label>
+								<mat-label class="required-color">*</mat-label>State </mat-label>
+							<!-- <mat-select formControlName="stateCd">
+                <mat-option value="TNSS">Tennesse</mat-option>
+              </mat-select>-->
+							<mat-select matNativeControl formControlName="stateCd" (selectionChange)="trackState($event)">
+								<mat-option *ngFor="let state of stateList" [value]="state.code"> {{state.value}}</mat-option>
+							</mat-select>
+						</mat-form-field>
+						<mat-error *ngIf="getFormData().stateCd.errors !== null && (getFormData().stateCd.touched || getFormData().stateCd.dirty) && getFormData().stateCd.errors?.required"> {{customValidation.A1}} </mat-error>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<mat-form-field appearance="outline">
+							<mat-label>
+								<mat-label class="required-color">*</mat-label>Zip Code </mat-label>
+							<input matInput formControlName="zip" placeholder="Zip Code"> </mat-form-field>
+						<mat-error *ngIf="getFormData().zip.errors?.required && (getFormData().zip.touched || getFormData().zip.dirty)"> {{customValidation.A1}}</mat-error>
+						<mat-error *ngIf="getFormData().zip.errors?.pattern && (getFormData().zip.touched || getFormData().zip.dirty)"> {{customValidation.A7}} </mat-error>
+						<mat-error *ngIf="getFormData().zip.errors?.invalid && (getFormData().zip.touched || getFormData().zip.dirty)"> {{customValidation.A2}}</mat-error>
+					</div>
+					<div class="col-md-2">
+						<mat-form-field appearance="outline">
+							<mat-label>Ext</mat-label>
+							<input matInput formControlName="ext" placeholder="Ext"> </mat-form-field>
+						<mat-error *ngIf="(getFormData().ext.errors?.pattern || getFormData().ext.errors?.invalid) && (getFormData().ext.touched || getFormData().ext.dirty)"> {{customValidation.A2}} </mat-error>
+					</div>
+					<div class="col-md-6">
+						<mat-form-field appearance="outline" *ngIf="isTN">
+							<mat-label>
+								<mat-label class="required-color">*</mat-label>County </mat-label>
+							<mat-select matNativeControl formControlName="cntyCd">
+								<mat-option *ngFor="let county of countyList" [value]="county.code"> {{county.value}}</mat-option>
+							</mat-select>
+						</mat-form-field>
+						<mat-error *ngIf="getFormData().cntyCd.errors?.required && (getFormData().cntyCd.touched || getFormData().cntyCd.dirty)"> {{customValidation.A1}} </mat-error>
+					</div>
+				</div>
+				<div class="row" id="phone-number-input">
+					<div class="col-md-6">
+						<mat-form-field appearance="outline">
+							<mat-label>Phone Number</mat-label>
+							<input matInput formControlName="phNumber" placeholder="Phone Number" mask="000-000-0000"> </mat-form-field>
+						<mat-error *ngIf="getFormData().phNumber.errors">
+							<mat-error *ngIf="getFormData().phNumber.touched && getFormData().phNumber.errors.required"> {{customValidation.A1}}</mat-error>
+							<mat-error *ngIf="getFormData().phNumber.errors.maxLength == null && !getFormData().phNumber.errors?.invalidPhone && !getFormData().phNumber.errors.required"> Cannot exceed 10 characters</mat-error>
+							<mat-error *ngIf="getFormData().phNumber.errors?.invalidPhone && !getFormData().phNumber.errors.required"> {{customValidation.A8}} </mat-error>
+						</mat-error>
+					</div>
+				</div>
+			</div>
+			<div *ngIf="isKbProgram" class="kb-checkbox-container">
+				<div class="row">
+					<div class="col-md-12">
+						<mat-label><strong>
+                <mat-label class="required-color">*</mat-label>Has the applicant lived in
+                any of the following in the past year? (Select ALL that apply)
+              </strong></mat-label>
+					</div>
+				</div>
+				<div>
+					<mat-error *ngIf="noneCheckBoxSelected && otherCheckboxSelected "> {{customValidation.A27}} </mat-error>
+					<mat-error *ngIf="!noneCheckBoxSelected && !otherCheckboxSelected && submitted"> {{customValidation.A1}} </mat-error>
+				</div>
+				<div *ngFor="let kbPastLiving of kbPastLivingList" class="checkbox-column">
+					<mat-checkbox [value]="kbPastLiving.code" (change)="checkboxSelected($event)"> {{kbPastLiving.value}} </mat-checkbox>
+				</div>
+			</div>
+			<div *ngIf="isKbProgram" class="kb-radio-container">
+				<div class="row">
+					<div class="col-md-12">
+						<mat-label><strong>
+                <mat-label class="required-color">*</mat-label>Does the applicant attend
+                school outside of the home environment?
+              </strong></mat-label>
+					</div>
+				</div>
+				<div class="radio-container">
+					<div class="row">
+						<div class="col-md-12">
+							<mat-radio-group>
+								<div>
+									<mat-radio-button value="Y">Yes</mat-radio-button>
+								</div>
+								<div>
+									<mat-radio-button value="N">No</mat-radio-button>
+								</div>
+							</mat-radio-group>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div *ngIf="isLongTermFacility" class="additional-section-container">
+				<mat-divider class="perlss-section-divider"></mat-divider>
+				<h2 style="padding:0px">Additional Details</h2>
+				<div class="date-facility-container">
+					<div class="row">
+						<div class="col-md-6">
+							<mat-form-field appearance="outline">
+								<mat-label>
+									<mat-label class="required-color">*</mat-label>Date of Admission </mat-label>
+								<input matInput [matDatepicker]="admissionDate" formControlName="admissionDt" [min]="minDate" [max]="maxDate">
+								<mat-datepicker-toggle matSuffix [for]="admissionDate"></mat-datepicker-toggle>
+								<mat-datepicker [startAt]="startDate" #admissionDate></mat-datepicker>
+							</mat-form-field>
+							<mat-error *ngIf="getFormData().admissionDt.errors != null">
+								<mat-error *ngIf="getFormData().admissionDt.hasError('required')"> {{customValidation.A1}} </mat-error>
+								<mat-error *ngIf="getFormData().admissionDt.errors.matDatepickerMin">{{customValidation.A6}} </mat-error>
+							</mat-error>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<mat-label>
+								<mat-label class="required-color">*</mat-label>Expected Discharge Date </mat-label>
+						</div>
+					</div>
+					<div class="radio-container">
+						<div class="row">
+							<div class="col-md-12">
+								<mat-radio-group formControlName="expctdDischargeCd" (change)="onExpctDischrgChange($event)">
+									<div>
+										<mat-radio-button value="Y">Within 6 Months</mat-radio-button>
+									</div>
+									<div>
+										<mat-radio-button value="N">Discharge Not Expected</mat-radio-button>
+									</div>
+								</mat-radio-group>
+							</div>
+						</div>
+					</div>
+					<div class="row" *ngIf="expectDischarge">
+						<div class="col-md-6">
+							<mat-form-field appearance="outline">
+								<mat-label>
+									<mat-label class="required-color">*</mat-label>Anticipated Discharge Date </mat-label>
+								<input matInput [matDatepicker]="anticipatedDischargeDate" formControlName="anticipatedDischargeDt" [min]="getFormData().admissionDt.value">
+								<mat-datepicker-toggle matSuffix [for]="anticipatedDischargeDate"></mat-datepicker-toggle>
+								<mat-datepicker [startAt]="startDate" #anticipatedDischargeDate></mat-datepicker>
+							</mat-form-field>
+							<mat-error *ngIf="getFormData().anticipatedDischargeDt.errors != null">
+								<mat-error *ngIf="getFormData().anticipatedDischargeDt.hasError('required')"> {{customValidation.A1}} </mat-error>
+								<mat-error *ngIf="getFormData().anticipatedDischargeDt.errors.matDatepickerMin  && (getFormData().anticipatedDischargeDt.touched || getFormData().anticipatedDischargeDt.dirty)"> {{customValidation.A6}}</mat-error>
+							</mat-error>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div *ngIf="isJail" class="date-facility-container">
+				<div class="row">
+					<div class="col-md-6">
+						<mat-form-field appearance="outline">
+							<mat-label>
+								<mat-label class="required-color">*</mat-label>Date of Incarceration </mat-label>
+							<input matInput [matDatepicker]="dateOfIncar" formControlName="incarcerationDt" [min]="minDate" [max]="maxDate">
+							<mat-datepicker-toggle matSuffix [for]="dateOfIncar"></mat-datepicker-toggle>
+							<mat-datepicker #dateOfIncar></mat-datepicker>
+						</mat-form-field>
+						<mat-error *ngIf="getFormData().incarcerationDt.errors != null">
+							<mat-error *ngIf="getFormData().incarcerationDt.hasError('required') && (getFormData().incarcerationDt.touched || getFormData().incarcerationDt.dirty)"> {{customValidation.A1}} </mat-error>
+							<mat-error *ngIf="getFormData().incarcerationDt.errors?.matDatepickerMax && (getFormData().incarcerationDt.touched || getFormData().incarcerationDt.dirty)"> {{customValidation.A5}}</mat-error>
+							<mat-error *ngIf="getFormData().incarcerationDt.errors.matDatepickerMin  && (getFormData().incarcerationDt.touched || getFormData().incarcerationDt.dirty)"> {{customValidation.A6}}</mat-error>
+						</mat-error>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<mat-form-field appearance="outline">
+							<mat-label>
+								<mat-label class="required-color">*</mat-label>Anticipated Release Date </mat-label>
+							<input matInput [matDatepicker]="anticipatedRelease" formControlName="anticipatedReleaseDt" [min]="getFormData().incarcerationDt.value">
+							<mat-datepicker-toggle matSuffix [for]="anticipatedRelease"></mat-datepicker-toggle>
+							<mat-datepicker #anticipatedRelease></mat-datepicker>
+						</mat-form-field>
+						<mat-error *ngIf="getFormData().anticipatedReleaseDt.errors != null">
+							<mat-error *ngIf="getFormData().anticipatedReleaseDt.hasError('required')"> {{customValidation.A1}} </mat-error>
+							<mat-error *ngIf="getFormData().anticipatedReleaseDt.errors.matDatepickerMin  && (getFormData().anticipatedReleaseDt.touched || getFormData().anticipatedReleaseDt.dirty)"> {{customValidation.A6}}</mat-error>
+						</mat-error>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+<div class="buttonBar">
+	<button mat-flat-button type="button" class="perlss-click-button-white" (click)="back()">BACK</button>
+	<button mat-flat-button color="primary" class="perlss-click-button-white-noborder"><span class="hoverClass" (click)="saveAndExit()">SAVE AND EXIT</span></button>
+	<button mat-flat-button type="button" color="primary" class="perlss-click-button" (click)="saveLivingArrangement()">NEXT</button>
+</div>

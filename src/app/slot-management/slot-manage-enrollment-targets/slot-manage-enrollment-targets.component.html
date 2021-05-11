@@ -1,0 +1,222 @@
+<div class="pageMargin">
+  <div class="app-sub-heading">
+    <mat-label>Slot Information - {{paramId}}</mat-label>
+  </div>
+  <div class="form-container">
+    <form [formGroup]="slotManageEnrollment">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-4">
+            <mat-label>
+              <mat-label class="required-color">*</mat-label><strong>Select Action to be Performed</strong>
+            </mat-label>
+            <mat-form-field appearance="outline" style="width: 100%;">
+              <mat-select (selectionChange)="actionToBePerformedChangeAction()" formControlName="actionToBePerformed">
+                <mat-option *ngFor="let actionToBePerformed of actionToBePerformedList"
+                  [value]="actionToBePerformed.code">{{ actionToBePerformed.value }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+       </div>
+        <div class="row" *ngIf="displayProgramType">
+          <div class="col-md-4">
+
+            <mat-label>
+              <mat-label class="required-color">*</mat-label><strong>Select Program</strong>
+            </mat-label>
+            <mat-form-field appearance="outline" style="width: 100%;">
+              <mat-select (selectionChange)="programTypeSelection()" formControlName="actionProgramType">
+                <mat-option *ngFor="let program of programType" [value]=program>{{ program.value }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-12" *ngIf="displayEnrollmentTargets">
+            <p class="note-text"><strong>Note:</strong> The enrollment target for {{selectedName}} can be decreased to
+              any number, so long as the number is not lower than the total number of slots 'Held' or 'Filled'.</p>
+            <br>
+            <div *ngIf="enrollmentTargets" class="col-md-4">
+              <div class="table-name">{{selectedName}}</div>
+              <table class="mat-table slot-table" aria-describedby="slot">
+                <tr>
+                  <th id="status">Status</th>
+                  <th id="total">Total</th>
+                </tr>
+                <tr>
+                  <td><strong>Total</strong></td>
+                  <td><strong>{{enrollmentTargets.total}}
+                    </strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Held/Filled</strong></td>
+                  <td><strong>{{enrollmentTargets.filledAndHeld}}</strong></td>
+
+                </tr>
+                <tr>
+                  <td><strong>Available</strong></td>
+                  <td><strong>{{enrollmentTargets.available}}</strong></td>
+                </tr>
+              </table>
+            </div>
+            <br>
+            <div class="col-md-8">
+              <mat-label class="note-text">
+                <mat-label class="required-color">*</mat-label><strong>Updated Enrollment Target for {{selectedName}}:</strong>
+              </mat-label>
+              <mat-form-field appearance="outline" style="width:20%;">
+                <input matInput formControlName="updatedEnrollmentTarget">
+                <mat-error *ngIf="slotManageEnrollment.get('updatedEnrollmentTarget').hasError('required')">
+                  {{customValidation.A1}}</mat-error>
+              </mat-form-field>
+            
+            </div>
+            <div class="col-md-8">
+              <button mat-flat-button color="primary" class="perlss-click-button"
+                (click)="onUpdate('PT')">UPDATE</button>
+            </div>
+          </div>
+
+       </div>
+        <div class="row" *ngIf="displayMoveSlots">
+          <div class="col-md-4">
+            <mat-label>
+              <mat-label class="required-color">*</mat-label><strong>Move Slots From</strong>
+            </mat-label>
+            <mat-form-field appearance="outline" style="width: 100%;">
+              <mat-select (selectionChange)="moveSlotsSelection()" formControlName="actionMoveSlots">
+                <mat-option *ngFor="let slot of moveSlots" [value]="slot">{{ slot.value }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-12" *ngIf="displayMoveSlotsNote">
+            <p class="note-text"><strong>Note:</strong> Only the available slots for the selected program can be moved
+              and the not the slots that are currently held or filled.</p>
+            <br>
+            <div class="row">
+              <div class="col-md-4">
+                <mat-label>
+                  <mat-label class="required-color">*</mat-label><strong>Move available Slots from:</strong>
+                </mat-label>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                  <input matInput formControlName="moveSlotsFrom">
+                  <mat-error *ngIf="slotManageEnrollment.get('moveSlotsFrom').hasError('required')">
+                    {{customValidation.A1}}</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4 padding">
+                <mat-label>
+                  <mat-label class="required-color">*</mat-label><strong>Move Slot Capacity to:</strong>
+                </mat-label>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-select (selectionChange)="moveSlotCapacitytoChange()" formControlName="moveSlotCapacityto">
+                    <mat-option *ngFor="let item of moveSlotCapacitytolist" [value]="item">{{ item.value }}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="slotManageEnrollment.get('moveSlotCapacityto').hasError('required')">
+                    {{customValidation.A1}}</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div *ngIf="moveSlotsFromEnrollmentTargets" class="col-md-4">
+                <div class="table-name">{{selectedName}}</div>
+                <table class="mat-table slot-table" aria-describedby="slot">
+                  <tr>
+                    <th id="status">Status</th>
+                    <th id="total">Total</th>
+                  </tr>
+                  <tr>
+                    <td><strong>Total</strong></td>
+                    <td><strong>{{moveSlotsFromEnrollmentTargets.total}}</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Held/Filled</strong></td>
+                    <td><strong>{{moveSlotsFromEnrollmentTargets.filledAndHeld}}</strong></td>
+
+                  </tr>
+                  <tr>
+                    <td><strong>Available</strong></td>
+                    <td><strong>{{moveSlotsFromEnrollmentTargets.available}}</strong></td>
+                  </tr>
+                </table>
+              </div>
+              <div class="col-md-4 margin">
+                <div *ngIf="moveSlotsToEnrollmentTargets" class="table-name">{{moveSlotsToSelectedName}}</div>
+                <table *ngIf="moveSlotsToEnrollmentTargets" class="mat-table slot-table" aria-describedby="slot">
+                  <tr>
+                    <th id="status">Status</th>
+                    <th id="total">Total</th>
+                  </tr>
+                  <tr>
+                    <td><strong>Total</strong></td>
+                    <td><strong>{{moveSlotsToEnrollmentTargets.total}}</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Held/Filled</strong></td>
+                    <td><strong>{{moveSlotsToEnrollmentTargets.filledAndHeld}}</strong></td>
+
+                  </tr>
+                  <tr>
+                    <td><strong>Available</strong></td>
+                    <td><strong>{{moveSlotsToEnrollmentTargets.available}}</strong></td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="col-md-8 button">
+            <button mat-flat-button color="primary" class="perlss-click-button" (click)="onUpdate('MS')">UPDATE</button>
+          </div>
+       </div>
+        <!--table -->
+        <div *ngIf="displayTable">
+          <mat-divider class="perlss-section-divider"></mat-divider>
+          <div class="app-sub-heading col-md-7" style="width: 100% !important;">
+            Slot Capacity History
+          </div>
+          <table aria-describedby="data" mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8"
+            style="width: 100%;text-align: center;font-size: 12px;">
+
+            <ng-container matColumnDef="sltAction">
+              <th id="action" mat-header-cell *matHeaderCellDef class='table-th'>Action</th>
+              <td mat-cell class="table-td" *matCellDef="let element">{{getNameByCode(element.sltAction,'action')}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="prevEnrTarget">
+              <th id="action" mat-header-cell *matHeaderCellDef class='table-th'>Previous Enrollment Target</th>
+              <td mat-cell class="table-td" *matCellDef="let element">{{element.prevEnrTarget}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="curEnrTarget">
+              <th id="enrollment" mat-header-cell *matHeaderCellDef class='table-th'>Updated Enrollment Target</th>
+              <td mat-cell class="table-td" *matCellDef="let element">{{element.curEnrTarget}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="movedProgramTypeCd">
+              <th id="update" mat-header-cell *matHeaderCellDef class='table-th'>Moved</th>
+              <td mat-cell class="table-td" *matCellDef="let element">{{element.movedProgramTypeCd}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="updatedDt">
+              <th id="update" mat-header-cell *matHeaderCellDef class='table-th'>Updated Date</th>
+              <td mat-cell class="table-td" *matCellDef="let element">{{element.updatedDt}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="updatedUser">
+              <th id="updateUser" mat-header-cell *matHeaderCellDef class='table-th'>Update User</th>
+              <td mat-cell class="table-td" *matCellDef="let element">{{element.updatedUser}}</td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="element-row"
+              [class.expanded-row]="expandedElement === element"
+              (click)="expandedElement = expandedElement === element ? null : element">
+            </tr>
+          </table>
+       </div>
+      </div>
+
+    </form>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+.stmnt {
+  margin-top: 18px;
+  margin-left: 36px;
+}
+
+.panel-description {
+  margin-left: 590px;
+  color: #174A7C;
+}
+
+.expPanel {
+  background: #EBEBEB;
+  border: 1px solid #174A7C;
+}
+
+.panel-title{
+  margin-bottom: 4px;
+}
+
+.forWidth{
+  width: 360px;
+  color: #174A7C;
+}
+
+.panel-description {
+  margin-left: 590px;
+  color: #174A7C;
+}
+
+#top {
+  margin: 36px 0 0 36px;
+  width:95%
+}
+
+#addNew {
+  padding: 18px;
+  margin-left: 36px;
+  background: white;
+  border: none;
+  font-size: large;
+  &:focus{
+    outline: none;
+  }
+}

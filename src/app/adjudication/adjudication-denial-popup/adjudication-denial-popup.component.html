@@ -1,0 +1,44 @@
+<div class="dialog">
+    <div class="header">
+        <h1>Denial Reasons</h1>
+        <mat-icon (click)="closeDialog()">highlight_off</mat-icon>
+    </div>
+    <div id="note">
+        Please select <b>ALL</b> denial statements that apply:
+    </div>
+    <br>
+    <div class="form">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="checkbox-group">
+                    <ng-container *ngFor="let item of reasons">
+                        <div class="reason">
+                            <div>
+                                <mat-checkbox value="item.code" [ngModel]="item.isChecked"
+                                    (ngModelChange)="onCheckBoxSelect($event, item)">{{item.en}}
+                                </mat-checkbox>
+                            </div>
+                            <ng-container *ngIf="item.code === 'OTH' && item.isChecked">
+                                <textarea maxlength="2000" [(ngModel)]="otherText"></textarea>
+                                <span class="error mat-error"> {{validationMessage}}</span>
+                                <div class="count">
+                                    {{otherText ? otherText.length : 0}}/2000
+                                </div>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button mat-flat-button color="primary" class="perlss-click-button" [disabled]="!isValid()"
+                    (click)="onSubmit()" type="submit">SUBMIT</button>
+                &nbsp;
+                <button mat-flat-button color="primary" class="perlss-click-button-white-noborder"
+                    (click)=closeDialog()>CANCEL</button>
+            </div>
+        </div>
+    </div>
+</div>

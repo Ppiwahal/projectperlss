@@ -1,0 +1,26 @@
+<div class="row-header">
+  <span class="col-lg-9">
+    <h4>Task Details</h4>
+  </span>
+  <span class="col-lg-3 text-right close-icon">
+    <mat-icon (click)=closeDialog()>highlight_off</mat-icon>
+  </span>
+</div>
+<hr />
+
+<div class="text-padding">
+  <div class="text-heading">
+    Task Description:
+  </div>
+  <div class="text-font">
+    {{data.rowData?.taskDesc}}
+  </div>
+</div>
+<div class="text-padding">
+  <div class="text-heading">
+    Closure Description:
+  </div>
+  <div class="text-font">
+    {{data.rowData?.closureConditions}}
+  </div>
+</div>

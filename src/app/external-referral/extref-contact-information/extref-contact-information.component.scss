@@ -1,0 +1,64 @@
+@import '../../../colors.scss';
+
+
+.sub-heading {
+  font-family: "Open Sans";
+  letter-spacing: 50;
+  font-weight: bold;
+  font-size: 32px;
+  color: #174a7c;
+}
+  .required {
+    float: right;
+    color: #ED6053;
+    font-family: "Open Sans";
+    margin-top: 20px;
+  }
+  .required-color {
+    color: #ed6053;
+    padding-right: 5px;
+  }
+  ::ng-deep .mat-form-field {
+    width: 100%;
+  }
+  
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: $colorControlBackground;
+    border-radius: 5px;
+    border-color: #ced4da;
+  }
+  .red-icon {
+    color: #ed6053;
+    transform: scale(0.8);  
+    display: inline-flex;
+    vertical-align: middle;
+  }
+  
+  .page-sub-heading {
+    font-weight: bold;
+    color: #4D7E20;
+    font-size: 20px;
+  }
+  
+  .perlss-section-divider {
+    width: 100%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  .body-font-style {
+    font-size: 14px;
+    padding-left: 20px;
+  }
+  .push-right-note{
+    padding-left: 54px;
+  }
+  .cardStyle {
+    background-color: $colorControlBackground;
+    border-top: 2px solid #4b7f1e;
+    color: #6E7073;
+    font-family: 'Open Sans';
+  }
+  .chkW{
+    width: 8vw !important;
+  }
+  

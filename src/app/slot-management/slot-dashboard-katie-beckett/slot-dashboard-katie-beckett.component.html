@@ -1,0 +1,48 @@
+<div>
+  <div class="app-sub-heading col-md-7" style="width: 100% !important;">
+    KATIE BECKETT
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <table aria-describedby="katieTable"  class="mat-table slot-table">
+        <tr>
+          <th id="EnrollemntGroup">Enrollment Group</th>
+          <th id="total">Total</th>
+          <th id="f">F</th>
+          <th id="h">H</th>
+          <th id="a">A</th>
+       </tr>
+        <tr>
+          <td><strong>Part A</strong></td>
+          <td  *ngIf="slotKBDetails"><strong>{{slotKBDetails.kbPartATotal}}</strong></td>
+          <td  *ngIf="slotKBDetails">{{slotKBDetails.kbPartAFilled}}</td>
+          <td  *ngIf="slotKBDetails">{{slotKBDetails.kbPartAHeld}}</td>
+          <td  *ngIf="slotKBDetails">{{slotKBDetails.kbPartAAvailable}}</td>
+       </tr>
+        <tr>
+          <td><strong>Part B</strong></td>
+          <td  *ngIf="slotKBDetails"><strong>{{slotKBDetails.kbPartBTotal}}</strong></td>
+          <td  *ngIf="slotKBDetails">{{slotKBDetails.kbPartBFilled}}</td>
+          <td  *ngIf="slotKBDetails">{{slotKBDetails.kbPartBHeld}}</td>
+          <td  *ngIf="slotKBDetails">{{slotKBDetails.kbPartBAvailable}}</td>
+       </tr>
+        <tr>
+          <td><strong>Total</strong></td>
+          <td  *ngIf="slotKBDetails"><strong>{{slotKBDetails.kbTotal}}</strong></td>
+          <td  *ngIf="slotKBDetails">{{slotKBDetails.kbFilled}}</td>
+          <td  *ngIf="slotKBDetails">{{slotKBDetails.kbHeld}}</td>
+          <td  *ngIf="slotKBDetails">{{slotKBDetails.kbAvailable}}</td>
+       </tr>
+      </table>
+    </div>
+    <div class="col-md-4">
+      <div class="slot-status">
+        <h2>Slot Status</h2>
+        <span class="field-status">F - Filled</span>
+        <span class="field-status">H - Held</span>
+        <span class="field-status">A - Available</span>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!taskTableShowResult" class="spinner"></div>
+</div>

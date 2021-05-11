@@ -1,0 +1,30 @@
+<div class="wrapper">
+    <h5>Appeal Type</h5>
+    <div style="width: 35%;">
+        <mat-form-field appearance="outline">
+            <mat-label><span class="required">*</span>Appeal Type</mat-label>
+                <mat-select (selectionChange)="onAppealTypeChange($event.value)">
+                    <mat-option value=''>Select </mat-option>
+                    <mat-option *ngFor = "let at of  appealType" value={{at.code}}>{{at.value}}</mat-option>
+                </mat-select>
+        </mat-form-field>
+    </div>
+    <div *ngIf="code=='Show'">
+        <app-appeal-to-pae-table 
+            [appealTypeData]="appealTypeData" 
+            (emitLinkAppealReferral)="emitLinkAppealReferral($event)"
+            [enrollGroupData]="enrollGroupData" [enrolDenialReasData]="enrolDenialReasData"
+            [paeStatusData]="paeStatusData" [yes_no]="yes_no"
+            [enrollStatusData]="enrollStatusData" [slotStatusData]="slotStatusData" ></app-appeal-to-pae-table>
+    </div>
+    <div *ngIf="code=='RF'">
+        <app-appeal-to-referral-table 
+            [appealTypeData]="appealTypeData" 
+            (emitLinkAppealReferral)="emitLinkAppealReferral($event)"
+            [referralStatusData]="referralStatusData"
+            [intakeOutcomeData]="intakeOutcomeData" [slotStatusData]="slotStatusData" [tpDiagnosisData]="tpDiagnosisData"></app-appeal-to-referral-table>
+    </div>
+    <div *ngIf="code=='PR'">
+        <app-appeal-type-pasrr [pasrrReason]="pasrrReason" [payorSource]="payorSource" [pasrrAdverseReason]="pasrrAdverseReason" (addPasrrEmitter)="addPasrr($event)"></app-appeal-type-pasrr>
+    </div>
+</div>

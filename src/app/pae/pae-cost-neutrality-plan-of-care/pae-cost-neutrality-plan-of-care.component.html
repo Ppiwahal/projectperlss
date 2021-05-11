@@ -1,0 +1,58 @@
+<div class="responsive">
+  <div class="form">
+    <div class="scroller">
+      <div class="applicantName">{{applicantName}}</div>
+
+      <h2>Waiver Service</h2>
+      <p>Please click Add Service to provide details</p>
+      <mat-expansion-panel [disabled]="options.waiver_service.dirty">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon>add_circle</mat-icon>ADD SERVICE PROVIDED
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <form [formGroup]="forms.waiver_service" class="form-container">
+          <div class="w50">
+            <mat-form-field appearance="outline">
+              <mat-label class="req">Service Type</mat-label>
+              <mat-select formControlName="waiver_serviceType">
+                <mat-option *ngFor="let item of dropdownData.cost_neutrality" value="item.code">{{item.value}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-error *ngIf="controlError('waiver_serviceType')">{{controlErrorText['waiver_serviceType']}}</mat-error>
+          </div>
+          <div class="floatChildren">
+            <div class="w25">
+              <mat-form-field appearance="outline">
+                <mat-label class="req">Amount</mat-label>
+                <input matInput maxlength="8" formControlName="waiver_serviceAmount">
+              </mat-form-field>
+              <mat-error *ngIf="controlError('waiver_serviceAmount')">{{controlErrorText['waiver_serviceAmount']}}
+              </mat-error>
+            </div>
+            <div class="w25">
+              <mat-form-field appearance="outline">
+                <mat-label class="req">Frequency</mat-label>
+                <mat-select formControlName="waiver_serviceFrequency">
+                  <mat-option *ngFor="let item of dropdownData.cost_frequency" value="item.code">{{item.value}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-error *ngIf="controlError('waiver_serviceFrequency')">{{controlErrorText['waiver_serviceFrequency']}}
+              </mat-error>
+            </div>
+          </div>
+          <div class="buttonBar">
+            <button *ngIf="!options.waiver_service.saved || options.waiver_service.edit" class="orange"
+              (click)="saveClick('waiver_service')">SAVE</button>
+            <button *ngIf="options.waiver_service.saved && !options.waiver_service.edit" class="orange"
+              (click)="edit('waiver_service')">EDIT</button>
+            <button class="transparent" *ngIf="options.waiver_service.dirty || options.waiver_service.edit"
+              (click)="cancel('waiver_service')">CANCEL</button>
+          </div>
+        </form>
+      </mat-expansion-panel>
+    </div>
+  </div>
+</div>

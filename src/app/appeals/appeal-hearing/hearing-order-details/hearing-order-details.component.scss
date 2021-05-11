@@ -1,0 +1,40 @@
+
+.wrapper{
+    margin-top: 30px;
+}
+.character-count{
+    float: right;
+    margin-top: -24px;
+}
+
+.hearing-wrapper{
+    border: 1px solid #CDDDF4;
+    margin-top: 10px;
+}
+
+.hearing-flex{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid lightgrey;
+    padding: 15px 20px 0 20px;
+    background-color: #CDDDF4;
+    p{
+        font-weight: bold;
+        color: black;
+        font-size: 16px;
+    }
+}
+
+.row-flex{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px 0 20px;
+}
+
+.style-comment{
+    padding: 0 20px 0 20px;
+}
+
+.required {
+    color: red;
+}

@@ -1,0 +1,30 @@
+<div class="row">
+<div class="col-md-12">
+  <h2 class="slot-queue-label">Slot Managment Queues</h2>
+  <br />
+  <br />
+
+  <table  aria-describedby="katieTable" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="queueName">
+      <th id="queueName" mat-header-cell class="mat-header-class" *matHeaderCellDef>Queue Name</th>
+      <td mat-cell *matCellDef="let element">{{element.queueName}}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="count">
+      <th id="count" mat-header-cell class="mat-header-class" *matHeaderCellDef>Count</th>
+      <td mat-cell *matCellDef="let element" class="handPointer" (click)="displaySearchResults(element.listDetails)">
+        {{element.count}}
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumnsForQueueCountTble"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumnsForQueueCountTble;"></tr>
+  </table>
+  <div *ngIf="!taskTableShowResult" class="spinner marginChk"></div>
+</div>
+</div>

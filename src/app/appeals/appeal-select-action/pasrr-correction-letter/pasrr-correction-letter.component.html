@@ -1,0 +1,62 @@
+<div style="margin-top: 20px;">
+    <div class="row pointer">
+        <span class="col icon-width" (click)="openUploadRightNav()"><strong>Upload PASRR Correction
+                Letter</strong></span>
+        <span class="col material-icons" (click)="openUploadRightNav()">
+            cloud_upload
+        </span>
+    </div>
+</div>
+<form [formGroup]="pasrrCorrectionLetterForm">
+    <div style="display: flex; justify-content: space-between; margin-top: 30px;">
+        <div style="width: 40%;">
+            <mat-form-field appearance="outline">
+                <mat-label><span class="required">*</span>PASRR Correction Date</mat-label>
+                <input formControlName="correctionDate" placeholder="MM/DD/YYYY" aria-label="pasrr correction date"
+                    matInput [matDatepicker]="pcd">
+                <mat-datepicker-toggle matSuffix [for]="pcd"></mat-datepicker-toggle>
+                <mat-datepicker [startAt]="startDate" #pcd></mat-datepicker>
+            </mat-form-field>
+            <mat-error *ngIf="isShowErrors && pasrrCorrectionLetterForm.get('correctionDate')?.hasError('required')">
+                <span>{{customValidation.A1}}</span>
+            </mat-error>
+        </div>
+        <div style="width: 40%;">
+            <mat-form-field appearance="outline">
+                <mat-label><span class="required">*</span>PASRR Effective Approval Date</mat-label>
+                <input formControlName="effectiveApprovalDate" placeholder="MM/DD/YYYY"
+                    aria-label="pasrr effective approval date" matInput [matDatepicker]="pead">
+                <mat-datepicker-toggle matSuffix [for]="pead"></mat-datepicker-toggle>
+                <mat-datepicker [startAt]="startDate" #pead></mat-datepicker>
+            </mat-form-field>
+            <mat-error
+                *ngIf="isShowErrors && pasrrCorrectionLetterForm.get('effectiveApprovalDate')?.hasError('required')">
+                <span>{{customValidation.A1}}</span>
+            </mat-error>
+        </div>
+    </div>
+    <div style="display: flex;  justify-content: space-between; margin-top: 30px;">
+        <div style="width: 40%;">
+            <mat-form-field appearance="outline">
+                <mat-label><span class="required">*</span>Client ID</mat-label>
+                <input formControlName="clientId" aria-label="client id" matInput>
+            </mat-form-field>
+            <mat-error *ngIf="isShowErrors && pasrrCorrectionLetterForm.get('clientId')?.hasError('required')">
+                <span>{{customValidation.A1}}</span>
+            </mat-error>
+        </div>
+        <div style="width: 40%;">
+            <mat-form-field appearance="outline">
+                <mat-label><span class="required">*</span>New Episode ID</mat-label>
+                <input formControlName="episodeId" aria-label="new episode od" matInput>
+            </mat-form-field>
+            <mat-error *ngIf="isShowErrors && pasrrCorrectionLetterForm.get('episodeId')?.hasError('required')">
+                <span>{{customValidation.A1}}</span>
+            </mat-error>
+        </div>
+    </div>
+</form>
+<div style="margin-top: 40px; margin-bottom: 20px;">
+    <button style="margin-right: 50px; color: #174A7C;" (click)="cancel()" mat-stroked-button>CANCEL</button>
+    <button mat-stroked-button class="perlss-click-button" (click)="pasrrCorrectionLetter()">SAVE</button>
+</div>

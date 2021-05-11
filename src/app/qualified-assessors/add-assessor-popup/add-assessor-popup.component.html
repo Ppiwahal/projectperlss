@@ -1,0 +1,100 @@
+<div class="wrapper">
+    <div class="heading-wrapper">
+        <div style="color:#04537D; font-size: 18px;">Add Assessor</div>
+        <div>
+            <span class="close-icon" style="cursor: pointer;">
+                <mat-icon (click)=closeDialog()>highlight_off</mat-icon>
+            </span>
+       </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="content-wrapper">
+        <form [formGroup]="addAssessorForm" (ngSubmit)="addAssessorData()">
+            <div class="flex-wrapper">
+                <div>
+                    <strong style="color: black; font-size: 14px;"><span class="required">*</span>Entity</strong>
+                    <mat-form-field appearance="outline">
+                        <mat-select formControlName="entity">
+                            <mat-option *ngFor="let e of  entityData" value={{e.entityId}}>{{e.entityName}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="addAssessorForm.get('entity').hasError('required')">
+                            {{customValidation.A1}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <strong style="color: black; font-size: 14px;"><span class="required">*</span>Program</strong>
+                    <mat-form-field appearance="outline">
+                        <mat-select formControlName="program" (selectionChange)="programChanged($event)">
+                            <mat-option *ngFor="let p of  programData" value={{p.code}}>{{p.value}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="addAssessorForm.get('program').hasError('required')">
+                            {{customValidation.A1}}</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="flex-wrapper">
+                <div>
+                    <strong style="color: black; font-size: 14px;"><span class="required">*</span>First Name</strong>
+                    <mat-form-field appearance="outline">
+                        <input aria-label="firstName" maxlength="100" matInput autocomplete="off"
+                            formControlName="firstName" />
+                        <mat-error *ngIf="addAssessorForm.get('firstName').hasError('required')">
+                            {{customValidation.A1}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <strong style="color: black; font-size: 14px;"><span class="required">*</span>Last Name</strong>
+                    <mat-form-field appearance="outline">
+                        <input aria-label="lastName" maxlength="100" matInput autocomplete="off"
+                            formControlName="lastName" />
+                        <mat-error *ngIf="addAssessorForm.get('lastName').hasError('required')">
+                            {{customValidation.A1}}</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="flex-wrapper">
+                <div>
+                    <strong style="color: black; font-size: 14px;"><span class="required">*</span>Start Date</strong>
+                    <mat-form-field appearance="outline">
+                        <input matInput [matDatepicker]="startDate" formControlName="startDate" autocomplete="off"
+                            [matDatepickerFilter]="disableWeekendsFilter" [min]="minDate"
+                            (dateChange)="onStartDateChanged()">
+                        <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                        <mat-datepicker #startDate></mat-datepicker>
+                        <mat-error *ngIf="addAssessorForm.get('startDate').hasError('required')">
+                            {{customValidation.A1}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <strong style="color: black; font-size: 14px;"><span class="required">*</span>End Date</strong>
+                    <mat-form-field appearance="outline">
+                        <input aria-label="endDate" matInput [matDatepicker]="endDate" formControlName="endDate"
+                            autocomplete="off">
+                        <mat-datepicker-toggle matSuffix [for]="endDate" disabled></mat-datepicker-toggle>
+                        <mat-datepicker #endDate></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="flex-wrapper">
+                <div>
+                    <strong style="color: black; font-size: 14px;"><span class="required">*</span>Credential</strong>
+                    <mat-form-field appearance="outline" class="mat-margin">
+                        <mat-select formControlName="credentials">
+                            <mat-option *ngFor="let c of  credentialData" value={{c.code}}>{{c.value}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="addAssessorForm.get('credentials').hasError('required')">
+                            {{customValidation.A1}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                </div>
+            </div>
+            <div class="flex-wrapper">
+                <div>
+                    <button mat-flat-button color="primary" class="custom-button" type="submit">SAVE</button>
+                </div>
+            </div>
+       </form>
+    </div>
+</div>

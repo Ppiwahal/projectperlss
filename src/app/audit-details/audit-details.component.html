@@ -1,0 +1,89 @@
+<div class="pageMargin">
+<div *ngFor="let auditDetailDescription of auditDetailsData | keyvalue; index as i;">
+  <hr *ngIf="i != 0; then setEntityType(auditDetailDescription.value)">
+  <hr *ngIf="i != 0">
+  <div class="perlss-audit-detail-entity-heading">{{pageHeader}}</div>
+  <div *ngFor="let auditDetailTemp of auditDetailDescription.value | keyvalue">
+    <div class="row">
+      <div class="col">
+        <div *ngIf="auditDetailTemp.key.includes('entityType')"></div>
+        <span class="perls-audit-detail" *ngIf="auditDetailTemp.key == 'appealid' && auditDetailTemp.value != null">
+                    <b>Appeal ID</b>
+                </span>
+        <span class="perls-audit-detail" *ngIf="auditDetailTemp.key == 'action' && auditDetailTemp.value != null">
+                    <b>Action</b>
+                </span>
+        <span *ngIf="auditDetailTemp.key =='entityValue'">
+              <div *ngFor="let entityValues of auditDetailTemp.value | keyvalue">
+                <span class="perlss-audit-detail"
+                      *ngIf="entityValues.key == 'aplFilMthdCd' && entityValues.value != null">
+                  Appeal Filed Method Code
+                </span>
+                <span class="perlss-audit-detail" *ngIf="entityValues.key == 'aplRcvdDt' && entityValues.value != null">
+                  Appeal Received Date
+                </span>
+                <span class="perlss-audit-detail"
+                      *ngIf="entityValues.key == 'aplHrngDtls' && entityValues.value != null">
+                  Appeal Hearing Details
+                </span>
+                <span class="perlss-audit-detail"
+                      *ngIf="entityValues.key == 'aplNrseReviews' && entityValues.value != null">
+                  Appeal Nurse Reviews
+                </span>
+                <span class="perlss-audit-detail"
+                      *ngIf="entityValues.key == 'aplReviewDecisions' && entityValues.value != null">
+                  Appeal Review Decisions
+                </span>
+                <span class="perlss-audit-detail"
+                      *ngIf="entityValues.key == 'lastModifiedDate' && entityValues.value != null">
+                  Last Modified Date
+                </span>
+                <span class="perlss-audit-detail" *ngIf="entityValues.key == 'createdBy' && entityValues.value != null">
+                  Created By
+                </span>
+                <span class="perlss-audit-detail" *ngIf="entityValues.key == 'createdDt' && entityValues.value != null">
+                  Created Date
+                </span>
+              </div>
+          </span>
+      </div>
+      <div class="col">
+        <span *ngIf="auditDetailTemp.key == 'appealid'">
+                    {{auditDetailTemp.value}}
+                </span>
+        <span *ngIf="auditDetailTemp.key == 'action'">
+                    {{auditDetailTemp.value}}
+                </span>
+        <span *ngIf="auditDetailTemp.key =='entityValue'">
+              <div *ngFor="let entityValues of auditDetailTemp.value | keyvalue">
+                <span *ngIf="entityValues.key == 'aplFilMthdCd' && entityValues.value != null">
+                  {{entityValues.value}}
+                </span>
+                <span *ngIf="entityValues.key == 'aplRcvdDt' && entityValues.value != null">
+                  {{entityValues.value | date:'M/d/yy, h:mm:ss a'}}
+                </span>
+                <span *ngIf="entityValues.key == 'aplHrngDtls' && entityValues.value != null">
+                  {{entityValues.value}}
+                </span>
+                <span *ngIf="entityValues.key == 'aplNrseReviews' && entityValues.value != null">
+                  {{entityValues.value}}
+                </span>
+                <span *ngIf="entityValues.key == 'aplReviewDecisions' && entityValues.value != null">
+                  {{entityValues.value}}
+                </span>
+                <span *ngIf="entityValues.key == 'lastModifiedDate' && entityValues.value != null">
+                  {{entityValues.value | date:'M/d/yy, h:mm:ss a'}}
+                </span>
+                <span *ngIf="entityValues.key == 'createdBy' && entityValues.value != null">
+                  {{entityValues.value}}
+                </span>
+                <span *ngIf="entityValues.key == 'createdDt' && entityValues.value != null">
+                  {{entityValues.value | date:'M/d/yy, h:mm:ss a'}}
+                </span>
+              </div>
+          </span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

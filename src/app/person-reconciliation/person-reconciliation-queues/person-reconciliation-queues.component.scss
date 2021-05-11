@@ -1,0 +1,70 @@
+@import '../../../colors.scss';
+
+.submit-text{
+    text-align: center;
+    font-family: 'Open Sans';
+    font-weight: 900;
+    font-size: 21.5px;
+    color: #1B365C;
+    padding: 18px;
+}
+
+.dashboard-icon{
+    color: #ED6053;
+    font-size: 12vh;
+    display: inline;
+    padding-top: 18px;
+    position: relative;
+}
+
+mat-card.dashboard-card {
+    border-radius: 3.5px !important;
+    border: 1px solid #174A7C;
+    //padding: 0;
+    height: 100%;
+  }
+
+.dashboard-card{
+    text-align: center;
+    cursor: pointer;
+}
+
+.sub-heading {
+    color: #174A7C;
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.sub-heading-records {
+    color: #ED6053;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+table tr:last-child td {
+    border-bottom: 1px solid #1B365D;
+}
+
+th {
+    width: 90%;
+    background-color: #CDDDF4;
+    font-size: 14px;
+    font-weight: bold;
+    color: #04537D;  
+}
+
+tr:hover{
+    cursor: pointer;
+    background-color: #eaeff7;
+}
+
+.arrow {
+    color: #04537D;
+    top: 9px;
+    font-size: 28px;
+    position: relative;
+}
+
+.right-icon {
+    padding-bottom: 15px;
+}

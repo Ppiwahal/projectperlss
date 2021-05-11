@@ -1,0 +1,68 @@
+.update-app{
+    padding-left: 135px;
+    padding-top: 25px;
+    padding-bottom: 20px;
+}
+.Cancel-app{
+    padding-left: 135px;
+    padding-bottom: 20px;
+}
+
+.cancel-button-content {
+    color:#174A7C;
+    font-family: 'Open Sans';
+    margin-right: 32px;
+    font-weight: 550;
+}
+
+.field-content {
+    margin-left: 25px;
+}
+  
+h3 {
+    font-family: "Open Sans";
+    letter-spacing: 50;
+    font-weight: normal;
+    font-size: 19px;
+    color: #174A7C;
+}
+
+h4 {
+    font-family: "Open Sans";
+    letter-spacing: 50;
+    font-weight: bold;
+    font-size: 19px;
+    color: #174A7C;
+}
+  
+hr {
+    margin-top: 2px;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+  
+.close-icon {
+    transform: scale(1.0);
+    cursor: pointer;
+    color: #8b99ac;
+}
+
+.row-header {
+    display: flex;
+    flex-wrap: wrap;
+    font-weight: bold;
+}
+
+.dialog-container mat-dialog-container {
+    padding: 0 !important;
+    overflow:hidden !important;
+}
+
+.content-bottom{
+    padding-bottom: 5px;
+}
+
+.left-content{
+  color: black;
+  font-weight: bold;
+}  

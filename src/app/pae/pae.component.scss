@@ -1,0 +1,85 @@
+.green{
+  color: #10b080;
+}
+.yellow {
+  color:#f5bc00;
+}
+
+.paeIdContainer{
+  padding: 1.2vw 0.5vw 1.2vw 0.5vw;
+  color: #174a7c;
+  border: 1.5px solid #FFA799;
+  strong{
+    font-weight: 600;
+  }
+  .idFloat{
+    color: #174a7c;
+    float: right;
+  }
+}
+
+.pae-back {
+  color: #1B365D;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.sidenav-menu-toggle-icon{
+  font-size: 35px;
+  cursor: pointer;
+  color: #ED6053;
+}
+
+
+.sidenav-menu-toggle-icon-closed{
+  font-size: 35px;
+  cursor: pointer;
+  color: #ED6053;
+}
+.perlss-account-name{
+  color: #174A7C;
+  font-family: "Open Sans";
+}
+
+
+.sidenav-menu-icon {
+  position: fixed;
+  color:  #1B365D;
+  margin-left: 15px !important;
+  font-size: 30px !important;
+}
+.sidenav-menu-details{
+
+  padding-bottom: 15px;
+  color: #303F47;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.sidenav-submenu-details{
+  margin-left: 45px;
+  padding-bottom: 15px;
+  color: #303F47;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.pageError {
+  font-size: 15px;
+  margin: 20px 0 0 0;
+}
+
+.loader-container{
+  pointer-events: all;
+  z-index: 99999;
+  border: none;
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  // top: 13.3rem;
+  color: #17497c;
+  height: 100%;
+  cursor: wait;
+  position: fixed;
+  background-color:#17497c21;
+}

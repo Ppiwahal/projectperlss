@@ -1,0 +1,36 @@
+<div class="pageMargin">
+	<div class="manage-user-profile-container" >
+		  <div class="row user-tiles profile-comp">
+			<div class="col-md-3 tile">
+			  <app-user-status-tile
+				[profileName]="ACTIVE_USERS"
+				[profileCount]="activeProfileCount"
+				[profileColor]="'green'"
+				(userProfileTileCallback)="updateTableData($event)">
+			 </app-user-status-tile>
+			</div>
+			<div class="col-md-3 tile">
+			  <app-user-status-tile
+				[profileName]="INACTIVE_USERS"
+				[profileCount]="inActiveProfileCount"
+				[profileColor]="'red'"
+				(userProfileTileCallback)="updateTableData($event)">
+			 </app-user-status-tile>
+			</div>
+			<div class="col-md-3 tile">
+			  <app-user-status-tile
+				[profileName]="INCOMPLETE_USERS"
+				[profileCount]="inCompleteProfileCount"
+				[profileColor]="'orange'"
+				(userProfileTileCallback)="updateTableData($event)">
+			 </app-user-status-tile>
+			</div>
+		</div>
+		<div class="col-md-12 profile-comp" style="margin-bottom:30px;">
+			<app-user-search [userSearchTitle]="'User Search'" (searchUsersCallback)="searchCallback($event)"></app-user-search>
+		</div>
+		<div class="col-md-12 profile-comp">
+		  <app-user-entity-status-table (reloadData)="reloadData()" [userProfileData]="currentTableData"></app-user-entity-status-table>
+		</div>
+	</div>
+  </div>

@@ -1,0 +1,42 @@
+.representative-wrapper{
+    width:95%;
+    margin: auto;
+}
+
+.person-info{
+    display: flex;
+    margin-top: 20px;
+    div{
+        margin-right: 5%;
+    }
+}
+
+.radio-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    .example-radio-group{
+        display: flex;
+        flex-direction: column;
+        margin-top: 5px;
+        margin-left: 5px;
+        width: 1%;
+    }
+}
+
+.address{
+    margin-top: 40px;
+}
+
+.required{
+    color: red;
+}
+
+div > .mat-form-field{
+    width: 100%;
+}
+.info{
+    color: red;
+    font-size: 18px;
+}
+

@@ -1,0 +1,111 @@
+@import '../../../../../colors.scss';
+
+h4 {
+  font-size: 22px;
+  line-height: 36px;
+  font-weight: 700;
+  margin: 0;
+  padding:  20px 0 5.5px 0;
+  color: #547e1a;
+  font-family: "Open Sans";
+  margin: 14.5px 0 9px 0;
+}
+
+.required-color {
+  color: #ee3524;
+}
+
+.heading-container,
+.accordion-container {
+  padding-bottom: 10px;
+  mat-accordion {
+    mat-expansion-panel {
+      border: 1px solid gray;
+      color: #1B365C;
+      justify-content: space-between;
+      font-weight: 500;
+      font-size: 16px;
+      mat-expansion-panel-header{
+        background-color:  $colorControlBackground;
+      }
+      mat-panel-title{
+        font-weight: 500;
+        font-size: 16px;
+        line-height:30px;
+      }
+      mat-panel-title.right-aligned {
+        flex-grow: 0;
+        font-weight: 500;
+        font-size: 15px;
+      }
+      mat-icon 
+      {
+        font-size:20px;
+      }
+      
+    }
+  }
+
+
+  .border-less
+  {
+    border:none;
+    background-color:white;
+    color: #1B365C;
+    display: inline-flex;
+    vertical-align: middle;
+    justify-content: center;
+    font-size:15px;
+  }
+
+  .accordion-content-container{
+    padding-top: 18px;
+    padding-left: 36px;
+    padding-right: 36px;
+    font-family: 'Open Sans';
+    font-weight: 500;
+  }
+
+  .note-container{
+    padding: 18px;
+    background-color:$colorControlBackground;
+  }
+
+  .date-container{
+    padding-top: 36px;
+    padding-bottom: 36px;
+  }
+
+  .expandable-row-button{
+    background-color:#ED9924;
+    color: white;
+    display: inline-flex;
+    vertical-align: middle;
+    justify-content: center;
+  }
+}
+
+::ng-deep .specific-classAcc > .mat-expansion-indicator:after  {
+  border-style: solid !important;
+  color: #04537d !important;
+  display:none;
+ 
+}
+
+.button-container{
+  padding-top: 5vh;
+  .row{
+    .col-md-2{
+      text-align: left;
+    }
+    .col-md-4{
+      text-align: left;
+    }
+    .col-md-6{
+      text-align: right;
+    }
+    .perlss-click-button, .perlss-click-button-white-noborder, .perlss-click-button-white{
+      font-size: 15px !important;
+    }
+  }
+}

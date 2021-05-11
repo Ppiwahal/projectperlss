@@ -1,0 +1,140 @@
+<div style="padding-top: 20px; width: 92%; padding-left: 50px;">
+  <div>
+    <ng-container [formGroup]="safetyAssessmentMainFormGroup" *ngIf="dataSource !== null">
+      <table mat-table [dataSource]="dataSource" multiTemplateDataRows formArrayName="safetyAssessmentFormGroupArray"
+        class="mat-elevation-z8" style="width: 100%;">
+        <ng-container matColumnDef="select">
+          <th style="border-bottom: 3px solid #1B365D;" mat-header-cell *matHeaderCellDef>
+          </th>
+        </ng-container>
+        <ng-container matColumnDef="SafetyRequestDescription">
+          <th mat-header-cell *matHeaderCellDef class='table-th'>Safety Request</th>
+          <td mat-cell *matCellDef="let element" style="width: 70%; padding-right: 10px">
+            {{element.SafetyRequestDescription}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="RNReviewerResponse">
+          <th mat-header-cell *matHeaderCellDef class='table-th'>RN Reviewer Response</th>
+          <td mat-cell *matCellDef="let element; let i = dataIndex;">
+            <form [formGroupName]="i">
+              <mat-form-field appearance="outline" style="width: 100%; height: 50%; padding-top: 20px;">
+                <mat-select formControlName="rnRvwrRspCd" [disabled]= "displayEditButton" (selectionChange)="sendValue($event, i)"
+                  [compareWith]="compareWithFn">
+                  <mat-option *ngFor="let r of rnResponse" [(value)]="r.code">{{r.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </form>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" matRipple></tr>
+      </table>
+    </ng-container>
+    <br>
+    <form [formGroup]="safetyFormGroup">
+      <div class="row">
+        <div class="col-md-8">
+          <mat-form-field appearance="outline" style="width: 80%; padding-top:20px">
+            <mat-label>
+              <mat-label><span class="required_class">*</span><b>LTSS Safety Decision:</b></mat-label>
+            </mat-label>
+            <mat-select formControlName="ltssSafetyDcsnCd" (selectionChange)="onChangeLTSSSafetyDecision($event)">
+              <mat-option *ngFor="let l of ltsSafetyOptions" [value]="l.code">{{l.value}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row" *ngIf="showSafetyPendingTable">
+        <div class="col-md-12">
+          <mat-radio-group aria-labelledby="example-radio-group-label" (change)="onSaftAssntChng($event)">
+            <mat-label><span class="required_class">*</span><b>Would you like to request a Safety Assessment?</b>
+            </mat-label>
+            <br />
+            <mat-radio-button value="Y">Yes</mat-radio-button>
+            <br />
+            <mat-radio-button value="N">No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+      <br>
+      <br>
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label>
+              <b>Comments:</b>
+            </mat-label>
+            <textarea formControlName="comments" matInput #comments maxlength="2000" appearance="outline"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+    <div class="row">
+      <div class="col-md-12">
+        <button *ngIf="displayEditButton" mat-flat-button
+        style=" min-width: 100px; line-height: 20px !important; background:#1d61a0 !important; color:white; font-size: 15px"
+        (click)="onEdit()">Edit</button>
+        <button mat-flat-button *ngIf="!displayEditButton" [disabled]="displaySpinner" class="perlss-click-button" class="saveButton"
+          (click)="onSave()">Save
+          <mat-progress-spinner *ngIf="displaySpinner" class="example-margin" [color]="color" [mode]="mode"
+            [value]="value" [diameter]="20" style="margin-left:25px; margin-top:-22px">
+          </mat-progress-spinner>
+        </button>
+        <button mat-button *ngIf="!displayEditButton" [disabled]="displaySpinner" color="primary" class="cancelButton">CANCEL</button>
+      </div>
+    </div>
+    <br />
+    <div class="row" *ngIf="showSafetyPendingTable && dataSource1 !== null">
+      <div class="col-md-12">
+        <table mat-table [dataSource]="dataSource1" class="mat-elevation-z8" style="width: 100%;">
+          <ng-container matColumnDef="select">
+            <th style="border-bottom: 3px solid #1B365D;" mat-header-cell *matHeaderCellDef>
+            </th>
+          </ng-container>
+          <ng-container matColumnDef="SafetyPendDate">
+            <th mat-header-cell *matHeaderCellDef class='table-th' style="text-align: center;">Safety Pend Date</th>
+            <td mat-cell *matCellDef="let element; let i = index" style="text-align: center;">
+              {{element.safetyPendingDt}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="SafetyDueDate">
+            <th mat-header-cell *matHeaderCellDef class='table-th' style="text-align: center;">Safety Due Date</th>
+            <td mat-cell *matCellDef="let element; let i = index" style="text-align: center;">
+              {{element.safetyDueDt}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Status">
+            <th mat-header-cell *matHeaderCellDef class='table-th' style="text-align: center;">Status</th>
+            <td mat-cell *matCellDef="let element; let i = index" style="text-align: center;">
+              {{element.safetyStatusCd}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="UpdateDate">
+            <th mat-header-cell *matHeaderCellDef class='table-th' style="text-align: center;">Update Date</th>
+            <td mat-cell *matCellDef="let element; let i = index" style="text-align: center;">
+              {{element.lastModifiedDt}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="UpdateUser">
+            <th mat-header-cell *matHeaderCellDef class='table-th' style="text-align: center;">Update User</th>
+            <td mat-cell *matCellDef="let element; let i = index" style="text-align: center;">
+              {{element.lastModifiedBy}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="UserActions">
+            <th mat-header-cell *matHeaderCellDef class='table-th' style="text-align: center;">User Actions</th>
+            <td mat-cell *matCellDef="let element" style="text-align: center;">
+              <span class="material-icons" style="cursor: pointer;"
+                *ngIf="element.UserActions == 'cancel'; else other_content" (click)="deleteSelectedRow(element)">
+                cancel
+              </span>
+              <ng-template #other_content>{{element.UserActions}}</ng-template>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedSafetDecisionColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedSafetDecisionColumns;"></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

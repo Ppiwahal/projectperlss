@@ -1,0 +1,174 @@
+<form [formGroup]="onsiteOutcomeForm" (ngSubmit)="submitForm(onsiteOutcomeForm)">
+    <div class="wrapper">
+        <h5>Onsite Outcome</h5>
+        <div>
+            <mat-form-field appearance="outline">
+                <mat-label><span class="required">*</span>LOC Determination</mat-label>
+                    <mat-select formControlName="locationDetermineCd">
+                        <mat-option value=''>Select </mat-option>
+                        <mat-option *ngFor = "let rs of  locDeterminationData" value={{rs.code}}>{{rs.value}}</mat-option>
+                    </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="text-area">
+            <mat-form-field appearance="outline">
+                <mat-label><span class="required">*</span>Nurse Reviewer comments based on Onsite Assessment review:</mat-label>
+                <textarea matInput #contractRecomnd maxlength="2000" formControlName="nursOnsiteReviewComments"></textarea>
+            </mat-form-field>
+            <div class="character-count">
+                {{contractRecomnd.value.length}}/2000
+            </div>
+        </div>
+        <div class="div-flex">
+            <div style="width: 30%;">
+                <mat-form-field appearance="outline">
+                    <mat-label><span class="required">*</span>Appeal Decision</mat-label>
+                        <mat-select (selectionChange)="appealDecisinChanged($event.value)" formControlName="resolutionRsnCd">
+                            <mat-option value=''>Select </mat-option>
+                            <mat-option *ngFor = "let rs of  appealDecision" value={{rs.code}}>{{rs.value}}</mat-option>
+                        </mat-select>
+                </mat-form-field>
+            </div>
+            <div style="width: 30%;" *ngIf="denielSelected">
+                <mat-form-field appearance="outline">
+                    <mat-label><span class="required">*</span>Deniel Reason</mat-label>
+                        <mat-select formControlName="denialRsnCd">
+                            <mat-option value=''>Select </mat-option>
+                            <mat-option *ngFor = "let rs of  denielReason" value={{rs.code}}>{{rs.value}}</mat-option>
+                        </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div style="margin-top: 20px;" *ngIf="denielSelected">
+            <h5>Nurse Hearing Reference</h5>
+            <div style="margin-top: 30px;">
+                <mat-label><span class="required">*</span>The following has been reviewed for this Appeal: (Select ALL that apply)</mat-label>
+                <div class="check-list">
+                    <mat-checkbox class="example-margin" formControlName="reviewOriginalPaeSw">Oigiginal PAE with all supporting documentation</mat-checkbox>
+                    <mat-checkbox class="example-margin" formControlName="docSubmittedAplRqstSw">Documents submitted with appeal request</mat-checkbox>
+                    <mat-checkbox class="example-margin">Completed onsite assessment alog with additional documentation submitted with onsite assessment</mat-checkbox>
+                    <mat-checkbox class="example-margin" formControlName="safetyReviewedSw">Safety has been reviewed</mat-checkbox>
+                    <mat-checkbox class="example-margin" formControlName="safetyNotReviewedSw">Safety has not been reviewed due to the requirements</mat-checkbox>
+                </div>
+            </div>
+            <div style="margin-top: 30px;">
+                <mat-label><span class="required">*</span>Based on the review, I have determined:</mat-label>
+                <div class="check-list">
+                    <mat-checkbox class="example-margin" formControlName="orignlPaeDenialRightSw">The original PAE denial was accurately denied</mat-checkbox>
+                    <mat-checkbox class="example-margin" formControlName="atRiskLocationSw">The applicant is medically approved for At Risk LOC(Group 3) and there is no sufficient evidence to demonstrate that the
+                        neccessary.....
+                    </mat-checkbox>
+                </div>
+            </div>
+
+            <div class="text-area">
+                <mat-form-field appearance="outline">
+                    <mat-label><span class="required">*</span>Comments</mat-label>
+                    <textarea matInput #contractRecomnd maxlength="2000" formControlName="comments"></textarea>
+                </mat-form-field>
+                <div class="character-count">
+                    {{contractRecomnd.value.length}}/2000
+                </div>
+            </div>
+            <div>
+                <button type="submit"> click </button>
+            </div>
+
+            <div>
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z0">
+                    <ng-container matColumnDef="documentName">
+                    <th mat-header-cell *matHeaderCellDef id="docName">Documentation Required </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <div class="icon-wrapper">
+                            <span class="material-icons">
+                                description
+                            </span>
+                            <span class="disc-span">
+                                {{element.documentName}}
+                            </span>
+                        </div>
+                        </td>
+                    </ng-container>
+            
+                    <ng-container matColumnDef="userActions">
+                    <th mat-header-cell *matHeaderCellDef id="userActn"> </th>
+                    <td mat-cell *matCellDef="let element">
+                            <div *ngIf="element.isUploaded; else elseBlock">
+                                    <input type="file" (change)="upload(file.files, element)" #file style="display: none;">
+                                    <span class="material-icons cloud-upload" (click)="file.click()">
+                                        cloud_upload
+                                    </span>
+                            </div>
+                            <ng-template #elseBlock>
+                                <span class="material-icons check">
+                                    check
+                                </span>
+                                <span class="material-icons remove" (click)="removeDoc(element)">
+                                    delete_forever
+                                </span>  
+                            </ng-template>  
+                    </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+                </table>   
+                <div class="table-div">
+                    <div class="row-dropdown">
+                        <div>
+                            <mat-form-field appearance="outline">
+                                <mat-label><span class="required">*</span>Date Document Received </mat-label>
+                                <input matInput [matDatepicker]="docReceivedDt">
+                                <mat-datepicker-toggle matSuffix [for]="docReceivedDt"></mat-datepicker-toggle>
+                                <mat-datepicker [startAt]="startDate" #docReceivedDt></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="doc-date">
+                            <p>Document Uploaded Date: </p>
+                        </div>
+                    </div>
+                    <div class="text-area">
+                        <mat-form-field appearance="outline">
+                            <mat-label><span class="required">*</span>Document Description</mat-label>
+                            <textarea matInput class="note-textarea" #docDescription maxlength="2000"></textarea>
+                        </mat-form-field>
+                        <div class="character-count">
+                            {{docDescription.value.length}}/2000
+                        </div>
+                    </div>
+                    <div class="text-area">
+                        <mat-form-field appearance="outline">
+                            <mat-label><span class="required">*</span>Contractor's Recommendation</mat-label>
+                            <textarea matInput class="note-textarea" #contractRecomnd maxlength="2000" [disabled]=true></textarea>
+                        </mat-form-field>
+                        <div class="character-count">
+                            {{contractRecomnd.value.length}}/2000
+                        </div>
+                    </div>
+
+                    <div class="text-area">
+                        <mat-form-field appearance="outline">
+                            <mat-label><span class="required">*</span>Nurse Review Outcome</mat-label>
+                            <textarea matInput class="note-textarea" #contractRecomnd maxlength="2000"></textarea>
+                        </mat-form-field>
+                        <div class="character-count">
+                            {{contractRecomnd.value.length}}/2000
+                        </div>
+                    </div>
+                    <button mat-stroked-button type="button" class="perlss-click-button">SAVE</button>  
+                </div>
+                <div class="icons-wrap">
+                    <div class="share-icon-wrapper" (click)="addDocuments()">
+                        <span class="material-icons">
+                            add_circle
+                        </span>
+                            ADD DOCUMENTS
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+    </div>
+</form>
+

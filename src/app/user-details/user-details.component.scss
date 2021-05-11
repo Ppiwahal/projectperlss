@@ -1,0 +1,70 @@
+.like-icon{
+  cursor: pointer;
+  font-size: 22px !important;
+  width: 30px !important;
+  height: 30px !important;
+  position: relative !important;
+  top: 5px !important;
+  vertical-align: middle !important;
+}
+
+::placeholder {
+  padding-left:  35%;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  padding-left:  15vw;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  padding-left:  15vw;
+}
+
+.responsive
+{
+  .search
+  {
+   font-size: 30px;
+    width: 30px;
+    height: 30px;
+    top: 8px;
+    right: 0px;
+  }
+
+  .status-header
+  {
+    color:black;
+  }
+
+  .status-headercell
+  {
+    font-size:15px;
+  }
+
+  .formField{
+    margin-left: 10px !important;
+    height: 55px;
+    width: calc(100% - 18px);
+    float: right;
+    
+  }
+
+  .waiting
+  {
+    padding-left: 30px;
+  }
+
+  .textfield
+  {
+    margin: 7px 0px 0px 3px  !important;
+    font-size:15px !important;
+  }
+  
+}
+
+:host::ng-deep div.responsive mat-form-field.mat-form-field > .mat-form-field-wrapper > .mat-form-field-flex > div.mat-form-field-infix {
+
+  height: 55px !important;
+}
+
+

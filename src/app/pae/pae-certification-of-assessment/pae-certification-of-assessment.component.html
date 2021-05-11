@@ -1,0 +1,163 @@
+<div class="responsive">
+<div class="popup-header-container">
+  <div class="row">
+    <div class="col-md-8">
+      <h4 id="heading">Certification of Assessment</h4>
+    </div>
+    <div class="col-md-4">
+      <div style="text-align: right;">
+        <mat-icon style="margin-top:5px;" class="popup-close-icon" (click)="closePopup()">highlight_off</mat-icon>
+        <div id="required">
+          * Required
+       </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<mat-divider class="perlss-horizontal-divider"></mat-divider>
+<div class="note-container" style="width:100%;">
+  <div class="row">
+    <div class="col-md-12">
+      <mat-label><p><b><i>Note:</i></b> May be completed by an Employment and Community First CHOICES Qualified Assessor, 
+        as defined in TennCare Rule 1200-13-01-.02, (170).</p>
+          
+        <p>When a PAE is required, the following attachments must be included.</p>
+        <p>-The HCBS Applicant and Collateral Tools completed within 365 days of the PAE request date; other recent medical 
+          records supporting the applicant’s functional and/or skilled nursing or rehabilitative needs may be submitted. 
+       </p>
+        <p>-Supporting documentation for reimbursement of skilled nursing and/or rehabilitative services.
+       </p>
+      </mat-label>
+    </div>
+  </div>
+</div>
+<div class="form-container" style="width:100%" >
+<div [formGroup]="certOfAssessmentForm">
+  <div class="col-md-8">
+    <h4 id="sigText">Electronic Signature</h4>
+    <br>
+    <strong><p>
+      Please read the statement below before you continue.
+    </p></strong>
+  </div> 
+  <div class="col-md-12">
+    <p>
+      I certify that the level of care information provided in this PAE is accurate. I understand that this 
+      information will be used to determine the applicant’s eligibility and/or reimbursement for long-term 
+      care services or Intermediate Care Facility for Intellectually Disabled or services in an HCBS waiver 
+      for an intellectually disabled individual. I understand that any intentional act on my part to provide 
+      false information that would potentially result in a person obtaining benefits or coverage to which s/he 
+      is not entitled is considered an act of fraud under the state’s TennCare program and Title XIX of the Social 
+      Security Act. I further understand that, under the Tennessee Medicaid False Claims Act, any person who presents 
+      or causes to be presented to the State a claim for payment under the TennCare program knowing such claim is 
+      false or fraudulent is subject to federal and state civil and criminal penalties.
+    </p>
+    <p>
+      <b>
+        I have read and understand the statement above. I agree to submit this form by electronic means. 
+        By typing my name below and signing this form electronically, I understand that an electronic signature has 
+        the same legal effect and can be enforced in the same ways as a written signature.
+      </b>
+    </p>
+  </div>
+  <div>
+  <div class="inputSelect">
+    <div class= "row" >
+    <div class="col-md-6" *ngIf="!isECFcredentials">
+      <mat-form-field appearance="outline">
+        <mat-label><span class="req"></span>Qualified Assessor Credentials</mat-label>
+        <mat-select placeholder="Credentials" formControlName="credentialsCd" (selectionChange)="credChanged($event.value)">
+          <div *ngFor="let element of uniqueCredentialsArray">
+          <mat-option [value]="element.credentialsCd" *ngIf="element.statusCd==='A'">{{element.credentialsCd}}</mat-option></div>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    
+    <div class="col-md-6">
+      <mat-form-field appearance="outline">
+            <mat-label><span class="req"></span>PAE Certificate Date</mat-label>
+        <input matInput readonly [matDatepicker]="picker" formControlName="paeCrtfctnDt" [min]="minDate" [max]="maxDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="getFormData().paeCrtfctnDt.errors != null" class="error">
+          <mat-error *ngIf="getFormData().paeCrtfctnDt.hasError('required') || submitted">
+            {{customValidation.A1}}
+          </mat-error>
+          <mat-error *ngIf="getFormData().paeCrtfctnDt.errors.matDatepickerMax">{{customValidation.A5}}</mat-error>
+          <mat-error *ngIf="getFormData().paeCrtfctnDt.errors.matDatepickerMin">{{customValidation.A6}}</mat-error>
+       </mat-error>
+      </mat-form-field>
+    </div>
+  </div>     
+  </div>
+  <ng-container *ngIf="!isECFcredentials">
+    <div class = "row">
+    <div class="col-md-6">
+      <mat-form-field appearance="outline">
+        <mat-label><span class="req"></span>Qualified Assessor Name</mat-label>
+        <mat-select placeholder="Qualified Accessor Name" formControlName="qualifiedAssessorName">
+          <div *ngFor="let name of filteredData">
+          <mat-option [value]="name.assessorId">
+            {{name.firstName}} {{name.lastName}}</mat-option></div>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-6 ">
+      <mat-form-field appearance="outline">
+        <mat-label><span class="req"></span>Qualified Assessor Code</mat-label>
+        <input matInput spellcheck="false" [maxlength]="20" formControlName="qualifiedAssessorDtl">
+      </mat-form-field>
+      <mat-error *ngIf="incorrectCode">
+        {{customValidation.A37}}
+      </mat-error>
+      <mat-error *ngIf="certOfAssessmentForm.get('qualifiedAssessorDtl').errors?.required && (certOfAssessmentForm.get('qualifiedAssessorDtl').touched || certOfAssessmentForm.get('qualifiedAssessorDtl').dirty)">
+        {{customValidation.A1}}
+      </mat-error> 
+      <mat-error *ngIf="certOfAssessmentForm.get('qualifiedAssessorDtl').errors?.specialCharacterValidator">
+        {{customValidation.A2}}
+      </mat-error>
+    </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="isECFcredentials">
+  <div class = "row" >
+    <div class="col-md-6 ">
+      <mat-form-field appearance="outline">
+        <mat-label><span class="req"></span>ECF Qualified Assessor Name</mat-label>
+        <mat-select placeholder="Qualified Accessor Name" formControlName="qualifiedAssessorName">
+          <div *ngFor="let name of dataSource">
+          <mat-option [value]="name.assessorId" *ngIf="name.programCd ==='ECF'&& name.statusCd==='A'">{{name.firstName}} {{name.lastName}}</mat-option>
+        </div>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-6 ">
+      <mat-form-field appearance="outline">
+        <mat-label><span class="req"></span>ECF Qualified Assessor Code</mat-label>
+        <input matInput spellcheck="false" [maxlength]="20" formControlName="qualifiedAssessorDtl">
+      </mat-form-field>
+      <mat-error *ngIf="incorrectCode">
+        {{customValidation.A37}}
+      </mat-error>
+      <mat-error *ngIf="certOfAssessmentForm.get('qualifiedAssessorDtl').errors?.required && (certOfAssessmentForm.get('qualifiedAssessorDtl').touched || certOfAssessmentForm.get('qualifiedAssessorDtl').dirty)">
+        {{customValidation.A1}}
+      </mat-error> 
+      <mat-error *ngIf="certOfAssessmentForm.get('qualifiedAssessorDtl').errors?.specialCharacterValidator">
+        {{customValidation.A2}}
+      </mat-error>
+    </div>
+  </div>
+</ng-container>
+</div>
+</div>
+  <div class="col-md-6" class="submit">
+   
+    <button type="button" mat-flat-button color="primary" class="perlss-click-button" (click)="submit()">
+      SUBMIT
+    </button>
+  </div>
+  </div>
+  </div>
+
+  

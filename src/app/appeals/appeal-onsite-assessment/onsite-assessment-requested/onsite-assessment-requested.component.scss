@@ -1,0 +1,35 @@
+.wrapper{
+    margin-top: 30px;
+    border: 1px solid #4b7f1e;
+    padding: 20px 20px 10px 20px;
+}
+
+h5{
+    color: black;
+    font-weight: bold;
+}
+
+ul{
+    list-style-type: none;
+    padding: 0;
+    li{
+        color: black;
+    }
+}
+
+li:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.inner-list{
+    padding-left: 10px;
+}
+
+ul.dashed > li:before, ul.inner-list > li:before {
+    content: "-";
+}
+
+ul.dashed {
+    margin-top: 20px;
+}
+

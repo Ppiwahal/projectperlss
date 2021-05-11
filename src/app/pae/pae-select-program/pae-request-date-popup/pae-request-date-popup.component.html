@@ -1,0 +1,180 @@
+<div class="popup-header-container">
+  <div class="row">
+    <div class="col-md-8">
+      <h4>PAE Request Date</h4>
+    </div>
+    <div class="col-md-4">
+      <div style="text-align: right;">
+        <mat-icon class="popup-close-icon" (click)="closePopup()">highlight_off</mat-icon>
+        <div class="required-class">
+          *Required
+       </div>
+      </div>
+    </div>
+  </div>
+</div>
+<mat-divider class="perlss-horizontal-divider"></mat-divider>
+
+<div class="popup-container">
+  <ng-container *ngIf="choicesGroupOne">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-label>If you are submitting a CHOICES Group 1 PAE, please <strong>ensure a PASRR been completed</strong>
+          before going forward.
+          <br>
+          <br>
+          If you are submitting a PAE on an individual in a NF, you are attesting under penalty of law that the person
+          <strong>IS NOT</strong> receiving Hospice services. Hospice services are not LTC services.
+          <br>
+          <br>
+          Please note that if a PAE is submitted for NF services and the person meets NF level of care and a CHOICES
+          capitation payment is generated in error to the MCO, the resulting overpayment may be considered a violation
+          of
+          the False Claims Act.
+          <br>
+          <br>
+          If the applicant is currently in a Nursing Facility and NOT receiving Hospice services, enter the PAE Request
+          Date and click "Continue".
+          <br>
+          <br>
+       </mat-label>
+      </div>
+    </div>
+
+    <form [formGroup]="paeRequestDateForm">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>
+              <mat-label class="required-color">*</mat-label>PAE Request Date
+            </mat-label>
+            <input matInput [matDatepicker]="programRequestDt" formControlName="programRequestDt" [min]="minDate"
+              [max]="maxDate">
+            <mat-datepicker-toggle matSuffix [for]="programRequestDt"></mat-datepicker-toggle>
+            <mat-datepicker [startAt]="startDate" #programRequestDt></mat-datepicker>
+            <mat-error *ngIf="getFormData().programRequestDt.errors != null">
+              <mat-error
+                *ngIf="getFormData().programRequestDt.hasError('required') && (getFormData().programRequestDt.touched || getFormData().programRequestDt.dirty)">
+                {{customValidation.A1}}
+              </mat-error>
+              <mat-error
+                *ngIf="getFormData().programRequestDt.errors?.matDatepickerMax && (getFormData().programRequestDt.touched || getFormData().programRequestDt.dirty)">
+                {{customValidation.A31}}</mat-error>
+              <mat-error
+                *ngIf="getFormData().programRequestDt.errors.matDatepickerMin  && (getFormData().programRequestDt.touched || getFormData().programRequestDt.dirty)">
+                {{customValidation.A6}}</mat-error>
+            </mat-error>
+          </mat-form-field>
+       </div>
+      </div>
+
+      <ng-container *ngIf="entityTypeCd !== 'MCO'">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-label><strong>
+                <mat-label class="required-class">*</mat-label>Would you like to be considered for CHOICES
+                Group 3?
+              </strong></mat-label>
+          </div>
+       </div>
+        <div class="radio-container">
+          <div class="row">
+            <div class="col-md-12">
+              <mat-radio-group formControlName="choicesGroup3Sw" (change)="choicesGroupChange($event)">
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+       </div>
+
+        <div *ngIf="isChoicesGroup3" class="row">
+          <div class="col-md-6">
+            <mat-form-field appearance="outline">
+              <mat-label>
+                <mat-label class="required-class">*</mat-label>Actual Discharge Date
+              </mat-label>
+              <input matInput [matDatepicker]="admissionDate" formControlName="actualDischargeDt" [min]="minDate">
+              <mat-datepicker-toggle matSuffix [for]="admissionDate"></mat-datepicker-toggle>
+              <mat-datepicker [startAt]="startDate" #admissionDate></mat-datepicker>
+              <mat-error *ngIf="getFormData().actualDischargeDt.errors != null">
+                <mat-error *ngIf="getFormData().actualDischargeDt.hasError('required')">
+                  {{customValidation.A1}}
+                </mat-error>
+                <mat-error *ngIf="getFormData().actualDischargeDt.errors.matDatepickerMin">{{customValidation.A6}}
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+       </div>
+      </ng-container>
+      <div class="button-container">
+        <div class="row">
+          <div class="col-md-4">
+            <button mat-flat-button color="primary" class="perlss-click-button-white-noborder"
+              (click)="cancel()">CANCEL</button>
+          </div>
+          <div class="col-md-8">
+            <button mat-flat-button color="primary" class="perlss-click-button" (click)="continue()">CONTINUE</button>
+          </div>
+       </div>
+      </div>
+    </form>
+  </ng-container>
+
+  <ng-container *ngIf="!choicesGroupOne">
+    <form [formGroup]="paeRequestDateForm">
+
+      <div class="row">
+        <div class="col-md-12">
+          <mat-label>Please enter a PAE Request Date below and click "Continue".
+          </mat-label>
+       </div>
+      </div>
+      <br>
+      <br>
+      <div class="row">
+        <div class="col-md-12">
+          <mat-form-field appearance="outline">
+            <mat-label>
+              <mat-label class="required-color">*</mat-label>PAE Request Date
+            </mat-label>
+            <input matInput [matDatepicker]="programRequestDt" formControlName="programRequestDt" [min]="minDate"
+              [max]="maxDate">
+            <mat-datepicker-toggle matSuffix [for]="programRequestDt"></mat-datepicker-toggle>
+            <mat-datepicker [startAt]="startDate" #programRequestDt></mat-datepicker>
+            <mat-error *ngIf="getFormData().programRequestDt.errors != null">
+              <mat-error
+                *ngIf="getFormData().programRequestDt.hasError('required') && (getFormData().programRequestDt.touched || getFormData().programRequestDt.dirty)">
+                {{customValidation.A1}}
+              </mat-error>
+              <mat-error
+                *ngIf="getFormData().programRequestDt.errors?.matDatepickerMax && (getFormData().programRequestDt.touched || getFormData().programRequestDt.dirty)">
+                {{customValidation.A31}}</mat-error>
+              <mat-error
+                *ngIf="getFormData().programRequestDt.errors.matDatepickerMin  && (getFormData().programRequestDt.touched || getFormData().programRequestDt.dirty)">
+                {{customValidation.A6}}</mat-error>
+            </mat-error>
+          </mat-form-field>
+       </div>
+      </div>
+
+      <div class="button-container">
+        <div class="row">
+          <div class="col-md-4">
+            <button mat-flat-button color="primary" class="perlss-click-button-white-noborder"
+              (click)="cancel()">CANCEL</button>
+          </div>
+          <div class="col-md-8">
+            <button mat-flat-button color="primary" class="perlss-click-button" (click)="continue()">CONTINUE</button>
+          </div>
+       </div>
+      </div>
+    </form>
+  </ng-container>
+</div>

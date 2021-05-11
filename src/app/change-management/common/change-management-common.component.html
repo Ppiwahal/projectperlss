@@ -1,0 +1,259 @@
+<div class="progressPanel">
+  <div class="panel active" [ngClass]="{'complete': hasSecondaryMatches}">
+    <div class="panelBar">
+      <div class="numberCircle">1
+      </div>
+      <div class="title">Search for the Person</div>
+    </div>
+    <div class="panelContents">
+      <div class="space">
+        <form [formGroup]="noticeCreateForm">
+          <ng-template matStepLabel><strong>Search for the Person</strong></ng-template>
+          <div class="w100">
+            <mat-form-field style="width: 100%" appearance="outline">
+              <mat-label>Person Search</mat-label>
+              <input matInput id="personIdElement" formControlName="personSearchInput" [matAutocomplete]="auto" #applicantNameInput
+                placeholder="Search by Applicant Name, Date Of Birth, SSN, Person ID, County">
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)='handleSelection($event.option.value)'>
+                <mat-option class="select-hr" *ngFor="let option of personOptions" [value]="option"
+                  (click)="selectPerson()">
+                  <strong>Applicant Name: </strong>{{option.prsnDetail?.firstName}} {{option.prsnDetail?.lastName}}
+                  <strong>Dob: </strong>{{option.prsnDetail?.dobDt}}
+                  <strong>SSN: </strong>{{option.prsnDetail?.ssn}}
+                  <strong>Person Id: </strong>{{option.prsnDetail?.prsnId}}
+                  <strong>County: </strong>{{option.prsnDetail?.cntyCd}}
+                </mat-option>
+              </mat-autocomplete>
+              <button mat-button *ngIf="f.personSearchInput?.value" matSuffix mat-icon-button aria-label="Clear"
+                (click)="f.personSearchInput.setValue(null)">
+                <mat-icon>close</mat-icon>
+              </button>
+              <mat-error *ngIf="getData().personSearchInput.errors !== null">
+                <span *ngIf="(getData().personSearchInput.touched) && getData().personSearchInput.errors.required">
+                  {{customValidation.A1}}</span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <ng-container *ngIf="!twoPanelMode">
+    <div class="panel" [ngClass]="{'complete': panelOpen, 'active': hasSecondaryMatches || showNoMatch }">
+      <div class="panelBar">
+        <div class="numberCircle">2</div>
+        <div class="title">{{searchPanelName}}</div>
+      </div>
+      <div class="panelContents">
+        <div *ngIf="mode==='demograph'">
+          <form [formGroup]="demoForm">
+            <div class="row marginT">
+              <div class="col-md-4">
+                <mat-form-field appearance="outline">
+                  <mat-label><sup>
+                      <mat-label class="required-color">*</mat-label>
+                    </sup>First Name</mat-label>
+                  <input matInput formControlName="firstName" placeholder="First Name" maxlength="45"
+                    [ngClass]="{ 'is-invalid': (getFormData().firstName.touched) && getFormData().firstName.errors }">
+                </mat-form-field>
+                <mat-error *ngIf="getFormData().firstName.errors !== null">
+                  <span
+                    *ngIf="getFormData().firstName.errors.required && (getFormData().firstName.touched)">
+                    {{customValidation.A1}}</span>
+                  <span *ngIf="getFormData().firstName.errors?.invalidName && !getFormData().firstName.errors.required">
+                    {{customValidation.A2}}
+                  </span>
+                </mat-error>
+              </div>
+              <div class="col-md-2">
+                <mat-form-field appearance="outline">
+                  <mat-label>MI</mat-label>
+                  <input matInput formControlName="midInitial" placeholder="MI" mask="S">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field appearance="outline">
+                  <mat-label><sup>
+                      <mat-label class="required-color">*</mat-label>
+                    </sup>Last Name</mat-label>
+                  <input matInput formControlName="lastName" placeholder="Last Name" maxlength="45"
+                    [ngClass]="{ 'is-invalid': getFormData().lastName.touched && getFormData().lastName.errors }">
+                  <mat-error *ngIf="getFormData().lastName.errors !== null">
+                    <span
+                      *ngIf="getFormData().lastName.errors.required && (getFormData().lastName.touched)">
+                      {{customValidation.A1}}</span>
+                    <span *ngIf="getFormData().lastName.errors?.invalidName && !getFormData().lastName.errors.required">
+                      {{customValidation.A2}}
+                    </span>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-2">
+                <mat-form-field appearance="outline">
+                  <mat-label>Suffix</mat-label>
+                  <mat-select matNativeControl formControlName="suffix" aria-placeholder="Select an option">
+                    <mat-option value="Jr">Jr</mat-option>
+                    <mat-option value="Sr">Sr</mat-option>
+                    <mat-option value="III">III</mat-option>
+                    <mat-option value="IV">IV</mat-option>
+                    <mat-option value="V">V</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field appearance="outline">
+                  <mat-label><sup>
+                      <mat-label class="required-color">*</mat-label>
+                    </sup>Date Of Birth</mat-label>
+                  <input matInput [matDatepicker]="dateOfBirth" formControlName="dateOfBirth" [min]="minDate"
+                    [max]="maxDate">
+                  <mat-datepicker-toggle matSuffix [for]="dateOfBirth"></mat-datepicker-toggle>
+                  <mat-datepicker #dateOfBirth></mat-datepicker>
+                  <mat-error *ngIf="getFormData().dateOfBirth.errors != null">
+                    <span
+                      *ngIf="demoForm.get('dateOfBirth').hasError('required') && (getFormData().dateOfBirth.touched)">
+                      {{customValidation.A1}}
+                    </span>
+                    <span *ngIf="getFormData().dateOfBirth.errors.matDatepickerMax">{{customValidation.A5}}</span>
+                    <span *ngIf="getFormData().dateOfBirth.errors.matDatepickerMin">{{customValidation.A6}}</span>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                <mat-form-field appearance="outline">
+                  <mat-label>Gender</mat-label>
+                  <mat-select matNativeControl formControlName="genderCd">
+                    <mat-option value="M">Male</mat-option>
+                    <mat-option value="F">Female</mat-option>
+                    <mat-option value="U">Unknown</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-md-5">
+                <mat-form-field appearance="outline">
+                  <mat-label><sup>
+                      <mat-label class="required-color">*</mat-label>
+                    </sup>Social Security Number</mat-label>
+                  <input matInput formControlName="ssn" placeholder="xxx-xx-xxxx" mask="000-00-0000" [maxLength]="9"
+                    [ngClass]="{ 'is-invalid': getFormData().ssn.touched && getFormData().ssn.errors }">
+
+                </mat-form-field>
+                <mat-error *ngIf="getFormData().ssn.errors !== null">
+                  <span *ngIf="getFormData().ssn.errors?.invalid">{{customValidation.A4}}</span>
+                  <span *ngIf="getFormData().ssn.errors.required && (getFormData().ssn.touched)">
+                    {{customValidation.A1}}
+                  </span>
+                  <span *ngIf="getFormData().ssn.errors?.invalidSSN && !getFormData().ssn.errors.required">
+                    SSN is invalid
+                  </span>
+                </mat-error>
+              </div>
+            </div>
+
+            <div class="row" id="chkStyle">
+              <div class="col-md-4">
+                <mat-form-field appearance="outline">
+                  <mat-label id="txtColor">Alias First Name</mat-label>
+                  <input matInput formControlName="aliasFirstName" placeholder="Alias First Name" maxlength="45"
+                    [ngClass]="{ 'is-invalid': getFormData().aliasFirstName.touched && getFormData().aliasFirstName.errors }">
+                  <mat-error *ngIf="getFormData().aliasFirstName.errors !== null">
+                    <span *ngIf="getFormData().aliasFirstName.touched && getFormData().aliasFirstName.errors.required">
+                      {{customValidation.A11}}
+                    </span>
+                    <span
+                      *ngIf="getFormData().aliasFirstName.errors?.invalidName && !getFormData().aliasFirstName.errors.required">
+                      {{customValidation.A2}}</span>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-2">
+                <mat-form-field appearance="outline">
+                  <mat-label>MI</mat-label>
+                  <input matInput formControlName="aliasMidInitial" placeholder="MI" mask="S"
+                    [ngClass]="{ 'is-invalid': getFormData().aliasMidInitial.touched && getFormData().aliasMidInitial.errors }">
+
+                </mat-form-field>
+                <mat-error
+                  *ngIf="getFormData().aliasMidInitial.errors !== null && getFormData().aliasMidInitial.errors.pattern">
+                  {{customValidation.A2}}</mat-error>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field appearance="outline">
+                  <mat-label id="txtColor">Alias Last Name</mat-label>
+                  <input matInput formControlName="aliasLastName" placeholder="Alias Last Name" maxlength="45">
+                  <mat-error *ngIf="getFormData().aliasLastName.errors !== null">
+                    <span
+                      *ngIf="getFormData().aliasLastName.errors?.invalidName && !getFormData().aliasLastName.errors.required">
+                      {{customValidation.A2}}</span>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-2">
+                <mat-form-field appearance="outline">
+                  <mat-label>Suffix</mat-label>
+                  <mat-select matNativeControl formControlName="aliasSuffix" aria-placeholder="Select an option">
+                    <mat-option value="Jr">Jr</mat-option>
+                    <mat-option value="Sr">Sr</mat-option>
+                    <mat-option value="III">III</mat-option>
+                    <mat-option value="IV">IV</mat-option>
+                    <mat-option value="V">V</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col marginSpace">
+                <button mat-flat-button color="primary" class="perlss-click-button submit" [disabled]="!demoForm.dirty"
+                  (click)="searchForPerson()">VALIDATE
+                  PERSON DETAILS</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div *ngIf="showNoMatch && mode!='demograph'">
+          <p>There are no records found for this Person Id</p>
+        </div>
+        <div *ngIf="!showNoMatch && mode!='demograph'">
+          <table aria-describedby="table" class="panelResults">
+            <thead>
+              <tr>
+                <th id="column" *ngFor="let column of tableSettings">{{column.title}}</th>
+                <th id="action">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let item of secondaryMatches, let i = index">
+                <tr [ngClass]="{'selected': i == selectedSecondaryMatch}"
+                  *ngIf="!panelOpen || showSecondaryMatch || i == selectedSecondaryMatch">
+                  <td *ngFor="let valueItem of item">{{valueItem}}</td>
+                  <td>
+                    <button mat-flat-button color="primary" [attr.rowIndex]="i" class="perlss-click-button-white"
+                      [ngClass]="{'highlight-button':selectedSecondaryMatch == i}" (click)="select($event); displayPae(secondaryMatches[i])">
+                      <span class="selectbutton">{{buttonName}}</span>
+                      <mat-icon class="offlinePin">offline_pin</mat-icon>
+                    </button>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <div class="panel" [ngClass]="{'active': panelOpen}">
+    <div class="panelBar">
+      <div class="numberCircle">{{ twoPanelMode ? 2 : 3 }}</div>
+      <div class="title">{{resultPanelName}}</div>
+    </div>
+    <div class="panelContents" *ngIf="panelOpen && !demoForm.dirty">
+      <div class="panelContents">
+        <ng-content></ng-content>
+      </div>
+    </div>
+  </div>
+</div>

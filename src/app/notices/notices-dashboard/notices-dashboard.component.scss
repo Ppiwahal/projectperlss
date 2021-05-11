@@ -1,0 +1,90 @@
+.button-click-button-white{
+    background-color: white !important;
+    color: black !important;
+    border: 1px solid #1B365D !important;
+    font-weight: bold;
+  }
+  .app-sub-heading{
+      color: #4D7E20;
+      font-weight: bold;
+      font-size: 18px ;
+      padding: 20px 0 15px 0;
+  }
+
+  .queue-accordion{
+      margin: 20px 20px 0 20px;
+  }
+
+  .filter-dropdown{
+      display: flex;
+      justify-content: space-between;
+
+    
+      > div {
+        width: 40%;
+        float: left;
+        &:last-child {
+          //margin-left: 20px;
+        }
+        
+        div {
+          width: 100%;
+          > mat-form-field {
+            width: 100%;
+            display: block !important;
+           }
+        }
+
+      } 
+
+  }
+
+  div > .mat-form-field {
+    width: 100%;
+  }
+
+  .filter-dropdown div{
+      width: 45%;
+  }
+
+  .header{
+      display: flex;
+      justify-content: space-between;
+      padding-top: 25px;
+  }
+
+  .search-heading{
+      color: #4D7E20;
+  }
+
+  .filter-field{
+      width: 30%;
+  }
+
+  .example-element-detail {
+    overflow: hidden;
+    display: flex;
+  }
+
+  .inside-table-wrapper{
+    width: 100%;
+  }
+
+  .innerTable div{
+    width: 30%;
+  }
+
+  .select-hr { 
+    border-bottom: 1px solid #000; 
+  }
+
+  ::ng-deep .toast-message{
+    color: white;
+    font-size: 16px;
+  }
+
+  .create-bitton {
+    padding-right: 30px;
+    padding-left: 15px;
+  }
+

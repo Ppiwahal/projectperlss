@@ -1,0 +1,116 @@
+.tableContainer {
+  margin-left: 60px;
+  margin-right: 60px;
+}
+
+.mat-table {
+  border: 2px solid #cdddf4
+}
+.red{
+  color: #ed6053
+}
+.green{
+  color: #547E1A;
+}
+.applicant-sub-heading {
+  color: #547E1A;
+  font-size: 10px;
+  margin-bottom: 25px;
+}
+
+#applicantName {
+  border: 2px solid;
+  border-color: #4D7E20;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+}
+
+::ng-deep .mat-form-field {
+  width: 100%;
+}
+
+.status-header {
+  padding-left: 35px;
+  font-weight: bold;
+  font-size: 16px;
+  background-color: #cdddf4;
+}
+
+.iconTextContainer {
+  position: relative;
+  padding-top: 4px;
+  text-align: center;  
+  div{
+  font-size: 18px;
+  .mat-icon{
+    font-size: 22px;
+  }
+  }
+}
+ 
+.mat-cell {
+  font-size: 18px !important;
+}
+
+.statusText {
+  position: absolute;
+  padding-top: 2px;
+}
+
+.usrActions {
+  padding-left: 30px;
+  font-size: 14px;
+}
+
+.mat-header-cell {
+  color: black !important;
+}
+
+.perlss-section-divider {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.statHeader {
+  font-weight: bold;
+  font-size: large;
+}
+
+/* .mat-header-row {
+  border-bottom: 1px solid #35485b;
+} */
+.applicant-heading {
+  color: #6E7073;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 45px;
+}
+
+.mat-icon {
+  font-size: 18px;
+  vertical-align: middle;
+  position: relative;
+  top: 0;
+}
+
+.gotoDetailsLink:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.Summary{
+  font-size: 20px;
+    line-height: 23.5px;
+    font-family: "Open Sans";
+    margin: 17.5px 0 12.5px 0;
+    font-weight: 600;
+    color: #547e1a;
+}
+.textStyle{
+  font-family: "Open Sans";;
+    font-size: 18px;
+    line-height: 23.5px;
+    font-weight: 400;
+    color: #0b0b0b;
+}

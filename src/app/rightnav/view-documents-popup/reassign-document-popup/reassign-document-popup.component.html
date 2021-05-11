@@ -1,0 +1,110 @@
+<div class="document-wrapper">
+    <div class="document-header-row">
+        <div>
+            <p style="color: #1B365D; font-size: 25px; font-weight: bold;">
+                <mat-icon (click)="navigateBack()" style=" margin-right: 5px; cursor: pointer;" class="required-color">
+                    keyboard_backspace</mat-icon>Reassign Document
+            </p>
+       </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="document-body">
+        <div class="person-details">
+            <div class="table-header-content">
+                <div *ngIf="data.applicantName" style="color: #1B365D;" class="d-flex">
+                    <strong class="col-4">Applicant Name:</strong>
+                    <strong class="col-6">{{data.applicantName}}</strong>
+                </div>
+                <div *ngIf="data.refId" style="color: #1B365D;" class="d-flex">
+                    <strong class="col-4">Referral ID:</strong>
+                    <strong class="col-6">{{data.refId}}</strong>
+                </div>
+                <div *ngIf="data.paeId" style="color: #1B365D;" class="d-flex">
+                    <strong class="col-4">PAE ID:</strong>
+                    <strong class="col-6">{{data.paeId}}</strong>
+                </div>
+                <div *ngIf="data.aplId" style="color: #1B365D;" class="d-flex">
+                    <strong class="col-4">Appeal ID:</strong>
+                    <strong class="col-6">{{data.aplId}}</strong>
+                </div>
+            </div>
+       </div>
+        <div style="margin-left: 12px; margin-right: 20px; margin-top: 50px; margin-bottom: 20px;">
+            <div>
+                <div class="row document-card" style="margin-top: 10px;">
+                    <div class="column col-md-1">
+                        <mat-icon class="required-color">description</mat-icon>
+                    </div>
+                    <div class="column col-md-7 documents-link" (click)="viewDoc()">
+                        {{reassignDocs.docType}}
+                    </div>
+                    <div class="column col-md-2 documents-date">
+                        {{reassignDocs.displayDate}}
+                    </div>
+                    <div class="column col-md-1" (mouseover)="contactCardOver()" (mouseleave)="contactCardLeave()">
+                        <mat-icon class="contact-icon">person</mat-icon>
+                    </div>
+                </div>
+                <div *ngIf="showCard" class="contact-card">
+                    <mat-card style="width: 100%; color: #1B365D;">
+                        <mat-card-content>
+                            <strong>Name: {{reassignDocs.userName}}</strong><br /><br />
+                            <strong>Username: {{reassignDocs.userId}}</strong>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="fileContainer">
+                    <div class="doc-desc">
+                        <div style="color: black; text-align: left;">
+                            <strong>Document Description:</strong><br />
+                            <span>{{reassignDocs.docDesc}}</span>
+                        </div>
+                    </div>
+                </div>
+                <mat-divider style="margin-top: 10px;"></mat-divider>
+            </div>
+       </div>
+    </div>
+    <div *ngIf="isShowSpinner" class="spinner-overlay">
+        <mat-spinner color="warn" mode="indeterminate" [diameter]="24"></mat-spinner>
+    </div>
+    <div *ngIf="isApplicantRecords && isDocumentTypes">
+        <div class="changes-section" style="color: black; font-size: 13px;">
+            Select the changes you would like to make and then click "<strong>Save</strong>."
+       </div>
+        <div class="changes-section">
+            <div class="reassign-sub-heading">
+                1. Change Document Type(s)
+            </div>
+            <div style="margin-top: 25px;">
+                <ng-multiselect-dropdown [placeholder]="'Change Document Type(s)'" [settings]="documentSettings"
+                    [data]="documentsList" [(ngModel)]="selectedDocuments">
+                </ng-multiselect-dropdown>
+            </div>
+            <div *ngIf="documentsError" class="error-text">
+                {{documentErrorText}}
+            </div>
+            <div style="margin-top: 10px;">
+                <button type="submit" class="save-button" (click)="saveDocTypes()">SAVE</button>
+            </div>
+       </div>
+        <mat-divider></mat-divider>
+        <div class="changes-section">
+            <div class="reassign-sub-heading">
+                2. Add document to another record
+            </div>
+            <div style="margin-top: 25px;"><strong style="color: black">Select applicant's record</strong></div>
+            <div style="margin-top: 5px;">
+                <ng-multiselect-dropdown [placeholder]="'Select Applicant record'" [settings]="recordsSettings"
+                    [data]="recordsList" [(ngModel)]="selectedRecords">
+                </ng-multiselect-dropdown>
+            </div>
+            <div *ngIf="recordsError" class="error-text">
+                {{recordsErrorText}}
+            </div>
+            <div style="margin-top: 10px;">
+                <button type="submit" class="save-button" (click)="saveApplicantRecord()">SAVE</button>
+            </div>
+       </div>
+    </div>
+</div>

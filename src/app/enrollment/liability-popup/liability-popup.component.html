@@ -1,0 +1,41 @@
+<div class="popup-header-container">
+  <div class="row">
+    <div class="col-md-8">
+      <h4>Patient Liability Details </h4>
+    </div>
+    <div class="col-md-4">
+      <div style="text-align: right;">
+        <mat-icon class="popup-close-icon" (click)="closePopup()">highlight_off</mat-icon>
+      </div>
+    </div>
+  </div>
+</div>
+<mat-divider class="perlss-horizontal-divider"></mat-divider>
+
+<div class="patient-liability-table">
+
+<div class="row">
+  <div class="col-md-12">
+
+    <table id="liabilityTable" aria-describedBy="false" class="mat-elevation-z6">
+
+      <thead>
+        <tr>
+            <th id="startDate">Start Date</th>
+            <th id="endDate">End Date</th>
+            <th id="amount">Amount</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>{{patientLiabilityData.patientLbltyStartDt | date:'MM/d/yyyy' }}</td>
+          <td>{{patientLiabilityData.patientLbltyEndDt | date:'MM/d/yyyy' }}</td>
+          <td>{{patientLiabilityData.amount | currency}}</td>
+      </tr>
+      </tbody>
+
+    </table>
+  </div>
+</div>
+</div>

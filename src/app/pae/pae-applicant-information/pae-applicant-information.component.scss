@@ -1,0 +1,140 @@
+@import '../../../colors.scss';
+
+
+.mat-progress-spinner {
+  display: unset;
+}
+
+.required-color {
+  color: #EE3524;
+}
+
+.applicant-sub-heading {
+  font-weight: bold;
+  color: #547E1A;
+  font-size: 28px;
+}
+
+.perlss-section-divider {
+  width: 100%;
+  padding-top: 15px;
+  padding-bottom: 15px
+}
+
+.perlss-click-button-white:focus {
+  background-color: #174A7C !important;
+  color: white !important;
+}
+
+.mat-elevation-z8-boarder {
+  border: #1B365D;
+  width: 100%;
+  -moz-box-shadow: 0 0 1px 1px #888;
+  -webkit-box-shadow: 0 0 1px 1px#888;
+  box-shadow: 0px 0px 0px 0px;
+  
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+#applicant-physical-address {
+  margin-left: 5px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+
+
+#addressTable {
+  text-align: center;
+  width: 100%;
+  -moz-box-shadow: 0 0 1px 1px #888;
+  -webkit-box-shadow: 0 0 1px 1px#888;
+  box-shadow: 0 0 1px 1px #888;
+}
+#addressTable td {
+  padding: 20px;
+}
+#searchPersonTable tr {
+  border: 0.5px solid #174A7C;
+}
+
+#searchPersonTable{ td{
+  text-align: center;
+  font-size: 15px;
+  background-color: #EDF4FB;
+  padding: 10px;
+}
+th {
+  font-size: 15px;
+}
+}
+.pae-app-container {
+  margin: 0 50px;
+}
+
+.table-row-header {
+  font-weight: bold;
+  color: #174a7c;
+  font-size: 15px;
+  background-color: white;
+  border-bottom: 2px solid #174a7c;
+}
+
+
+
+.tdStyle {
+  font-weight: bold;
+  font-size: 15px;
+  border-bottom: 1px solid #174a7c;
+}
+
+.page-sub-heading {
+  color: #ed6053;
+  font-size: 18px;
+}
+.stack-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.stack-radio-button {
+  margin: 5px;
+}
+
+.extraMargin{
+  margin: 0 90px 40px 50px ;
+}
+
+.heightChk{
+  height: 45px;
+}
+
+.chkDisplay{
+  display: inline-block;
+}
+
+.chkWidth{
+  width: 100%;
+}
+
+#chkMargin{
+  margin-left:65vw;
+}
+
+.addIndividualContainer{
+  padding-top: 1.5vw;
+}
+

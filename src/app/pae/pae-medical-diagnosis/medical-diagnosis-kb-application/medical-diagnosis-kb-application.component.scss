@@ -1,0 +1,62 @@
+.popup-header-container{
+  padding-left: 45px;
+  padding-right: 45px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  margin-left: 10px;
+}
+
+.mat-dialog-container {
+  padding: 0;
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+  border-radius: 7px;
+  border: 2px solid #225282;
+}
+
+.popup-close-icon{
+  transform: scale(1.5);
+  cursor: pointer;
+  color: #8b99ac;
+}
+
+.note-container{
+  padding-top: 27px;
+  padding-bottom: 27px;
+  background-color: #f5f9fe;
+  padding-left: 45px;
+  padding-right: 45px;
+}
+
+.form-container{
+  padding-top: 27px;
+  padding-bottom: 27px;
+  padding-left: 4.90px;
+  padding-right: 4.90px;
+}
+
+.required-class{
+  color: #ed6053;
+}
+
+.question-container{
+  padding-top: 36px;
+}
+
+.radio-container{
+  padding-top: 3.5px;
+  margin-left: 7px;
+}
+
+#applicantName {
+  border: 2px solid;
+  border-color: #4D7E20;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+}
+.mat-expansion-panel-body{
+  width: 50%;
+}

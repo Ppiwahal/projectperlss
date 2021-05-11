@@ -1,0 +1,121 @@
+.wrapper{
+    width: 90%;
+    margin: auto;
+}
+.header{
+    font-size: 30px;
+    font-weight: bold;
+    color: #174A7C;
+}
+
+.lable{
+    color: #4b7f1e;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.header-wrapper{
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid green;
+}
+.required-tag, .required{
+    color: red;
+}
+
+div > .mat-form-field {
+    width: 100%;
+}
+
+.person-wrapper{
+    margin-top: 40px;
+    div{
+        margin: 20px 0;
+    }
+}
+.not-found-button{
+    margin: 20px 0 30px 0;
+    p{
+        font-weight: bold;
+        color: black;
+    }
+
+}
+
+.button-unchecked{
+        border: 1px solid gray;
+        background-color: lightgray;
+        font-weight: bold;
+        color: gray;
+}
+.button-checked{
+    background-color: #174A7C;
+    font-weight: bold;
+    color: white;
+}
+.row-dropdown{
+    display: flex;
+    div{
+        width: 40%;
+        margin-right: 10%;
+    }
+}
+.note-textarea{
+    width: 100%;
+}
+.note-textarea + p{
+    margin-left: 96%
+}
+.row-details{
+    width:40%;
+    margin-top: 30px;
+}
+.next-button{
+    display: flex;
+    justify-content: flex-end;
+    margin: 30px 0 20px 0;
+}
+.radio-wrapper{
+    display: flex;
+    flex-direction: column;
+    .example-radio-group{
+        display: flex;
+        flex-direction: column;
+        margin-top: 5px;
+        margin-left: 5px;
+        width: 1%;
+    }
+}
+.appeal-request-wrap{
+    margin-top: 30px;
+}
+.row-details, .row-dropdown, .radio-wrapper, 
+.row-dropdown, .row-dropdown, .text-area{
+    margin-top: 15px;
+}
+textarea{
+    margin-top: 5px;
+    width: 100%;
+}
+
+.select-hr { 
+    border-bottom: 1px solid lightgray; 
+  }
+
+  .text-area{
+    position: relative;
+}
+.comment-error{
+    color: red;
+    position: absolute;
+    top: 93%;
+}
+.character-count{
+  float: right;
+  margin-top: -24px;
+}
+
+div > .mat-form-field{
+    width: 100%;
+}

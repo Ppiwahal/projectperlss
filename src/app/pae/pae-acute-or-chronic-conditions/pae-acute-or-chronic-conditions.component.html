@@ -1,0 +1,116 @@
+<div class="popup-header-container">
+  <div class="row">
+    <div class="col-md-8">
+      <h4 id="heading">Details </h4>
+    </div>
+    <div class="col-md-4">
+      <div style="text-align: right;">
+        <mat-icon class="popup-close-icon" (click)="closePopup()">highlight_off</mat-icon>
+      </div>
+    </div>
+  </div>
+</div>
+<mat-divider class="perlss-horizontal-divider"></mat-divider>
+<div class="scroller">
+  <form [formGroup]="acuteForm">
+    <br>
+    <div class="scroller noPad">
+      <div class="stmnt">
+        <p>Provide details of the staff and interventions required for the applicant's diagnosed Acute or
+          Chronic Medical Conditions</p>
+      </div>
+    </div> 
+    <div id="top">
+      <mat-accordion>
+        <ng-container *ngFor="let item of formInformation; let i = index" >
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" class="expPanel">   
+            <mat-expansion-panel-header class="accordion-header">
+              <mat-panel-title class="panel-title">
+                <mat-label class="forWidth">Medical Condition  </mat-label><mat-label class="forWidth">Acute or Chronic  </mat-label>
+                <mat-label class="forWidth">Licensed Staff Required  </mat-label><mat-label class="forWidth">User Actions  </mat-label>
+              </mat-panel-title>
+              <mat-panel-description class="panel-description">
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="row">
+              <div class="col-md-3" style="padding-left: 0;">
+                <mat-form-field appearance="outline">
+                  <input matInput readonly />{{item.medCndtn}}
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                <mat-form-field appearance="outline">
+                  <input matInput readonly />{{item.acuteChrncCd}} 
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field appearance="outline" style="margin-left: 72px;">
+                  <input matInput readonly />{{item.licensedStaffReq}} 
+                </mat-form-field>
+              </div>
+            </div>  
+            <br>
+            <div class="row">               
+              <div class="col-md-10">
+                <mat-label style="margin-left: -18px;">Intervention Required</mat-label>
+                <mat-form-field appearance="outline" style="width:100%;margin-left:-15px;">
+                  <input matInput readonly />{{item.interventionReq}}
+                </mat-form-field>
+              </div>     
+            </div>    
+          </mat-expansion-panel>
+          <br>
+        </ng-container>   
+      </mat-accordion>
+    </div>   
+    <br><br>
+    <div>
+      <button mat-button (click)="toggleShow()" id="addNew">ADD NEW</button>
+    </div><br>
+    <div *ngIf="isShown">
+      <div class="row" style="margin-left: 36px">
+        <div class="col-md-6">
+          <mat-label>Medical Condition</mat-label>
+          <mat-form-field appearance="outline" style="width: 95%;">
+            <input matInput formControlName="medCndtn" />
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-label>Acute or Chronic</mat-label>
+          <mat-form-field appearance="outline" style="width: 95%;">
+            <mat-select matNativeControl formControlName="acuteChrncCd">
+              <mat-option *ngFor="let option of acuteChronicList" [value]="option.code">
+                {{option.value}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>  
+      <div class="row" style="margin-left: 36px">
+        <div class="col-md-6">
+          <mat-label>Licensed Staff Required</mat-label>
+          <mat-form-field appearance="outline" style="width: 95%;">
+            <input matInput formControlName="licensedStaffReq" />
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-label>Intervention Required</mat-label>
+          <mat-form-field appearance="outline" style="width: 95%;">
+            <input matInput formControlName="interventionReq" />
+          </mat-form-field>
+        </div>
+      </div>  
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row" style="margin-left: 36px; padding-top: 10px; width:95%;">
+            <div class="col-md-1" style="text-align: left;">
+              <button type="submit" mat-stroked-button class="perlss-click-button"  (click)="saveNewRecord();clearForm();">SAVE</button>
+            </div>
+            <div class="col-md-1" style="text-align: left;">
+              <button mat-flat-button color="primary" class="perlss-click-button-white-noborder" (click)="cancelForm();clearForm();" >CANCEL</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </form> 
+</div>

@@ -1,0 +1,87 @@
+
+@import '../../../colors.scss';
+
+*{
+    font-family: 'Open Sans';
+  }
+
+  .applicant-sub-heading {
+    font-weight: bold;
+    color: #4D7E20;
+    font-size: 22px;
+  }
+tr.example-detail-row {
+  height: 0;
+}
+
+  :ng-deep .mat-form-field {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: $colorControlBackground;
+    border-color: #CED4DA;
+  }
+
+
+//::ng-deep .mat-form-field-flex > .mat-form-field-infix { padding: 0.4em 0 !important;}
+//::ng-deep .mat-form-field-appearance-outline .mat-form-field-label { margin-top:-15px; }
+//::ng-deep label.ng-star-inserted { transform: translateY(-0.59375em) scale(.75) !important; }
+
+  .mat-form-field {
+    width: 100% !important;
+  }
+
+  .required-color {
+    color: #EE3524;
+  }
+
+  .form-label{
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .label-star{
+    color: red;
+    padding-right: 2px;
+    font-size: 9px;
+  }
+
+  .mat-form-field-outline-start, .mat-form-field-outline-end {
+    border-radius: 0 !important;
+  }
+
+  .update-button-font
+  {
+    font-size: 16px;  
+    padding: 3px 25px; 
+    margin-top: 16px; 
+    font-weight: bold;
+  }
+
+  .cancel-button-font
+  {
+    padding-top: 55px; 
+    margin-top: 16px;
+    text-align: center;
+    display: block;
+    color:#3f51b5; 
+    font-weight: bold;
+  }
+
+  .applicantName-font
+  {
+    color: #3f51b5; 
+    cursor: pointer;
+  }
+
+  ::ng-deep .toast-message{
+    color: white;
+    font-size: 16px;
+  }
+
+
+
+
+

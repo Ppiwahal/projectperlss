@@ -1,0 +1,213 @@
+<div class="pageMargin">
+    <div class="row">
+        <div class="col-md-6">
+            <p class="common">Notice Details</p>
+        </div>
+    </div>
+    <div class="inner-container">
+        <div class="row">
+            <div class="col-md-3">
+                <p class="label_name">APPLICANT NAME:</p>
+            </div>
+            <div class="col-md-3">
+                <p>{{noticesIdDetails?.firstName}}{{applicantName}}{{noticesIdDetails?.lastName}}</p>
+            </div>
+            <div class="col-md-3">
+                <p class="label_name">REFERRAL ID</p>
+            </div>
+            <div class="col-md-3">
+                <p *ngIf="noticesIdDetails">{{(noticesIdDetails.refId ? noticesIdDetails.refId : "---")}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="label_name">PERSON ID:</p>
+            </div>
+            <div class="col-md-3">
+                <p *ngIf="noticesIdDetails">{{(noticesIdDetails.personId ? noticesIdDetails.personId : "---")}}</p>
+            </div>
+            <div class="col-md-3">
+                <p class="label_name">ASSIGNED GROUP:</p>
+            </div>
+            <div class="col-md-3">
+                <p *ngIf ="noticesIdDetails">{{noticesIdDetails.assignedGroup ? noticesIdDetails.assignedGroup : "---" }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="label_name">DATE OF BIRTH:</p>
+            </div>
+            <div class="col-md-3">
+                <p *ngIf="noticesIdDetails">{{(noticesIdDetails.dob ? noticesIdDetails.dob : "---")}}</p>
+            </div>
+            <div class="col-md-3">
+                <p class="label_name">PAE ID:</p>
+            </div>
+            <div class="col-md-3">
+                <p *ngIf="noticesIdDetails">{{(noticesIdDetails.paeId ? noticesIdDetails.paeId : "---")}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="label_name">SSN:</p>
+            </div>
+            <div class="col-md-3">
+                <p *ngIf="noticesIdDetails">{{ formatSSN(noticesIdDetails?.ssn)}}</p>
+            </div>
+            <div class="col-md-3">
+                <p class="label_name">PAE STATUS:</p>
+            </div>
+            <div class="col-md-3">
+                <p *ngIf="noticesIdDetails">{{noticesIdDetails.paeStatus}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="label_name">PROGRAM TYPE:</p>
+            </div>
+            <div class="col-md-3">
+                <p *ngIf="noticesIdDetails">{{(noticesIdDetails.programType ? noticesIdDetails.programType : "---")}}
+                </p>
+            </div>
+            <div class="col-md-3">
+                <p class="label_name">APPEAL ID:</p>
+            </div>
+            <div class="col-md-3">
+                <p *ngIf="noticesIdDetails">{{(noticesIdDetails.aplId ? noticesIdDetails.aplId : "---")}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="label_name">ENROLLMENT EFFECTIVE DATE:</p>
+            </div>
+            <div class="col-md-3">
+                <p *ngIf="noticesIdDetails">{{(noticesIdDetails.enrollmentEffectiveDate ?
+                    noticesIdDetails.enrollmentEffectiveDate : "---")}}</p>
+            </div>
+            <div class="col-md-3">
+                <p class="label_name">APPEAL STATUS:</p>
+            </div>
+            <div class="col-md-3">
+                <p *ngIf="noticesIdDetails">{{noticesIdDetails.appealStatus}}</p>
+            </div>
+        </div>
+        <br>
+        <mat-divider></mat-divider>
+        <br>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="label_name">NOTICE ID:</p>
+            </div>
+            <div class="col-md-3">
+                <p *ngIf="noticesIdDetails">{{(noticesIdDetails.noticeId ? noticesIdDetails.noticeId : "---")}}</p>
+            </div>
+            <div class="col-md-3">
+                <p class="label_name">NOTICE STATUS:</p>
+            </div>
+            <div class="col-md-3">
+                <p *ngIf="noticesIdDetails">{{noticesIdDetails.noticeStatus}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="label_name">NOTICE TYPE:</p>
+            </div>
+            <div class="col-md-3">
+                <p *ngIf="noticesIdDetails">{{(noticesIdDetails.noticesType ? noticesIdDetails.noticesType : "---")}}
+                </p>
+            </div>
+            <div class="col-md-3">
+                <p class="label_name">PRINT TYPE:</p>
+            </div>
+            <div class="col-md-3">
+                <p *ngIf="noticesIdDetails">{{noticesIdDetails.printType}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="label_name">NOTICE GENERATE DATE:</p>
+            </div>
+            <div class="col-md-3">
+                <p *ngIf="noticesIdDetails">{{(noticesIdDetails.generateDt ? noticesIdDetails.generateDt : "---")}}</p>
+            </div>
+            <div class="col-md-3">
+                <p class="label_name">NOTICE RECIPIENTS:</p>
+            </div>
+            <div class="col-md-3">
+                <p *ngIf="noticesIdDetails">{{noticesIdDetails?.noticeRecipients}}</p>
+            </div>
+        </div>
+    </div>
+    <app-notices-correction-details [corId]="corId" [noticeRecords]="noticeRecords"
+        *ngIf="noticesIdDetails?.noticeStatus ==='Pending'"></app-notices-correction-details>
+    <app-notices-update-status [corId]="corId" (reloadData)="reloadData()"></app-notices-update-status>
+    <mat-divider></mat-divider>
+    <div class="notice-update-history">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="common">Notice Update History</p>
+            </div>
+        </div>
+        <table id="mainTable" aria-describedby mat-table [dataSource]="dataSource" multiTemplateDataRows
+            class="mat-elevation-z8" style="width: 100%;font-size: 12px;">
+
+            <ng-container matColumnDef="updateDate">
+                <th id="updateDates" mat-header-cell *matHeaderCellDef>Update Date</th>
+                <td mat-cell *matCellDef="let element"> <u>{{(element.updateDate ? element.updateDate : "---") |
+                        date:'MM/dd/yyyy'}}</u> </td>
+            </ng-container>
+
+            <ng-container matColumnDef="updateUser">
+                <th id="updateUsers" mat-header-cell *matHeaderCellDef>Update User</th>
+                <td mat-cell *matCellDef="let element"> {{(element.updateUser ? element.updateUser : "---")}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="correctionLetter">
+                <th id="corrections" mat-header-cell *matHeaderCellDef>Correction </th>
+                <td mat-cell *matCellDef="let element"> {{(element.correctionLetter === true) ? 'YES' : 'NO' }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="noticeStatus">
+                <th id="noticeStatuss" mat-header-cell *matHeaderCellDef>Notice Status</th>
+                <td mat-cell *matCellDef="let element"> {{(element.noticeStatus)}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="printType">
+                <th id="printTypes" mat-header-cell *matHeaderCellDef>Print Type</th>
+                <td mat-cell *matCellDef="let element"> {{(element.printType)}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="expandedDetail">
+                <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                    <div class="example-element-detail"
+                        [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                        <div class="inside-table-wrapper">
+                            <div class="innerTable">
+                                <div style="padding-top: 8px;">
+                                    <mat-label class="table-content"> Reason for Change </mat-label>
+                                    <p class="subrow-content">{{(element?.reasonForChange ? element?.reasonForChange :
+                                        "---")}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+            <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row"
+                [class.expanded-row]="expandedElement === element"
+                (click)="expandedElement = expandedElement === element ? null : element">
+            </tr>
+            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+
+    <div class="row">
+        <div class="col go_back">
+            <a routerLink="/ltss/notices/noticesDashboard"><u>GO BACK TO NOTICE HOME</u></a><br>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,80 @@
+.close-icon {
+    color : #969190;
+    cursor: pointer;
+  }
+  .dialog-heading {
+    font-weight: bold;
+    font-size: 22px;
+    font-family: 'Open Sans';
+    color: #174A7C;
+  }
+  .row-header {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 0 0 0;
+  }
+  .text{
+    color: black;
+    padding-top: 20px;
+    font-family: 'Open Sans';
+    font-size: 15px;
+  }
+  .current-text{
+    color:black;
+    padding-top:30px;
+    padding-left: 13px;
+    font-family: 'Open Sans';
+    font-size: 15px;
+  }
+  .new-text{
+    color:black;
+    padding-left: 13px;
+    font-family: 'Open Sans';
+    font-size: 15px;
+    padding-top: 3px;
+  }
+  .button{
+    padding-top: 30px;
+    padding-left: 13px;
+  }
+ .margin{
+  margin-top: 20px;
+  margin-bottom: 20px;
+ }
+ .left {
+  width: 176px;
+  height: 68px;
+  border: 2px solid #174A7C;
+  float: right;
+  margin-top: 22px;
+  margin-left: 38px;
+}
+.box-text{
+  color:black;
+    text-align: center;
+    font-weight: bold;
+    font-size:15px;
+    padding-top:10px;
+  }
+  ::ng-deep .toast-message{
+    color: white;
+    font-size: 16px;
+  }
+  .ratio{
+    padding-left: 65px;
+    padding-top: 12px;
+    font-size: 20px;
+    color: black;
+  }
+  .current-text-move{
+    color: black;
+    padding-top: 30px;
+    padding-left: 1px;
+    font-family: "Open Sans";
+    font-size: 15px;
+}
+.new-text-move{
+  padding-left: 2px;
+}
+  
+

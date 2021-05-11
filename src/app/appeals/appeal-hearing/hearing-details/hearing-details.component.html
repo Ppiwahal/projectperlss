@@ -1,0 +1,285 @@
+<mat-accordion>
+    <mat-expansion-panel #mapanel="matExpansionPanel">
+        <mat-expansion-panel-header style="background-color: #f5f5f5">
+            <mat-panel-title>
+                Hearing Details
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="wrapper">
+            <div class="flex-wrapper">
+                <form [formGroup]="hearingDetailsForm">
+                    <div class="section-one">
+                        <mat-form-field appearance="outline">
+                            <mat-label><span class="required">*</span>Hearing Date</mat-label>
+                            <input [min]="todayDate" placeholder="Select a Date" aria-label="hearing date and time" matInput
+                                [matDatepicker]="heDatendTime" autocomplete="off" (dateChange)="dateChange()"
+                                formControlName="hearingDate">
+                            <mat-datepicker-toggle matSuffix [for]="heDatendTime"></mat-datepicker-toggle>
+                            <mat-datepicker [startAt]="startDate" #heDatendTime></mat-datepicker>
+                        </mat-form-field>
+                        <mat-error *ngIf="isShowErrors && hearingDetailsForm.get('hearingDate')?.hasError('required')">
+                            <span>{{customValidation.A1}}</span>
+                        </mat-error>
+                        <mat-form-field appearance="outline">
+                            <mat-label><span class="required">*</span>Hearing Time</mat-label>
+                            <input style="color: black;" matInput placeholder="12hr format (default settings)"
+                                aria-label="12hr format" [ngxTimepicker]="default" formControlName="hearingTime"
+                                readonly>
+                            <ngx-material-timepicker #default></ngx-material-timepicker>
+                        </mat-form-field>
+                        <mat-error *ngIf="isShowErrors && hearingDetailsForm.get('hearingTime')?.hasError('required')">
+                            <span>{{customValidation.A1}}</span>
+                        </mat-error>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Hearing Type</mat-label>
+                            <mat-select formControlName="hearingType">
+                                <mat-option value=''>Select an Option</mat-option>
+                                <mat-option *ngFor="let ht of hearingType" value={{ht.code}}>{{ht.value}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-error *ngIf="isShowErrors && hearingDetailsForm.get('hearingType')?.hasError('required')">
+                            <span>{{customValidation.A1}}</span>
+                        </mat-error>
+                        <mat-form-field appearance="outline">
+                            <mat-label><span class="required">*</span>Docket Number</mat-label>
+                            <input aria-label="docket number" formControlName="docketNumber" matInput>
+                        </mat-form-field>
+                        <mat-error *ngIf="isShowErrors && hearingDetailsForm.get('docketNumber')?.hasError('required')">
+                            <span>{{customValidation.A1}}</span>
+                        </mat-error>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Include Appeal Details in Docket Workbook?</mat-label>
+                            <mat-select formControlName="includesDetails">
+                                <mat-option value=''>Select an Option</mat-option>
+                                <mat-option *ngFor="let yn of yesOrNo" value={{yn.code}}>{{yn.value}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-error *ngIf="isShowErrors && hearingDetailsForm.get('includesDetails')?.hasError('required')">
+                            <span>{{customValidation.A1}}</span>
+                        </mat-error>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Docket Type</mat-label>
+                            <mat-select formControlName="docketType">
+                                <mat-option value=''>Select an Option</mat-option>
+                                <mat-option *ngFor="let dt of docketType" value={{dt.code}}>{{dt.value}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-error *ngIf="isShowErrors && hearingDetailsForm.get('docketType')?.hasError('required')">
+                            <span>{{customValidation.A1}}</span>
+                        </mat-error>
+                    </div>
+                </form>
+                <div class="section-two">
+                    <div class="section-wrapper">
+                        <mat-label>Important Dates</mat-label>
+                        <div style="margin-top: 15px;">
+                            <div>
+                                <span>Case Referral Due Date:</span>
+                                <span *ngIf="isShowFirstTwoDates">{{caseReferralDueDate}}</span>
+                                <span *ngIf="!isShowFirstTwoDates">N/A</span>
+                            </div>
+                            <div>
+                                <span>NOH Due Date:</span>
+                                <span *ngIf="isShowFirstTwoDates">{{nohDueDate}}</span>
+                                <span *ngIf="!isShowFirstTwoDates">N/A</span>
+                            </div>
+                            <div>
+                                <span>Initial Order Due Date:</span>
+                                <span *ngIf="isShowLastTwoDates">{{initialOrderDueDate}}</span>
+                                <span *ngIf="!isShowLastTwoDates">N/A</span>
+                            </div>
+                            <div>
+                                <span>Due Date:</span>
+                                <span *ngIf="isShowLastTwoDates">{{dueDate}}</span>
+                                <span *ngIf="!isShowLastTwoDates">N/A</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="showTable" style="margin-top: 30px;">
+                <mat-label>Please add details for the witness, OGC Attorney, Judge and Opposing Counsel:</mat-label>
+                <form [formGroup]="hearingPersonnelForm">
+                    <table aria-describedby mat-table [dataSource]="dataSource" class="mat-elevation-z8 first-table"
+                        formArrayName="hearingPersonnelArray">
+                        <ng-container matColumnDef="hearingPersonnel">
+                            <th id="documentType" mat-header-cell *matHeaderCellDef>Hearing Personnel </th>
+                            <td mat-cell *matCellDef="let element; let index = index" class="dropdown-td"
+                                [formGroupName]="index">
+                                <div>
+                                    <mat-form-field appearance="outline">
+                                        <mat-select (selectionChange)="hearingPersonalChanged($event.value, index)"
+                                            formControlName="hearingPersonnel">
+                                            <mat-option value=''>Select </mat-option>
+                                            <mat-option *ngFor="let hp of  hearingPersonnel" value={{hp.code}}>
+                                                {{hp.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="personnelName">
+                            <th id="documentType" mat-header-cell *matHeaderCellDef>Personnel Name </th>
+                            <td mat-cell *matCellDef="let element; let index = index" class="input-td"
+                                [formGroupName]="index">
+                                <div>
+                                    <mat-form-field appearance="outline">
+                                        <input aria-label="personnel name" formControlName="personnelName" matInput>
+                                    </mat-form-field>
+                                </div>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="userActions">
+                            <th id="selection" mat-header-cell *matHeaderCellDef>User Actions </th>
+                            <td mat-cell *matCellDef="let element; let index = index" class="actions-td">
+                                <div class="table-icons">
+                                    <span style="cursor: pointer; margin-right: 15px; color: red;"
+                                        class="material-icons" (click)="edit(element)">
+                                        edit
+                                    </span>
+                                    <span style="cursor: pointer; margin-right: 15px; color: red;"
+                                        class="material-icons icon" (click)="delete(element, index)">
+                                        delete_forever
+                                    </span>
+                                </div>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </form>
+            </div>
+            <div>
+                <div class="icon-wrapper" (click)="onAddHearingPersonnel()">
+                    <span class="material-icons">
+                        add_circle
+                    </span>
+                    <span class="span-icon-text">ADD HEARING PERSONNEL</span>
+                </div>
+            </div>
+            <div class="personnel-wrap" *ngIf="showOpposingCounsel">
+                <form [formGroup]="opposingCounsilForm">
+                    <div class="flex-container">
+                        <div>
+                            <mat-form-field appearance="outline">
+                                <mat-label><span class="required">*</span>Hearing Personnel</mat-label>
+                                <mat-select formControlName="hearingPersonnel">
+                                    <mat-option value=''>Select </mat-option>
+                                    <mat-option *ngFor="let hp of hearingPersonnel" value={{hp.code}}>{{hp.value}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-error *ngIf="isShowErrors && opposingCounsilForm.get('hearingPersonnel')?.hasError('required')">
+                                <span>{{customValidation.A1}}</span>
+                            </mat-error>
+                        </div>
+                        <div>
+                            <mat-form-field appearance="outline">
+                                <mat-label><span class="required">*</span>Personnel Name</mat-label>
+                                <input formControlName="personnelName" aria-label="personnel name" matInput>
+                            </mat-form-field>
+                            <mat-error *ngIf="isShowErrors && opposingCounsilForm.get('personnelName')?.hasError('required')">
+                                <span>{{customValidation.A1}}</span>
+                            </mat-error>
+                        </div>
+                    </div>
+                    <div class="flex-container">
+                        <div>
+                            <mat-form-field appearance="outline">
+                                <mat-label><span class="required">*</span>Phone Number</mat-label>
+                                <input (keyup)="onPhoneNumber()" maxlength="12" formControlName="phoneNumber" aria-label="phone number" matInput>
+                            </mat-form-field>
+                            <mat-error *ngIf="isShowErrors && opposingCounsilForm.get('phoneNumber')?.hasError('required')">
+                                <span>{{customValidation.A1}}</span>
+                            </mat-error>
+                        </div>
+                        <div>
+                            <mat-form-field appearance="outline">
+                                <mat-label><span class="required">*</span>Fax</mat-label>
+                                <input (keyup)="onFax()" maxlength="12" formControlName="fax" aria-label="fax" matInput>
+                            </mat-form-field>
+                            <mat-error *ngIf="isShowErrors && opposingCounsilForm.get('fax')?.hasError('required')">
+                                <span>{{customValidation.A1}}</span>
+                            </mat-error>
+                        </div>
+                    </div>
+                    <div class="flex-container">
+                        <div>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Email Address</mat-label>
+                                <input formControlName="emailAddress" aria-label="email address" matInput>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </form>
+                <div>
+                    <app-physical-address [formData]='addressForm' (addressFormatChange)="setAddress($event)"
+                        [showAddressType]=false [isPhysicalAddress]=false>
+                    </app-physical-address>
+                </div>
+            </div>
+            <div style="margin-top: 30px;">
+                <button mat-stroked-button type="button" style="margin-right: 50px;" (click)="cancel()">CANCEL</button>
+                <button mat-stroked-button type="button" class="perlss-click-button" (click)="save()">SAVE</button>
+            </div>
+            <div style="margin-top:30px" *ngIf="showHearngScheduleSummary">
+                <h5>Hearing Schedule Summary</h5>
+                <table aria-hidden="true" mat-table [dataSource]="dataSource2" multiTemplateDataRows
+                    class="mat-elevation-z8">
+                    <ng-container matColumnDef="hearingDate">
+                        <th mat-header-cell *matHeaderCellDef id="hearingDate"><strong>Hearing Date
+                            </strong></th>
+                        <td mat-cell *matCellDef="let element">{{element.hrngDtTms | date:'MM/dd/yyyy'}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="hearingTime">
+                        <th mat-header-cell *matHeaderCellDef id="hearingTime">Hearing Time </th>
+                        <td mat-cell *matCellDef="let element">{{element.hearingTime}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="hearingStatus">
+                        <th mat-header-cell *matHeaderCellDef id="hearingStatus">Hearing Status </th>
+                        <td mat-cell *matCellDef="let element">{{element.hearingStatus ? element.hearingStatus : '---'}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="lastModifiedDate">
+                        <th mat-header-cell *matHeaderCellDef id="lastModifiedDate">Update Date </th>
+                        <td mat-cell *matCellDef="let element">{{element.lastModifiedDate | date:'MM/dd/yyyy'}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="lastModifiedBy">
+                        <th mat-header-cell *matHeaderCellDef id="lastModifiedBy">Update User</th>
+                        <td mat-cell *matCellDef="let element">{{element.lastModifiedBy ? element.lastModifiedBy : '---'}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="expandedDetail">
+                        <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns2.length">
+                            <div class="example-element-detail"
+                                [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                                <div class="inside-table-wrapper">
+                                    <div class="innerTable">
+                                        <div>
+                                            <mat-label><strong>OCG Attorney</strong></mat-label>
+                                            <p>{{element.ocgAttrorney ? element.ocgAttrorney : '---'}}</p>
+                                        </div>
+                                        <div>
+                                            <mat-label><strong>Judge</strong></mat-label>
+                                            <p>{{element.judge ? element.judge : '---'}}</p>
+                                        </div>
+                                        <div>
+                                            <mat-label><strong>Reason for Continuence</strong></mat-label>
+                                            <p>{{element.contReason ? element.contReason : '---'}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                    <tr mat-row *matRowDef="let element; columns: displayedColumns2;"
+                        class="example-element-row on-hover" [class.example-expanded-row]="expandedElement === element"
+                        [class.active-class]="expandedElement === element"
+                        (click)="expandedElement = expandedElement === element ? null : element">
+                    </tr>
+                    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+                </table>
+            </div>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>

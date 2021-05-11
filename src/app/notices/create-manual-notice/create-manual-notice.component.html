@@ -1,0 +1,157 @@
+<div class="pageMargin">
+  <mat-vertical-stepper #stepper class="{{ 'last-edited-step-' + stepper.selectedIndex }}">
+
+      <ng-template matStepperIcon="edit" let-index="index"> {{index + 1}} </ng-template>
+      <mat-step>
+        <form [formGroup]="noticeCreateForm">
+        <ng-template matStepLabel><strong>Search for the Person</strong></ng-template>
+        <div style="width: 100%">
+          <mat-form-field style="width: 100%" appearance="outline">
+            <mat-label>Person Search</mat-label>
+            <input matInput formControlName="personSearchInput" [matAutocomplete]="auto" #applicantNameInput
+              placeholder="Search by Applicant Name, Date Of Birth, SSN, Person ID, County">
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)='handleSelection($event.option.value)'>
+              <mat-option class="select-hr" *ngFor="let option of personOptions" [value]="option">
+                <strong>Applicant Name: </strong>{{option.prsnDetail?.firstName}} {{option.prsnDetail?.lastName}}
+                <strong>Dob: </strong>{{option.prsnDetail?.dobDt}}
+                <strong>SSN: </strong>{{option.prsnDetail?.ssn}}
+                <strong>Person Id: </strong>{{option.prsnDetail?.prsnId}}
+                <strong>County: </strong>{{option.prsnDetail?.prsnCountyName}}
+              </mat-option>
+            </mat-autocomplete>
+            <button mat-button *ngIf="f.personSearchInput?.value" matSuffix mat-icon-button aria-label="Clear"
+              (click)="f.personSearchInput.setValue(null)">
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-error *ngIf="noticeCreateForm.get('personSearchInput').hasError('required')">
+              {{customValidation.A1}}</mat-error>
+              <mat-error *ngIf="(f.personSearchInput?.value?.length > 0) && (personOptions.length === 0) && proceedToStep2">{{customValidation.D1}}
+              </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="row button-content">
+          <div class="col-6">
+            <button type="submit" mat-button mat-flat-button color="primary" class="perlss-click-button"
+              (click)="capturePersonId(stepper)">
+              NEXT
+            </button>
+          </div>
+        </div>
+    </form>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel><strong>Select Record</strong></ng-template>
+        <app-manual-notices-select-record [personId]="selectedPersonId" *ngIf="selectedPersonId"
+          (emitNoticeRecord)="handleSelectedNoticeRec($event)"></app-manual-notices-select-record>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel><strong>Add Notice Details</strong></ng-template>
+        <div class="row">
+          <div class="col">
+            <div class="row" style="margin-left: 5px;">
+              <label id="example-radio-group-label"><sup>
+                  <mat-label class="required-color">*</mat-label>
+                </sup>How would you like to create this notice?(Select one of the options below)</label>
+            </div>
+            <div class="row">
+              <mat-radio-group aria-labelledby="example-radio-group-label" [(ngModel)]="selectedNoticeDetail"
+                (change)="noticeDetailsChange($event)">
+                <div class="radio-button">
+                  <mat-radio-button value="free_form">Generate a Notice with Free Form Text </mat-radio-button>
+                </div>
+                <div class="radio-button">
+                  <mat-radio-button value="generate_form_attachment">Generate Form or Attachment </mat-radio-button>
+                </div>
+                <div class="radio-button">
+                  <mat-radio-button value="upload_pdf">Upload a PDF Notice </mat-radio-button>
+                </div>
+              </mat-radio-group>
+
+            </div>
+            <mat-error *ngIf="isSubmitStep3 && !selectedNoticeDetail">{{customValidation.A1}}</mat-error>
+
+            <div class="row form-attachment" *ngIf="selectedNoticeDetail === 'generate_form_attachment'">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label class="required-color">*</mat-label><mat-label class="req">Form/Attachment</mat-label>
+                  <mat-select  [(ngModel)]="selectedFormAttachment"  (selectionChange)="handleFormAttachment($event)">
+                    <mat-option value=''>Select an option</mat-option>
+                    <mat-option *ngFor="let formAttachment of formAttachmentCodes" [value]="formAttachment.name">{{formAttachment.value}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="!selectedFormAttachment && isSubmitStep3">
+                    {{customValidation.A1}}</mat-error>
+                </mat-form-field>
+            </div>
+            </div>
+
+            <app-notice-free-text [showAllOptions]="(selectedNoticeDetail === 'free_form')"
+              *ngIf="selectedNoticeDetail === 'free_form'"
+              (emitNoticeForm)="handleNoticeFormSubmit($event, stepper)"></app-notice-free-text>
+            <app-notice-upload-pdf [personId]="selectedPersonId"
+              *ngIf="selectedNoticeDetail === 'upload_pdf'" (emitUploadForm)="handleNoticeUploadForm($event, stepper)" [allowMultiple]="true">
+            </app-notice-upload-pdf>
+          </div>
+        </div>
+        <div class="row button-content">
+          <div class="col-6 back-button">
+            <button mat-flat-button matStepperPrevious color="primary" class="perlss-click-button-white">
+              BACK
+            </button>
+          </div>
+          <div class="col-6 next-button">
+            <button mat-button mat-flat-button color="primary" class="perlss-click-button"
+              (click)="submitAndProceedToStep4(stepper)">
+              NEXT
+            </button>
+          </div>
+        </div>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel><strong>Add Recipient Details</strong></ng-template>
+        <app-notices-addrecipient-details [recipientDetails]="recipientDetails" [formData]="formData" (emitReceipientForm)="handleRecipientFormSubmit($event, stepper)">
+        </app-notices-addrecipient-details>
+      </mat-step>
+
+      <mat-step>
+        <form  [formGroup]="previewForm">
+        <ng-template matStepLabel><strong>Generate Notice</strong></ng-template>
+        <div class="row">
+          <div class="col-md-4">
+            <mat-form-field appearance="outline">
+              <mat-label class="required-color">*</mat-label><mat-label class="req">Select Print Type</mat-label>
+              <mat-select formControlName="selectedPrintTypeValue">
+                <mat-option value=''>Select an option</mat-option>
+                <mat-option *ngFor="let printType of printTypes" [value]="printType.name">{{printType.value}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="previewForm.get('selectedPrintTypeValue').hasError('required')">
+                {{customValidation.A1}}</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+
+        <div class="row button-content">
+          <div class="col-6 back-button">
+            <button mat-flat-button matStepperPrevious color="primary" class="perlss-click-button-white">
+              BACK
+            </button>
+          </div>
+          <div class="col-6 next-button">
+            <button type="submit" mat-button mat-flat-button color="primary" class="perlss-click-button submit" (click)="postAllData()">
+              GENERATE
+            </button>
+          </div>
+        </div>
+        </form>
+      </mat-step>
+
+  </mat-vertical-stepper>
+  <div class="row">
+    <div class="col go_back">
+        <a routerLink="/ltss/notices/noticesDashboard"><u>GO BACK TO NOTICE HOME</u></a><br>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,244 @@
+<div class="pageMargin">
+  <div class="row" style="width: 100%;padding-left: 14px;">
+    <div class="app-sub-heading">
+      Search Criteria
+    </div>
+  </div>
+  <div style="padding-bottom: 20px;">
+    <p>Please use the criteria below to search for person to schedule new appointment or search for an existing
+      appointment.</p>
+  </div>
+
+  <div style="width: 100%;font-size: 14px;">
+    <form [formGroup]="myForm" class="" (ngSubmit)="executeSearch()">
+      <div class="row">
+        <div class="col-md-12">
+          <div style="width: 100%">
+            <mat-form-field style="width: 100%" appearance="outline">
+              <mat-label>Person Search</mat-label>
+              <input matInput formControlName="personId" [matAutocomplete]="auto" #applicantNameInput
+                placeholder="Search by Applicant Name, Date Of Birth, SSN, Person ID, County">
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)='handleSelection($event.option.value)'>
+                <mat-option class="select-hr" *ngFor="let option of personOptions" [value]="option">
+                  <strong>Applicant Name:
+                  </strong>{{option.prsnDetail?.firstName}}{{space}}{{option.prsnDetail?.lastName}},
+                  <strong>Date of Birth: </strong>{{option.prsnDetail?.dobDt}},
+                  <strong>SSN: </strong>{{option.prsnDetail?.ssn}},
+                  <strong>Person Id: </strong>{{option.prsnDetail?.prsnId}},
+                  <strong>County: </strong>{{option.prsnDetail?.prsnCountyName}}
+                </mat-option>
+              </mat-autocomplete>
+              <button matTooltip="Clear Search" mat-button *ngIf="f.personId?.value" matSuffix mat-icon-button
+                aria-label="Clear" (click)="f.personId.setValue(null)">
+                <mat-icon>close</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <mat-accordion style="width: 100%;margin:auto;">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header style="background-color: #f5f5f5;height: 60px;">
+                <mat-panel-title style="font-size: 14px;">
+                  Additional Appointment Filter Criteria
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field appearance="outline" style="width:100% !important">
+                    <mat-label>
+                      <mat-label class="required-color"></mat-label>Appointment Type
+                    </mat-label>
+                    <mat-select formControlName="type">
+                      <mat-option value=''>Select an option</mat-option>
+                      <mat-option *ngFor="let appointmentType of  appointmentTypes" value={{appointmentType.code}}>
+                        {{appointmentType.value}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-6">
+                  <mat-form-field appearance="outline" style="width:100% !important">
+                    <mat-label>
+                      <mat-label></mat-label>Appointment Status
+                    </mat-label>
+                    <mat-select formControlName="status">
+                      <mat-option value=''>Select an option</mat-option>
+                      <mat-option *ngFor="let appointmentDetail of  appointmentDetails"
+                        value={{appointmentDetail.code}}>{{appointmentDetail.value}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>
+                      <mat-label></mat-label>Referral ID
+                    </mat-label>
+                    <input matInput formControlName="refId" />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>
+                      <mat-label class="required-color"></mat-label>PAE ID
+                    </mat-label>
+                    <input matInput formControlName="paeId" />
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field appearance="outline" style="width:100% !important">
+                    <mat-label>
+                      <mat-label class="required-color"></mat-label>Contact Method
+                    </mat-label>
+                    <mat-select formControlName="contactMethod">
+                      <mat-option value=''>Select an option</mat-option>
+                      <mat-option *ngFor="let contactMethodDetail of  contactMethodDetails"
+                        value={{contactMethodDetail.code}}>{{contactMethodDetail.value}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>
+      <div class="row" style="padding-bottom: 40px;">
+        <div class="col">
+          <button type="submit" mat-flat-button color="primary"
+            style="font-size: 16px;  padding: 3px 25px; margin-top: 16px;" class="perlss-click-button">SEARCH</button>
+        </div>
+      </div>
+    </form>
+
+    <mat-divider *ngIf="dataSource" class="perlss-section-divider"></mat-divider>
+  </div>
+
+
+
+  <div class="row" style="width: 100%;margin:auto" *ngIf="dataSource">
+    <div class="app-sub-heading col-md-7" style="width: 100% !important;">
+      Search Result
+    </div>
+    <mat-form-field style="width: 50%;" class="col-md-5" appearance="outline">
+      <mat-label>Search Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
+    </mat-form-field>
+  </div>
+  <div *ngIf="showNoRecordsFound" class="norecords-found">
+    {{customValidation.D1}}
+  </div>
+
+
+
+  <table aria-describedby="name" mat-table [dataSource]="dataSource" *ngIf="data && data.length >0"
+    multiTemplateDataRows class="mat-elevation-z8" style="width: 100%;text-align: center;font-size: 12px;">
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef scope="col" class='table-th'>Person Name </th>
+      <td mat-cell class="table-td" *matCellDef="let element">{{element.personName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ssn">
+      <th mat-header-cell *matHeaderCellDef scope="col" class='table-th'>SSN </th>
+      <td mat-cell class="table-td" *matCellDef="let element">{{element.ssn}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="referralId">
+      <th mat-header-cell *matHeaderCellDef scope="col" class='table-th'>Referral ID </th>
+      <td mat-cell class="table-td" *matCellDef="let element">{{element.refId}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="paeId">
+      <th mat-header-cell *matHeaderCellDef scope="col" class='table-th'>PAE ID </th>
+      <td mat-cell class="table-td" *matCellDef="let element">{{element.paeId}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="appointmentType">
+      <th mat-header-cell *matHeaderCellDef scope="col" class='table-th'>Appointment<br>Type </th>
+      <td mat-cell class="table-td" *matCellDef="let element">{{element.appointmentType ||
+        getAppointmentType(element.appointmentTypeCd)}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="appointmentStatus">
+      <th mat-header-cell *matHeaderCellDef scope="col" class='table-th'>Appointment<br>Status </th>
+      <td mat-cell class="table-td" *matCellDef="let element">{{element.appointmentStatus ||
+        getAppointmentStatus(element.appointmentStatusCd)}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="appointmentDate">
+      <th mat-header-cell *matHeaderCellDef scope="col" class='table-th'>Appointment<br>Date </th>
+      <td mat-cell class="table-td" *matCellDef="let element">{{element.appointmentDate}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+        <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+          <div style="font-size: 12px;padding-left:25px">
+            <table aria-describedby="tableborderless" class="table table-borderless"
+              style="width: 60%;border: 0px;border-bottom:0px;text-align: left;">
+              <tr class="d-flex">
+                <td id="dobDt1" class="col-4" style="border-bottom:0px"><strong>Date of Birth</strong><br>
+                  {{element.dobDt }}</td>
+                <td class="col-11" style="border-bottom:0px"><strong>Person ID</strong><br>{{ element.personId }}</td>
+                <td class="col-4" style="border-bottom:0px">
+                  <button *ngIf="element.appointmentStatusCd == 'SC' || element.appointmentStatusCd == 'RE'"
+                    type="search" mat-flat-button color="primary" style="font-size: 12px;height: 34px;width: 160px;"
+                    class="search-result-Button yellow-color-button"
+                    routerLink="/ltss/appointments/detail/{{ element.appointmentId || element.id}}"
+                    [state]="{ 'appointmentSummary': element }">UPDATE
+                    APPOINTMENT</button>
+                  <button *ngIf="!element.appointmentStatusCd" type="search" mat-flat-button color="primary"
+                    style="font-size: 12px;height: 34px;width: 160px;" class="search-result-Button yellow-color-button"
+                    routerLink="/ltss/appointments/detail/{{ element.appointmentId || element.id}}"
+                    [state]="{ 'appointmentSummary': element }">SCHEDULE</button>
+                  <button
+                    *ngIf="element.appointmentStatusCd == 'CM' || element.appointmentStatusCd == 'CA' || element.appointmentStatusCd == 'UC'"
+                    type="search" mat-flat-button color="primary" style="font-size: 12px;height: 34px;width: 160px;"
+                    class="search-result-Button"
+                    routerLink="/ltss/appointments/detail/{{ element.appointmentId || element.id}}"
+                    [state]="{ 'appointmentSummary': element }">VIEW
+                    DETAILS</button>
+                </td>
+              </tr>
+              <tr class="d-flex">
+                <td class="col-4" style="border-bottom:0px"><strong>Contact Method</strong><br>{{ element.contactMethod
+                  || getContactMethod(element.contactMethodCd)
+                  }}</td>
+                <td class="col-3" style="border-bottom:0px"><strong>Contact Group</strong><br>{{ element.contactGroup }}
+                </td>
+                <td class="col-8" style="border-bottom:0px"><strong>Contact User</strong><br>{{ element.contactUser }}
+                </td>
+                <td class="col-4" style="border-bottom:0px">
+                  <button *ngIf="element.appointmentStatusCd == 'SC' || element.appointmentStatusCd == 'RE'"
+                    type="search" mat-flat-button color="primary" style="font-size: 12px;height: 34px;width: 160px;"
+                    class="search-result-Button button" (click)="showCancelDialog(element)">CANCEL APPOINTMENT</button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+    searchAppointment
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="element-row"
+      [class.expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+  </table>
+
+  <div *ngIf="dataSource">
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+</div>

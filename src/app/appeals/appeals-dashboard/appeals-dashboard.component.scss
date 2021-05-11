@@ -1,0 +1,329 @@
+.dashboard-card-container{
+    display: table;
+    width: 100%;
+    .row{
+      .col-md-4{
+          display: table-cell; /* Make elements inside the container behave like table cells */
+          width: 100%;
+      }
+    }
+  }
+  .submit-text{
+    text-align: center;
+    font-family: 'Open Sans';
+    font-weight: 900;
+    font-size: 16px;
+    color: #1B365C;
+    padding: 18px;
+  }
+  .perlss-section-divider{
+    margin-top: 36px;
+    margin-bottom: 36px;
+  }
+  
+  .appeal-text{
+    color: #1B365C;
+    padding: .90px;
+  }
+  
+  .aplIdLink {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  .past-due-number{
+    text-align: center;
+    font-family: 'Open Sans';
+    font-weight: 900;
+    font-size: 13px;
+    color: #FF0C0C;
+    padding: .90px;
+    cursor: pointer;
+  }
+  
+  .custom-button {
+    background-color: #174A7C;
+    color: white;
+    width: 125px;
+  }
+
+  .custom-button-white {
+    background-color: #174A7C;
+    color: white;
+    width: 125px;
+  }
+  
+  .dashboard-card-header{
+    text-align: center;
+    font-family: 'Open Sans';
+    font-weight: 900;
+    font-size: 16px;
+    color: #1B365C;
+    background-color: #CDDDF4;
+  }
+  
+  .dashboard-container{
+    padding : 36px;
+  }
+  
+  .dashboard-card{
+    text-align: center;
+  }
+  
+  .dashboard-icon{
+    color: #ED6053;
+    font-size: 360px;
+    display: inline;
+    padding-top: 18px;
+    top: 16px;
+    position: relative; 
+    cursor: pointer;
+  }
+  
+  mat-card.dashboard-card{
+    border-top-left-radius: 3.5px;
+    border-bottom-left-radius: 3.5px;
+    border-top-right-radius: 3.5px;
+    border-bottom-right-radius: 3.5px;
+    border-radius: 3.5px;
+    border: 1px solid #efeef0;
+    padding: 0;
+    height: 100%;
+    padding-bottom: 20px;
+  }
+  
+  mat-card-title.dashboard-card-header {
+    padding: 25px;
+    margin: 0;
+  }
+  
+  mat-card-content {
+  
+    font-family: 'Open Sans';
+    font-size: 13px;
+    font-weight: 900;
+    .row{
+      padding: 18px;
+      .col{
+        .total-container{
+          padding: 0;
+          margin-top: 0.4vh;
+
+        }
+      }
+    }
+  }
+  
+  mat-card-actions{
+    padding-top: 0;
+  }
+  
+  
+  .open-appeal-count{
+    padding-top: 72px;
+    text-align: center;
+    font-family: 'Open Sans';
+    font-weight: 900;
+    font-size: 22px;
+    color:#4D7E20;
+    cursor: pointer;
+  }
+  
+  mat-divider.dashboard-card-divider {
+    border-color: #174A7C;
+    border-top-width: 2px;
+  }
+  //queue
+  @import '../../../colors.scss';
+
+.align-right {
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -25px;
+  padding-right: 15px;
+}
+
+.wrapper{
+  margin-bottom: 30px;
+  }
+.queue-heading{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    color: #174A7C !important;
+    font-weight: bold !important;
+}
+.search-table-container th {
+    width: 14.2%;
+    background-color: $colorControlBackground;
+}
+
+th {
+  width: 90%;
+  background-color: $colorControlBackground;
+}
+
+.common{
+  color:#4D7E20;
+  font-weight: bold;
+}
+.common-button{
+    color:#174A7C;
+  font-weight: bold;
+}
+
+::ng-deep .queue-heading-custom{
+  color: #174A7C !important;
+}
+
+.applicant-name-container{
+  padding: 18px;
+  vertical-align: middle;
+  justify-content: center;
+  font-size:  20px;
+  border: 2px solid;
+  border-color: #CCCCCC;
+  max-width: 100%;
+  width: 100%;
+  font-weight: bold;
+  color: black;
+}
+
+.count-number{
+  position:fixed;
+  right: 100px;
+  font-weight: bold;
+  color: black;
+  cursor: pointer;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+//table
+@import '../../../colors.scss';
+
+.search-table-container {
+    margin-top: 36px;
+  }
+  mat-expansion-panel-header{
+    background-color: #f5f5f5;
+    height: 60px;
+    padding: 18px;
+  }
+  ::ng-deep {
+    .mat-expansion-panel:not([class*=mat-elevation-z]) {
+      box-shadow: none;
+    }
+    .expanded-row{
+      background-color: #EDF4FB !important;
+      font-weight: bold !important;
+    }
+    .mat-form-field-appearance-outline .mat-form-field-outline {
+      background-color: $colorControlBackground;
+      border-color: #CED4DA;
+    }
+    .mat-expansion-panel-body{
+      padding: 0;
+    }
+    .mat-expansion-panel-header-title {
+      color: #04537D;
+      font-size: 20px !important;
+      letter-spacing: 2px;
+    }
+    .mat-form-field{
+      width:100%;
+    }
+    .mat-table{
+      font-family: 'Open Sans' !important;
+      font-size: 14px;
+      width: 100%;
+      border-top-left-radius: 7px;
+      border-bottom-left-radius: 7px;
+      border-top-right-radius: 7px;
+      border-bottom-right-radius: 7px;
+      border-radius: 7px;
+      border: 1.5px solid #174A7C;
+    }
+    .mat-header-cell{
+      color: #04537D !important;
+      font-weight: 900;
+    }
+    .mat-header-row{
+      border-bottom: 2px solid #174A7C !important;
+    }
+    .mat-expansion-indicator::after {
+      color: #ED6053 !important;
+      height: 21.5px;
+      width: 21.5px;
+      top: 50%;
+  
+    }
+  }
+  #referralTable{
+  
+    tr.element-row:not(.expanded-row):hover {
+      background: $colorControlBackground;
+    }
+    tr.example-detail-row {
+      height: 0;
+    }
+    .example-element-detail {
+      overflow: hidden;
+    }
+  
+    tr.element-row:not(.expanded-row):active {
+      background: $colorControlBackground;
+    }
+  
+  
+    .borderless td, .borderless th {
+      border: none;
+    }
+  }
+  .expandable-row-button{
+    color: white;
+    display: inline-flex;
+    vertical-align: middle;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .expandable-row-button-white{
+    background-color:white;
+    color: #1B365D;
+    display: inline-flex;
+    vertical-align: middle;
+    justify-content: center;
+    width: 100%;
+  }
+  .margin{
+    margin-left: 10px;
+  }
+  .perlss-section-divider{
+    margin-top:10px;
+  }
+  .select-hr { border-bottom: 1px solid #000; }
+  
+  .pannel-heading{
+    font-size: 20px;
+}
+.form-container{
+  margin: 20px 20px 0 20px;
+}
+
+.table-underline {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.search-result-Button{
+  background-color:#ED9924;
+  color:#FFFFFF;
+  font-size: 12px;
+  height: 34px;
+  width: 160px;
+  font-weight: bold;
+  border: 0 !important;
+}

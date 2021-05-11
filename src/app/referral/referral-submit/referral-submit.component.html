@@ -1,0 +1,190 @@
+<div class="pageMargin">
+	<br>
+	<mat-label class="sub-heading">Submit Referral</mat-label>
+	<div class="required">*Required</div>
+	<br>
+	<br>
+	<mat-card class="cardStyle"> <strong>Note: &nbsp;</strong><span>
+      "You" in the application is the person who wants services. <br>
+      <span class="push-right-note">
+        <mat-icon class="red-icon">info_outline</mat-icon>This is a tool tip icon used
+        across the application for short descriptions.
+     </span> </span>
+	</mat-card>
+	<br>
+	<br>
+	<form [formGroup]="refSubmissionForm" (ngSubmit)="next()">
+		<div class="row">
+			<div class="col-md-6">
+				<mat-form-field appearance="outline" style="width: 90%;">
+					<mat-label>
+						<mat-label class="required-color">*</mat-label>Who is submitting this referral form? </mat-label>
+					<mat-select formControlName="whoIsSubmittingCd" (selectionChange)="onSelect($event)">
+						<mat-option *ngFor="let choice of submittingList" [value]="choice.code"> {{choice.value}}</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+		</div>
+		<div class="row" *ngIf="submitter=='FM' || submitter=='OTH'">
+			<div class="col-md-6">
+				<mat-form-field appearance="outline" style="width: 90%;">
+					<mat-label>
+						<mat-label class="required-color">*</mat-label>Relationship </mat-label>
+					<mat-select formControlName="relationshipCd" aria-placeholder="Select an option">
+						<mat-option *ngFor="let reltn of relationshipList" [value]="reltn.code"> {{reltn.value}}</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+		</div>
+		<div class="row" *ngIf="submitter==='MCO' || submitter==='DI' || submitter==='APS'">
+			<div class="col-md-6">
+				<div class="row" style="margin-left: 5px;">
+					<label id="example-radio-group-label"><strong><label style="color:#ED6053">*</label>Would you like to
+              expedite the review process?</strong></label>
+				</div>
+				<div class="row">
+					<mat-radio-group aria-labelledby="example-radio-group-label" formControlName="expeditedReviewSw">
+						<div class="row" style="margin-left: 15px;">
+							<mat-radio-button value="Y">Yes</mat-radio-button>
+						</div>
+						<div class="row" style="margin-left: 15px;">
+							<mat-radio-button value="N">No</mat-radio-button>
+						</div>
+					</mat-radio-group>
+				</div>
+			</div>
+		</div>
+		<div class="row" *ngIf="submitter=='MCO' && currentLivingArrengment=='RMH'">
+			<div class="col-md-6">
+				<mat-form-field appearance="outline" style="width: 90%;">
+					<mat-label>
+						<mat-label class="required-color">*</mat-label>Date Of Admission </mat-label>
+					<input matInput [matDatepicker]="dateOfAdmissionpicker" formControlName="admissionDt">
+					<mat-datepicker-toggle matSuffix [for]="dateOfAdmissionpicker"></mat-datepicker-toggle>
+					<mat-datepicker #dateOfAdmissionpicker></mat-datepicker>
+				</mat-form-field>
+			</div>
+			<div class="col-md-6">
+				<mat-form-field appearance="outline" style="width: 90%;">
+					<mat-label>
+						<mat-label class="required-color">*</mat-label>Planned Transition Date </mat-label>
+					<input matInput [matDatepicker]="transitionDatePicker" formControlName="planTrnstnDt">
+					<mat-datepicker-toggle matSuffix [for]="transitionDatePicker"></mat-datepicker-toggle>
+					<mat-datepicker #transitionDatePicker></mat-datepicker>
+				</mat-form-field>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<mat-form-field appearance="outline" style="width: 90%;">
+					<mat-label>
+						<mat-label class="required-color">*</mat-label>Who should we contact about this referral? </mat-label>
+					<mat-select formControlName="whoToCntctCd" (selectionChange)="onContactPersonSelect($event)">
+						<mat-option value="OTH">Other</mat-option>
+						<mat-option value="SLF">Self</mat-option>
+					</mat-select>
+					<mat-error *ngIf="f.whoToCntctCd.errors">
+						<mat-error *ngIf="f.whoToCntctCd.touched && f.whoToCntctCd.errors.required">{{customValidation.A1}} </mat-error>
+					</mat-error>
+				</mat-form-field>
+			</div>
+		</div>
+		<div *ngIf="contactPerson=='OTH'">
+			<div class="row">
+				<div class="col-md-6">
+					<mat-form-field appearance="outline" style="width: 90%;">
+						<mat-label>
+							<mat-label class="required-color">*</mat-label>Name of the person </mat-label>
+						<input matInput formControlName="refCntctName" placeholder="Referral Contact Name" [ngClass]="{ 'is-invalid': f.refCntctName.touched && f.refCntctName.errors }">
+						<mat-error *ngIf="f.refCntctName.errors">
+							<mat-error *ngIf="f.refCntctName.errors.maxLength == null && !f.refCntctName.errors?.invalidName && !f.refCntctName.errors.required"> Cannot exceed 45 characters</mat-error>
+							<mat-error *ngIf="f.refCntctName.touched && f.refCntctName.errors.required">{{customValidation.A1}} </mat-error>
+							<mat-error *ngIf="f.refCntctName.errors?.invalidName && !f.refCntctName.errors.required"> {{customValidation.A2}}</mat-error>
+						</mat-error>
+					</mat-form-field>
+				</div>
+				<div class="col-md-6">
+					<mat-form-field appearance="outline" style="width: 90%;">
+						<mat-label>
+							<mat-label class="required-color">*</mat-label>Relationship </mat-label>
+						<mat-select formControlName="othRelationshipCd" aria-placeholder="Select an option">
+							<mat-option *ngFor="let relation of relationshipList" [value]="relation.code"> {{relation.value}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<mat-form-field appearance="outline" style="width: 90%;">
+						<mat-label>Email Address</mat-label>
+						<input matInput formControlName="email" placeholder="Email Address" [ngClass]="{ 'is-invalid': f.email.touched && f.email.errors }">
+						<mat-error *ngIf="f.email.errors?.invalidEmail"> {{customValidation.A9}} </mat-error>
+					</mat-form-field>
+				</div>
+				<div class="col-md-6">
+					<mat-form-field appearance="outline" style="width: 90%;">
+						<mat-label>
+							<mat-label class="required-color">*</mat-label>Phone Number </mat-label>
+						<input matInput formControlName="phNum" placeholder="(xxx)-xxx-xxxx" mask="000-000-0000" [ngClass]="{ 'is-invalid': f.phNum.touched && f.phNum.errors }">
+						<mat-error *ngIf="f.phNum.errors">
+							<mat-error *ngIf="f.phNum.touched && f.phNum.errors.required">{{customValidation.A1}}</mat-error>
+							<mat-error *ngIf="f.phNum.errors.maxLength == null && !f.phNum.errors?.invalidPhone && !f.phNum.errors.required"> Cannot exceed 10 characters</mat-error>
+							<mat-error *ngIf="f.phNum.errors?.invalidPhone && !f.phNum.errors.required">{{customValidation.A8}} </mat-error>
+						</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+		<br>
+		<mat-divider></mat-divider>
+		<br>
+		<br>
+		<mat-label class="page-sub-heading">Electronic Signature</mat-label>
+		<br>
+		<br>
+		<div class="row" style="padding-top:20px;">
+			<div class="col-md-12">
+				<mat-label><strong>Please read the statement below and sign that you understand.</strong></mat-label>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-12">
+				<mat-label>I have been truthful in filling out this form. I understand this form may be used to help me (or the person I am helping) apply for Medicaid benefits in the Employment and Community First CHOICES program. I also understand that giving false information on purpose that helps someone get Medicaid benefits they don’t qualify for is an act of fraud under state and federal law. I could be fined or sent to jail. </mat-label>
+			</div>
+		</div>
+		<br>
+		<br>
+		<div class="row">
+			<div class="col-md-12">
+				<mat-label><strong>
+            <mat-label class="required-color">*</mat-label>I have read and understand the statement above. I agree to
+            submit this application by electronic means.
+            By typing my name below and signing this application electronically, I understand that an electronic
+            signature has the same legal effect and can be enforced in the same ways as a written signature.
+         </strong></mat-label>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-12">
+				<mat-form-field appearance="outline" style="width: 100%;">
+					<mat-label></mat-label>
+					<input matInput formControlName="signature">
+					<mat-error *ngIf="f.signature.errors">
+						<mat-error *ngIf="f.signature.touched && f.signature.errors.required">{{customValidation.A1}}</mat-error>
+					</mat-error>
+				</mat-form-field>
+			</div>
+		</div>
+		<div class="row button-container">
+			<div class="col-md-2" style="text-align: left;">
+				<button mat-flat-button color="primary" (click)="back()" class="perlss-click-button-white chkW">BACK</button>
+			</div>
+			<div class="col-md-10" style="text-align: right;">
+				<button *ngIf="enableNext" mat-flat-button color="primary" type="submit" class="perlss-click-button chkW">SUBMIT</button>
+				<mat-spinner *ngIf="showSpinner" class="chkFloat" [diameter]="24" color="warn" mode="indeterminate"></mat-spinner>
+			</div>
+		</div>
+	</form>
+</div>

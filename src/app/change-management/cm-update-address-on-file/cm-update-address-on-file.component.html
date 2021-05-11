@@ -1,0 +1,418 @@
+<div class="responsive">
+  <div class="form">
+    <div class="scroller">
+      <div>
+        <app-change-management-common mode="demographics">
+          <div>
+            <mat-accordion  *ngIf="panelA">
+              <mat-expansion-panel class="expansionPanel" [expanded]="panelOpenA" (click)="openPanel('A')" >
+                <mat-expansion-panel-header class="expansionHeader" style="background-color: #f5f5f5">
+                  <mat-panel-title>
+                    Applicant - {{firstName}} {{lastName}}
+                  </mat-panel-title>
+                  <span>
+                    <mat-panel-description class="expansionDetails">
+                      VIEW DETAILS
+                    </mat-panel-description>
+                  </span>
+                </mat-expansion-panel-header>
+                <div class="innerContainer">
+                  <form [formGroup]="myFormA" [ngClass]="{'submitted': submitted }">
+                    <div class="floatChildren">
+                      <div class="w50">
+                        <mat-form-field appearance="outline" >
+                          <mat-label>Physical Address Type</mat-label>
+                          <mat-select formControlName="adddressTypeCd" (selectionChange)="selectTargetPopulation($event)">
+                            <mat-option value="MA">Mailing Address</mat-option>
+                            <mat-option value="PA">Physical Address</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="floatChildren">
+                      <div class="w50">
+                        <mat-form-field appearance="outline">
+                          <mat-label><span class="required">*</span>Address Format</mat-label>
+                          <mat-select formControlName="addressFormat"
+                            (selectionChange)="onAddressFormatChanged($event.value)">
+                            <mat-option *ngFor="let af of addressFormat" [value]="af.code">{{af.value}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-error *ngIf="controlError('A','addressFormat')">{{errorText.A['addressFormat']}}
+                        </mat-error>
+                      </div>
+                    </div>
+                    <div class="floatChildren" *ngIf="physicalAddressSwitch">
+                      <div class="w50">
+                        <mat-form-field appearance="outline">
+                          <mat-label class="req">Address Line 1</mat-label>
+                          <input matInput formControlName="addressLine1Txt" maxlength="100">
+                        </mat-form-field>
+                        <mat-error *ngIf="controlError('A','addressLine1Txt')">{{errorText.A['addressLine1Txt']}}
+                        </mat-error>
+                      </div>
+                      <div class="w50">
+                        <mat-form-field appearance="outline">
+                          <mat-label class="req">Address Line 2</mat-label>
+                          <input matInput formControlName="addressLine2Txt" maxlength="100">
+                        </mat-form-field>
+                        <mat-error *ngIf="controlError('A','addressLine2Txt')">{{errorText.A['addressLine2Txt']}}
+                        </mat-error>
+                      </div>
+                    </div>
+                    <div class="floatChildren" *ngIf="mailingAddressSwitch">
+                      <div class="w50">
+                        <mat-form-field appearance="outline">
+                          <mat-label class="req">Address Line 1</mat-label>
+                          <input matInput formControlName="mailingLine1Txt" maxlength="100">
+                        </mat-form-field>
+                        <mat-error *ngIf="controlError('A','mailingLine1Txt')">{{errorText.A['mailingLine1Txt']}}
+                        </mat-error>
+                      </div>
+                      <div class="w50">
+                        <mat-form-field appearance="outline">
+                          <mat-label class="req">Address Line 2</mat-label>
+                          <input matInput formControlName="mailingLine2Txt" maxlength="100">
+                        </mat-form-field>
+                        <mat-error *ngIf="controlError('A','mailingLine2Txt')">{{errorText.A['mailingLine2Txt']}}
+                        </mat-error>
+                      </div>
+                    </div>
+                    <div *ngIf="physicalAddressSwitch">
+                    <div class="floatChildren"  *ngIf="showUsFormatFields">
+                      <div class="w50">
+                        <mat-form-field appearance="outline">
+                          <mat-label class="req">City</mat-label>
+                          <input matInput formControlName="cityTxt" maxlength="25">
+                        </mat-form-field>
+                        <mat-error *ngIf="controlError('A','cityTxt')">{{errorText.A['cityTxt']}}</mat-error>
+                      </div>
+                      <div class="w50">
+                        <mat-form-field appearance="outline">
+                          <mat-label class="req">State</mat-label>
+                          <mat-select formControlName="stateCd" (selectionChange)="stateChanged($event.value)">
+                            <mat-option value=''>Select</mat-option>
+                            <mat-option *ngFor="let state of stateDropdowns" [value]="state.code">{{state.value}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-error *ngIf="controlError('A','stateCd')">{{errorText.A['stateCd']}}</mat-error>
+                      </div>
+                    </div></div>
+                    <div class="floatChildren"  *ngIf="mailingAddressSwitch">
+                      <div class="w50">
+                        <mat-form-field appearance="outline">
+                          <mat-label class="req">City</mat-label>
+                          <input matInput formControlName="mailCityTxt" maxlength="25">
+                        </mat-form-field>
+                        <mat-error *ngIf="controlError('A','mailCityTxt')">{{errorText.A['mailCityTxt']}}</mat-error>
+                      </div>
+                      <div class="w50">
+                        <mat-form-field appearance="outline">
+                          <mat-label class="req">State</mat-label>
+                          <mat-select formControlName="mailStateCd" (selectionChange)="stateChanged($event.value)">
+                            <mat-option value=''>Select</mat-option>
+                            <mat-option *ngFor="let state of stateDropdowns" [value]="state.code">{{state.value}}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-error *ngIf="controlError('A','mailStateCd')">{{errorText.A['mailStateCd']}}</mat-error>
+                      </div>
+                    </div>
+                    
+                    <div class="floatChildren" *ngIf="physicalAddressSwitch">
+                      <div class="w30">
+                        <mat-form-field appearance="outline">
+                          <mat-label><span class="required">*</span>Zip Code</mat-label>
+                          <input matInput formControlName="zipCode" placeholder="Zip Code">
+                        </mat-form-field>
+                        <mat-error *ngIf="controlError('A','zipCode')">{{errorText.A['zipCode']}}</mat-error>
+                      </div>
+                      <div class="w30">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Ext</mat-label>
+                          <input matInput formControlName="ext" placeholder="0000" mask="0000">
+                        </mat-form-field>
+                        <mat-error *ngIf="controlError('A','ext')">{{errorText.A['ext']}}</mat-error>
+                      </div>
+                      <div *ngIf="showCounty ||  dependentControls" class="w40">
+                        <div *ngIf="showUsFormatFields">
+                          <mat-form-field appearance="outline">
+                            <mat-label class="req">County</mat-label>
+                            <mat-select formControlName="countyCd">
+                              <mat-option value=''>Select</mat-option>
+                              <mat-option *ngFor="let county of countyDropdowns" [value]="county.code">{{county.value}}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                          <mat-error *ngIf="controlError('A','countyCd')">{{errorText.A['countyCd']}}</mat-error>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="floatChildren" *ngIf="mailingAddressSwitch">
+                      <div class="w30">
+                        <mat-form-field appearance="outline">
+                          <mat-label><span class="required">*</span>Zip Code</mat-label>
+                          <input matInput formControlName="mailZipCode" placeholder="Zip Code">
+                        </mat-form-field>
+                        <mat-error *ngIf="controlError('A','mailZipCode')">{{errorText.A['mailZipCode']}}</mat-error>
+                      </div>
+                      <div class="w30">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Ext</mat-label>
+                          <input matInput formControlName="mailExt" placeholder="0000" mask="0000">
+                        </mat-form-field>
+                        <mat-error *ngIf="controlError('A','mailExt')">{{errorText.A['mailExt']}}</mat-error>
+                      </div>
+                      <div *ngIf="showCounty ||  dependentControls" class="w40">
+                        <div *ngIf="showUsFormatFields">
+                          <mat-form-field appearance="outline">
+                            <mat-label class="req">County</mat-label>
+                            <mat-select formControlName="mailCountyCd">
+                              <mat-option value=''>Select</mat-option>
+                              <mat-option *ngFor="let county of countyDropdowns" [value]="county.code">{{county.value}}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                          <mat-error *ngIf="controlError('A','mailCountyCd')">{{errorText.A['mailCountyCd']}}</mat-error>
+                        </div>
+                      </div>
+                    </div>
+                    <div *ngIf="showMilAddressFormat">
+                      <div style="margin-bottom: 10px;" class="row">
+                        <div class="col-md-6">
+                          <mat-form-field appearance="outline">
+                            <mat-label><span class="required">*</span>APO / FPO</mat-label>
+                            <mat-select formControlName="apoFpo">
+                              <mat-option value=''>Select</mat-option>
+                              <mat-option *ngFor="let af of militaryPo" [value]="af.code">{{af.value}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                          <mat-error *ngIf="controlError('A','apoFpo')">{{errorText.A['apoFpo']}}</mat-error>
+
+
+                        </div>
+                      </div>
+                      <div style="margin-bottom: 10px;" class="row">
+                        <div class="col-md-6">
+                          <mat-form-field appearance="outline">
+                            <mat-label><span class="required">*</span>AA / AE / AP</mat-label>
+                            <mat-select formControlName="aaAeAp">
+                              <mat-option value=''>Select</mat-option>
+                              <mat-option *ngFor="let aa of militaryState" [value]="aa.code">{{aa.value}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+
+                          <mat-error *ngIf="controlError('A','aaAeAp')">{{errorText.A['aaAeAp']}}</mat-error>
+
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row" style="margin-left: -49px;">
+                      <div class="col">
+                        <button type="submit" mat-flat-button color="primary" class="perlss-click-button submit"
+                          (click)="executeValidation()">VALIDATE
+                          ADDRESS</button>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div style="margin-left: 20px; margin-top: 20px;">
+                        <mat-checkbox formControlName="mailAddrSw" (change)="onSsnAvailableChange($event)">
+                          Physical Address and Mailing Address are the same.
+                        </mat-checkbox>
+                      </div>
+                    </div>
+                    <div style="margin-top: 7px;
+                    margin-left: -35px;">
+                      <button mat-flat-button color="primary" class="perlss-click-button" (click)="onEdit()"
+                      >EDIT</button>
+                      <button mat-flat-button color="primary" class="perlss-click-button-white-noborder" (click)="resetForm()" >CANCEL </button>
+                      </div>
+
+                  </form>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <br>
+            <br>
+            <mat-accordion  *ngIf="panelB">
+            <mat-expansion-panel class="expansionPanel"  (click)="openPanel('B')" >
+              <mat-expansion-panel-header class="expansionHeader" style="background-color: #f5f5f5">
+                <mat-panel-title>
+                  Designee - {{firstNameDesignee}} {{lastNameDesignee}}
+                </mat-panel-title>
+                <span>
+                  <mat-panel-description class="expansionDetails">
+                    VIEW DETAILS
+                  </mat-panel-description>
+                </span>
+              </mat-expansion-panel-header>
+              <div class="innerContainer">
+                <form [formGroup]="myFormB" [ngClass]="{'submitted': submitted }">
+                  <div class="floatChildren">
+                    <div class="w50">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Physical Address Type</mat-label>
+                        <mat-select formControlName="adddressTypeCd">
+                          <mat-option value="MA">Mailing Address</mat-option>
+                          <mat-option value="PA">Physical Address</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="floatChildren">
+                    <div class="w50">
+                      <mat-form-field appearance="outline">
+                        <mat-label><span class="required">*</span>Address Format</mat-label>
+                        <mat-select formControlName="addressFormat"
+                          (selectionChange)="onAddressFormatChanged($event.value)">
+                          <mat-option *ngFor="let af of addressFormat" [value]="af.code">{{af.value}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-error *ngIf="controlError('B','addressFormat')">{{errorText.B['addressFormat']}}
+                      </mat-error>
+                    </div>
+                  </div>
+                  <div class="floatChildren">
+                    <div class="w50">
+                      <mat-form-field appearance="outline">
+                        <mat-label class="req">Address Line 1</mat-label>
+                        <input matInput formControlName="addressLine1Txt" maxlength="100">
+                      </mat-form-field>
+                      <mat-error *ngIf="controlError('B','addressLine1Txt')">{{errorText.B['addressLine1Txt']}}
+                      </mat-error>
+                    </div>
+                    <div class="w50">
+                      <mat-form-field appearance="outline">
+                        <mat-label class="req">Address Line 2</mat-label>
+                        <input matInput formControlName="addressLine2Txt" maxlength="100">
+                      </mat-form-field>
+                      <mat-error *ngIf="controlError('B','addressLine2Txt')">{{errorText.B['addressLine2Txt']}}
+                      </mat-error>
+                    </div>
+                  </div>
+                  <div class="floatChildren"  *ngIf="showUsFormatFields">
+                    <div class="w50">
+                      <mat-form-field appearance="outline">
+                        <mat-label class="req">City</mat-label>
+                        <input matInput formControlName="cityTxt" maxlength="25">
+                      </mat-form-field>
+                      <mat-error *ngIf="controlError('B','cityTxt')">{{errorText.B['cityTxt']}}</mat-error>
+                    </div>
+                    <div class="w50">
+                      <mat-form-field appearance="outline">
+                        <mat-label class="req">State</mat-label>
+                        <mat-select matNativeControl formControlName="stateCd">
+                          <mat-option value=''>Select</mat-option>
+                          <mat-option *ngFor="let state of stateDropdowns" [value]="state.code">{{state.value}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-error *ngIf="controlError('B','stateCd')">{{errorText.B['stateCd']}}</mat-error>
+                    </div>
+                  </div>
+                  <div class="floatChildren">
+                    <div class="w30">
+                      <mat-form-field appearance="outline">
+                        <mat-label><span class="required">*</span>Zip Code</mat-label>
+                        <input matInput formControlName="zipCode" placeholder="Zip Code">
+                      </mat-form-field>
+                      <mat-error *ngIf="controlError('B','zipCode')">{{errorText.B['zipCode']}}</mat-error>
+                    </div>
+                    <div class="w30">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Ext</mat-label>
+                        <input matInput formControlName="ext" placeholder="0000" mask="0000">
+                      </mat-form-field>
+                    </div>
+                    <mat-error *ngIf="controlError('B','ext')">{{errorText.B['ext']}}</mat-error>
+                    <div class="w40"  *ngIf="showUsFormatFields">
+                      <mat-form-field appearance="outline">
+                        <mat-label class="req">County</mat-label>
+                        <mat-select formControlName="countyCd">
+                          <mat-option value=''>Select</mat-option>
+                          <mat-option *ngFor="let county of countyDropdowns" [value]="county.code">{{county.value}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-error *ngIf="controlError('B','countyCd')">{{errorText.B['countyCd']}}</mat-error>
+                    </div>
+
+                  </div>
+                  <div *ngIf="showMilAddressFormat">
+                    <div style="margin-bottom: 10px;" class="row">
+                      <div class="col-md-6">
+                        <mat-form-field appearance="outline">
+                          <mat-label><span class="required">*</span>APO / FPO</mat-label>
+                          <mat-select formControlName="apoFpo">
+                            <mat-option value=''>Select</mat-option>
+                            <mat-option *ngFor="let af of militaryPo" [value]="af.code">{{af.value}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+
+                        <mat-error *ngIf="controlError('A','apoFpo')">{{errorText.A['apoFpo']}}</mat-error>
+
+
+                      </div>
+                    </div>
+                    <div style="margin-bottom: 10px;" class="row">
+                      <div class="col-md-6">
+                        <mat-form-field appearance="outline">
+                          <mat-label><span class="required">*</span>AA / AE / AP</mat-label>
+                          <mat-select formControlName="aaAeAp">
+                            <mat-option value=''>Select</mat-option>
+                            <mat-option *ngFor="let aa of militaryState" [value]="aa.code">{{aa.value}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+
+                        <mat-error *ngIf="controlError('A','aaAeAp')">{{errorText.A['aaAeAp']}}</mat-error>
+
+
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <button type="button" mat-flat-button color="primary" class="perlss-click-button-white"
+                      (click)="validate('B')">VALIDATE ADDRESS</button> -->
+                      <div class="row" style="margin-left: -49px;">
+                        <div class="col">
+                          <button type="submit" mat-flat-button color="primary" class="perlss-click-button submit"
+                            (click)="executeValidation()">VALIDATE
+                            ADDRESS</button>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div style="margin-left: 20px;
+                        margin-top: 20px;">
+                          <mat-checkbox formControlName="mailAddrSw" (change)="onSsnAvailableChange($event)">
+                            <mat-label><span>Physical Address and Mailing Address are the same.</span>
+                            </mat-label>
+                          </mat-checkbox>
+                        </div>
+                      </div>
+                      <div style="margin-top: 7px;
+                      margin-left: -35px;">
+                        <button mat-flat-button color="primary" class="perlss-click-button" (click)="onEditFormB()"
+                        >EDIT</button>
+                        <button mat-flat-button color="primary" class="perlss-click-button-white-noborder" (click)="resetFormB()" >CANCEL </button>
+                        </div>
+
+
+                </form>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+            
+            <div class="row" style="margin-left: -26px;">
+              <div class="col">
+                <button type="submit" mat-flat-button color="primary" class="perlss-click-button submit"
+                  (click)="onSubmit()">SUBMIT
+              </button>
+              </div>
+            </div>
+          </div>
+        </app-change-management-common>
+      </div>
+    </div>
+  </div>
+</div>

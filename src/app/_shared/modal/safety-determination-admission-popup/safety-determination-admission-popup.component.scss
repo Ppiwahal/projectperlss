@@ -1,0 +1,64 @@
+.popup-header-container{
+  padding: 20px;
+  margin-left: 10px;
+}
+
+.mat-dialog-container {
+  padding: 0;
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+  border-radius: 7px;
+  border: 2px solid #225282;
+}
+
+.popup-close-icon{
+  transform: scale(1.5);
+  cursor: pointer;
+  color: #8b99ac;
+}
+.icon-action{
+  margin-right: 5px;
+  font-size: 18px;
+  color: red;
+}
+.popup-container{
+  padding: 20px;
+  margin-left: 15px;
+  font-weight: 500;
+}
+strong{
+  font-weight: 900;
+}
+
+.popup-click-button{
+  background-color: #174A7C !important;
+  color: white;
+}
+
+.popup-click-button-white{
+  background-color: white !important;
+  color: #174A7C !important;
+  border: 1px solid #1B365D !important;
+}
+.popup-container {
+.mat-form-field-infix {
+   width: 120px;
+}
+mat-form-field {
+     width: 100%;
+     margin-left: 2px
+   }
+   .user-action{
+    padding: 20px;
+   }
+   }
+   button:focus{
+    outline: unset
+   }
+   .ht-body{
+    height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+   }

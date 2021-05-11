@@ -1,0 +1,170 @@
+@import '../../../colors.scss';
+  
+  table {
+    width: 100%;
+  }
+  
+  tr.example-detail-row {
+    height: 0;
+  }
+  
+  tr.example-element-row:not(.example-expanded-row):hover {
+    background: whitesmoke;
+  }
+  
+  tr.example-element-row:not(.example-expanded-row):active {
+    background: #efefef;
+  }
+  
+  .example-element-row td {
+    border-bottom-width: 0;
+  }
+  
+  tr.example-element-row:not(.example-expanded-row):hover {
+    background: whitesmoke;
+  }
+  
+  tr.example-element-row:not(.example-expanded-row):active {
+    background: #efefef;
+  }
+  
+  .example-element-description {
+    padding: 16px;
+  }
+  
+  .example-element-description-attribution {
+    opacity: 0.5;
+  }
+  
+  .example-element-row td {
+    border-bottom-width: 0;
+  }
+  
+  .example-element-detail {
+    overflow: hidden;
+    display: flex;
+  }
+  
+  .mat-elevation-z8-boarder {
+    border: #1B365D;
+  }
+  
+  .red-icon {
+    color: #ed6053;
+    transform: scale(0.8);  
+    display: inline-flex;
+    vertical-align: middle;
+  }
+  .sub-heading {
+    font-family: "Open Sans";
+    letter-spacing: 50;
+    font-weight: bold;
+    font-size: 32px;
+    color: #174a7c;
+  }
+  
+#chkStyle{
+  margin-top: 5px;
+}
+.marginT{
+  margin-top: 1vw;
+}
+
+.chkFloat{
+  float: right;
+}
+.styl{
+  margin: 10px 0 0 10px;
+}
+.page-sub-heading {
+  font-weight: bold;
+  color: #4b7f1e;
+  font-size: 24px;
+}
+
+#txtColor{
+  color: grey;
+}
+#leftMgn{
+  margin-left: 10px;
+}
+  .required {
+    float: right;
+    color: #ED6053;
+    font-family: "Open Sans";
+    margin-top: -20px;
+  }
+  .push-right-note{
+    padding-left: 54px;
+  }
+  .cardStyle {
+    background-color: $colorControlBackground;
+    border-top: 2px solid #4b7f1e;
+    color: #6E7073;
+    font-family: 'Open Sans';
+  }
+  .required-color {
+    color: #ed6053;
+  }
+  .page-sub-heading {
+    font-weight: bold;
+    color: #4D7E20;
+    font-size: 20px;
+  }
+  .perlss-section-divider {
+    width: 100%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  
+  .table-row-header {
+    font-weight: bold; 
+    color: #174a7c;
+    font-size: larger;
+  }
+  
+  #applicant-physical-address {
+    margin-left: 5px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+  }
+  
+  #searchPersonTable {
+    width: 100%;
+    -moz-box-shadow: 0 0 1px 1px #888;
+    -webkit-box-shadow: 0 0 1px 1px#888;
+    box-shadow: 0 0 1px 1px #888;
+  }
+  #searchPersonTable th {
+    text-align: center;
+    color: #547e1a;
+    padding: 25px;
+  }
+  
+  #addressTable {
+    text-align: center;
+    width: 100%;
+    -moz-box-shadow: 0 0 1px 1px #888;
+    -webkit-box-shadow: 0 0 1px 1px#888;
+    box-shadow: 0 0 1px 1px #888;
+  }
+  #addressTable td {
+    padding: 20px;
+  }
+  #searchPersonTable tr {
+    border: 0.5px solid #174a7c;
+  }
+  
+  #searchPersonTable td {
+    text-align: center;
+    background-color: #edf4fb;
+    padding: 10px;
+  }
+  .perlss-click-button-white:focus {
+    background-color: #174A7C !important;
+    color: white !important;
+  }
+  
+  
+  
+  

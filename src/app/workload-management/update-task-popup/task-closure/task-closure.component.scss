@@ -1,0 +1,49 @@
+.comments{
+    font-style: italic;
+    font-size: 12px;
+    margin-top: -5px;
+    margin-bottom: 8px;
+}
+
+textarea{
+    width: 100%;
+}
+
+.closure-wrapper{
+    margin: 15px;
+    p{
+        font-size: 14px;
+        font-weight: bold;
+        color: #4D7E20;
+    }
+}
+
+.button {
+    background-color: #174A7C;
+    color: white;
+}
+
+.header{
+    margin-top: 10px;
+}
+
+div > .mat-form-field {
+    width: 100%;
+}
+
+.text-area{
+    margin-top: 15px;
+}
+
+.required-color {
+    color: #f44336;
+}
+
+.character-count {
+    float: right;
+    margin-top: -24px;
+}
+
+.closure-button {
+    padding-top: 15px;
+}

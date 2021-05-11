@@ -1,0 +1,204 @@
+<div class="pageMargin">
+  <div class="row" style="width: 100%; padding-bottom: 20px;">
+    <div class="col-md-8" style="width:100% !important;">
+      <div id="applicant-first-heading">
+        Special Diet or Prescription
+      </div>
+    </div>
+    <div id="applicantName"><b>APPLICANT NAME:</b>&nbsp;&nbsp;&nbsp;  Jessica Jones</div>
+  </div>
+
+  <div style="width: 95%;">
+    <form [formGroup]="myForm">
+
+      <div class="question-container">
+        <div class="row">
+          <div class="col-md-12">
+            <label id="example-radio-group-label">
+              <sup><mat-label class="required-color">*</mat-label></sup>
+              Does the applicant follow a specially prepared diet (puree, keto, etc.) or prescribed dietary formula?
+            </label>
+          </div>
+       </div>
+      </div>
+
+      <div class="radio-option-container">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-radio-group formControlName="specialyPrescbdDietSw">
+              <div *ngIf="getFormData().specialyPrescbdDietSw.hasError('required') && 
+                      (getFormData().specialyPrescbdDietSw.touched || submitted)" class="validationContainer">
+                <mat-error>{{customValidation.A1}}</mat-error>
+              </div>
+              <div>
+                <mat-radio-button value="yes">Yes</mat-radio-button>
+              </div>
+              <div>
+                <mat-radio-button value="no">No</mat-radio-button>
+              </div>
+            </mat-radio-group>
+          </div>
+       </div>
+      </div>
+
+      <mat-divider class="perlss-section-divider"></mat-divider>
+
+      <div class="applicant-sub-heading">
+        Prader Willi
+      </div>
+
+      <div class="question-container">
+        <div class="row">
+          <div class="col-md-12">
+            <label id="example-radio-group-label">
+              <sup><mat-label class="required-color">*</mat-label></sup>
+              Does the applicant have a Prader Willi diagnosis?
+            </label>
+          </div>
+       </div>
+      </div>
+
+      <div class="radio-option-container">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-radio-group formControlName="aplcntPraderWilliSw">
+              <div *ngIf="getFormData().aplcntPraderWilliSw.hasError('required') && 
+                      (getFormData().aplcntPraderWilliSw.touched || submitted)" class="validationContainer">
+                <mat-error>{{customValidation.A1}}</mat-error>
+              </div>
+              <div>
+                <mat-radio-button value="yes">Yes</mat-radio-button>
+              </div>
+              <div>
+                <mat-radio-button value="no">No</mat-radio-button>
+              </div>
+            </mat-radio-group>
+          </div>
+       </div>
+      </div>
+
+      <mat-divider class="perlss-section-divider"></mat-divider>
+
+      <div class="applicant-sub-heading">
+        Choking or Aspiration
+      </div>
+
+      <div class="question-container">
+        <div class="row">
+          <div class="col-md-12">
+            <label id="example-radio-group-label">
+              <sup><mat-label class="required-color">*</mat-label></sup>
+              Is the applicant at high risk of choking or aspiration? (Applicable only to children receiving primary
+              nutrition by mouth).
+            </label>
+          </div>
+       </div>
+      </div>
+
+      <div class="radio-option-container">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-radio-group formControlName="aplcntChokngAspiSw">
+              <div *ngIf="getFormData().aplcntChokngAspiSw.hasError('required') && 
+                      (getFormData().aplcntChokngAspiSw.touched || submitted)" class="validationContainer">
+                <mat-error>{{customValidation.A1}}</mat-error>
+              </div>
+              <div>
+                <mat-radio-button value="yes">Yes</mat-radio-button>
+              </div>
+              <div>
+                <mat-radio-button value="no">No</mat-radio-button>
+              </div>
+            </mat-radio-group>
+          </div>
+       </div>
+      </div>
+
+      <mat-divider class="perlss-section-divider"></mat-divider>
+
+      <div class="applicant-sub-heading">
+        Hands-On Feeding
+      </div>
+
+      <div class="question-container">
+        <div class="row">
+          <div class="col-md-12">
+            <label id="example-radio-group-label">
+              <sup><mat-label class="required-color">*</mat-label></sup>
+              Does the applicant require hands-on feeding assistance (over the age of 3) or continuous G-tube
+              feedings?
+            </label>
+          </div>
+       </div>
+      </div>
+
+      <div class="radio-option-container">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-radio-group formControlName="handsonFeedngAssisCd" (change)="onHandsOnFeedChange($event)">
+              <div *ngIf="getFormData().handsonFeedngAssisCd.hasError('required') && 
+                      (getFormData().handsonFeedngAssisCd.touched || submitted)" class="validationContainer">
+                <mat-error>{{customValidation.A1}}</mat-error>
+              </div>
+              <div>
+                <mat-radio-button value="Y">Yes</mat-radio-button>
+              </div>
+              <div>
+                <mat-radio-button value="N">No</mat-radio-button>
+              </div>
+              <div>
+                <mat-radio-button value="NA">Not Applicable</mat-radio-button>
+              </div>
+            </mat-radio-group>
+          </div>
+       </div>
+      </div>
+
+      <div class="question-container" *ngIf="reqHandsOnFeedAssist">
+        <div class="row">
+          <div class="col-md-12">
+            <label id="example-radio-group-label">
+              <sup><mat-label class="required-color">*</mat-label></sup>
+              How often does the applicant need hands-on feeding?
+            </label>
+          </div>
+       </div>
+      </div>
+
+      <div class="radio-option-container" *ngIf="reqHandsOnFeedAssist">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-radio-group formControlName="handsonFeedngDurCd">
+              <div *ngIf="getFormData().handsonFeedngDurCd.hasError('required') && 
+                      (getFormData().handsonFeedngDurCd.touched || submitted)" class="validationContainer">
+                <mat-error>{{customValidation.A1}}</mat-error>
+              </div>
+              <div>
+                <mat-radio-button value="M">More than 3 hours per day</mat-radio-button>
+              </div>
+              <div>
+                <mat-radio-button value="L">Less than 3 hours per day</mat-radio-button>
+              </div>
+            </mat-radio-group>
+          </div>
+       </div>
+      </div>
+
+      <div class="row button-container">
+        <div class="col-md-2" style="text-align: left;">
+          <button mat-flat-button color="primary"
+            class="perlss-click-button-white" (click)="back()">BACK</button>
+       </div>
+        <div class="col-md-4" style="text-align: left;">
+          <button mat-flat-button color="primary"
+            class="perlss-click-button-white-noborder" (click)="saveAndExit()">SAVE AND EXIT</button>
+       </div>
+        <div class="col-md-6" style="text-align: right;">
+          <button mat-flat-button color="primary"
+            class="perlss-click-button" type="submit" (click)="next()">NEXT</button>
+       </div>
+      </div>
+
+    </form>
+  </div>
+</div>

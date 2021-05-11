@@ -1,0 +1,40 @@
+
+@import "../../../colors.scss";
+mat-expansion-panel.mat-expansion-panel {
+
+  > mat-expansion-panel-header.mat-expansion-panel-header {
+
+    .mat-expansion-panel-header-title {
+      font-size: 21.5px;
+      letter-spacing: 0.04em;
+      color: $colorGrayBlue !important;
+      display: inline-block;
+
+      > mat-icon {
+        display: inline-block;
+        font-size: 29px;
+        margin: 0 11px 0 0;
+        color: $colorGrayBlue
+      }
+    }
+  }
+}
+
+.responsive .form h2 + p {
+  margin-top: -5.5px;
+  padding-top: 0;  
+}
+
+.responsive .form h2 {
+  margin-top:  -18px;
+}
+
+.responsive .form h2:not(:first-child) {
+  margin-top: 27px;
+  border-top: 1px solid $colorLightGray;
+  width: 100%;
+  display: block;
+}
+
+
+ 

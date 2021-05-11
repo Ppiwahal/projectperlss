@@ -1,0 +1,43 @@
+.heading-wrapper{
+    color:#04537D;
+    padding: 10px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+}
+
+.content-wrapper{
+    margin-top: 20px;
+}
+
+::ng-deep .mat-form-field {
+    font-size: 12px;
+    width: 100%;
+}
+
+.flex-wrapper{
+    display: flex;
+    margin-top: 10px;
+}
+
+.flex-wrapper div{
+    width: 50%;
+    margin: 0 10px;
+}
+
+.custom-button{
+    background-color: #174A7C;
+    color: white;
+    margin-bottom: 25px;
+  }
+
+  ::ng-deep .toast-message{
+      color: white;
+      font-size: 16px;
+  }
+
+  .required{
+    color: red;
+}
+
+

@@ -1,0 +1,173 @@
+<div class="responsive dialog">
+    <div class="header">
+      <h1 mat-dialog-title>SIS Informant Form</h1>
+      <span><hr></span>
+      <mat-icon class="popup-close-icon" (click)="close()">highlight_off</mat-icon>
+      <label class="req requireDisplay">Required</label>
+    </div>
+    <form [formGroup]="sisInformantForm">
+        <div class="scroller noPad row">
+        <div class="note-container">
+            <p><strong>Supports Intensity Scale </strong>(SIS™) is a comprehensive, onsite face - to - face assessment required before any applicant can be enrolled in ECF CHOICES Group 6.
+                To successfully perform SIS™, the applicant and at least 3 informants must participate in the face to face visit.</p>
+            <br>
+            <p><strong>Informants </strong>are people who have known this applicant for at least 3 months and can describe their support needs across domains.
+                Domains include daily living, community and social activities, employment and educational activities and health, protection and advocacy activities.
+                Please identify three (3) informants who are most familiar with the applicant.</p>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <p class="informantNotice"><strong>If the applicant attests that there are no identified informants to assist with the completion of SIS Assessment, please select below: </strong></p>
+            <br>
+        </div>
+        <div class="row">
+            <button mat-button color="primary" class="perlss-click-button-white"
+            (click)="informantAvailable()">NO INFORMANTS
+                <mat-icon class="icon">offline_pin</mat-icon>
+            </button>
+        </div>
+        <br>
+        <span><hr></span>
+        <br>
+        <ng-container *ngIf="isNoInformant">
+        <div formArrayName="paeSisInformantFormVO"
+        *ngFor="let informant of sisInformantForm.controls.paeSisInformantFormVO.value;let i = index;trackBy:trackFn">
+        <div [formGroupName]="i">
+        <h3 class="page-sub-heading">{{informant.informantLable}}</h3>
+        <div class="row">
+          <div class="col-md-7">
+            <mat-form-field appearance="outline">
+              <mat-label><span class="required-color">*</span>Full Name of the Informant</mat-label>
+              <input matInput placeholder="Full Name of the Informant"
+              formControlName="infrmtFullName"
+              [ngClass]="{ 'has-error': getInformantFormData()[i].controls['infrmtFullName'].dirty && getInformantFormData()[i].controls['infrmtFullName'].hasError('required')  && !getInformantFormData()[i].controls['infrmtFullName'].valid }">
+
+            <mat-error *ngIf="getInformantFormData()[i].controls['infrmtFullName'].errors !== null">
+              <span *ngIf="getInformantFormData()[i].controls['infrmtFullName'].errors.required && (getInformantFormData()[i].controls['infrmtFullName'].touched)">
+                {{customValidation.A1}}</span>
+              <span *ngIf="getInformantFormData()[i].controls['infrmtFullName'].errors?.invalidName && !getInformantFormData()[i].controls['infrmtFullName'].errors.required">
+                {{customValidation.A2}}
+              </span>
+            </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-5">
+            <mat-form-field appearance="outline" class="wid-100">
+                <mat-label><span class="req"></span>Relationship</mat-label>
+                <mat-select matNativeControl formControlName="relationToAplcntCd">
+                    <mat-option *ngFor="let reltshpCd of relationShipCdList" [value]="reltshpCd.code">
+                        {{reltshpCd.description}}</mat-option>
+                  </mat-select>
+            </mat-form-field>
+        </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12" class="wid-100">
+              <mat-radio-group  formControlName="infrmtKnownDurationCd" aria-labelledby="example-radio-group-label">
+                <mat-label class="required-class">*</mat-label><span class="individualDetails">How long has the informant known the individual? </span>
+                <mat-radio-button value="LE3M">Less than 3 months</mat-radio-button>
+                <mat-radio-button value="GT3M">3 months to a year</mat-radio-button>
+                <mat-radio-button value="GT1Y">More than a year</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+        <div class="row">
+            <div class="col-md-7">
+                <mat-form-field appearance="outline">
+                    <mat-label><span class="required-color">*</span>Email Address</mat-label>
+                  <input formControlName="infrmtEmail" matInput placeholder="Email Address">
+                </mat-form-field>
+            </div>
+            <div class="col-md-5">
+                <mat-form-field appearance="outline" class="wid-100">
+                    <mat-label><span class="req"></span>County</mat-label>
+                    <mat-select matNativeControl formControlName="infrmntCntyCd">
+                        <mat-option *ngFor="let county of countyList" [value]="county.code">
+                          {{county.value}}</mat-option>
+                      </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label><span class="required-color">*</span>Preferred Phone Number</mat-label>
+                  <input formControlName="prefPhNum" matInput placeholder="(xxx)-xxx-xxxx" mask="000-000-0000">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Alternate Phone Number</mat-label>
+                  <input formControlName="alternatePhNum" matInput placeholder="(xxx)-xxx-xxxx" mask="000-000-0000">
+                </mat-form-field>
+            </div>
+        </div>
+        <br>
+        <span><hr></span>
+        </div>
+        </div>
+        </ng-container>
+        <br>
+        <span><hr></span>
+        <br>
+
+        <div>
+          <div class="commentsHeader">
+            <mat-label>
+              <strong>Additional Information:</strong>
+            </mat-label>
+            <div class="comment-box">
+              <mat-form-field appearance="fill">
+                <input formControlName="addInfoDesc" matInput>
+              </mat-form-field>
+              <div class="additionalInformation">
+                0/2000
+              </div>
+            </div>
+         </div>
+         <!-- <div class="col-md-6 ">
+            <mat-form-field appearance="outline" class="wid-100">
+                <mat-label><span class="req"></span>Credentials</mat-label>
+                <mat-select placeholder="Credentials" formControlName="credentialsCd" (selectionChange)="credChanged($event.value)">
+                    <mat-option *ngFor="let element of uniqueCredentialsArray" [value]="element.credentialsCd">{{element.credentialsCd}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <div class="col-md-6 ">
+                <mat-form-field appearance="outline" class="wid-100" datasou>
+                    <mat-label><span class="req"></span>Qualified Accessor Name</mat-label>
+                    <mat-select placeholder="Qualified Accessor Name" formControlName="qualifiedAssessorName">
+                        <mat-option *ngFor="let name of filteredData" [value]="name.assessorId">{{name.firstName}} {{name.lastName}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6 ">
+                <mat-form-field appearance="outline" class="wid-100">
+                    <mat-label><span class="req"></span>Qualified Accessor Code</mat-label>
+                    <input matInput spellcheck="false" [maxlength]="20" formControlName="qualifiedAssessorId">
+                </mat-form-field>
+                <mat-error *ngIf="sisInformantForm.get('qualifiedAssessorId').errors?.required && (sisInformantForm.get('qualifiedAssessorId').touched || sisInformantForm.get('qualifiedAssessorId').dirty)">
+                    {{customValidation.A1}}
+                </mat-error>
+                <mat-error *ngIf="sisInformantForm.get('qualifiedAssessorId').errors?.specialCharacterValidator">
+                    {{customValidation.A2}}
+                </mat-error>
+            </div>
+        </div> -->
+        </div>
+      <div class="buttonBar">
+        <button mat-flat-button
+         color="primary"
+         (click)="saveSisInformantRequest()"
+         [hidden] = ""
+         [disabled] = ""
+         class="perlss-click-button"
+         >
+         SUBMIT
+        </button>
+      </div>
+    </form>
+  </div>

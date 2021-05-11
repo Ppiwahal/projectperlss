@@ -1,0 +1,379 @@
+<div class="pageMargin">
+  <div>
+    <div class="applicantName">{{applicantName}}</div>
+    <div class="pageMargin" *ngIf="dataSourceSet">
+      <h3 class="required-name" style="padding-bottom: 20px;">PAE Progress</h3>
+      <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef class="status-header">
+            <span class="textStyle">PAE Details</span>
+          </th>
+          <td mat-cell *matCellDef="let sds" class="usrActions"><span class="textStyle">{{sds.pageTitle}} </span> </td>
+        </ng-container>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef class="status-header">
+            <div class="iconTextContainer"><span class="textStyle">Status</span></div>
+          </th>
+          <td mat-cell *matCellDef="let sds" class="usrActions">
+            {{sds.status}}
+            <div class="iconTextContainer">
+              <div *ngIf="sds.completedSw === 'Y'">
+                <mat-icon class="green">check</mat-icon>Complete
+              </div>
+              <div *ngIf="sds.completedSw !== 'Y'">
+                <mat-icon class="red">close</mat-icon>Incomplete
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="userActions">
+          <th mat-header-cell *matHeaderCellDef class="status-header">
+            <div class="iconTextContainer"><span class="textStyle">Actions</span></div>
+          </th>
+          <td mat-cell *matCellDef="let sds" class="usrActions">
+            <div class="iconTextContainer" *ngIf="sds.completedSw !== 'Y'">
+              <span class="material-icons edit_action" (click)="edit(sds.pageId)">border_color</span>
+            </div>
+            <div class="iconTextContainer" *ngIf="sds.completedSw === 'Y'">
+              <span class="material-icons" style="color: grey">not_interested</span>
+            </div>
+
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+    <br>
+      <mat-divider class="divider" ></mat-divider>
+  </div>
+  <div class="sub-pageMargin">
+    <div class="summary-container">
+      <form [formGroup]="paeSubmitForm" (ngSubmit)="submit()">
+        <ng-container *ngIf= "((programCode =='EC7' || programCode =='EC8' || programCode =='PACE') || (taskMasterId == 14 || taskMasterId == 15 ) || chmTypeCd === 'RECT')">
+         <div class="row">
+          <div class="col-md-12">
+            <h3>Recertify Services</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" style="width:90%;">
+              <mat-label>
+                <mat-label class="required-color">*</mat-label>Recertification Decision
+              </mat-label>
+              <mat-select formControlName="recrtfctnDcsnCd" (selectionChange)="onSelectApplicant($event)">
+                <mat-option  value="MET">Applicant meets Criteria</mat-option>
+                <mat-option value="NOT">Applicant does not meet Criteria</mat-option>
+              </mat-select>
+              <mat-error *ngIf="getFormData().recrtfctnDcsnCd.errors !== null">
+                <span *ngIf="getFormData().recrtfctnDcsnCd.errors.required && (getFormData().recrtfctnDcsnCd.touched || submitted)">{{customValidation.A1}}</span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="float-child">
+            <div *ngIf="showDocumentSection"><div class="col-md-6 notes" *ngIf="showNotes">
+              <p><span class="textStyle"><b>NOTE:</b> In order to be eligible for enrollment into this
+                program, the applicant must have a documented intellectual disability.</span></p>
+            </div>
+          </div>
+        </div>
+        </div>
+         <mat-radio-group *ngIf="showInitateTransition" formControlName="trnstnExpctdSw"
+          (change)="onChangeapplicantIncontSw($event)">
+          <mat-label class="required-color">*</mat-label><span class="textStyle">Do you expect to initate a transition in the next 90
+            days?</span>
+            <mat-error *ngIf="getFormData().trnstnExpctdSw.errors !== null">
+              <span *ngIf="getFormData().trnstnExpctdSw.errors.required && (getFormData().trnstnExpctdSw.touched || submitted)">{{customValidation.A1}}</span>
+            </mat-error>
+          <mat-radio-button value="Y" class="stack-radio-button">Yes</mat-radio-button>
+          <mat-radio-button value="N" class="stack-radio-button">No</mat-radio-button>
+        </mat-radio-group>
+          <div class="float-child">
+            <div *ngIf="showTransitionNoMessage"><div class="col-md-6 notes">
+              <p><span class="textStyle"><b>NOTE:</b> Begin the Disenrollment process.</span></p>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="showSupportingDocuments">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="checkbox-label">
+                <mat-label>
+                  <mat-label><span class="textStyle">Please select the checkbox below to
+                    acknowledge
+                    before recertifying services and complete required documentation.</span></mat-label>
+                </mat-label>
+              </div>
+              <mat-checkbox formControlName="ackSw" (change)="onSsnOptionChange($event)">
+                <span class="textStyle">I acknowledge that all the information provided is accurate.</span>
+              </mat-checkbox>
+              <mat-error *ngIf="getFormData().ackSw.errors !== null">
+                <span *ngIf="getFormData().ackSw.errors.required && (getFormData().ackSw.touched || submitted)">{{customValidation.A1}}</span>
+              </mat-error>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-8 summary_align">
+              <app-common-summary [supportingDocumentData]="supportingDocument"></app-common-summary>
+            </div>
+          </div>
+        </div>
+       <mat-divider class="perlss-section-divider"></mat-divider>
+      </ng-container>
+      <ng-container *ngIf="(programCode ==='CG1' || programCode ==='ICF' || programCode ==='CAC' || taskMasterId === null || taskMasterId === 74  || chmTypeCd === 'AOUM')">
+          <div class="row">
+            <div class="col-md-12">
+              <h3>MOPD</h3>
+            </div>
+            <mat-label><span class="textStyle" style="width:70%; padding-left: 18px;">Please add MOPD details if available.</span><mat-icon class="red-icon"
+              matTooltip="The date that the submitter certifies that Medicaid reimbursement services will begin and all other sources of reimbursement (including Medicare and private pay) have been exhausted"
+              [matTooltipClass]="'my-tooltip'">
+              error_outline
+            </mat-icon>
+          </mat-label>
+          </div>
+          <div class="column-date">
+            <mat-form-field appearance="outline">
+              <mat-label><sup><mat-label class="required-color">*</mat-label></sup>MOPD</mat-label>
+              <input matInput readonly [matDatepicker]="picker" formControlName="mopdDt" (click)="picker.open()"  (dateChange)="chkDays($event)">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker [startAt]="startDate" #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-error *ngIf="getFormData().mopdDt.errors != null">
+              <span *ngIf="getFormData().mopdDt.errors.required && (getFormData().mopdDt.touched || submitted)">{{customValidation.A1}}</span>
+              <span *ngIf="getFormData().mopdDt.errors.matDatepickerMax">{{customValidation.A5}}</span>
+              <span *ngIf="getFormData().mopdDt.errors.matDatepickerMin">{{customValidation.A6}}</span>
+            </mat-error>
+          </div>
+        <mat-divider class="perlss-section-divider"></mat-divider>
+      </ng-container>
+         <ng-container *ngIf= "(programCode =='EC6' || taskMasterId =='11' || chmTypeCd == 'SISA')">
+           <div>
+          <div class="row">
+            <div class="col-md-12">
+              <h3>SIS Assessment</h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" style="width:90%;">
+                <mat-label>
+                  <mat-label class="required-color">*</mat-label>SIS Outcome
+                </mat-label>
+                <mat-select formControlName="sisOutcomeCd" (selectionChange)="onSelectSIsApplicant($event)">
+                  <mat-option  value="SAC">SIS Assessment Completed</mat-option>
+                  <mat-option value="SAN">SIS Assessment Not Completed</mat-option>
+                </mat-select>
+                <mat-error *ngIf="getFormData().sisOutcomeCd.errors !== null">
+                  <span *ngIf="getFormData().sisOutcomeCd.errors.required && (getFormData().sisOutcomeCd.touched || submitted)">{{customValidation.A1}}</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row" *ngIf ="showReason">
+            <div class="col-md-12">
+                <mat-form-field appearance="outline" class="checkWidth" style="width:50% !important">
+                  <mat-label><mat-label class="required-color">*</mat-label>Reason:</mat-label>
+                  <textarea formControlName="reasonDtl" matInput #notesInput id="notesInput" maxlength="2000" rows="3"
+                  cols="45"></textarea>
+                </mat-form-field>
+                <mat-error *ngIf="getFormData().reasonDtl.errors !== null">
+                  <span *ngIf="getFormData().reasonDtl.errors.required && (getFormData().reasonDtl.touched || submitted)">{{customValidation.A1}}</span>
+                  <span *ngIf="getFormData().reasonDtl.errors.pattern && !getFormData().reasonDtl.errors.required">{{customValidation.A2}}
+                  </span>
+                </mat-error>
+            </div>
+          </div>
+          <div class="row" *ngIf= "showSupportingDocumentPart2">
+            <div class="col-md-8 summary_align">
+              <app-common-summary [supportingDocumentData]="supportingDocumentPart2" ></app-common-summary>
+            </div>
+          </div>
+          <div class="row" *ngIf = "sisCommentShow">
+            <div class="col-md-12" >
+              <mat-label>
+                <mat-label class="required-color">
+                  *
+                </mat-label>
+                <b>Add comments on why SIS Assessment is being submittted after due date</b>
+              </mat-label>
+              <div class="row">
+                <div class="col-md-12">
+                    <mat-form-field appearance="outline" class="checkWidth" style="width:70% !important">
+                      <textarea formControlName="sisAssmntComment" matInput #notesInput id="notesInput" maxlength="2000" rows="3"
+                      cols="45"></textarea>
+                    </mat-form-field>
+                    <mat-error *ngIf="getFormData().sisAssmntComment.errors !== null">
+                      <span *ngIf="getFormData().sisAssmntComment.errors.required && (getFormData().sisAssmntComment.touched || submitted)">{{customValidation.A1}}</span>
+                      <span *ngIf="getFormData().sisAssmntComment.errors.pattern && !getFormData().sisAssmntComment.errors.required">{{customValidation.A2}}
+                      </span>
+                    </mat-error>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf= "serviceReceived">
+      <div class="row">
+        <div class="col-md-12">
+            <mat-label>
+              <mat-label class="required-color">
+                *
+              </mat-label>
+              <b>Services Received</b>
+            </mat-label>
+        </div>
+      </div>
+      <!-- <div>
+        <mat-error *ngIf="(!needHelpSelected && !needHelpNoneSelected &&submitted)">{{customValidation.A10}}
+        </mat-error>
+        <mat-error *ngIf="(needHelpSelected && needHelpNoneSelected)">{{customValidation.A22}}
+        </mat-error>
+      </div> -->
+      <br>
+        <div class="col-md-6">
+          <mat-checkbox class="checkbox-element" formControlName="sisDatSrvcSw" (change)="onNeedHelp($event)">
+            <span class="textStyle">Day</span></mat-checkbox>
+        </div>
+        <div class="col-md-6">
+          <mat-checkbox class="checkbox-element" formControlName="sisResidentialSrvcSw" (change)="onNeedHelp($event)">
+            <span class="textStyle">Residential</span></mat-checkbox>
+        </div>
+        <div class="col-md-6">
+          <mat-checkbox class="checkbox-element" formControlName="sisPaSrvcSw" (change)="onNeedHelp($event)">
+            <span class="textStyle">PA</span></mat-checkbox>
+        </div></div></ng-container>
+         <ng-container *ngIf="showRecertification">
+          <div class="row">
+            <div class="col-md-12">
+              <h3>Recertify PAE</h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="checkbox-label">
+                <mat-label>
+                  <mat-label><span class="textStyle">Please select the checkbox below to
+                    acknowledge
+                    before recertifying PAE and complete required documentation.</span></mat-label>
+                </mat-label>
+              </div>
+              <mat-checkbox formControlName="paeRecertificationAckSw" (change)="onSsnOptionChange($event)">
+                <span class="textStyle">I acknowledge that all the information provided is accurate.</span>
+              </mat-checkbox>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-8 summary_align">
+              <app-common-summary [supportingDocumentData]="supportingDocumentPart3"></app-common-summary>
+            </div>
+          </div>
+        </ng-container>
+        <div class="row">
+          <div class="col-md-12">
+            <h3 class="required-name" style="padding-bottom: 20px;">Submit</h3>
+            <div class="checkbox-label">
+              <mat-label><span class="textStyle">Once you complete the review, you can add any comments below and click on "Submit".</span>
+              </mat-label>
+            </div>
+          </div>
+        </div>
+        <ng-container *ngIf= " (programCode === 'CG1' || programCode === 'EC4' || programCode === 'ICF' || programCode === 'PACE')" >
+        <div class="column-date">
+          <mat-form-field appearance="outline">
+            <mat-label><sup><mat-label class="required-color">*</mat-label></sup>PAE Request Date</mat-label>
+            <input matInput readonly [matDatepicker]="picker" formControlName="paeRqstDt" [disabled] = "makeReadOnly" [max]="maxDate" [min]='minDate' (click)="picker.open()">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker [startAt]="startDate" #picker></mat-datepicker>
+            <mat-error *ngIf="getFormData().paeRqstDt.errors != null">
+              <mat-error *ngIf="getFormData().paeRqstDt.errors.required && (getFormData().paeRqstDt.touched || submitted)">{{customValidation.A1}}</mat-error>
+              <span *ngIf="getFormData().paeRqstDt.errors.matDatepickerMin">{{customValidation.A6}}</span>
+              <mat-error *ngIf="differenceInDays > 10">{{customValidation.A31}}</mat-error>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="(programCode ==='CG1' && entityTypeCd !== 'MCO')">
+        <div style="padding-bottom: 20px;">
+          <div>
+            <mat-radio-group formControlName="grp3IntrstSw" (change)="onChangeCHOICESGROUP3($event)" [disabled] = "makeReadOnly">
+              <mat-label class="required-color">*</mat-label> <span class="textStyle">Would you like to be considered for CHOICES
+              Group 3?</span>
+              <mat-radio-button value="Y" class="stack-radio-button">Yes</mat-radio-button>
+              <mat-radio-button value="N" class="stack-radio-button">No</mat-radio-button>
+              <mat-error *ngIf="getFormData().grp3IntrstSw.errors !== null">
+                <span *ngIf="getFormData().grp3IntrstSw.errors.required && (getFormData().grp3IntrstSw.touched || submitted)">{{customValidation.A1}}</span>
+              </mat-error>
+            </mat-radio-group>
+          </div>
+          <div class="column-date" *ngIf="showActualDischargeDate">
+            <mat-form-field appearance="outline">
+              <mat-label><sup><mat-label class="required-color">*</mat-label></sup>Actual Discharge Date</mat-label>
+              <input matInput readonly [matDatepicker]="picker" formControlName="actualDischargeDt" [min]="minDate" [max]="maxDate" (click)="picker.open()">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker [startAt]="startDate" #picker></mat-datepicker>
+              <mat-error *ngIf="getFormData().actualDischargeDt.errors != null">
+                <span *ngIf="getFormData().actualDischargeDt.errors.required && (getFormData().actualDischargeDt.touched || submitted)">{{customValidation.A1}}</span>
+                <span *ngIf="getFormData().actualDischargeDt.errors.matDatepickerMax">{{customValidation.A5}}</span>
+                <span *ngIf="getFormData().actualDischargeDt.errors.matDatepickerMin">{{customValidation.A6}}</span>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div></ng-container>
+        <ng-container *ngIf="taskMasterId === 119">
+          <div style="padding-bottom: 20px;">
+            <div class="row">
+              <div class="col-md-12">
+                <h3 class="required-name" style="padding-bottom: 20px;">Cost Effective Alternative (CEA) Determination</h3>
+              </div>
+            </div>
+            <div>
+              <mat-radio-group formControlName="ceaSw" (change)="onChangeCeaSw($event)" [disabled] = "makeReadOnly">
+                <mat-label class="required-color">*</mat-label> <span class="textStyle">Would you like to submit a CEA Determination for the applicant?</span>
+                <mat-radio-button value="Y" class="stack-radio-button">Yes</mat-radio-button>
+                <mat-radio-button value="N" class="stack-radio-button">No</mat-radio-button>
+                <mat-error *ngIf="getFormData().ceaSw.errors !== null">
+                  <span *ngIf="getFormData().ceaSw.errors.required && (getFormData().ceaSw.touched || submitted)">{{customValidation.A1}}</span>
+                </mat-error>
+              </mat-radio-group>
+            </div>
+            <div class="row" *ngIf ="documentCeaSw">
+              <div class="col-md-8 summary_align">
+                <app-common-summary [supportingDocumentData]="supportingDocumentPart4"></app-common-summary>
+              </div>
+            </div>
+           
+          </div></ng-container>
+
+        <div class="row">
+          <div class="col-md-12">
+              <mat-form-field appearance="outline" class="checkWidth" style="width:70% !important" >
+                <mat-label>Comments:</mat-label>
+                <textarea formControlName="comments" matInput #notesInput id="notesInput" maxlength="2000" rows="3"
+                cols="45" [readonly]= "makeReadOnly"></textarea>
+                <mat-hint>{{f.comments.value.length}}/2000</mat-hint>
+              </mat-form-field>
+              <mat-error *ngIf="getFormData().comments.errors !== null">
+                <span *ngIf="getFormData().comments.errors.required && (getFormData().comments.touched || submitted)">{{customValidation.A1}}</span>
+                <span *ngIf="getFormData().comments.errors.pattern && !getFormData().comments.errors.required">{{customValidation.A2}}
+                </span>
+              </mat-error>
+          </div>
+        </div>
+        <div class="buttonBar">
+          <button type="button" mat-flat-button color="primary" class="perlss-click-button-white"
+            (click)="back()">BACK</button>
+            <!-- <button mat-flat-button color="primary" class="perlss-click-button" type="button" (click)="submit()" [disabled]="disabledNextButton">SUBMIT</button> -->
+
+         <button mat-flat-button color="primary" class="perlss-click-button" type="button" (click)="submit()" [disabled]="!paeSubmitForm.valid">SUBMIT</button>
+          <button *ngIf="isKbProgram" mat-flat-button color="primary" class="perlss-click-button LOCBTN">PROCEED TO LOC
+            DETERMINATION</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

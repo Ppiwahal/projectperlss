@@ -1,0 +1,74 @@
+[{
+  "name": "ICU",
+  "value": "2 or more ICU admissions in last 12 months",
+  "activateSW": "Y",
+  "formControlName": "icuSW"
+},
+{
+  "name": "MED",
+  "value": "3 or more medical hospitalizations in last 12 months",
+  "activateSW": "Y",
+  "formControlName": "medSW"
+},
+{
+  "name": "PHY",
+  "value": "2 or more psychiatric hospitalizations in last 12 months",
+  "activateSW": "Y",
+  "formControlName": "phySW"
+},
+{
+  "name": "HOS",
+  "value": "30 or more days hospitalized (medical and psychiatric) in last 12 months",
+  "activateSW": "Y",
+  "formControlName": "hosSW"
+},
+{
+  "name": "ERV",
+  "value": "4 or more ER visits, for emergent situations, in last 12 months",
+  "activateSW": "Y",
+  "formControlName": "ervSW"
+},
+{
+  "name": "MOB",
+  "value": "5 or more mobile crisis calls, for crisis events, in last 12 months",
+  "activateSW": "Y",
+  "formControlName": "mobSW"
+},
+{
+  "name": "RES",
+  "value": "Rescue breathing for severe respiratory distress in last 6 months",
+  "activateSW": "Y",
+  "formControlName": "resSW"
+},
+{
+  "name": "PRE",
+  "value": "Physical restraint in last 90 days ",
+  "activateSW": "Y",
+  "formControlName": "preSW"
+},
+{
+  "name": "CJC",
+  "value": "Involvement with criminal justice system, for criminal activity, in last 12 months",
+  "activateSW": "Y",
+  "formControlName": "cjcSW"
+},
+{
+  "name": "NON",
+  "value": "None of the above",
+  "activateSW": "Y",
+  "formControlName": "nonSW"
+},
+{
+  "name": "RTR",
+  "value": "Placement outside home in residential treatment in last 12 months",
+  "activateSW": "Y",
+  "formControlName": "rtrSW"
+},
+{
+  "name": "DCS",
+  "value": "Placement outside home in DCS custody in last 12 months",
+  "activateSW": "Y",
+  "formControlName": "dcsSW"
+}
+]
+

@@ -1,0 +1,73 @@
+<div class="pageMargin">
+    <div class="row-header">
+      <span class="col-9 dialog-heading">
+        Map Task Queues - {{this.data.roleName}}
+      </span>
+      <span class="col-3 text-right close-icon">
+        <mat-icon (click)=close()>highlight_off</mat-icon>
+      </span>
+    </div>
+    <mat-divider class="perlss-section-divider"></mat-divider>
+    <div class="row" style="padding-top: 10px;">
+      <div class="col-8">
+        <div class="row">
+          <div class="col-6 offset-6">
+            <span>
+              <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Search Filter</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
+              </mat-form-field>
+            </span>
+          </div>
+          <div class="col-12">
+            <div class="custom-table">
+              <table aria-describedby mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8"
+                style="width: 100%;">
+                <ng-container matColumnDef="taskName">
+                  <th id="taskName" mat-header-cell *matHeaderCellDef class='table-th'>Queue Name </th>
+                  <td mat-cell *matCellDef="let element">{{element.taskName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="dashboardCd">
+                  <th id="dashboardCd" mat-header-cell *matHeaderCellDef class='table-th'>Module </th>
+                  <td mat-cell *matCellDef="let element">{{getNameByCode(element.dashboardCd,'DC')}} </td>
+                </ng-container>
+  
+                <ng-container matColumnDef="isAssigned">
+                  <th id="isAssigned" mat-header-cell *matHeaderCellDef class='table-th'>Assignment</th>
+                  <td mat-cell *matCellDef="let element">
+                    <button mat-flat-button class="perlss-click-button grid-btn" *ngIf="!element.isAssigned"
+                      (click)="toggleAccess(element, 'ADD')">ADD</button>
+                    <button mat-flat-button class="perlss-click-button-white grid-btn" *ngIf="element.isAssigned"
+                      (click)="toggleAccess(element, 'REMOVE')">REMOVE</button>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="element-row">
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <mat-paginator [pageSize]="10" [pageSizeOptions]="[5,10,25, 100]"></mat-paginator>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="custom-filter-d">
+  
+          <div class="text-center">
+            <label><strong>By Module</strong></label>
+  
+            <div class="moduleFilter" *ngFor="let item of ELEMENT_DASHBOARD_DATA;let indexofelement=index;">
+              <button mat-flat-button color="primary" [ngClass]="{'active': queuetabindex===indexofelement}"
+                class="perlss-click-button-white d-btn-filter"
+                (click)="filterFunction(item.code,indexofelement)">{{item.value}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="save-button">
+      <button mat-flat-button color="primary" class="perlss-click-button" (click)="onSave()">SAVE</button>
+    </div>
+  </div>

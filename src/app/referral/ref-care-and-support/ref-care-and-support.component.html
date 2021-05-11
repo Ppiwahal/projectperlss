@@ -1,0 +1,501 @@
+<br>
+<div class="pageMargin" id="pM">
+	<mat-label class="sub-heading">Care And Support</mat-label>
+	<div class="required">*Required</div>
+	<br><br>
+	<mat-card class="cardStyle">
+    <strong>Note: &nbsp;</strong><span>
+      "You" in the application is the person who wants services. <br><br>
+      <span class="push-right-note">
+        <mat-icon class="red-icon">info_outline</mat-icon>This is a tool tip icon used
+        across the application for short descriptions.
+      </span>
+    </span>
+  </mat-card>
+	<br><br>
+
+	<div class="page-sub-heading">Caregiver Information</div>
+
+	<form [formGroup]="refCareAndSuppportForm" (ngSubmit)="next()">
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="question-container">
+					<label id="example-radio-group-label">
+						<sup><mat-label class="required-color">*</mat-label></sup>Do you have a
+						primary caregiver who provides care and support?
+					</label>
+					<sup>
+						<mat-icon class="red-icon" matTooltip="A caregiver is a person who is a family member or is unrelated to the member but has a close, personal relationship with the member, and is routinely involved in providing unpaid support and assistance to the member.">
+							info_outline
+						</mat-icon>
+					</sup>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="radio-container">
+			<mat-radio-group aria-labelledby="example-radio-group-label" (change)="onPrimaryCareGiverChange($event)"
+				formControlName="primaryCargvrSw">
+				<div
+					*ngIf="getFormData().primaryCargvrSw.hasError('required') && (getFormData().primaryCargvrSw.touched || submitted)">
+					<mat-error>{{customValidation.A1}}</mat-error>
+				</div>
+				<div>
+					<mat-radio-button value="Y">Yes</mat-radio-button>
+				</div>
+				<div>
+					<mat-radio-button value="N">No</mat-radio-button>
+				</div>
+			</mat-radio-group>
+		</div>
+
+		<div *ngIf="primaryCareGiverSW" class="question-container">
+			<div class="row">
+				<div class="col-md-4">
+					<mat-form-field appearance="outline">
+						<mat-label>
+							<sup><mat-label class="required-color">*</mat-label></sup>Caregiver Full Name
+						</mat-label>
+						<input matInput formControlName="cargvrName" placeholder="Caregiver Full Name*">
+						<mat-error *ngIf="getFormData().cargvrName.errors !== null">
+							<mat-error
+								*ngIf="getFormData().cargvrName.errors.maxLength == null && !getFormData().cargvrName.errors?.invalidName && !getFormData().cargvrName.errors.required">
+								Cannot exceed 100 characters</mat-error>
+							<mat-error
+								*ngIf="getFormData().cargvrName.touched && getFormData().cargvrName.errors.required">
+								{{customValidation.A1}}</mat-error>
+							<mat-error
+								*ngIf="getFormData().cargvrName.errors?.invalidName && !getFormData().cargvrName.errors.required">
+								{{customValidation.A2}}
+							</mat-error>
+						</mat-error>
+					</mat-form-field>
+				</div>
+				<div class="col-md-4">
+					<mat-form-field appearance="outline">
+						<mat-label>
+							<sup><mat-label class="required-color">*</mat-label></sup>Caregiver Date Of Birth
+						</mat-label>
+						<input matInput [matDatepicker]="picker" formControlName="cargvrBirthDt" [min]="minDate"
+							[max]="maxDate" (dateChange)="calculateAge($event)">
+						<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+						<mat-datepicker #picker></mat-datepicker>
+						<mat-error *ngIf="getFormData().cargvrBirthDt.errors != null">
+							<mat-error *ngIf="getFormData().cargvrBirthDt.hasError('required')">
+								{{customValidation.A1}}
+							</mat-error>
+							<mat-error *ngIf="getFormData().cargvrBirthDt.errors.matDatepickerMax">
+								{{customValidation.A5}}</mat-error>
+							<mat-error *ngIf="getFormData().cargvrBirthDt.errors.matDatepickerMin">
+								{{customValidation.A6}}</mat-error>
+						</mat-error>
+					</mat-form-field>
+					<div>
+						<mat-label *ngIf="age!=null && getFormData().cargvrBirthDt.valid" id="colGreen">Age: <label>{{age}} years {{month}} months </label></mat-label>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<mat-form-field appearance="outline">
+						<mat-label>
+							<sup><mat-label class="required-color">*</mat-label></sup>Caregiver Relationship
+						</mat-label>
+						<mat-select formControlName="cargvrReltshpCd">
+							<mat-option value="RE">Relative</mat-option>
+							<mat-option value="NR">Non-Relative</mat-option>
+						</mat-select>
+						<mat-error *ngIf="getFormData().cargvrReltshpCd.hasError('required')">
+							{{customValidation.A1}}
+						</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="question-container">
+						<sup><mat-label class="required-color">*</mat-label></sup>Do any of the following describe your primary
+						caregiver?
+					</div>
+					<div>
+						<mat-error
+							*ngIf="(!primaryCareGiverDescriptionSelected && !onPrimaryCareGiverNone && submitted)">
+							{{customValidation.A10}}</mat-error>
+						<mat-error *ngIf="(primaryCareGiverDescriptionSelected && onPrimaryCareGiverNone)">
+							{{customValidation.A22}}</mat-error>
+					</div>
+					<br>
+
+					<div class="radio-container">
+						<div>
+							<mat-checkbox class="checkbox-element" formControlName="cargvrDisableSw"
+								(change)="onPrimaryCareGiverDescription($event)">
+								Can no longer care for me because they have a physical or mental health problem or
+								disability
+							</mat-checkbox>
+						</div>
+						<div>
+							<mat-checkbox class="checkbox-element" formControlName="cargvrPoorHlthSw"
+								(change)="onPrimaryCareGiverDescription($event)">
+								Health is poor and getting worse
+							</mat-checkbox>
+						</div>
+						<div>
+							<mat-checkbox class="checkbox-element" formControlName="noneOfAboveSw"
+								(change)="onPrimaryCareGiverNoneDescription($event)">None of the above
+							</mat-checkbox>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br>
+		</div>
+
+		<div *ngIf=notPrimaryCareGiverSW>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="question-container">
+						<mat-label id="example-radio-group-label">
+							<sup><mat-label class="required-color">*</mat-label></sup>Has the person
+								who used to care for you died recently?
+							</mat-label>
+					</div>
+				</div>
+			</div>
+			<div>
+				<mat-error
+					*ngIf="getFormData().cargvrDiedSw.hasError('required') && (getFormData().cargvrDiedSw.touched || submitted)">
+					{{customValidation.A1}}</mat-error>
+			</div>
+			<div class="radio-container">
+				<mat-radio-group aria-labelledby="example-radio-group-label" formControlName="cargvrDiedSw">
+					<div>
+						<mat-radio-button value="Y">Yes</mat-radio-button>
+					</div>
+					<div>
+						<mat-radio-button value="N">No</mat-radio-button>
+					</div>
+				</mat-radio-group>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="question-container">
+					<mat-label id="example-radio-group-label">
+						<sup><mat-label class="required-color">*</mat-label></sup>Do you have
+							another caregiver to provide the help you need?
+						</mat-label>
+				</div>
+			</div>
+		</div>
+		<mat-error
+			*ngIf="getFormData().anotherCareGiverSw.hasError('required') && (getFormData().anotherCareGiverSw.touched || submitted)">
+			{{customValidation.A1}}</mat-error>
+
+		<div class="radio-container">
+			<mat-radio-group aria-labelledby="example-radio-group-label" formControlName="anotherCareGiverSw">
+				<div>
+					<mat-radio-button value="Y">Yes</mat-radio-button>
+				</div>
+				<div>
+					<mat-radio-button value="N">No</mat-radio-button>
+				</div>
+			</mat-radio-group>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="question-container">
+					<mat-label id="example-radio-group-label">
+						<sup><mat-label class="required-color">*</mat-label></sup>Are you being
+							abused, neglected or exploited where you live now?
+						</mat-label>
+				</div>
+			</div>
+		</div>
+		<div>
+			<mat-error
+				*ngIf="getFormData().abuseNeglectedSw.hasError('required') && (getFormData().abuseNeglectedSw.touched || submitted)">
+				{{customValidation.A1}}</mat-error>
+		</div>
+
+		<div class="radio-container">
+			<mat-radio-group aria-labelledby="example-radio-group-label" formControlName="abuseNeglectedSw"
+				(change)="onAbuseNeglectedChange($event)">
+
+				<div>
+					<mat-radio-button value="Y">Yes</mat-radio-button>
+				</div>
+
+				<div>
+					<mat-radio-button value="N">No</mat-radio-button>
+				</div>
+
+			</mat-radio-group>
+		</div>
+
+		<div *ngIf=abuseNeglectedSW>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="question-container">
+						<mat-label id="example-radio-group-label">
+							<sup><mat-label class="required-color">*</mat-label></sup>Do you have
+								another place you can live and receive the help you need?
+							</mat-label>
+					</div>
+				</div>
+			</div>
+			<div>
+				<mat-error
+					*ngIf="getFormData().anotherPlaceSw.hasError('required') && (getFormData().anotherPlaceSw.touched || submitted)">
+					{{customValidation.A1}}</mat-error>
+			</div>
+			<div class="radio-container">
+				<mat-radio-group aria-labelledby="example-radio-group-label" formControlName="anotherPlaceSw">
+					<div>
+						<mat-radio-button value="Y">Yes</mat-radio-button>
+					</div>
+
+					<div>
+						<mat-radio-button value="N">No</mat-radio-button>
+					</div>
+				</mat-radio-group>
+			</div>
+		</div>
+		<br>
+		<mat-divider class="perlss-section-divider"></mat-divider>
+
+
+			<div class="page-sub-heading">Support Information</div><br>
+
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="question-container">
+					<mat-label id="example-radio-group-label">
+						<sup><mat-label class="required-color">*</mat-label></sup>Do you need a
+							person to help you most of the time with any of these things?
+							(Select ALL that apply)
+						</mat-label>
+				</div>
+			</div>
+		</div>
+
+		<div>
+			<mat-error *ngIf="(!needHelpSelected && !needHelpNoneSelected &&submitted)">{{customValidation.A10}}
+			</mat-error>
+			<mat-error *ngIf="(needHelpSelected && needHelpNoneSelected)">{{customValidation.A22}}
+			</mat-error>
+		</div>
+		<br>
+
+		<div class="row" >
+			<div class="col-md-6">
+				<mat-checkbox class="checkbox-element" formControlName="walkWheelchairSw" (change)="onNeedHelp($event)">
+					Walking or using
+					a wheelchair</mat-checkbox>
+			</div>
+			<div class="col-md-6">
+				<mat-checkbox class="checkbox-element" formControlName="knowFamilySw" (change)="onNeedHelp($event)">
+					Knowing who you and your
+					family members are</mat-checkbox>
+			</div>
+		</div>
+
+		<div class="row" >
+			<div class="col-md-6">
+				<mat-checkbox class="checkbox-element" formControlName="transferBedChairSw"
+					(change)="onNeedHelp($event)">
+					Transferring to or from a bed, chair or toilet</mat-checkbox>
+			</div>
+			<div class="col-md-6">
+				<mat-checkbox class="checkbox-element" formControlName="tellingOthrsSw" (change)="onNeedHelp($event)">
+					Telling others
+					what you want and need</mat-checkbox>
+			</div>
+		</div>
+		<div class="row" >
+			<div class="col-md-6">
+				<mat-checkbox class="checkbox-element" formControlName="eatingSw" (change)="onNeedHelp($event)">
+					Eating</mat-checkbox>
+			</div>
+			<div class="col-md-6">
+				<mat-checkbox class="checkbox-element" formControlName="goodDcsnSafeSw"
+					(change)="onNeedHelp($event)">Making good decisions that
+					keep you safe</mat-checkbox>
+			</div>
+		</div>
+		<div class="row" >
+			<div class="col-md-6">
+				<mat-checkbox class="checkbox-element" formControlName="medicinesSw" (change)="onNeedHelp($event)">
+					Taking Medicine</mat-checkbox>
+			</div>
+			<div class="col-md-6">
+				<mat-checkbox class="checkbox-element" formControlName="understandInstructionSw"
+					(change)="onNeedHelp($event)">Understanding simple instructions
+				</mat-checkbox>
+			</div>
+		</div>
+		<div class="row" >
+			<div class="col-md-6">
+				<mat-checkbox class="checkbox-element" formControlName="cleaningDressSw" (change)="onNeedHelp($event)">
+					Cleaning or dressing yourself after going to the bathroom</mat-checkbox>
+			</div>
+			<div class="col-md-6">
+				<mat-checkbox class="checkbox-element" formControlName="toiletingSw" (change)="onNeedHelp($event)">
+					Toileting</mat-checkbox>
+			</div>
+		</div>
+		<div class="row" >
+			<div class="col-md-6">
+				<mat-checkbox class="checkbox-element" formControlName="prsnHelpNoneSw"
+					(change)="onNeedHelpNoneSelected($event)">
+					None</mat-checkbox>
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="question-container">
+					<mat-label id="example-radio-group-label">
+						<sup><mat-label class="required-color">*</mat-label></sup>Do you have behaviors that physically hurt
+							others or yourself, or place
+							others at serious risk of harm?
+						</mat-label>
+					<mat-icon class="red-icon" matTooltip="This could be things like physically hurting yourself or someone else,
+       eating non-edible substances, or acting out sexually.">info_outline</mat-icon>
+				</div>
+			</div>
+		</div>
+		<div
+			*ngIf="getFormData().phyclHurtBehSw.hasError('required') && (getFormData().phyclHurtBehSw.touched || submitted)">
+			<mat-error>{{customValidation.A1}}</mat-error>
+		</div>
+		<div class="radio-container">
+			<mat-radio-group aria-labelledby="example-radio-group-label" formControlName="phyclHurtBehSw"
+				(change)="onPhysicalHurtBehaviourChange($event)">
+
+				<div>
+					<mat-radio-button value="Y">Yes</mat-radio-button>
+				</div>
+
+				<div>
+					<mat-radio-button value="N">No</mat-radio-button>
+				</div>
+
+			</mat-radio-group>
+		</div>
+
+		<div *ngIf=physicalHurtSW>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="question-container">
+						<mat-label id="example-radio-group-label">
+							<sup><mat-label class="required-color">*</mat-label></sup>Have these behaviors caused you to have
+								interactions with any of
+								the following? (Select ALL that apply)
+							</mat-label>
+					</div>
+				</div>
+			</div>
+			<div>
+				<mat-error *ngIf="(!behaviourChangeSelected && !behaviourChangeNone && submitted)">
+					{{customValidation.A10}}</mat-error>
+				<mat-error *ngIf="(behaviourChangeSelected && behaviourChangeNone)">
+					{{customValidation.A22}}</mat-error>
+			</div>
+			<br>
+			<div class="row" >
+				<div class="col-md-6">
+					<mat-checkbox class="checkbox-element" formControlName="mentalHlthCrisisSw"
+						(change)="onBehaviourChange($event)">
+						Crisis Mental Health</mat-checkbox>
+				</div>
+				<div class="col-md-6">
+					<mat-checkbox class="checkbox-element" formControlName="residentialTrtmntSw"
+						(change)="onBehaviourChange($event)">Placement in Residential
+						Treatment Program</mat-checkbox>
+				</div>
+			</div>
+			<div class="row" >
+				<div class="col-md-6">
+					<mat-checkbox class="checkbox-element" formControlName="childProtectSrvcSw"
+						(change)="onBehaviourChange($event)">
+						Child Protective Services or DCS</mat-checkbox>
+				</div>
+				<div class="col-md-6">
+					<mat-checkbox class="checkbox-element" formControlName="criminalJusticeSw"
+						(change)="onBehaviourChange($event)">Criminal Justice
+						System (Jail, Police etc.)</mat-checkbox>
+				</div>
+			</div>
+			<div class="row" >
+				<div class="col-md-6">
+					<mat-checkbox class="checkbox-element" formControlName="adltProtectSrvcSw"
+						(change)="onBehaviourChange($event)">
+						Adult Protective Services</mat-checkbox>
+				</div>
+				<div class="col-md-6">
+					<mat-checkbox class="checkbox-element" formControlName="psychiatricHospitalSw"
+						(change)="onBehaviourChange($event)">Psychiatric Hospitalization
+					</mat-checkbox>
+				</div>
+			</div>
+			<div class="row" >
+				<div class="col-md-6">
+					<mat-checkbox class="checkbox-element" formControlName="behNoneSw"
+						(change)="onBehaviourChangeNone($event)">
+						None</mat-checkbox>
+				</div>
+
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="question-container">
+						<mat-label id="example-radio-group-label">
+							<sup><mat-label class="required-color">*</mat-label></sup>Do you have any services that help you
+								with your behaviors right
+								now?
+						</mat-label>
+					</div>
+				</div>
+			</div>
+			<div
+				*ngIf="getFormData().behSrvcsSw.hasError('required') && (getFormData().behSrvcsSw.touched || submitted)">
+				<mat-error>{{customValidation.A1}}</mat-error>
+			</div>
+			<div class="radio-container">
+				<mat-radio-group aria-labelledby="example-radio-group-label" formControlName="behSrvcsSw">
+					<div>
+						<mat-radio-button value="Y">Yes</mat-radio-button>
+					</div>
+					<div>
+						<mat-radio-button value="N">No</mat-radio-button>
+					</div>
+				</mat-radio-group>
+			</div>
+		</div>
+
+		<div class="row button-container">
+			<div class="col-md-2" style="text-align: left;">
+				<button mat-flat-button color="primary"(click)="back()" type="button"
+					class="perlss-click-button-white chkW">BACK</button>
+			</div>
+			<div class="col-md-4" style="text-align: left;">
+				<button mat-flat-button color="primary" type="button"(click)="saveAndExit()" class="perlss-click-button-white-noborder chkW">
+					SAVE AND EXIT
+				</button>
+			</div>
+			<div class="col-md-6" style="text-align: right;">
+				<button *ngIf="enableNext" mat-flat-button color="primary"
+					class="perlss-click-button chkW" type="submit">NEXT</button>
+				<mat-spinner *ngIf="showSpinner" class="chkFloat" [diameter]="24" color="warn" mode="indeterminate"></mat-spinner>
+			</div>
+		</div>
+	</form>
+</div>

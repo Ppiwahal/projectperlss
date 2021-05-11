@@ -1,0 +1,42 @@
+<div class="sub-heading-records">
+  <strong>Search Results - {{taskNameRecords}}</strong>
+</div>
+<div>
+  <span style="padding-left: 141px" class="col-md-6" style="width: 30%;" >
+    <mat-form-field appearance="outline" style="width: 30%;float: right;">
+      <mat-label>Search Filter</mat-label>
+        <input matInput aria-label="search filter" (keyup)="applyFilter($event)" placeholder="" #input>
+    </mat-form-field>
+  </span>
+</div>
+<div>
+  <table aria-hidden="true" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="personId1">
+      <th mat-header-cell *matHeaderCellDef id="personId1">Person ID 1</th>
+      <td mat-cell *matCellDef="let element">{{element.personId1}}</td>
+   </ng-container>
+    <ng-container matColumnDef="personName1">
+      <th mat-header-cell *matHeaderCellDef id="personName1">Person Name 1</th>
+      <td mat-cell *matCellDef="let element">{{element.applicantName1}}</td>
+   </ng-container>
+    <ng-container matColumnDef="personId2">
+      <th mat-header-cell *matHeaderCellDef id="personId2">Person ID 2</th>
+      <td mat-cell *matCellDef="let element">{{element.personId2}}</td>
+   </ng-container>
+    <ng-container matColumnDef="personName2">
+      <th mat-header-cell *matHeaderCellDef id="personName2">Person Name 2</th>
+      <td mat-cell *matCellDef="let element">{{element.applicantName2}}</td>
+   </ng-container>
+    <ng-container matColumnDef="requestDate">
+      <th mat-header-cell *matHeaderCellDef id="requestDate">Request Date</th>
+      <td mat-cell *matCellDef="let element">02/20/2020</td>
+   </ng-container>
+    <ng-container matColumnDef="userAction">
+      <th mat-header-cell *matHeaderCellDef id="userAction">User Action</th>
+      <td mat-cell *matCellDef="let element"> <button mat-flat-button color="primary" class="perlss-view-click-button button-color" (click)="handleContinueClick(element)">Continue</button> </td>
+   </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+ </table>
+  <mat-paginator [pageSizeOptions]="[ 10, 25, 50, 100]"></mat-paginator>
+</div>

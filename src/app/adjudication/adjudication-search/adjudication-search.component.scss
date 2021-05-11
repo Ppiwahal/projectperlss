@@ -1,0 +1,181 @@
+.pageMargin
+{
+  padding-left:1em;
+}
+
+table {
+  width: 100%;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+@import '../../../colors.scss';
+@import '../../../colors.scss';
+@import '../../../colors.scss';
+@import '../../../colors.scss';
+@import '../../../colors.scss';
+@import '../../../colors.scss';
+@import '../../../colors.scss';
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
+
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: $colorControlBackground;
+  border-radius: 5px;
+  border-color: #CED4DA;
+}
+
+.adjudication-sub-heading {
+  font-weight: bold;
+  color: #547E1A;
+  font-size: 35;
+}
+.perlss-section-divider {
+  width: 100%;
+  padding-top: 15px;
+  padding-bottom: 15px
+}
+
+#applicant-physical-address {
+  margin-left: 5px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+#searchPersonTable {
+  width: 100%;
+  -moz-box-shadow: 0 0 1px 1px #888;
+  -webkit-box-shadow: 0 0 1px 1px#888;
+  box-shadow: 0 0 1px 1px #888;
+}
+#searchPersonTable th {
+  text-align: center;
+  color: #547E1A;
+  padding: 25px;
+}
+
+#addressTable {
+  text-align: center;
+  width: 100%;
+  -moz-box-shadow: 0 0 1px 1px #888;
+  -webkit-box-shadow: 0 0 1px 1px#888;
+  box-shadow: 0 0 1px 1px #888;
+}
+#addressTable td {
+  padding: 20px;
+}
+#searchPersonTable tr {
+  border: 0.5px solid #174A7C;
+}
+
+#searchPersonTable td{
+  text-align: center;
+  background-color: #EDF4FB;
+  padding: 10px;
+}
+
+h1 {
+  font-family: 'Open Sans';
+  letter-spacing:0.04em;
+  font-size: 28px;
+  color: #174A7C;
+  padding: 42px 15px;
+}
+
+.adjudication-dropdown-heading {
+  padding: 0 5px;
+ 
+}
+
+.adjudication-sub-desciption {
+  font-family: 'Open Sans';
+  font-size: 16px;
+  padding: 10px;
+}
+
+#person {
+  margin-left: 2px;
+  padding-top: 40px;
+}
+
+mat-form-field {
+  width: 100%;
+  padding: 7px;
+}
+
+.adjudication-search-results-label {
+  font-family: 'Open Sans';
+    letter-spacing: 50;
+    font-weight: bold;
+    font-size: 16px;
+    color:#ED6053;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    padding: 20px 15px;
+}
+
+.adjudication-search-box {
+  padding: 0 0.75em 0 0.75em;
+  margin-top: -1.25em;
+  margin-left: 28.2em;
+  position: relative;
+  width: 61%;
+  text-align: left;
+}
+
+
+.mat-elevation-z8-boarder {
+  border: #1B365D;
+}
+
+h1 {
+  font-family: 'Open Sans';
+    letter-spacing: 50;
+    font-weight: normal;
+    font-size: 22px;
+    color: #174A7C;
+}
+
+.mat-form-field-infix {
+  width: 50px;
+}

@@ -1,0 +1,117 @@
+@import '../../../colors.scss';
+
+.app-sub-heading {
+  color: #174a7c;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 20px 0 15px 0;
+}
+  .required-color {
+    color: #f44336;
+  }
+  .slot-table{
+    outline: 1px solid #174A7C;
+    border:none;
+    color:black;
+    th{
+    background-color: #cdddf4;
+    font-weight: bold;
+    }
+    td,th{
+    border-bottom: 2px solid #d5d5d5;
+    padding:10px;
+    text-align: center;
+    }
+    }
+    .slot-table tr td:first-child,.slot-table tr th:first-child{ border-right: 2px solid #6c7288;}
+.note-text{
+  color:black;
+}
+.table-name{
+  color: #659737;
+  margin-bottom:20px;
+  font-weight: bold;
+  font-size: 18px;
+}
+.button{
+  margin-top: 20px;
+}
+table{
+  border: 1px solid #1B365D ;
+}
+
+table th:first-child tr {
+  border-bottom: 2px solid #1B365D !important;
+}
+
+table tr:last-child td {
+  border-bottom: 1px solid #1B365D;
+}
+::ng-deep {
+  .mat-expansion-panel:not([class*=mat-elevation-z]) {
+    box-shadow: none;
+  }
+  .mat-expansion-panel-body{
+    padding: 30px 0 0 0 !important;
+  }
+  .expanded-row{
+    background-color: #EDF4FB !important;
+    font-weight: bold !important;
+  }
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: $colorControlBackground;
+    border-color: #CED4DA;
+  }
+  tr.mat-header-row{
+    border-bottom: 2px solid #1B365D !important;
+  }
+
+  .mat-expansion-panel-header-title {
+    color: #04537D;
+    font-size: 22px !important;
+  }
+}
+.table-th{
+  font-size: 14px;
+  font-weight: bold;
+  color: #174A7C;
+  text-align: center;
+}
+
+tr.element-row:not(.expanded-row):hover {
+  background: $colorControlBackground;
+}
+tr.example-detail-row {
+  height: 0;
+}
+.example-element-detail {
+  overflow: hidden;
+}
+
+tr.element-row:not(.expanded-row):active {
+  background: $colorControlBackground;
+}
+
+
+.borderless td, .borderless th {
+  border: none;
+}
+.table-td{
+  font-size: 12px;
+}
+.perlss-section-divider {
+  width: 100%;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-top:20px;
+}
+.padding{
+  margin-left:134px;
+}
+.margin{
+  margin-left:134px;
+}
+::ng-deep .toast-message{
+  color: white;
+  font-size: 16px;
+}

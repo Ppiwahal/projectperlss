@@ -1,0 +1,215 @@
+.cus-cont{
+  padding: 22px 0;
+}
+
+.example-radio-group {
+display: flex;
+flex-direction: column;
+margin: 0 0 40px 0;
+}
+
+
+
+.example-radio-button {
+margin: 5px;
+}
+
+.box-mat{
+padding: 20px;
+}
+
+.wid-100{
+width: 100%;
+}
+
+.address-label {
+font-size: 15px;
+font-weight: 700;
+padding: 22px 0;
+}
+
+.flex-center{
+align-items: center;
+display: flex;
+justify-content: center;
+}
+
+.form-box-outline {
+padding: 40px !important;
+position: relative;
+}
+
+.txt-bottom {
+position: absolute;
+bottom: 0;
+right: 0;
+margin-bottom: 0;
+padding: 10px;
+font-size: 16px;
+}
+
+.hd {
+margin: 30px 0;
+color: #659737 !important;
+}
+
+.applicant-name {
+border: 1px solid grey;
+height: 50px;
+align-items: center;
+display: flex;
+padding: 12px;
+font-weight: 600;
+}
+
+span.wid-radio {
+white-space: normal;
+}
+
+.top-section {
+padding-left: 30px;
+}
+
+.button-apply{
+background : #17497c !important;
+height: 50px;
+width: 300px;
+font-size: 18px;
+letter-spacing: 0.6px;
+margin: 14% 0;
+}
+
+.req{
+color:red
+}
+
+.note-box {
+background: #f8f9fe;
+padding: 26px 60px;
+}
+
+.note-head {
+font-size: 19px;
+color: #e46564;
+margin: 0 9px;
+}
+.note-desc {
+font-size: 19px;
+color: #939399;
+}
+table {
+width: 100%;
+}
+
+.scheduled-box{
+  padding: 20px 100px
+}
+
+
+.scheduled-text{
+color:#e77d6e
+}
+
+.td-pad{
+  padding: 24px;
+}
+.max-note{
+max-width: 10%;
+display: flex;
+padding-top: 3px;
+color: #e46564;
+}
+table {
+width: 100%;
+}
+
+tr.example-detail-row {
+height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+background: whitesmoke;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+background: #efefef;
+}
+
+.example-element-row td {
+border-bottom-width: 0;
+}
+
+.example-element-detail {
+overflow: hidden;
+display: flex;
+}
+
+.example-element-diagram {
+min-width: 80px;
+border: 2px solid black;
+padding: 8px;
+font-weight: lighter;
+margin: 8px 0;
+height: 104px;
+}
+
+.example-element-symbol {
+font-weight: bold;
+font-size: 40px;
+line-height: normal;
+}
+
+.example-element-description {
+padding: 16px;
+}
+
+.example-element-description-attribution {
+opacity: 0.5;
+}
+
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+background-color: #F6FAFF;
+border-radius: 5px;
+border-color: #CED4DA;
+}
+
+.adjudication-sub-heading {
+font-weight: bold;
+color: #547E1A;
+font-size: 35;
+}
+.perlss-section-divider {
+width: 100%;
+padding-top: 15px;
+padding-bottom: 15px
+}
+
+
+
+.mat-elevation-z8-boarder {
+border: #1B365D;
+}
+
+
+.mat-form-field-infix {
+width: 50px;
+}
+
+.grid-border, .main-tr{
+border: 1px solid rgba(0,0,0,.12);
+}
+.grid-head{
+color: #174A7C;
+font-size: 16px;
+}
+
+h2{
+  font-family: "Open Sans";
+  margin: 14.5px 0 15px 0;
+  font-size: 22px;
+  line-height: 27px;
+  font-weight: 700;
+  padding: 20px 0 5.5px 0;
+  color: #547e1a;
+}

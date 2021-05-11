@@ -1,0 +1,443 @@
+<div class="pageMargin">
+    <div class="row">
+        <div class="col-md-6">
+            <p class="common">Waiting List Details</p>
+       </div>
+    </div>
+    <div class="inner-container">
+        <div class="row">
+            <div class="col-md-3">
+                <p class="label_name">APPLICANT NAME:</p>
+            </div>
+            <div class="col-md-3">
+                <p>{{waitingListDetails?.personName}}</p>
+            </div>
+            <div class="col-md-3">
+                <p class="label_name">REFERRAL ID:</p>
+            </div>
+            <div class="col-md-3">
+                <p>{{waitingListDetails?.refId}}</p>
+            </div>
+       </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="label_name">PERSON ID:</p>
+            </div>
+            <div class="col-md-3">
+                <p>{{waitingListDetails?.personId}}</p>
+            </div>
+            <div class="col-md-3">
+                <p class="label_name">REFERRAL SUBMISSION DATE:</p>
+            </div>
+            <div class="col-md-3">
+                <p>{{waitingListDetails?.refSubmissionDate}}</p>
+            </div>
+       </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="label_name">DATE OF BIRTH:</p>
+            </div>
+            <div class="col-md-3">
+                <p>{{waitingListDetails?.dob}}</p>
+            </div>
+            <div class="col-md-3">
+                <p class="label_name">PAE ID:</p>
+            </div>
+            <div class="col-md-3">
+                <p>{{waitingListDetails?.paeId}}</p>
+            </div>
+       </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="label_name">SSN:</p>
+            </div>
+            <div class="col-md-3">
+                <p>{{waitingListDetails?.ssn}}</p>
+            </div>
+            <div class="col-md-3">
+                <p class="label_name">PAE STATUS:</p>
+            </div>
+            <div class="col-md-3">
+                <p>{{waitingListDetails?.paeStatusCd}}</p>
+            </div>
+       </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="label_name">PROGRAM TYPE:</p>
+            </div>
+            <div class="col-md-3">
+                <p>{{waitingListDetails?.programeType}}</p>
+            </div>
+            <div class="col-md-3">
+                <p class="label_name">WAITING LIST:</p>
+            </div>
+            <div class="col-md-3">
+                <p>{{waitingListDetails?.waitingList}}</p>
+            </div>
+       </div>
+        <br>
+        <mat-divider></mat-divider>
+        <br>
+        <div class="row">
+            <div class="col-md-3" *ngIf ="progtypeParam === 'PART A'" >
+                <p class="label_name" >LOC DETERMINATION:</p>
+            </div>
+            <div class="col-md-3" *ngIf ="progtypeParam === 'PART A'" >
+                <p >{{waitingListDetails?.locDcsnCd}}</p>
+            </div>
+            <div class="col-md-3">
+                <p class="label_name">ASSIGNED MCO:</p>
+            </div>
+            <div class="col-md-3">
+                <p>{{waitingListDetails?.assignedMco}}</p>
+            </div>
+       </div>
+        <div class="row">
+            <div class="col-md-3" *ngIf ="progtypeParam === 'PART A'" >
+                <p   class="label_name">LOC PRIORITIZATION SCORE:</p>
+            </div>
+            <div class="col-md-3" *ngIf ="progtypeParam === 'PART A'" >
+                <p >{{waitingListDetails?.locPrtznScore}}</p>
+            </div>
+            <div class="col-md-3">
+                <p class="label_name">LAST UPDATE DATE:</p>
+            </div>
+            <div class="col-md-3">
+                <p>{{waitingListDetails?.lastUpdateDate}}</p>
+            </div>
+       </div>
+        <div class="row">
+            <div class="col-md-3" *ngIf ="progtypeParam === 'PART A'" >
+                <p  class="label_name">PRIORITIZATION SCORE:</p>
+            </div>
+            <div class="col-md-3"  *ngIf ="progtypeParam === 'PART A'">
+                <p>{{waitingListDetails?.prtznScoreNum}}</p>
+            </div>
+            <div class="col-md-3">
+                <p class="label_name">NEXT REASESSMENT DATE:</p>
+            </div>
+            <div class="col-md-3">
+                <p>{{waitingListDetails?.nextReassessmentDate}}</p>
+            </div>
+       </div>
+        <div class="row">
+            <div class="col-md-3" *ngIf ="progtypeParam === 'PART B'">
+                <p  class="label_name">PART B LOC:</p>
+            </div>
+            <div class="col-md-3" *ngIf ="progtypeParam === 'PART B'">
+                <p >{{waitingListDetails?.partBloc}}</p>
+            </div>
+            <div class="col-md-3">
+                <p class="label_name">DATE REMOVED FROM LIST:</p>
+            </div>
+            <div class="col-md-3">
+                <p>{{waitingListDetails?.dateRemovedFromList}}</p>
+            </div>
+       </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="label_name">DATE ADDED TO LIST:</p>
+            </div>
+            <div class="col-md-3">
+                <p>{{waitingListDetails?.dateAddedToList}}</p>
+            </div>
+       </div>
+    </div>
+
+    <div class="app-sub-heading col-md-12">
+        Update Waiting List Details
+      </div>
+  <form [formGroup]="updateWaitingListForm" (ngSubmit)="handleWaitingListUpdate()">
+    <div>
+        <div class="col-md-5">
+            <mat-form-field appearance="outline"  style="width: 100%;">
+                <mat-label class="label-heading"><mat-label class="required-color">*</mat-label>Update Action</mat-label>
+                <mat-select formControlName="updateStatus">
+                    <mat-option value=''>Select an option</mat-option>
+                    <mat-option *ngFor="let updateStatusValue of  updateStatusValues" value={{updateStatusValue.code}}>{{updateStatusValue.value}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="updateWaitingListForm.get('updateStatus').hasError('required')">
+                        {{customValidation.A1}}</mat-error>
+            </mat-form-field>
+       </div>
+
+        <div class="row col-md-6" *ngIf="f.updateStatus.value === 'URA'">
+            <div class="col-md-4">
+                <mat-form-field style="padding-right: 15px;" appearance="outline">
+                    <mat-label><mat-label class="required-color">*</mat-label>Update Rank</mat-label>
+                    <input matInput type="text" formControlName="updateRank">
+                </mat-form-field>
+            </div>
+            <div>
+                <p class="part_label_name">Current Part B Rank: {{partBRank}}</p>
+            </div>
+       </div>
+
+        <div class="col-md-5" *ngIf="f.updateStatus.value === 'RPA'">
+            <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label class="label-heading">Select a Reason</mat-label>
+                <mat-select formControlName="reasonCd">
+                    <mat-option value=''>Select an option</mat-option>
+                    <mat-option *ngFor="let reasonValue of  reasonValues" value={{reasonValue.name}}>{{reasonValue.value}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="updateWaitingListForm.get('reasonCd').hasError('required')">
+                        {{customValidation.A1}}</mat-error>
+            </mat-form-field>
+       </div>
+
+        <div style="padding-bottom: 25px;padding-left: 16px;" class="update-referral-list"  *ngIf="f.reasonCd.value === 'RR'">
+           
+            <table aria-describedby="authorizingPerson" mat-table [dataSource]="dataSourceforsecondary" class="mat-elevation-z8">
+                <ng-container matColumnDef="personauthorizedremoval">
+                    <th id="authorizingPerson" mat-header-cell *matHeaderCellDef>Authorizing Person</th>
+                    <td class="table-column-top" mat-cell *matCellDef="let element">
+                        <div class="matform-custom">
+                            <mat-form-field style="padding-right: 15px;" appearance="outline">
+                                <mat-label>Name</mat-label>
+                                <input matInput type="text" formControlName="rmvlAuthName" >
+                            </mat-form-field>
+                        </div>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="relationship">
+                    <th id="relationship" mat-header-cell *matHeaderCellDef>Relationship</th>
+                    <td class="table-column-top" mat-cell *matCellDef="let element">
+                        <div class="matform-custom">
+                            <mat-form-field style="padding-right: 15px;" appearance="outline">
+                                <mat-select formControlName="rmvlAuthReltshpCd">
+                                  <mat-option value=''>Select an option</mat-option>
+                                  <mat-option *ngFor = "let relationshipValue of  relationshipValues" value={{relationshipValue.code}}>{{relationshipValue.value}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="dateandtime">
+                    <th id="dateandtimes" mat-header-cell *matHeaderCellDef>Date and Time</th>
+                    <td  class="table-column-top" mat-cell *matCellDef="let element">
+                      <div class="matform-custom">
+                        <mat-form-field style="padding-right: 15px;" appearance="outline">
+                          <mat-label>Date and Time</mat-label>
+                          <input matInput type="datetime-local" [min]="today" formControlName="rmvlAuthDt">
+                        </mat-form-field>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                <ng-container matColumnDef="typeofcontact">
+                    <th id="typeofcontacts" mat-header-cell *matHeaderCellDef>Type of Contact</th>
+                    <td class="table-column-top" mat-cell *matCellDef="let element">
+                        <div class="matform-custom">
+                            <mat-form-field style="padding-right: 15px;" appearance="outline">
+                                <mat-select formControlName="rmvlAuthCntctTypeCd">
+                                  <mat-option value=''>Select an option</mat-option>
+                                  <mat-option *ngFor = "let typeOfContactValue of  typeOfContactValues" value={{typeOfContactValue.code}}>{{typeOfContactValue.value}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="contactedby">
+                    <th id="contactedbys" mat-header-cell *matHeaderCellDef>Contacted By</th>
+                    <td class="table-column-top" mat-cell *matCellDef="let element">
+                        <div class="matform-custom">
+                            <mat-form-field style="padding-right: 15px;" appearance="outline">
+                                <input matInput type="text" formControlName="rmvlAuthCntctBy">
+                            </mat-form-field>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="updateDisplayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: updateDisplayedColumns;"></tr>
+            </table>
+       </div>
+
+
+
+        <div style="padding-bottom: 25px;padding-left: 16px;" class="update-referral-list"  *ngIf="f.reasonCd.value === 'UTC'">
+            <table aria-describedby="contactAttempt" mat-table [dataSource]="thirdTableDataSource"
+            formArrayName="waitingListCntctList" class="mat-elevation-z8">
+                <ng-container matColumnDef="contactattempt">
+                    <th id="contactattempt" mat-header-cell *matHeaderCellDef>Contact Attempt</th>
+                    <td style="padding-left: 60px;" mat-cell *matCellDef="let element">
+                        {{element.contactAttmpts}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="dateandtime">
+                    <th id="dateandtimes" mat-header-cell *matHeaderCellDef>Date and Time</th>
+                    <td [formGroupName]="index"  class="table-column-top" mat-cell *matCellDef="let element; let index = index">
+                      <div class="matform-custom">
+                        <mat-form-field style="padding-right: 15px;" appearance="outline">
+                          <mat-label>Date and Time</mat-label>
+                          <input matInput type="datetime-local" [min]="today" formControlName="contactDt">
+                        </mat-form-field>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                <ng-container matColumnDef="typeofcontact">
+                    <th id="typecontact" mat-header-cell *matHeaderCellDef>Type of Contact</th>
+                    <td  [formGroupName]="index" class="table-column-top" mat-cell *matCellDef="let element; let index = index">
+                        <div class="matform-custom">
+                            <mat-form-field style="padding-right: 15px;" appearance="outline">
+                                <mat-select formControlName="typeOfContact">
+                                  <mat-option value=''>Select an option</mat-option>
+                                  <mat-option *ngFor = "let typeOfContactValue of  typeOfContactValues" value={{typeOfContactValue.code}}>{{typeOfContactValue.value}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="contactedby">
+                    <th id="contacted" mat-header-cell *matHeaderCellDef>Contacted By</th>
+                    <td [formGroupName]="index" class="table-column-top" mat-cell *matCellDef="let element; let index = index">
+                        <div class="matform-custom">
+                            <mat-form-field style="padding-right: 15px;" appearance="outline">
+                                <input matInput type="text" formControlName="contactedBy">
+                            </mat-form-field>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsforThirdTable"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsforThirdTable;"></tr>
+            </table>
+       </div>
+    </div>
+
+    <div class="col-md-12 text-area">
+        <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label><span class="required">*</span>Comments</mat-label>
+            <textarea matInput class="note-textarea" #aplExpectOutcome maxlength="2000" formControlName="comments"></textarea>
+            <mat-error *ngIf="updateWaitingListForm.get('comments').hasError('required')">
+                {{customValidation.A1}}</mat-error>
+       </mat-form-field>
+        <div class="character-count">
+            {{aplExpectOutcome.value.length}}/2000
+       </div>
+    </div>
+    <div style="padding-top: 30px;padding-left: 17px;">
+        <button mat-flat-button class="perlss-click-button">
+          SUBMIT
+       </button>
+      </div>
+  </form>
+
+    <br>
+    <mat-divider style="padding-top: 35px;"></mat-divider>
+    <div class="row">
+        <div class="col-md-6">
+            <p class="heading">Waiting List History</p>
+       </div>
+    </div>
+
+    <div style="padding-top: 15px;">
+        <table  id="referralTable"  aria-describedby="false"  mat-table [dataSource]="dataSource" multiTemplateDataRows
+        class="mat-elevation-z0">
+
+            <ng-container matColumnDef="waitingliststatus">
+                <th id="waitingliststatu" mat-header-cell *matHeaderCellDef>Waiting List Status</th>
+                <td mat-cell  *matCellDef="let element">{{element.waitingliststatus}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="reassessmentdate">
+                <th id="reassessmentdate" mat-header-cell *matHeaderCellDef>Reassessment Date</th>
+                <td mat-cell  *matCellDef="let element">{{element.reassessmentdate}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="reassessmentresult">
+                <th id="reassessmentresults" mat-header-cell *matHeaderCellDef >Reassessment Result</th>
+                <td mat-cell *matCellDef="let element">{{element.reassessmentresult}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="reasonforchange">
+                <th id="reasonforchanges" mat-header-cell *matHeaderCellDef >Reason for Change</th>
+                <td mat-cell  *matCellDef="let element">{{element.reasonForChange}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="updatedate">
+                <th id="updatedates" mat-header-cell *matHeaderCellDef>Update Date</th>
+                <td mat-cell *matCellDef="let element">{{element.updatedate}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="updateuser">
+                <th id="updateusers" mat-header-cell *matHeaderCellDef >Update User</th>
+                <td mat-cell  *matCellDef="let element">{{element.updateuser}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="expandedDetail">
+                <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+                    <div class="example-element-detail"
+                        [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                        <div style="padding-left:25px">
+                            <table aria-describedby = "waitinglistDetails" class="table table-borderless" style="border: 0px;text-align: left;">
+                                <tr style="margin-left: -10px;" class="d-flex">
+                                    <th id="personAuthorizedRemoval"class="col-2" style="border-bottom:0px">
+                                        <strong>Person Authorized Removal:</strong>
+                                    </th>
+                                    <td class="col-2" style="border-bottom:0px">
+                                        <strong>Relationship:</strong>
+                                    </td>
+                                    <td class="col-2" style="border-bottom:0px">
+                                        <strong>Contact Date and Time:</strong>
+                                    </td>
+                                    <td class="col-2" style="border-bottom:0px">
+                                        <strong>Type of Contact:</strong>
+                                    </td>
+                                    <td class="col-2" style="border-bottom:0px">
+                                        <strong>Contacted By:</strong>
+                                    </td>
+                                </tr>
+                                <tr style="margin-top: -20px; margin-left: -10px;" class="d-flex">
+                                    <td class="col-2">
+                                        Joe Smith
+                                    </td>
+                                    <td class="col-2">
+                                        Father
+                                    </td>
+                                    <td class="col-2">
+                                        04/01/2020 2.45PM
+                                    </td>
+                                    <td class="col-2">
+                                        Phone
+                                    </td>
+                                    <td class="col-2">
+                                        Bradley Smith
+                                    </td>
+                                </tr>
+                                <tr style=" font-weight: bold; color: black;" class="d-flex">
+                                    Comments:
+                                </tr>
+                                <tr style="padding-top: 10px;" class="d-flex">
+                                    Bradley spoke to joe on the phone and he requested that James would like to be
+                                    removed from the Referral List.
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="element-row"
+                [class.expanded-row]="expandedElement === element"
+                (click)="expandedElement = expandedElement === element ? null : element">
+            </tr>
+            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+       </table>
+    </div>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+
+    <div class="row">
+        <div class="col go_back">
+            <a routerLink="/ltss/waitingListManagement/waitingListDashboard">GO BACK TO WAITING LIST MANAGEMENT HOME</a><br>
+       </div>
+    </div>
+
+</div>

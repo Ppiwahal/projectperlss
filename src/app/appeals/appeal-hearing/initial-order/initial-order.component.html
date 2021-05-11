@@ -1,0 +1,23 @@
+<mat-accordion>
+  <mat-expansion-panel #mapanel="matExpansionPanel">
+    <mat-expansion-panel-header style="background-color: #f5f5f5">
+      <mat-panel-title>
+        Initial Order
+        <!-- <span class="text-align-right">Review Details</span> -->
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="wrapper">
+      <div class="icon-wrapper" (click)="addInitialOrderDetails()">
+        <span class="material-icons">
+          add_circle
+        </span>
+        <span class="span-icon-text">ADD Initial Order Details</span>
+      </div>
+      <div *ngIf="isShowHearingOrderDetails">
+        <app-hearing-order-details (isInitialOrderGranting)="enableReconsiderations($event)"
+          (saveSuccess)="saveSuccess($event)" [appealId]="appealId">
+        </app-hearing-order-details>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

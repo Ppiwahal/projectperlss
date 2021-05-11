@@ -1,0 +1,85 @@
+<mat-divider class="perlss-horizontal-divider"></mat-divider>
+  <div class="row">
+        <div class="col-md-8">
+            <!-- <h4 class="hd">Intake Outcome</h4>-->
+       </div>
+        <div class="col-md-4">
+            <div class="applicant-name">
+             Applicant Name : Jesssica Jones
+          </div>
+       </div>
+    </div>
+<div class="form-container">
+  <form [formGroup]="paeNonFebrileSeizuresFormGroup">
+    <div class="row">
+      <div class="col-md-12">
+
+          <mat-label class="seizures-header">Short Seizures</mat-label>
+
+        <div class="question-container">
+          <mat-label>
+            <mat-label class="required-class">*</mat-label>
+            Select the frequency if the applicant experiences short non-febrile seizures with a duration of 2 minutes or less.
+          </mat-label>
+       </div>
+        <div *ngIf="getFormData().freqOfShortSeizuresFreqCd.hasError('required') && (getFormData().freqOfShortSeizuresFreqCd.touched || submitted)">
+          <mat-error>{{customValidation.A1}}</mat-error>
+       </div>
+          <div class="seperator-mar"></div>
+        <div class="radio-container">
+          <mat-radio-group formControlName="freqOfShortSeizuresFreqCd">
+            <div>
+              <mat-radio-button value="daily">Daily</mat-radio-button>
+            </div>
+            <div>
+              <mat-radio-button value="weekly">Weekly</mat-radio-button>
+            </div>
+              <div>
+              <mat-radio-button value="notApp">Not Applicable</mat-radio-button>
+            </div>
+          </mat-radio-group>
+       </div>
+      </div>
+    </div>
+  <div class="seperator-mar"></div>
+  <div class="row">
+      <div class="col-md-12">
+          <mat-label class="seizures-header">Prolonged Seizures</mat-label>
+        <div class="question-container">
+          <mat-label>
+            <mat-label class="required-class">*</mat-label>
+          Does the applicant experience prolonged non-febrile seizures with a duration of 30 or more minutes or requiring admission to the hospital?
+          </mat-label>
+       </div>
+        <div *ngIf="getFormData().freqOfProlongedSeizuresCd.hasError('required') && (getFormData().freqOfProlongedSeizuresCd.touched || submitted)">
+          <mat-error>{{customValidation.A1}}</mat-error>
+       </div>
+          <div class="seperator-mar"></div>
+        <div class="radio-container">
+          <mat-radio-group formControlName="freqOfProlongedSeizuresCd">
+            <div>
+              <mat-radio-button value="Y">Less than weekly but occurring within last month</mat-radio-button>
+            </div>
+            <div>
+              <mat-radio-button value="N">Less than weekly but occurring in last 6 months but not within last month</mat-radio-button>
+            </div>
+              <div>
+              <mat-radio-button value="notApp">Not Applicable</mat-radio-button>
+            </div>
+          </mat-radio-group>
+       </div>
+      </div>
+    </div>
+    <div class="seperator-mar-nonfebrile"></div>
+    <div class="row">
+      <div class="col-md-6">
+        <button type="submit" mat-stroked-button class="perlss-back-button" (click)="back()">BACK</button>
+         <button type="submit" mat-button class="perlss-save-button" (click)="saveAndExit();">SAVE AND EXIT</button>
+      </div>
+
+      <div class="col-md-6" style="text-align: right;">
+        <button type="submit" class="submit-button" mat-flat-button color="primary" (click)="saveNonFebrileSeizuresInfo();" >NEXT</button>
+      </div>
+    </div>
+  </form>
+</div>

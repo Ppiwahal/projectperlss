@@ -1,0 +1,350 @@
+<div class="responsive">
+	<form [formGroup]="paeSafetyDeterminationForm">
+		<div class="scroller">
+			<div class="applicantName">{{applicantName}}</div>
+			<br><br>
+			<h2>Safety Determination Form</h2>
+			<mat-card class="mat-elevation-z8 mar-bot">
+				<div class="row">
+					<div class="col-md-12">
+						<p>
+							Safety Determination must be completed in its entirety along with all required documentation. An incomplete Safety Determination Request without documentation will be denied.
+						</p>
+						<p>
+							<strong>Note:</strong> Documentation may consist of, but is not limited to, narrative descriptions or explanations from submitter, caregivers, or family members; hospital notes, therapy notes, MD visits, ADL flow sheets, encounter notes from nurses, therapists, or physicians; and any other documents which would demonstrate the safety concern(s) for the applicant.
+						</p>
+						<p>
+							Please check and complete <strong>ALL</strong> that apply.
+						</p>
+					</div>
+
+				</div>
+			</mat-card>
+			<div class="row">
+				<div class="col-md-12" style="height: 216px;">
+					<p>Does the applicant have an intellectual or developmental disability and a General Maladaptive Index value of -31 or lower?</p>
+					<p>
+						If yes, please attach a copy of Maladaptive Behavior Assessment and Score.
+					</p>
+					<mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="intlctlDisbltySw">
+						<mat-radio-button class="example-radio-button" [value]="'Y'">
+							Yes
+						</mat-radio-button>
+						<mat-radio-button class="example-radio-button" [value]="'N'">
+							No
+						</mat-radio-button>
+					</mat-radio-group>
+					<mat-error>
+						<p *ngIf="paeSafetyDeterminationForm.get('intlctlDisbltySw').errors?.required && (paeSafetyDeterminationForm.get('intlctlDisbltySw').touched || paeSafetyDeterminationForm.get('intlctlDisbltySw').dirty)">
+							{{customValidation.A1}}
+						</p>
+					</mat-error>
+				</div>
+			</div>
+			<div class="row" style="margin-bottom: 36px;" *ngIf="paeSafetyDeterminationForm.get('intlctlDisbltySw').value === 'Y'">
+				<div class="col-md-6">
+					<mat-form-field appearance="outline" class="wid-100">
+						<mat-label><span class="req"></span>ICAP Score</mat-label>
+						<input matInput formControlName="icapScore" mask="999">
+          </mat-form-field>
+          <mat-error *ngIf="paeSafetyDeterminationForm.get('icapScore').errors?.required && (paeSafetyDeterminationForm.get('icapScore').touched || paeSafetyDeterminationForm.get('icapScore').dirty)">
+            {{customValidation.A1}}
+          </mat-error> 
+          <mat-error *ngIf="paeSafetyDeterminationForm.get('icapScore').errors?.specialCharacterValidator">
+            {{customValidation.A2}}
+          </mat-error>
+				</div>
+			</div>
+
+			<table id="safetySummary" aria-describedBy="false">
+				<col span="1" class="wide">
+				<tr style="background: aliceblue;">
+					<th id="safetyServiceSummary" class="left" style="color: #1B365C;">Safety Justification</th>
+				</tr>
+				<tr id="borders">
+					<td class="left spacing">
+						<mat-checkbox formControlName="intelDisMalaIndex12Sw" checkboxPosition="before" color="primary" class="mar-10-right" (change)="option1()" >
+							Has an intellectual or developmental disability and a General Maladaptive Index value of -21 or lower.
+							<div *ngIf="show1" class="separation">
+								(Please attach copy of Maladaptive Behavior Assessment and Score and label MBA and MBI.)
+							</div>
+						</mat-checkbox>
+					</td>                 
+				</tr>
+				<tr id="borders">
+					<td class="left spacing">
+						<mat-checkbox formControlName="acutyScr5Less8Sw" checkboxPosition="before" color="primary" class="mar-10-right" (click)="option2()">
+							An approved acuity score of at least (5) but no more than eight (8) .
+							<div *ngIf="show2" class="separation">
+								The applicant has an approved acuity score of at least five (5) but no more than eight (8) and safety concerns impacting the applicant’s 
+								ability to be safely served in CHOICES Group 3 exist. Provide a detailed description of the safety concern and include sufficient evidence 
+								showing that the necessary intervention and supervision needed by the applicant cannot be safely provided within the array of services and 
+								supports that would be available if the applicant was enrolled in Choices Group 3. (Attach additional explanation if needed and any other 
+								documentation which would support the safety concerns detailed below. Label attachment(s) as “Score 5-8 with Safety Concerns.”).
+								(Upload an explanation and any other documentation needed.)
+							</div>
+						</mat-checkbox>
+					</td>                 
+				</tr>
+				<tr id="borders">
+					<td class="left spacing">
+						<mat-checkbox formControlName="acutyScr2behavSw" checkboxPosition="before" color="primary" class="mar-10-right" (click)="option3()">
+							An individual acuity score of at least 2 for the Behavior measure.
+							<div *ngIf="show3" class="separation">
+								The applicant has an individual acuity score of at least 2 for the Behavior measure and the absence of 
+								intervention and supervision for behaviors at the frequency specified in the PAE
+								would result in imminent 	and serious risk of harm to the Applicant and/or others. Provide a detailed 
+								description of the specific behavior(s), the frequency of each behavior, and information
+								and/ or examples which support and describe the imminence and seriousness of risk resulting from the 
+								behavior(s). (Attach additional explanation if needed and any other documentation which
+								would support safety concerns pertaining to the applicant�s behavior deficit. Label attachment(s) as 
+								"Behavior Deficit.")
+							</div>
+						</mat-checkbox>
+					</td>                 
+				</tr>
+				<tr id="borders">
+					<td class="left spacing">
+						<mat-checkbox formControlName="acutyScr3orinetSw" checkboxPosition="before" color="primary" class="mar-10-right" (click)="option4()">
+							An individual acuity score of at least 3 for the Orientation measure.
+							<div *ngIf="show4" class="separation">
+								The applicant has an individual acuity score of at least 3 for the Orientation measure and the absence of 
+								frequent intermittent or continuous intervention and supervision would result in
+								imminent and serious risk of harm to the applicant and/or others.	Provide a detailed description of how 
+								orientation deficits impact the applicant's safety, including information or examples
+								that would support and describe the imminence and seriousness of risk. (Attach additional explanation if 
+								needed and any other documentation which would support safety concerns pertaining to
+								the applicant's orientation deficit. Label attachment(s) as "Orientation Deficit."").	(Upload an explanation 
+								and any other documentation needed.)
+							</div>
+						</mat-checkbox>
+					</td>                 
+				</tr>
+				<tr id="borders">
+					<td class="left spacing">
+						<mat-checkbox formControlName="acutyScr3mobTrnsfrSw" checkboxPosition="before" color="primary" class="mar-10-right" (click)="option5()">
+							An individual acuity score of at least 3 for the mobility or transfer measures.
+							<div *ngIf="show5" class="separation">
+								The applicant has an individual acuity score of at least 3 for the mobility or transfer measures and the 
+								absence of frequent intermittent assistance for mobility or transfer needs would
+								result in imminent and serious risk to the applicant's health and safety. Describe how often mobility 
+								and/or transfer assistance is needed by the member and the availability	of paid
+								and unpaid caregivers to provide such assistance, including any recent changes in the applicant's	needs 
+								and/or availability of caregivers to meet such needs. (Attach additional explanation
+								if needed and any other documentation which would support safety concerns pertaining to the applicant's 
+								mobility or transfer deficit. Label attachment(s) as "Mobility or Transfer Deficit.").
+								(Upload an explanation and any other documentation needed.)
+							</div>
+						</mat-checkbox>
+					</td>
+				</tr>		
+				<tr id="borders">
+					<td class="left spacing">
+						<mat-checkbox formControlName="acutyScr2toiletingSw" checkboxPosition="before" color="primary" class="mar-10-right" (click)="option6()">
+							An individual acuity score of at least 2 for the toileting measure.
+							<div *ngIf="show6" class="separation">
+								The applicant has an individual acuity score of at least 2 for the toileting measure, and the absence of 
+								frequent intermittent assistance for toileting needs would result in imminent and serious
+								risk to the applicant's health and safety. Describe how often toileting assistance is needed by the member 
+								and the availability of paid and unpaid caregivers to provide such assistance, including 
+								any recent changes in the applicant's needs and/or availability of caregivers to meet such needs. (Attach 
+								additional explanation if needed and any other documentation which would support safety 
+								concerns pertaining to the applicant's toileting deficit. Label attachment(s) as "Toileting Deficit.").
+								(Upload an explanation and any other documentation needed.)
+							</div>
+						</mat-checkbox>
+					</td>
+				</tr>	
+				<tr id="borders">
+					<td class="left spacing">
+						<mat-checkbox formControlName="changPhyclBehvSw" checkboxPosition="before" color="primary" class="mar-10-right" (click)="option7()">
+							Significant change in physical or behavioral health or functional needs for applicant.
+							<div *ngIf="show7" class="separation">
+								The applicant has experienced a significant change in physical or behavioral health or functional needs.
+								Provide a detailed description of the change(s), and how such changes impact the applicant's need for assistance. 
+								(Attach additional explanation if needed and any other documentation which would support that these change(s) 
+								occurred and/or concerns pertaining to the applicant's safety as a result of the change(s). Label attachment(s) 
+								as "Change in Needs.")(Upload an explanation and any other documentation needed.)
+							</div>
+						</mat-checkbox>
+					</td>	
+				</tr>	
+				<tr id="borders">
+					<td class="left spacing">
+						<mat-checkbox formControlName="changPhyclBehvPrimaryCareSw" checkboxPosition="before" color="primary" class="mar-10-right" (click)="option8()">
+							Significant change in physical or behavioral health or functional needs for applicant's primary caregiver.
+							<div *ngIf="show8" class="separation">
+								Applicant's primary caregiver has experienced a significant change in physical or behavioral health or 
+								functional needs which impacts the availability of needed assistance for the applicant. Provide a detailed 
+								description of the change(s), and how such changes impact the availability of needed assistance for the applicant. 
+								(Attach additional explanation if needed and any other documentation which would support that these changes 
+								occurred and/or concerns pertaining to the applicant's safety as a result of the change(s). Label attachment(s) 
+								as "Change in Primary Caregiver Status." )(Upload an explanation and any other documentation needed.)
+							</div>
+						</mat-checkbox>
+					</td>	
+				</tr>	
+				<tr id="borders">
+					<td class="left spacing">
+						<mat-checkbox formControlName="rcntFallSw" checkboxPosition="before" color="primary" class="mar-10-right" (click)="option9()">
+							Pattern of recent falls resulting in injury.
+							<div *ngIf="show9" class="separation">
+								Applicant has a pattern of recent falls resulting in injury or with significant potential for injury or a 
+								recent fall under circumstances indicating a significant potential risk for further falls.Please fill out 
+								the information on the next screen.
+							</div>
+						</mat-checkbox>
+					</td>
+				</tr>		
+				<tr id="borders">
+					<td class="left spacing">
+						<mat-checkbox formControlName="rcntEmergtHospAdmsnSw" checkboxPosition="before" color="primary" class="mar-10-right" (click)="option10()">
+							Pattern of recent emergent hospital admissions, NF admissions or ER visits.
+							<div *ngIf="show10" class="separation">
+								Applicant has an established pattern of recent emergent hospital admissions or emergency department utilization 
+								for emergent conditions or a recent hospital or NF admission or episode of treatment in a hospital emergency 
+								department under circumstances sufficient to indicate that the person may not be capable of being safely maintained 
+								in the community (not every hospital or NF admission or ER episode will be sufficient to indicate such). Document 
+								and provide a detailed explanation of any circumstances pertaining to such inpatient admission(s) or ER visit(s) 
+								which indicate that the person may not be capable of being safely maintained in the community, along with records 
+								from each admission or ER visit, e.g., discharge papers. Label attachment(s) as "Inpatient Admissions/ER Visits."
+							</div>
+						</mat-checkbox>
+					</td>
+				</tr>		
+				<tr id="borders">
+					<td class="left spacing">
+						<mat-checkbox formControlName="rcntDischargeSw" checkboxPosition="before" color="primary" class="mar-10-right" (click)="option12()">
+							Recently discharged from a community-based residential alternative setting.
+							<div *ngIf="show12" class="separation">
+								The applicant has recently been discharged from a community-based residential alternative setting (or such 
+								discharge is pending) because the applicant's needs can no longer be safety met in that setting. Document and 
+								attach documentation detailed description of the circumstances leading to discharge, including documentation 
+								from the CBRA. Include explanation regarding any other previous settings from which the applicant has been 
+								discharged due to safety concerns, including the date(s) of such admissions and discharge. Label attachment(s) 
+								as "CBRA Discharge." (Upload an explanation and any other documentation needed.)
+							</div>
+						</mat-checkbox>
+					</td>
+				</tr>		
+				<tr id="borders">
+					<td class="left spacing">
+						<mat-checkbox formControlName="cmpxChrncSw" checkboxPosition="before" color="primary" class="mar-10-right" (click)="option13()">
+							Has diagnosed complex acute or chronic medical conditions.
+							<div *ngIf="show13" class="separation">
+								The applicant has diagnosed complex acute or chronic medical conditions which require frequent, ongoing skilled 
+								and / or rehabilitative interventions and treatment by licensed professional staff. Document (attach additional 
+								explanation if needed) and attach current (last 365 days) medical records documenting each condition, including 
+								ongoing treatment prescribed, and the name, professional title, and contact information of the primary treating 
+								practitioner for each such condition.
+							</div>
+						</mat-checkbox>
+					</td>
+				</tr>		
+				<tr id="borders">
+					<td class="left spacing">
+						<mat-checkbox formControlName="mcoDetemiationGrp5Sw" checkboxPosition="before" color="primary" class="mar-10-right" (click)="option14()">
+							MCO has determined applicant's needs cannot be safely met if enrolled in Group 5.
+							<div *ngIf="show14" class="separation">
+								The applicant's MCO has determined, upon enrollment into Group 5 based on a PAE submitted by another entity, 
+								that the applicant's needs cannot be safely met within the array of services and supports available if enrolled 
+								in Group 5.
+							</div>
+						</mat-checkbox>
+					</td>
+				</tr>		
+				<tr id="borders">
+					<td class="left spacing">
+						<mat-checkbox formControlName="noCriteriaMetGrp5Sw" checkboxPosition="before" color="primary" class="mar-10-right" (click)="option15()">
+							None of the criteria have been met, but other safety concerns which impact the applicant being safely served 
+							in CHOICES Group 5 exist.
+							<div *ngIf="show15" class="separation">
+								None of the criteria above have been met, but other safety concerns which impact the applicant being safely 
+								served in CHOICES Group 5 exist. Provide a detailed description of the safety concern and include sufficient 
+								evidence showing that the necessary intervention and supervision needed by the applicant cannot be safely 
+								provided within the array of services and supports that would be available if the applicant was enrolled in 
+								Choices Group 5. (Attach additional explanation if needed and any other documentation which would support the 
+								safety concerns detailed below. Label attachment(s) as "Other Safety Concerns.")
+								(Upload an explanation and any other documentation needed.)
+							</div>
+						</mat-checkbox>
+					</td>
+				</tr>		
+			</table>
+				
+			<mat-divider class="marg-15"></mat-divider>
+			<div class="row">
+				<div class="col-md-12" style="padding: 0;">
+					<h2>Safety Attestation</h2>
+					<p><b>Please read and attest by selecting atleast one of the statement below. (Select all that apply)</b></p>
+				</div>
+			</div>
+
+			<div class="row selection-list content" *ngFor="let attestation of safetyAttestations" tabindex="1" 
+			[ngClass]="{'selected-choice': attestation.selected, 'unselected-choice': !attestation.selected}" 
+			(click)="attestation.selected = !attestation.selected">
+				<div class="col-md-10" tabindex="2" style="outline: none;">
+					{{attestation.text}}
+				</div>
+				<div class="col-md-2 text-right" tabindex="3" style="outline: none;">
+					<mat-icon class="icon">offline_pin</mat-icon>
+				</div>
+			</div>
+			<p><b>Please read the statement below before you continue.</b></p>
+			<p>
+
+				I, as a licensed professional, take responsibility for the information provided in this safety Determination request 
+				and attest that I have personally reviewed the information provided in this Safety Determination Request and it is 
+				accurate and true to the best of my knowledge. I understand that this information will be used to determine the applicant's 
+				eligibility and/or reimbursement for long-term care services. I understand that any intentional act or omission on my part 
+				to provide false information or give a false impression that would potentially result in a person obtaining benefits for 
+				coverage to which s/he is not entitled may be considered an act of fraud under the state's TennCare program and Title XIX 
+				of the Social Security Act. I further understand that, under the Tennessee Medicaid False Claims Act, any person who 
+				presents or causes to be presented to the state a claim for payment under the TennCare program knowing such claim us 
+				false or fraudulent may be subject to federal and state civil and criminal penalties.
+			</p>
+			<!-- <div class="col-md-6 ">
+				<mat-form-field appearance="outline" class="wid-100">
+					<mat-label><span class="req"></span>Credentials</mat-label>
+					<mat-select placeholder="Credentials" formControlName="credentialsCd" (selectionChange)="credChanged($event.value)">
+						<mat-option *ngFor="let element of uniqueCredentialsArray" [value]="element.credentialsCd">{{element.credentialsCd}}</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+			<div class="row">
+				<div class="col-md-6 ">
+					<mat-form-field appearance="outline" class="wid-100" datasou>
+						<mat-label><span class="req"></span>Qualified Accessor Name</mat-label>
+						<mat-select placeholder="Qualified Accessor Name" formControlName="qualifiedAssessorName">
+							<mat-option *ngFor="let name of filteredData" [value]="name.assessorId">{{name.firstName}} {{name.lastName}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+				</div>
+				<div class="col-md-6 ">
+					<mat-form-field appearance="outline" class="wid-100">
+						<mat-label><span class="req"></span>Qualified Accessor Code</mat-label>
+						<input matInput spellcheck="false" [maxlength]="20" formControlName="qualifiedAssessorId">
+					</mat-form-field>
+					<mat-error *ngIf="incorrectCode">
+            {{customValidation.A37}}
+          </mat-error>
+					<mat-error *ngIf="paeSafetyDeterminationForm.get('qualifiedAssessorId').errors?.required && (paeSafetyDeterminationForm.get('qualifiedAssessorId').touched || paeSafetyDeterminationForm.get('qualifiedAssessorId').dirty)">
+            {{customValidation.A1}}
+          </mat-error> 
+          <mat-error *ngIf="paeSafetyDeterminationForm.get('qualifiedAssessorId').errors?.specialCharacterValidator">
+            {{customValidation.A2}}
+          </mat-error>
+				</div>
+			</div> -->
+		</div>
+	</form>
+
+
+	<div class="buttonBar">
+    <button mat-flat-button type="button" class="perlss-click-button-white" (click)="back()">BACK</button>
+    <button mat-flat-button color="primary" class="perlss-click-button-white-noborder" (click)="callTestModal()"><span
+        class="hoverClass">SAVE AND EXIT</span></button>
+      <button mat-flat-button color="primary" class="perlss-click-button"
+      (click)="saveSafetyDeterminationForm();">NEXT</button>
+  </div>
+</div>

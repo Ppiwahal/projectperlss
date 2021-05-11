@@ -1,0 +1,41 @@
+<div class="responsive">
+
+  <form [formGroup]="myForm">
+
+    <div class="scroller">
+
+      <div class="applicantName">{{applicantName}}</div>
+      <div style="padding: 33px; font-size: 18px; margin-top: 0px"><b>Please complete all required questions regarding additional behavioral qualifiers.</b></div>
+      <div style="width: 100%;">
+        <div class="control" style="padding-bottom: 20px;">
+          <mat-radio-group formControlName="reqPsychatricTreatSw" >
+            <mat-label class="req">Without continuous therapeutic support and intervention, is the child imminently likely to engage in severe self-injury or physical aggression towards others?</mat-label>
+            <div *ngIf="getFormData().reqPsychatricTreatSw.hasError('required') &&
+                          (getFormData().reqPsychatricTreatSw.touched || submitted)">
+                  <mat-error>{{customValidation.A1}}</mat-error>
+                </div>
+            <mat-radio-button value="Y">Yes</mat-radio-button>
+            <mat-radio-button value="N">No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="control">
+          <mat-radio-group formControlName="engageSelfInjPhyAgrSw" >
+            <mat-label class="req">Without continuous therapeutic support and intervention, is the child imminently likely to require inpatient psychiatric treatment or other placement outside of the home?</mat-label>
+            <div *ngIf="getFormData().engageSelfInjPhyAgrSw.hasError('required') &&
+                          (getFormData().engageSelfInjPhyAgrSw.touched || submitted)">
+                  <mat-error>{{customValidation.A1}}</mat-error>
+                </div>
+            <mat-radio-button value="Y">Yes</mat-radio-button>
+            <mat-radio-button value="N">No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="buttonBar">
+          <button mat-flat-button type="button" class="perlss-click-button-white"   (click)="goBack()">BACK</button>
+          <button mat-flat-button color="primary" class="perlss-click-button-white-noborder"><span
+              class="hoverClass" (click)="savePaeAdditionalQualifier('saveExit')">SAVE AND EXIT</span></button>
+            <button mat-flat-button color="primary" class="perlss-click-button" (click)="next()">NEXT</button>
+        </div>
+    </div>
+  </div>
+  </form></div>
+

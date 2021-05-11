@@ -1,0 +1,189 @@
+<div style="padding-top: 20px;" class="user-role-heading"></div>
+<div>
+  <div class="row" style="float: right; width: 38%">
+    <div class="col-md-12">
+      <button mat-button class="approved_btn_border">A</button><span class="text_space">Approved</span>
+      <button mat-button class="denied_btn_border">D</button><span class="text_space">Denied</span>
+    </div>
+  </div>
+  <br />
+  <br />
+  <br />
+  <div style="width: 92%; padding-left: 50px;">
+    <ng-container [formGroup]="skilledServicesMainFormGroup" *ngIf="dataSource !== null">
+      <table mat-table #table [dataSource]="dataSource" formArrayName="skilledServicesFormGroupArray" multiTemplateDataRows
+        class="mat-elevation-z8" style="width: 100%; text-align:center;">
+        <ng-container matColumnDef="select">
+          <th style="border-bottom: 3px solid #1B365D;" mat-header-cell *matHeaderCellDef>
+          </th>
+        </ng-container>
+
+
+        <ng-container matColumnDef="ErcAction">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element; let index = dataIndex" style="padding:7px">
+            <button mat-stroked-button class="customButton" style="font-size: 14px;" color="primary" mat-button
+              *ngIf="(chrncErc && element.code === 'CVS') || (trachealScnErc && element.code === 'SMT')">
+              ERC</button>
+          </td>
+          <td mat-footer-cell *matFooterCellDef style="text-align:left"></td>
+        </ng-container>
+
+        <ng-container matColumnDef="ServiceName">
+          <th mat-header-cell *matHeaderCellDef class='table-th' style="text-align:left">Service Name</th>
+          <td mat-cell *matCellDef="let element; let index = dataIndex" style="text-align:left">{{element.value}}</td>
+          <td mat-footer-cell *matFooterCellDef style="text-align:left">Total Score</td>
+        </ng-container>
+
+        <ng-container matColumnDef="RequestedDays">
+          <th mat-header-cell *matHeaderCellDef class='table-th'>Requested<br>Days</th>
+          <td mat-cell *matCellDef="let element; let index = dataIndex">
+            {{skilledServicesMainFormGroup?.get('skilledServicesFormGroupArray')?.get('' +
+            index)?.get('requestedDays')?.value}}
+          </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <ng-container matColumnDef="ApprovedDays">
+          <th mat-header-cell *matHeaderCellDef class='table-th'>Approved<br>Days</th>
+          <td mat-cell *matCellDef="let element; let index = dataIndex">
+            {{getApprovedDays(index)}}
+          </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <ng-container matColumnDef="AcuityValue">
+          <th mat-header-cell *matHeaderCellDef class='table-th'>Acuity<br>Value</th>
+          <td mat-cell *matCellDef="let element; let index = dataIndex">
+            {{skilledServicesMainFormGroup?.get('skilledServicesFormGroupArray')?.get('' +
+            index)?.get('acuityScore')?.value}}
+          </td>
+          <td mat-footer-cell *matFooterCellDef>{{getTotalScr()}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="RNReviewerResponse">
+          <th mat-header-cell *matHeaderCellDef class='table-th'>RN Reviewer<br>Response</th>
+          <td mat-cell *matCellDef="let element; let index = dataIndex" style="padding-left:5px; padding-right:0px">
+            <button mat-button class="customButton" *ngIf="selectedElement != element"
+              [ngClass]="{'approved_btn_border': skilledServicesMainFormGroup.get('skilledServicesFormGroupArray').get('' + index).get('adjctorRspCd').value === 'A'}"
+              (click)="openExpandedTable('A', element, index)" [disabled]="displayEditButton">A</button>
+            <button mat-button class="customButton"
+              [ngClass]="{'approved_btn_border': skilledServicesMainFormGroup.get('skilledServicesFormGroupArray').get('' + index).get('adjctorRspCd').value === 'A'}"
+              *ngIf="selectedElement == element" (click)="selectedElement = undefined; expandedElement = undefined;"
+              [disabled]="displayEditButton">A</button>
+            <button mat-button class="customButton" *ngIf="selectedElement != element"
+              (click)="openExpandedTable('D', element, index)"
+              [ngClass]="{'denied_btn_border': skilledServicesMainFormGroup.get('skilledServicesFormGroupArray').get('' + index).get('adjctorRspCd').value === 'D'}"
+              [disabled]="displayEditButton">D</button>
+            <button mat-button class="customButton"
+              [ngClass]="{'denied_btn_border': skilledServicesMainFormGroup.get('skilledServicesFormGroupArray').get('' + index).get('adjctorRspCd').value === 'D'}"
+              *ngIf="selectedElement == element" (click)="selectedElement = undefined; expandedElement = undefined;"
+              [disabled]="displayEditButton">D</button>
+          </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <ng-container matColumnDef="expandedDetail">
+          <td mat-cell *matCellDef="let element; let index = dataIndex" [attr.colspan]="displayedColumns.length">
+            <form [formGroupName]="index">
+              <div class="example-element-detail"
+                [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                <div class="row secondary-data-content" style="padding-top: 25px"
+                  *ngIf="disabledApprovedCalendar == 'A' ">
+                  <div class="col-md-6">
+                    <mat-label>
+                      <mat-label><b>Requested Date Range</b></mat-label>
+                    </mat-label>
+                    <p>{{skilledServicesMainFormGroup?.get('skilledServicesFormGroupArray')?.get('' +
+                      index)?.get('rqstEffDt')?.value}} -
+                      {{skilledServicesMainFormGroup?.get('skilledServicesFormGroupArray')?.get('' +
+                      index)?.get('rqstEndDt')?.value}}</p>
+                  </div>
+                  <div class="col-md-4">
+                    <mat-form-field class="example-form-field" appearance="outline">
+                      <mat-label><b>Approved Date Range</b></mat-label>
+                      <mat-date-range-input [rangePicker]="campaignOnePicker"
+                        [comparisonStart]="campaignTwo.value.start" [comparisonEnd]="campaignTwo.value.end">
+                        <input formControlName="aprvdEffDt" matStartDate placeholder="Start date">
+                        <input formControlName="aprvdEndDt" matEndDate placeholder="End date">
+                      </mat-date-range-input>
+                      <mat-datepicker-toggle matSuffix [for]="campaignOnePicker"></mat-datepicker-toggle>
+                      <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row secondary-data-content" style="padding-top: 25px" *ngIf="showTracheostomySection">
+                  <div class="col-md-12" style="text-align: left;">
+                    <mat-radio-group aria-labelledby="example-radio-group-label"
+                      (change)="onChangService($event, index)">
+                      <mat-label class="req">Would you like to add the service "Tracheostomy requiring suctioning?"
+                      </mat-label>
+                      <br />
+                      <mat-radio-button value="Y">Yes</mat-radio-button>
+                      <br />
+                      <mat-radio-button value="N">No</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                </div>
+                <div class="row secondary-data-content" style="padding-top: 25px" *ngIf="showCVSection">
+                  <div class="col-md-12" style="text-align: left;">
+                    <mat-radio-group aria-labelledby="example-radio-group-label"
+                      (change)="onVentilatorChangService($event, index)">
+                      <mat-label class="req">Would you like to add the service "Ventilator or NIPPV?" "
+                      </mat-label>
+                      <br />
+                      <mat-radio-button value="Y">Yes</mat-radio-button>
+                      <br />
+                      <mat-radio-button value="N">No</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                </div>
+                <br>
+              </div>
+            </form>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let element; columns: displayedColumns;" matRipple class="element-row"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']; let index = dataIndex"
+          [@detailExpand]="row == expandedElement ? 'expanded' : 'collapsed'" style="overflow: hidden">
+        </tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+      </table>
+    </ng-container>
+  </div>
+  <br>
+  <br>
+  <div style="width: 94%; text-align:center;padding-left:32px;">
+    <form [formGroup]="commentsForm">
+      <div class="col-md-12">
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>
+            Comments:
+          </mat-label>
+          <textarea formControlName="comments" matInput #comments maxlength="2000" appearance="outline"></textarea>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+  <div class="row" style="padding-left: 50px;">
+    <div class="col-md-12">
+      <button *ngIf="displayEditButton" mat-flat-button
+        style=" min-width: 100px; line-height: 20px !important; background:#1d61a0 !important; color:white; font-size: 15px"
+        (click)="onEdit()">Edit</button>
+      <button *ngIf="!displayEditButton && skilledServicesMainFormGroup.valid" mat-button [disabled]="displaySpinner" (click)="onSave()"
+        class="saveButton">Save <mat-progress-spinner *ngIf="displaySpinner" class="example-margin" [color]="color"
+          [mode]="mode" [value]="value" [diameter]="20" style="margin-left:25px; margin-top:-22px">
+        </mat-progress-spinner></button>
+      <button [disabled]="displaySpinner" *ngIf="!displayEditButton" mat-button class="cancelButton"
+        (click)="onCancel()">CANCEL</button>
+    </div>
+  </div>
+  <div style="padding-top: 20px; padding-left: 50px;" *ngIf="submitted">
+    <div class="row" style="width: 80%; border: 1px solid; margin-left: 93px; padding-top: 15px;">
+      <Label style="font-style: italic; padding-left: 78px; padding-bottom: 6px;">Based on the responses from Skilled
+        Services, maximum acuity value is {{getTotalScr()}}.</Label>
+    </div>
+  </div>
+</div>

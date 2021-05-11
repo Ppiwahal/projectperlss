@@ -1,0 +1,128 @@
+<form form [formGroup]="rescheduleHearingForm">
+    <div class="mat-dropdowns">
+        <mat-form-field appearance="outline">
+            <mat-label>
+                <mat-label class="required-color"></mat-label><span class="required">*</span>Reason for Continuance
+            </mat-label>
+            <mat-select formControlName="reasonForContinuance">
+                <mat-option value=''>Select an Option</mat-option>
+                <mat-option *ngFor="let reason of continuanceReason" value={{reason.code}}>{{reason.value}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-error *ngIf="isShowErrors && rescheduleHearingForm.get('reasonForContinuance')?.hasError('required')">
+            <span>{{customValidation.A1}}</span>
+        </mat-error>
+    </div>
+    <div class="padding-textarea col-md-12">
+        <mat-form-field appearance="outline">
+            <mat-label><span class="required">*</span>Brief Description</mat-label>
+            <textarea formControlName="briefDescription" matInput cols="152" rows="5"></textarea>
+        </mat-form-field>
+        <mat-error *ngIf="isShowErrors && rescheduleHearingForm.get('briefDescription')?.hasError('required')">
+            <span>{{customValidation.A1}}</span>
+        </mat-error>
+    </div>
+    <div class="radio-wrapper">
+        <mat-label><span class="required">*</span>Is there a tolled Date?</mat-label><br />
+        <mat-radio-group formControlName="isTolledDate" aria-labelledby="example-radio-group-label"
+            class="example-radio-group">
+            <mat-radio-button class="example-radio-button" *ngFor="let isR of dummyForRadioButtons" [value]="isR">
+                {{isR}}
+            </mat-radio-button>
+        </mat-radio-group>
+        <mat-error *ngIf="isShowErrors && rescheduleHearingForm.get('isTolledDate')?.hasError('required')">
+            <span>{{customValidation.A1}}</span>
+        </mat-error>
+    </div>
+    <div class="mat-dropdowns">
+        <mat-form-field appearance="outline">
+            <mat-label><span class="required">*</span>Tolled Date</mat-label>
+            <input [min]="todayDate" formControlName="tolledDate" placeholder="Select a Date" aria-label="tolled date" matInput
+                [matDatepicker]="tolledDate">
+            <mat-datepicker-toggle matSuffix [for]="tolledDate"></mat-datepicker-toggle>
+            <mat-datepicker [startAt]="startDate" #tolledDate></mat-datepicker>
+        </mat-form-field>
+        <mat-error *ngIf="isShowErrors && rescheduleHearingForm.get('tolledDate')?.hasError('required')">
+            <span>{{customValidation.A1}}</span>
+        </mat-error>
+    </div>
+
+    <div class="radio-wrapper">
+        <mat-label><span class="required">*</span>Would you like to set new hearing date and time now?</mat-label><br />
+        <mat-radio-group formControlName="isHearingDateAndTime" aria-labelledby="example-radio-group-label"
+            class="example-radio-group">
+            <mat-radio-button class="example-radio-button" *ngFor="let isR of dummyForRadioButtons" [value]="isR">
+                {{isR}}
+            </mat-radio-button>
+        </mat-radio-group>
+        <mat-error *ngIf="isShowErrors && rescheduleHearingForm.get('isHearingDateAndTime')?.hasError('required')">
+            <span>{{customValidation.A1}}</span>
+        </mat-error>
+    </div>
+    <div class="mat-dropdowns">
+        <mat-form-field appearance="outline">
+            <mat-label><span class="required">*</span>Hearing Date</mat-label>
+            <input [min]="todayDate" placeholder="Select a Date" formControlName="hearingDate" aria-label="hearing date"
+                matInput [matDatepicker]="hearingDate">
+            <mat-datepicker-toggle matSuffix [for]="hearingDate"></mat-datepicker-toggle>
+            <mat-datepicker [startAt]="startDate" #hearingDate></mat-datepicker>
+        </mat-form-field>
+        <mat-error *ngIf="isShowErrors && rescheduleHearingForm.get('hearingDate')?.hasError('required')">
+            <span>{{customValidation.A1}}</span>
+        </mat-error>
+    </div>
+    <div class="mat-dropdowns">
+        <mat-form-field appearance="outline">
+            <mat-label><span class="required">*</span>Hearing Time</mat-label>
+            <input style="color: black;" matInput placeholder="12hr format (default settings)" aria-label="12hr format"
+                [ngxTimepicker]="default" formControlName="hearingTime" readonly>
+            <ngx-material-timepicker #default></ngx-material-timepicker>
+        </mat-form-field>
+        <mat-error *ngIf="isShowErrors && rescheduleHearingForm.get('hearingTime')?.hasError('required')">
+            <span>{{customValidation.A1}}</span>
+        </mat-error>
+    </div>
+    <div class="radio-wrapper">
+        <mat-label><span class="required">*</span>Would you like to update the judge and attorney?</mat-label><br />
+        <mat-radio-group formControlName="isJudgeAndAttorney" aria-labelledby="example-radio-group-label"
+            class="example-radio-group">
+            <mat-radio-button class="example-radio-button" *ngFor="let isR of dummyForRadioButtons" [value]="isR">
+                {{isR}}
+            </mat-radio-button>
+        </mat-radio-group>
+        <mat-error *ngIf="isShowErrors && rescheduleHearingForm.get('isJudgeAndAttorney')?.hasError('required')">
+            <span>{{customValidation.A1}}</span>
+        </mat-error>
+    </div>
+    <div class="mat-dropdowns">
+        <mat-form-field appearance="outline">
+            <mat-label><span class="required">*</span>Judge Name </mat-label>
+            <input formControlName="judgeName" aria-label="judge name" matInput>
+        </mat-form-field>
+        <mat-error *ngIf="isShowErrors && rescheduleHearingForm.get('judgeName')?.hasError('required')">
+            <span>{{customValidation.A1}}</span>
+        </mat-error>
+    </div>
+
+    <div class="mat-dropdowns">
+        <mat-form-field appearance="outline">
+            <mat-label><span class="required">*</span>Attorney Name</mat-label>
+            <input formControlName="attorneyName" aria-label="attorney name" matInput>
+        </mat-form-field>
+        <mat-error *ngIf="isShowErrors && rescheduleHearingForm.get('attorneyName')?.hasError('required')">
+            <span>{{customValidation.A1}}</span>
+        </mat-error>
+    </div>
+</form>
+<div style="margin-top: 20px;">
+    <div class="row pointer">
+        <span class="col icon-width" (click)="openUploadRightNav()"><strong>Upload Reschedule Hearing</strong></span>
+        <span class="col material-icons" (click)="openUploadRightNav()">
+            cloud_upload
+        </span>
+    </div>
+</div>
+<div style="margin-top: 40px; margin-bottom: 20px;">
+    <button style="margin-right: 50px; color: #174A7C;" mat-stroked-button (click)="cancel()">CANCEL </button>
+    <button mat-stroked-button class="perlss-click-button" (click)="rescheduleHearing()">SAVE </button>
+</div>

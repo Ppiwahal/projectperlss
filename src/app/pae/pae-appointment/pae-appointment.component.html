@@ -1,0 +1,336 @@
+<div class="pageMargin">
+  <div class="cus-cont">
+    <form [formGroup]="paeFormGroup">
+      <div class="applicantName">{{applicantName}}</div>
+      <h2>Appointment Details</h2><br>
+      <label id="example-radio-group-label"><span class="req">*</span>Have you had contact with this person?</label>
+      <mat-error
+        *ngIf="hadContactWithPerson.errors?.required && (hadContactWithPerson.touched || hadContactWithPerson.dirty)">
+        {{customValidation.A1}}
+      </mat-error>
+      <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+        formControlName="hadContactWithPerson">
+        <mat-radio-button (change)="Change($event)" class="example-radio-button" [value]="true">
+          Yes
+        </mat-radio-button>
+        <mat-radio-button (change)="Change($event)" class="example-radio-button" [value]="false">
+          No
+        </mat-radio-button>
+      </mat-radio-group>
+      <div class="form-box-outline" *ngIf="hadContactWithPerson.value !== null">
+        <div class="row">
+          <div class="col-md-6 ">
+            <mat-form-field appearance="outline" class="wid-100">
+              <mat-label><span class="req">*</span>Appointment Date</mat-label>
+              <input matInput placeholder="mm/dd/yyyy" [matDatepicker]="picker" formControlName="appointmentDate">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker [startAt]="startDate" #picker></mat-datepicker>
+              <mat-error *ngIf="paeFormGroup.get('appointmentDate').errors?.datePriorToInitialDate">
+                The date entered cannot be prior to 01/01/1901.
+              </mat-error>
+              <mat-error
+                *ngIf="paeFormGroup.get('appointmentDate').errors?.required && (paeFormGroup.get('appointmentDate').touched || paeFormGroup.get('appointmentDate').dirty)">
+                {{customValidation.A1}}
+              </mat-error>
+              <mat-error *ngIf="paeFormGroup.get('appointmentDate').errors?.dateInFuture">
+                {{customValidation.A5}}
+              </mat-error>
+              <mat-error *ngIf="paeFormGroup.get('appointmentDate').errors?.dateInPastExcludingToday">
+                {{customValidation.A15}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6 ">
+            <mat-form-field appearance="outline" class="wid-100">
+              <mat-label><span class="req">*</span>Appointment Start Time</mat-label>
+              <input matInput placeholder="12hr format (default settings)" aria-label="12hr format"
+                [ngxTimepicker]="default" formControlName="appointmentStartTime" readonly>
+              <ngx-material-timepicker #default></ngx-material-timepicker>
+
+              <mat-error
+                *ngIf="paeFormGroup.get('appointmentStartTime').errors?.required && (paeFormGroup.get('appointmentStartTime').touched || paeFormGroup.get('appointmentStartTime').dirty)">
+                {{customValidation.A1}}
+              </mat-error>
+
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 ">
+            <mat-form-field appearance="outline" class="wid-100">
+              <mat-label><span class="req">*</span>Contact Method</mat-label>
+              <mat-select placeholder="Contact" formControlName="contactMethod" (selectionChange)="setTelephoneValidater($event.value)">
+                <mat-option *ngFor="let option of contactMethodOptions" [value]="option.code">{{option.value}}
+                </mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="paeFormGroup.get('contactMethod').errors?.required && (paeFormGroup.get('contactMethod').touched || paeFormGroup.get('contactMethod').dirty)">
+                {{customValidation.A1}}
+              </mat-error>
+            </mat-form-field>
+          </div> 
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="wid-100">
+              <mat-label><span class="req">*</span>Appointment For Group</mat-label>
+              <mat-select placeholder="Appointment For Group" formControlName="appointmentForGroup">
+                <mat-option *ngFor="let option of appointmentForGroupOptions" [value]="option.code">{{option.value}}
+                </mat-option>
+              </mat-select>
+
+              <mat-error
+                *ngIf="paeFormGroup.get('appointmentForGroup').errors?.required && (paeFormGroup.get('appointmentForGroup').touched || paeFormGroup.get('appointmentForGroup').dirty)">
+                {{customValidation.A1}}
+              </mat-error>
+
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="paeFormGroup.get('contactMethod').value === 'TE'">
+          <div class="col-md-6">
+            <mat-form-field appearance="outline" class="wid-100">
+              <mat-label><span class="req">*</span>Cell Phone</mat-label>
+              <input matInput formControlName="applicantCellPhNum" placeholder="(xxx)-xxx-xxxx" mask="000-000-0000"
+                [ngClass]="{ 'is-invalid': paeFormGroup.get('applicantCellPhNum').touched && paeFormGroup.get('applicantCellPhNum').errors }">
+            </mat-form-field>
+            <ng-container *ngIf="paeFormGroup.get('applicantCellPhNum').errors">
+              <mat-error *ngIf="paeFormGroup.get('applicantCellPhNum').errors.required">{{customValidation.A1}}</mat-error>
+              <mat-error
+                *ngIf="paeFormGroup.get('applicantCellPhNum').errors.maxLength == null && !paeFormGroup.get('applicantCellPhNum').errors?.invalidPhone && !paeFormGroup.get('applicantCellPhNum').errors.required">
+                {{customValidation.A97}}</mat-error>
+              <mat-error *ngIf="paeFormGroup.get('applicantCellPhNum').errors?.invalidPhone && !paeFormGroup.get('applicantCellPhNum').errors.required">
+                Phone number is invalid
+              </mat-error>
+            </ng-container>
+          </div>
+        </div>
+        <div *ngIf="paeFormGroup.get('contactMethod').value === 'IP'">
+          <p class="address-label">Please select the appointment location from addresses on file mentioned below or
+            provide a different address. </p>
+          <mat-radio-group aria-label="Select an option" formControlName="addressAvailable" class="line-ht">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-radio-button value="addressOne">
+                  <span class="wid-radio">333 Commerce Street, <br />Nashville, TN 37209</span>
+                </mat-radio-button>
+              </div>
+              <div class="col-md-6">
+                <mat-radio-button value="addressTwo">
+                  <span class="wid-radio">1012 Washington Ave, <br />Mount Juliet, TN 37122</span>
+                </mat-radio-button>
+              </div>
+              <div class="col-md-6">
+                <mat-radio-button value="addressNew">
+                  <span class="wid-radio">Other Address</span>
+                </mat-radio-button>
+              </div>
+            </div>
+            <mat-error
+              *ngIf="paeFormGroup.get('addressAvailable').errors?.required && (paeFormGroup.get('addressAvailable').touched || paeFormGroup.get('addressAvailable').dirty)">
+              {{customValidation.A1}}
+        
+            </mat-error>
+          </mat-radio-group>
+        
+          <div class="row" *ngIf="paeFormGroup.get('addressAvailable').value == 'addressNew'">
+            <!-- <div class="row">-->
+            <div class="col-md-6 ">
+              <mat-form-field appearance="outline" class="wid-100">
+                <mat-label><span class="req">*</span>Address Line 1</mat-label>
+                <input matInput spellcheck="false" [maxlength]="100" formControlName="addressLineOne">
+                <button mat-button *ngIf="paeFormGroup.get('addressLineOne').value" matSuffix mat-icon-button aria-label="Clear"
+                  (click)="clearAddress()">
+                  <mat-icon>close</mat-icon>
+                </button>
+                <mat-error
+                  *ngIf="paeFormGroup.get('addressLineOne').errors?.required && (paeFormGroup.get('addressLineOne').touched || paeFormGroup.get('addressLineOne').dirty)">
+                  {{customValidation.A1}}
+                </mat-error>
+                <mat-error *ngIf="paeFormGroup.get('addressLineOne').errors?.specialCharacterValidator">
+                  {{customValidation.A2}}
+                </mat-error>
+                <mat-error *ngIf="paeFormGroup.get('addressLineOne').errors?.maxLength">
+                  Max 100 charecters allowed
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="wid-100">
+                <mat-label><span class="req">*</span>City</mat-label>
+                <input matInput spellcheck="false" [maxlength]="25" formControlName="cityName">
+        
+                <mat-error
+                  *ngIf="paeFormGroup.get('cityName').errors?.required && (paeFormGroup.get('cityName').touched || paeFormGroup.get('cityName').dirty)">
+                  {{customValidation.A1}}
+                </mat-error>
+                <mat-error *ngIf="paeFormGroup.get('cityName').errors?.specialCharacterValidator">
+                  {{customValidation.A2}}
+                </mat-error>
+              </mat-form-field>
+              <div class="row">
+                <div class="col-md-6 ">
+                  <mat-form-field appearance="outline" class="wid-100">
+                    <mat-label><span class="req">*</span>Zip Code</mat-label>
+                    <input matInput spellcheck="false" maxlength="5" formControlName="zipCode">
+                    <mat-error
+                      *ngIf="paeFormGroup.get('zipCode').errors?.required && (paeFormGroup.get('zipCode').touched || paeFormGroup.get('zipCode').dirty)">
+                      {{customValidation.A1}}
+                    </mat-error>
+                    <mat-error *ngIf="paeFormGroup.get('zipCode').errors?.postalCodeValidator">
+                      {{customValidation.A7}}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-2 flex-center">
+                  -
+                </div>
+                <div class="col-md-4 ">
+                  <mat-form-field appearance="outline" class="wid-100">
+                    <mat-label>Ext</mat-label>
+                    <input matInput type="text" maxlength="4" spellcheck="false" formControlName="ext">
+                    <mat-error *ngIf="paeFormGroup.get('ext').errors?.specialCharacterValidator">
+                      {{customValidation.A2}}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="wid-100">
+                <mat-label>Address Line 2</mat-label>
+                <input matInput [maxlength]="50" spellcheck="false" formControlName="addressLineTwo">
+        
+                <mat-error
+                  *ngIf="paeFormGroup.get('addressLineTwo').errors?.required && (paeFormGroup.get('addressLineTwo').touched || paeFormGroup.get('addressLineTwo').dirty)">
+                  {{customValidation.A1}}
+                </mat-error>
+                <mat-error *ngIf="paeFormGroup.get('addressLineTwo').errors?.specialCharacterValidator">
+                  {{customValidation.A2}}
+                </mat-error>
+                <mat-error *ngIf="paeFormGroup.get('addressLineTwo').errors?.maxLength">
+                  Max 100 charecters allowed
+                </mat-error>
+        
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="wid-100">
+                <mat-label><span class="req">*</span>State</mat-label>
+                <mat-select placeholder="State" formControlName="stateName" (selectionChange)="trackState($event)">
+                  <mat-option *ngFor="let state of stateList" [value]="state.code">
+                    {{state.value}}</mat-option>
+                </mat-select>
+        
+                <mat-error
+                  *ngIf="paeFormGroup.get('stateName').errors?.required && (paeFormGroup.get('stateName').touched || paeFormGroup.get('stateName').dirty)">
+                  {{customValidation.A1}}
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="wid-100">
+                <mat-label><span class="req">*</span>County</mat-label>
+                <mat-select placeholder="County" formControlName="countryName">
+                  <mat-option *ngFor="let county of countyList" [value]="county.code">
+                    {{county.value}}</mat-option>
+                </mat-select>
+                <mat-error
+                  *ngIf="paeFormGroup.get('countryName').errors?.required && (paeFormGroup.get('countryName').touched || paeFormGroup.get('countryName').dirty)">
+                  {{customValidation.A1}}
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-5 ">
+            <button mat-raised-button (click)="savePae()" color="primary" class="wid-100 button-apply"
+              *ngIf="hadContactWithPerson.value; else buttonContact">CREATE CONTACT RECORD</button>
+            <ng-template #buttonContact>
+              <button mat-raised-button color="primary" (click)="getPaeAppoinement()" class="wid-100 button-apply">SCHEDULE
+                APPOINTMENT</button>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <hr class="divider-section" />
+  <div class="note-box row" *ngIf="hadContactWithPerson.value; else notContacted">
+    <div class="col-2 max-note">
+      <mat-icon>stars</mat-icon>
+      <h5 class="note-head">
+        NOTE:
+      </h5>
+    </div>
+    <div class="col-10">
+      <p class="note-desc">
+        The applicant appears to have the following pending AIs for financial eligibility. Please make sure to
+        submit those documents as soon as possible. This will help us make an eligibility determination faster for
+        the Katie Beckett program. <br><br>
+        - Proof of income <br>
+        - Proof of citizenship
+      </p>
+    </div>
+  </div>
+
+
+  <ng-template class="container scheduled-box row" #notContacted>
+    <div class="row" *ngIf="dataSource && dataSource.length != 0">
+      <div class="col-md-12">
+        <h4 class="hd">Scheduled and Completed Appointments</h4>
+      </div>
+    </div>
+    <div class="grid-border" *ngIf="dataSource && dataSource.length != 0">
+      <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
+        <ng-container matColumnDef="{{column}}" *ngFor="let column of paeAppointmentSearchRes">
+          <th mat-header-cell *matHeaderCellDef class="grid-head">{{columnHeaderName[column] | titlecase}} </th>
+          <td mat-cell *matCellDef="let element">
+            <ng-container *ngIf="column === 'appDt' && element[column]; else result">
+              {{ element[column] | date: 'dd/MM/yyyy'}}
+            </ng-container>
+            <ng-template #result>
+            {{ element[column]}} 
+            </ng-template>
+          </td>
+        </ng-container>
+        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+        <ng-container matColumnDef="expandedDetail">
+          <td mat-cell *matCellDef="let element" [attr.colspan]="paeAppointmentSearchRes.length">
+            <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+              <table>
+                <tr>
+                  <td>
+                    <div class="example-element-description">
+                      <mat-label style="font-weight: bold;">Location/Number </mat-label>
+                      <br>
+                      {{element.locOrNumber}}
+                    </div>
+                  </td>
+                  <td>
+                    <div class="example-element-description">
+                      <mat-label style="font-weight: bold;">Reason For Cancellation </mat-label>
+                      <br>
+
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="paeAppointmentSearchRes"></tr>
+        <tr mat-row *matRowDef="let element; columns: paeAppointmentSearchRes;" class="example-element-row"
+          [class.example-expanded-row]="expandedElement === element"
+          (click)="expandedElement = expandedElement === element ? null : element">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+      </table>
+      <!-- <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+          </mat-paginator>-->
+
+    </div>
+    
+  </ng-template>
+</div>
+<div class="buttonBar">
+  <button mat-flat-button type="button" class="perlss-click-button-white" (click)="back()">BACK</button>
+  <button mat-flat-button color="primary" class="perlss-click-button-white-noborder" (click)="saveAndExit()"><span
+      class="hoverClass">SAVE AND EXIT</span></button>
+  <button mat-flat-button color="primary" class="perlss-click-button" (click)="savePae();">NEXT</button>
+</div>

@@ -1,0 +1,29 @@
+<div class="wrapper">
+    <div class="header-wrapper">
+        <p class="header">Hearing</p>
+        <p class="required-tag"><span class="required">*</span>Required </p>
+    </div>
+    <div *ngIf="isAppellantInfo">
+        <app-appellant-info [appellantInfoStatus]="appellantInfoStatus" [appellantInfo]="appellantInfo">
+        </app-appellant-info>
+        <div class="section">
+            <app-hearing-details (enableSave)="enableSave($event)" (nohPastDueDate)="nohPastDueDateFunction($event)"
+                [appellantInfo]="appellantInfo" [appealId]="appealId"></app-hearing-details>
+        </div>
+        <div class="section">
+            <app-case-referral-packet (enableSave)="enableSave($event)" [nohDueDate]="nohDueDate" [appealId]="appealId">
+            </app-case-referral-packet>
+        </div>
+        <div class="section">
+            <app-initial-order (enableSave)="enableSave($event)" (isEnableReconsiderations)="enableReconsiderations($event)" [appealId]="appealId"></app-initial-order>
+        </div>
+        <div *ngIf="isShowReconsideration" class="section">
+            <app-reconsiderations-initial-order (enableSave)="enableSave($event)" [appealId]="appealId"></app-reconsiderations-initial-order>
+        </div>
+    </div>
+    <div class="buttons">
+        <button mat-stroked-button type="button" (click)="back()">BACK </button>
+        <button mat-stroked-button type="button" [ngClass]="(!isNextEnabled) ? 'disable-button':'perlss-click-button'"
+            class="perlss-click-button" [disabled]="!isNextEnabled" (click)="next()"> NEXT </button>
+    </div>
+</div>

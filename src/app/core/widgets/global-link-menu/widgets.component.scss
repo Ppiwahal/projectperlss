@@ -1,0 +1,47 @@
+.divider {
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.heading_text {
+    font-size: 12px;
+    color: #174A7C;
+    font-weight: 600;
+}
+
+.mat-dialog-container {
+    padding: 0;
+    border-top-left-radius: 18px !important;
+    border-bottom-left-radius: 18px !important;
+    border-top-right-radius: 18px !important;
+    border-bottom-right-radius: 18px !important;
+    border-radius: 18px !important;
+    border: 2px solid #225282;
+    margin-top: -45px;
+}
+
+.popup-icon {
+    transform: scale(2);
+    cursor: pointer;
+    color: #ea5e52;
+    font-size: 13px;
+    height: 17px;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.flex-container > div {
+    width: 80px;
+    text-align: center;
+    line-height: 22px;
+    font-size: 22px;
+    padding: 12px 0 9px 0;
+}
+
+.ico-hov:hover{
+    transform: scale(2.2); 
+    cursor: pointer;  
+}
+  

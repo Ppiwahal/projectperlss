@@ -1,0 +1,138 @@
+<div class="responsive dialog">
+  <div class="header form-8">
+    <div class="left"><h1 mat-dialog-title class="showRequired">Committee Review Form - Group 8</h1>
+    </div>
+     <div class="right">
+    <label class="req">Required</label>
+    <mat-icon (click)="closePopup()" style="font-size: 35px;">highlight_off</mat-icon>
+  </div>
+</div>
+<br>
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div class="scroller noPad">
+      <div class="note-container message">
+        <p>The following section shall be completed during the Intake visit to document the circumstances under which
+          the above-named person is believed to meet Group 8 Reserve Capacity criteria. This information and all
+          supporting documentation shall be reviewed by the Interdisciplinary Review Committee to determine whether
+          the person will proceed with application for enrollment in the Employment and Community First CHOICES program
+          in Group 8 in available reserve capacity set aside for such purposes:
+       </p>
+      </div>
+      <div class="padded" [ngClass]="{'submitted': submitted}">
+        <mat-radio-group formControlName="indvAgingOutFosterSw">
+          <mat-label class="req">The applicant is 21 years of age or older OR is an
+            emerging young adult (age 18-21), aging out of the foster care/ DCS system with I/DD and severe psychiatric
+            or behavioral symptoms that place the person or others at significant risk of harm or that threaten the
+            sustainability of the person living in the community; <b>OR</b>
+          </mat-label>
+          <mat-error *ngIf="controlError('indvAgingOutFosterSw')">{{errorText['indvAgingOutFosterSw']}}</mat-error>
+          <mat-radio-button value="Y">Yes</mat-radio-button>
+          <mat-radio-button value="N">No</mat-radio-button>
+       </mat-radio-group>
+
+        <div class="textArea">
+          <mat-label class="">
+            Description of documentation attached:
+          </mat-label>
+          <textarea maxlength="2000" formControlName="indvAgingOutFosterTxt"></textarea>
+          <mat-error *ngIf="controlError('indvAgingOutFosterTxt')">{{errorText['indvAgingOutFosterTxt']}}</mat-error>
+          <p>{{getFormData().indvAgingOutFosterTxt.value.length}}/2000</p>
+       </div>
+
+        <mat-radio-group formControlName="indvTrnstndCrimJustSw">
+          <mat-label class="req">The applicant has experienced immediate or recent
+            transition from a family home, exhibits severe psychiatric or behavioral symptoms that place the person or
+            others
+            at significant risk of harm or that threaten the sustainability of the person living in the community and
+            their family is no longer capable of supporting the individual due to the severity and frequency of
+            behaviors; <b>OR</b>
+          </mat-label>
+          <mat-error *ngIf="controlError('indvTrnstndCrimJustSw')">{{errorText['indvTrnstndCrimJustSw']}}</mat-error>
+          <mat-radio-button value="Y">Yes</mat-radio-button>
+          <mat-radio-button value="N">No</mat-radio-button>
+       </mat-radio-group>
+
+        <div class="textArea">
+          <mat-label class="">
+            Description of documentation attached:
+          </mat-label>
+          <textarea maxlength="2000" formControlName="indvTrnstndCrimJustTxt"></textarea>
+          <mat-error *ngIf="controlError('indvTrnstndCrimJustTxt')">{{errorText['indvTrnstndCrimJustTxt']}}</mat-error>
+          <p>{{getFormData().indvTrnstndCrimJustTxt.value.length}}/2000</p>
+       </div>
+
+        <mat-radio-group formControlName="indvTrnstndFmlyHmSw">
+          <mat-label class="req">The applicant is an adult with I/DD and severe psychiatric or
+            behavioral symptoms that place the person or others at significant risk of harm or that threaten the
+            sustainability of the person living in the community just following a crisis event and/or psychiatric
+            inpatient stay and/or transitioning out of the criminal justice system or a long-term institutional
+            placement
+            (including residential psychiatric treatment facility); <b>AND</b>
+          </mat-label>
+          <mat-error *ngIf="controlError('indvTrnstndFmlyHmSw')">{{errorText['indvTrnstndFmlyHmSw']}}</mat-error>
+          <mat-radio-button value="Y">Yes</mat-radio-button>
+          <mat-radio-button value="N">No</mat-radio-button>
+       </mat-radio-group>
+
+        <div class="textArea">
+          <mat-label class="">Description of documententation attached:</mat-label>
+          <textarea maxlength="2000" formControlName="indvTrnstndFmlyHmTxt"></textarea>
+          <mat-error *ngIf="controlError('indvTrnstndFmlyHmTxt')">{{errorText['indvTrnstndFmlyHmTxt']}}</mat-error>
+          <p>{{getFormData().indvTrnstndFmlyHmTxt.value.length}}/2000</p>
+       </div>
+
+        <mat-radio-group formControlName="mcoRcmdSw">
+          <mat-label class="req">There is a recommendation for Group 8 benefits from
+            the MCO Behavioral Supports Director, MCO Behavioral Health Director, and/or MCO ECF CHOICES Director or the
+            DIDD Qualified Mental Health Professional.
+          </mat-label>
+          <mat-label>If yes, recommendation must be attached.</mat-label>
+          <mat-error *ngIf="controlError('mcoRcmdSw')">{{errorText['mcoRcmdSw']}}</mat-error>
+          <mat-radio-button value="Y">Yes</mat-radio-button>
+          <mat-radio-button value="N">No</mat-radio-button>
+       </mat-radio-group>
+
+        <mat-divider></mat-divider>
+
+        <p>Signatures below indicate an attestation that the information provided in this request form is
+          accurate as provided by the applicant or informant and as observed by the person completing this form. It also
+          certifies
+          the person completing this form has attached all required documentation for review and that they are an ECF
+          Qualified Assessor as assigned by TennCare.
+       </p>
+
+        <div class="floatChildren">
+          <div class="w45">
+            <mat-form-field appearance="outline">
+              <mat-label class="req">Electronic Signature</mat-label>
+              <input matInput formControlName="electronicSignature">
+            </mat-form-field>
+            <mat-error *ngIf="controlError('electronicSignature')">{{errorText['electronicSignature']}}</mat-error>
+          </div>
+       </div>
+
+        <!-- <div class="floatChildren">
+          <div class="w45">
+            <mat-form-field appearance="outline">
+              <mat-label class="req">ECF Qualified Assessor Code</mat-label>
+              <input matInput maxlength="8" formControlName="ecfQualAssessorCode">
+            </mat-form-field>
+            <mat-error *ngIf="controlError('ecfQualAssessorCode')">{{errorText['ecfQualAssessorCode']}}</mat-error>
+          </div>
+
+          <div class="w45">
+            <mat-form-field appearance="outline">
+              <mat-select placeholder="Credentials" formControlName="credentialsCd">
+                <mat-option *ngFor="let row of credentialTable" [value]="row.code">{{row.text}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-error *ngIf="controlError('credentialsCd')">{{errorText['credentialsCd']}}</mat-error>
+          </div>
+       </div> -->
+      </div>
+    </div>
+    <div class="buttonBar floatedRight">
+      <button type="submit" mat-flat-button color="primary" class="perlss-click-button">SUBMIT</button>
+    </div>
+  </form>
+</div>

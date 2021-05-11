@@ -1,0 +1,40 @@
+import { Pae } from './Pae';
+
+export class PaeSafetyDeterminationSummaryForm {
+ constructor(
+    public reqPageId: string,
+    public paeId: string,
+    public acutyScr2behavSw: string,
+    public acutyScr2toiletingSw: string,
+    public acutyScr3mobTrnsfrSw: string,
+    public acutyScr3orinetSw: string,
+    public acutyScr5Less8Sw: string,
+    public archivedDt: string,
+    public changPhyclBehvPrimaryCareSw: string,
+    public changPhyclBehvSw: string,
+    public cmpxChrncSw: string,
+    public createdBy: string,
+    public createdDt: string,
+    //public credentialsCd: string,
+    public doBelieveSw: string,
+    public donotBelieveSw: string,
+    public icapScore: number,
+    public intelDisMalaIndex12Sw: string,
+    public intlctlDisbltySw: string,
+    public lastModifiedBy: string,
+    public lastModifiedDt: string,
+    public mcoDetemiationGrp3Sw: string,
+    public mcoDetemiationGrp5Sw: string,
+    public noCriteriaMetGrp3Sw: string,
+    public noCriteriaMetGrp5Sw: string,
+    //public qualifiedAssessorId: string,
+    //public qualifiedAssessorName: string,
+    public rcntDischargeSw: string,
+    public rcntEmergtHospAdmsnSw: string,
+    public rcntFallSw: string,
+    public recordVersion: string,
+    public reqApplcntSw: string,
+    public selfNegliSw: string,
+
+   ) {  }
+}

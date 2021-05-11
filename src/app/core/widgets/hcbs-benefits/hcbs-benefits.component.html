@@ -1,0 +1,146 @@
+<div class="popup-header-container">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="page-heading">List of HCBS and ECF Services</div>
+    </div>
+    <div class="col-md-4">
+      <div style="text-align: right;">
+        <mat-icon class="popup-close-icon" (click)="closePopup()">highlight_off</mat-icon>
+      </div>
+    </div>
+  </div>
+</div>
+<mat-divider class="perlss-horizontal-divider"></mat-divider>
+<br>
+<div class="note-container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="page-sub-heading">
+        CURRENT HCBS BENEFITS
+      </div>
+    </div>
+  </div>
+</div>
+<form [formGroup]="hcbsBenefits" (ngSubmit)="saveBenefits()">
+  <div class="form-container">
+    <div class="row">
+      <div class="col-md-6" style="padding-left: 30px;">
+        <mat-list role="list">
+          <mat-list-item class="example-margin" role="listitem" *ngFor="let benefits of benefitsListPart1">
+            <mat-checkbox class="example-margin" style="text-indent: -45px" [formControlName]="benefits.code">{{benefits.value}}</mat-checkbox>
+          </mat-list-item>
+        </mat-list>
+      </div>
+
+      <div class="col-md-6">
+        <mat-list role="list">
+          <mat-list-item class="example-margin" role="listitem" *ngFor="let benefits of benefitsListPart2">
+            <mat-checkbox class="example-margin" style="text-indent: -45px" [formControlName]="benefits.code">{{benefits.value}}</mat-checkbox>
+          </mat-list-item>
+        </mat-list>
+
+      </div>
+    </div>
+    <br>
+  </div>
+  <div class="note-container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="page-sub-heading">
+          PROPOSED ECF CHOICES BENEFITS
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-container">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-label><b>Employment services / supports as follows:</b></mat-label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6" style="padding-left: 30px;">
+        <mat-list role="list">
+          <mat-list-item role="listitem" *ngFor="let benefits of ECFBenefitsPart1">
+            <mat-checkbox class="example-margin" style="text-indent: -45px" [formControlName]="benefits.code">{{benefits.value}}</mat-checkbox>
+          </mat-list-item>
+        </mat-list>
+      </div>
+      <div class="col-md-6">
+        <mat-list role="list">
+          <mat-list-item role="listitem" *ngFor="let benefits of ECFBenefitsPart2">
+            <mat-checkbox class="example-margin" style="text-indent: -45px" [formControlName]="benefits.code">{{benefits.value}}</mat-checkbox>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </div>
+    <div class="row community_row">
+      <div class="col-md-12" style="padding-top: 12px;">
+        <mat-label><b>Community services / supports as follows:</b></mat-label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6" style="padding-left: 30px;">
+        <mat-list role="list">
+          <mat-list-item role="listitem" *ngFor="let benefits of communityServiceBenefitsPart1">
+            <mat-checkbox class="example-margin" style="text-indent: -45px" [formControlName]="benefits.code">{{benefits.value}}</mat-checkbox>
+          </mat-list-item>
+        </mat-list>
+      </div>
+      <div class="col-md-6">
+        <mat-list role="list">
+          <mat-list-item role="listitem" *ngFor="let benefits of communityServiceBenefitsPart2">
+            <mat-checkbox class="example-margin" style="text-indent: -36px" [formControlName]="benefits.code">{{benefits.value}}</mat-checkbox>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="question-container">
+          <mat-label>
+            <mat-label style="margin-left: 1rem; "></mat-label>Additional Information:
+          </mat-label>
+        </div>
+        <mat-error *ngIf="getFormData().qualEnrolPriCatTxt.errors !== null">
+            <mat-error
+              *ngIf="getFormData().qualEnrolPriCatTxt.errors.maxLength == null && !getFormData().qualEnrolPriCatTxt.errors.pattern && !getFormData().qualEnrolPriCatTxt.errors.required">
+              Cannot exceed 2000 characters</mat-error>
+            <mat-error *ngIf="getFormData().qualEnrolPriCatTxt.errors.required && (getFormData().qualEnrolPriCatTxt.touched || submitted)">{{customValidation.A1}}</mat-error>
+            <mat-error *ngIf="getFormData().qualEnrolPriCatTxt.errors.pattern && !getFormData().qualEnrolPriCatTxt.errors.required">{{customValidation.A2}}
+            </mat-error>
+          </mat-error>
+        <div class="radio-container">
+          <mat-form-field appearance="outline" class="checkWidth">
+            <textarea matInput #notesInput id="notesInput" formControlName="qualEnrolPriCatTxt">
+              </textarea>
+          </mat-form-field>
+        </div>
+        <div class="text-area-hint">{{notesInput.value?.length || 0 }}/2000</div>
+      </div>
+    </div>
+
+    <!--  <div class="row">
+        <div class="col-md-12">
+          <div class="question-container">
+            <mat-label>
+              <b>Additional Information</b>
+            </mat-label>
+          </div>
+          <div class="radio-container">
+            <mat-form-field appearance="outline" style="width: 100%;">
+              <textarea matInput></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>-->
+    <br>
+    <div class="row">
+      <div class="col-md-12" style="text-align: right; padding-top: 10px; padding-bottom: 10px;">
+        <button type="submit" mat-flat-button color="primary" class="perlss-click-button">SUBMIT</button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,144 @@
+
+.header {
+    margin: 5px;
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    padding:  18px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid gray;
+    h4{
+      font-size: 24px;
+      font-weight: 600;
+    }
+    mat-icon{
+      cursor: pointer;
+    }
+  }
+  .form{
+    max-height: 80vh;
+    overflow: auto;
+    padding: 0 25px 25px 25px;
+    .validation-message span{
+        padding: 15px 0;
+        font-weight: bold;
+        display: block;
+    }
+  } 
+  .mat-button-disabled{
+    opacity: 0.3;
+  }  
+
+
+.pull-right{
+right: 0;
+// position: absolute;
+mat-icon{
+  vertical-align: middle;
+    border: 1px solid gray;
+    border-radius: 51%;
+    margin: 0 10px;
+}
+}
+
+.search-btn{
+  width: 100%;
+    text-transform: uppercase;
+    height: 40px;
+    font-size: 14px;
+}
+
+::ng-deep .mat-dialog-container {
+    padding:  0;
+    margin-top: 8px;
+    overflow: hidden;
+    border-radius: 0px !important;
+    border: 1px solid blue;
+    .mat-form-field{
+      width: 100%;
+    }
+    .mat-step{
+      padding: 10px;
+    }
+    .mat-vertical-stepper-header {
+      padding: 10px 0 10px 24px;
+  }
+  .mat-vertical-content{
+    // padding-bottom: 10px;
+    padding-bottom: 1px;
+  }
+    .mat-step-header.cdk-keyboard-focused, .mat-step-header.cdk-program-focused, .mat-step-header:hover{
+      background-color: transparent;
+    }
+    .mat-step-header .mat-step-label{
+      width: 100%;
+    }
+    .mat-step-text-label{
+      display: flex;
+      div{
+        background-color: white;
+      }
+      .bar{
+        content: "";
+    border-top: 0.5px solid #a2a5b5;
+    width: 100%;
+    margin: 10px;
+      }
+    }
+    .level1{
+    .mat-step-header .mat-step-icon, .mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit{
+      background-color: green;
+    }
+    .level2{
+      .mat-step-header .mat-step-icon, .mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit{
+        background-color: white;
+    border: 3px solid green;
+      }
+      .mat-step-icon-content{
+        color: black;
+      }
+    }
+    .level3{
+      .mat-step-icon-content{
+        color: white;
+      }
+    }
+  }
+  }
+ 
+  
+  .horizontal-bar{
+    content: "";
+    /* position: absolute; */
+    border-top: 2px dashed #a2a5b5;
+    /* top: 10px; */
+    /* left: -30px; */
+    width: 62%;
+    margin-top: 10px;
+  }
+
+  .nameleft{
+    text-align: right;   
+    font-style: italic;
+    line-height: 8px;
+  }
+  .sname{
+    h4{
+    color:green;
+    font-weight: 600;
+    font-size: 18px;
+    padding-top: 10px;
+    }
+    .sn
+    {
+      font-weight: 600;
+      color:black;
+      margin: 0;
+    }
+  }
+  .idname{
+    font-weight: 600;
+    color: #174a7c; 
+    font-size: 22px;
+  }

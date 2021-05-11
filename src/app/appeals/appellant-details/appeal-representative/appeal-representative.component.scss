@@ -1,0 +1,36 @@
+.wrapper{
+    margin-top: 50px;
+    
+}
+
+.heading{
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 20px;
+    color: #4D7E20;
+}
+
+p{
+    margin-bottom: 3px;
+    color: black;
+}
+
+.add-representative{
+    margin-top: 20px;
+    position: relative;
+    width: 20%;
+    cursor: pointer;
+    .icon{
+        color: #174A7C;
+    }
+    h5{
+        position: absolute;
+        top: 3px;
+        left: 30px;
+        font-family: "open sans";
+        font-size: 16px;
+        font-weight: bold;
+        color: #174A7C;
+    }
+}
+

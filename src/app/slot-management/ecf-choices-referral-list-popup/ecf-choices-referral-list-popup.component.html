@@ -1,0 +1,194 @@
+<div class="pageMargin">
+    <div class="row-header">
+        <span class="col-9 dialog-heading">
+            ECF Referral List
+       </span>
+        <span class="col-3 text-right close-icon">
+            <mat-icon (click)=close()>highlight_off</mat-icon>
+       </span>
+    </div>
+    <mat-divider class="perlss-section-divider"></mat-divider>
+    <div class="form-container">
+        <form [formGroup]="referralSearch">
+            <div class="row padding">
+                <div class="col-md-12">
+                    <ng-container>
+                        <mat-form-field style="width: 100%" appearance="outline">
+                            <mat-label>Person Search</mat-label>
+                            <input matInput  formControlName="personDisplayName" [matAutocomplete]="auto" #applicantNameInput placeholder="Search by Applicant Name, Date Of Birth, SSN, Person ID, County">
+                            <mat-autocomplete #auto="matAutocomplete" (optionSelected)='handleSelection($event.option.value)'>
+                                <mat-option class="select-hr" *ngFor="let option of personOptions" [value]="option">
+                                <strong>Applicant Name:</strong>{{option.prsnDetail?.firstName}}  {{option.prsnDetail?.lastName}}
+                                <strong>Dob:</strong>{{option.prsnDetail?.dobDt}}
+                                <strong>SSN:</strong>{{option.prsnDetail?.ssn}}
+                                <strong>Person Id:</strong>{{option.prsnDetail?.prsnId}}
+                                <strong>County:</strong>{{option.prsnDetail?.prsnCountyName}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <button mat-button matTooltip="Clear Search" *ngIf="personDisplayName" matSuffix mat-icon-button aria-label="Clear" (click)="personDisplayName=null">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        </mat-form-field>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <mat-label>Intake Outcome</mat-label>
+                    <mat-form-field appearance="outline">
+                        <mat-select formControlName="intakeOutcome" multiple>
+                            <mat-option *ngFor="let intakeOutcome of intakeOutcomeList" [value]="intakeOutcome.code">
+                                {{intakeOutcome.value}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <mat-label>Referral List Status</mat-label>
+                    <mat-form-field appearance="outline">
+                        <mat-select formControlName="refstatus" multiple>
+                            <mat-option *ngFor="let refstatus of  referralListStatus" value={{refstatus.code}}>
+                                {{refstatus.value}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                    <mat-label>DIDD Waitlist</mat-label>
+                    <mat-form-field appearance="outline">
+                        <mat-select formControlName="ddidstatus">
+                            <mat-option *ngFor="let ddidstatus of  ddidList" value={{ddidstatus.code}}>
+                                {{ddidstatus.value}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2">
+                    <button mat-stroked-button color="primary" class="perlss-click-button  margin"
+                        (click)="referralAdditionalSearch()">Search</button>
+                </div>
+                <div class="col-md-1">
+                    <button mat-flat-button color="primary" class="perlss-click-button-white-noborder clear-margin"
+                        (click)="clearForm()">Clear</button>
+                </div>
+
+
+            </div>
+       </form>
+    </div>
+    <div class="search-table-container">
+        <br>
+        <table id="referralTable" aria-describedby="false" mat-table [dataSource]="dataSource" multiTemplateDataRows
+            class="mat-elevation-z0">
+            <ng-container matColumnDef="firstName">
+                <th mat-header-cell *matHeaderCellDef id="firstName">Name</th>
+                <td mat-cell *matCellDef="let element">{{element.firstName}} {{element.lastName}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="refId">
+                <th mat-header-cell *matHeaderCellDef id="refId">Referral ID</th>
+                <td mat-cell *matCellDef="let element"><u>{{element.refId}}</u></td>
+            </ng-container>
+            <ng-container matColumnDef="refRcvdDate">
+                <th mat-header-cell *matHeaderCellDef id="rcvdDate">Referral Received Date</th>
+                <td mat-cell *matCellDef="let element">{{element.refRcvdDate}}</td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="intakeOutcomeCd">
+                <th mat-header-cell *matHeaderCellDef id="intakeOutcomeCd">Intake Outcome</th>
+                <td mat-cell *matCellDef="let element">{{getNameByCode(element.intakeOutcomeCd,'IOC')}}</td>
+            </ng-container>
+            <ng-container matColumnDef="dateAdded">
+                <th mat-header-cell *matHeaderCellDef id="dateAdded">Date Added</th>
+                <td mat-cell *matCellDef="let element">{{element.dateAdded}}</td>
+            </ng-container>
+            <ng-container matColumnDef="outreachDate">
+                <th mat-header-cell *matHeaderCellDef id="outreachDate">Outreach Due Date</th>
+                <td mat-cell *matCellDef="let element">{{element.outreachDate}}</td>
+            </ng-container>
+            <ng-container matColumnDef="keySw">
+                <th mat-header-cell *matHeaderCellDef id="keySw">Key</th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-checkbox [checked]="element.keySw=='Y'?true:false" (change)="keySwitch($event,element.refId)"
+                        [class.mat-checkbox-disabled]="false"></mat-checkbox>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="actionCd">
+                <th mat-header-cell *matHeaderCellDef id="actionCd">Action</th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-icon class="blue-icon" (click)="onEdit(element.refId,element.prsnId,element.slotDetailsId)">edit</mat-icon>
+                    <mat-icon class="red-icon" (click)="onDelete()">
+                        delete_forever</mat-icon>
+                </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="expandedDetail">
+                <td mat-cell *matCellDef="let element;let i=index" [attr.colspan]="displayedColumns.length">
+                    <div class="example-element-detail"
+                        [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                        <div class="details-wrapper">
+                            <table class="table table-borderless" aria-describedby="false">
+                                <tr>
+                                    <th id="referralListStatus">
+                                        <strong>Referral List Status</strong>
+                                        <div class="font">{{getNameByCode((element.refListStatus ? element.refListStatus :
+                                            "--"),'RFLS')}}
+                                        </div>
+                                    </th>
+                                    <td>
+                                        <strong>DIDD Waitlist</strong>
+                                        <div>{{getNameByCode((element.diddWaitList ? element.diddWaitList :
+                                            "--"),'DDID')}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <strong>Active</strong>
+                                        <div>{{getNameByCode((element.activeSw ? element.activeSw : "--"),'DDID')}}</div>
+                                    </td>
+                                    <td>
+                                        <strong>PAE ID</strong>
+                                        <div>{{(element.paeId ? element.paeId : "--")}}</div>
+                                    </td>
+                                    <td>
+                                        <strong>Update Date</strong>
+                                        <div>{{(element.updatedDate ? element.updatedDate : "--")}}</div>
+                                    </td>
+                                    <td>
+                                        <strong>Update User</strong>
+                                        <div>{{(element.updatedUser ?element.updatedUser : "--")}}</div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div *ngIf='toggleButton'>
+                                <div class="inner-div">
+                                    <div class="col-md-10">
+                                        <mat-label class="text-color">
+                                            <mat-label class="required-color">*</mat-label><strong>Removal
+                                                Comments</strong>
+                                        </mat-label>
+                                        <mat-form-field appearance="outline">
+                                            <input matInput [(ngModel)]="comments[i]" type="text" maxlength="500">
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        <button mat-stroked-button color="primary" class="perlss-click-button"
+                                            (click)="onRemove(comments[i],element.refId)">REMOVE</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="element-row"
+                [class.expanded-row]="expandedElement === element"
+                (click)="expandedElement = expandedElement === element ? null : element">
+            </tr>
+            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+       </table>
+        <br>
+        <mat-paginator  [pageSize]="10" [pageSizeOptions]="[10, 20, 25, 100]"></mat-paginator>
+
+    </div>
+</div>

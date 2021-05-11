@@ -1,0 +1,54 @@
+<form [formGroup]="targetPopulationDeter">
+    <div class="wrapper">
+        <h5>Target Population Determination</h5>
+        <div class="radio-wrapper">
+            <mat-label><span class="required">*</span>Does Target Population need to be addressed at hearing?</mat-label>
+            <mat-radio-group aria-labelledby="example-radio-group-label" 
+            class="example-radio-group" formControlName="orTrgtPopltnHrngAddrSw">
+                <mat-radio-button class="example-radio-button"  *ngFor="let yn of yesOrNo" [value]="yn.code">
+                    {{yn.value}}
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+        <div class="radio-wrapper">
+            <mat-label><span class="required">*</span>Does appellant meet Target Population?</mat-label>
+            <mat-radio-group aria-labelledby="example-radio-group-label" 
+            class="example-radio-group" 
+            (change)="onAppellantTargPopChanged($event.value)" formControlName="orApplntMeetTrgtPopltnSw">
+                <mat-radio-button class="example-radio-button"  *ngFor="let yn of yesOrNo" [value]="yn.code">
+                    {{yn.value}}
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div *ngIf="applntMeetTargPopu" style="margin-top: 20px;">
+            <mat-label><span class="required">*</span>Select Target Population denial reason (Select ALL that apply)</mat-label>
+            <div class="check-list">
+                <mat-checkbox class="example-margin" formControlName="orTrgtPopltnDenialIddSw">Intellectual Disability / Development Disability (ID/DD)</mat-checkbox>
+                <mat-checkbox class="example-margin" formControlName="orTrgtPopltnDenialLsaSw">LSA Score</mat-checkbox>
+                <mat-checkbox class="example-margin" formControlName="orTrgtPopltnDenialNodefSw">No Deficits</mat-checkbox>
+                <mat-checkbox class="example-margin" formControlName="orTrgtPopltnDenialNoChrncPhyclDisblySw">No Chronic Physical Disability</mat-checkbox>
+            </div>
+        </div>
+
+        <div class="radio-wrapper">
+            <mat-label><span class="required">*</span>Additional Information received?</mat-label>
+            <mat-radio-group aria-labelledby="example-radio-group-label" 
+            class="example-radio-group" formControlName="orAddInfoRcvdSw">
+                <mat-radio-button class="example-radio-button"  *ngFor="let yn of yesOrNo" [value]="yn.code">
+                    {{yn.value}}
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+        <div class="radio-wrapper">
+            <mat-label><span class="required">*</span>Did additional information approve Target Population?</mat-label>
+            <mat-radio-group aria-labelledby="example-radio-group-label" 
+            class="example-radio-group" formControlName="orAddInfoApprovedTrgtPopltnSw">
+                <mat-radio-button class="example-radio-button"  *ngFor="let yn of yesOrNo" [value]="yn.code">
+                    {{yn.value}}
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+    </div>
+</form>

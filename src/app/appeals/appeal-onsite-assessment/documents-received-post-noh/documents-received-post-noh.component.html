@@ -1,0 +1,100 @@
+<div style="margin-top: 30px;">
+    <mat-accordion style="margin-top: 30px;">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header style="background-color: #f5f5f5">
+            <mat-panel-title>
+            Additional Documents Received Post NOH <span class="text-align-right">Review Details </span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+            <div class="wrapper">
+
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z0">
+                    <ng-container matColumnDef="documentName">
+                      <th mat-header-cell *matHeaderCellDef id="docName">Documentation Required </th>
+                      <td mat-cell *matCellDef="let element"> 
+                          <div class="icon-wrapper">
+                            <span class="material-icons">
+                                description
+                              </span>
+                              <span class="disc-span">
+                                {{element.documentName}}
+                              </span>
+                          </div>
+                        </td>
+                    </ng-container>
+            
+                    <ng-container matColumnDef="userActions">
+                      <th mat-header-cell *matHeaderCellDef id="userActn"> </th>
+                      <td mat-cell *matCellDef="let element">
+                            <div *ngIf="element.isUploaded; else elseBlock">
+                                    <input type="file" (change)="upload(file.files, element)" #file style="display: none;">
+                                    <span class="material-icons cloud-upload" (click)="file.click()">
+                                        cloud_upload
+                                    </span>
+                            </div>
+                            <ng-template #elseBlock>
+                                <span class="material-icons check">
+                                    check
+                                </span>
+                                <span class="material-icons remove" (click)="removeDoc(element)">
+                                    delete_forever
+                                </span>  
+                            </ng-template>  
+                      </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+                </table>   
+                <div class="table-div">
+                    <div class="row-dropdown">
+                        <div>
+                            <mat-form-field appearance="outline">
+                                <mat-label><span class="required">*</span>Date Document Received </mat-label>
+                                <input matInput [matDatepicker]="docReceivedDt">
+                                <mat-datepicker-toggle matSuffix [for]="docReceivedDt"></mat-datepicker-toggle>
+                                <mat-datepicker [startAt]="startDate" #docReceivedDt></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="doc-date">
+                            <p>Document Uploaded Date: </p>
+                        </div>
+                    </div>
+                    <div class="text-area">
+                        <mat-form-field appearance="outline">
+                            <mat-label><span class="required">*</span>Document Description</mat-label>
+                            <textarea matInput class="note-textarea" #docDescription maxlength="2000"></textarea>
+                        </mat-form-field>
+                        <div class="character-count">
+                            {{docDescription.value.length}}/2000
+                        </div>
+                    </div>
+                    <div class="text-area">
+                        <mat-form-field appearance="outline">
+                            <mat-label><span class="required">*</span>Contractor's Recommendation</mat-label>
+                            <textarea matInput class="note-textarea" #contractRecomnd maxlength="2000"></textarea>
+                        </mat-form-field>
+                        <div class="character-count">
+                            {{contractRecomnd.value.length}}/2000
+                        </div>
+                    </div>
+                    <button mat-stroked-button type="button" class="perlss-click-button">SAVE</button>  
+                </div>
+                <div class="icons-wrap">
+                    <div class="share-icon-wrapper" (click)="addDocuments()">
+                        <span class="material-icons">
+                            add_circle
+                        </span>
+                            ADD DOCUMENTS
+                    </div>
+                    <div class="share-icon-wrapper">
+                        <span class="material-icons">
+                            screen_share
+                        </span>
+                            ONSITE AMMENDMENT REQUIRED
+                    </div>
+                </div>
+                
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>

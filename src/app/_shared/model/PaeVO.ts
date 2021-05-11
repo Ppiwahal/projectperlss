@@ -1,0 +1,43 @@
+export class PaeVO {
+    constructor(
+        public actualDischargeDt: string,
+        public assignedEntity: string,
+        public assignedGrpSubmitSw: string,
+        public assignedUserId: string,
+        public beginDt: string,
+        public closureAttestationSw: string,
+        public closureRsnCd: string,
+        public closureRsnDesc: string,
+        public dueDt: string,
+        public entityCd: string,
+        public entityId: string,
+        public entityType: string,
+        public grandRegionCd: string,
+        public grp3IntrstSw: string,
+        public legacyId: string,
+        public modeCd: string,
+        public mopdDt: string,
+        public newPrsnSw: string,
+        public paeActionCd: string,
+        public paeId: string,
+        public paeRequestDt: string,
+        public paeRqstDt: string,
+        public paeTypeCd: string,
+        public pdfGeneratedSw: string,
+        public programCd: string,
+        public prsnId: string,
+        public reassessmentDueDt: string,
+        public recrtfctnDueDt: string,
+        public refId: string,
+        public rqstdEnrGrpCd: string,
+        public ssiApplcatnStatusCd: string,
+        public statusCd: string,
+        public submissionDt: string,
+        public submittedEnrGrpCd: string,
+        public tmedId: string,
+        public tnsId: string,
+        public userId: string
+
+
+    ) { }
+}

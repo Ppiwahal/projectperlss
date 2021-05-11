@@ -1,0 +1,152 @@
+<div *ngIf="freetextForm">
+    <form [formGroup]="freetextForm">
+    <ng-container *ngIf="showAllOptions">
+      <div style="color: black; padding-top: 20px; padding-bottom: 20px; padding-left: 25px;">
+          <mat-form-field appearance="outline">
+            <mat-label>Add Header</mat-label>
+            <textarea #notesInput id="notesInput" matInput maxlength="100" cols="20" rows="1" formControlName="header"></textarea>                             
+          </mat-form-field> 
+          <mat-hint style="float: right;">{{ notesInput.value?.length }}/100</mat-hint>                           
+      </div>
+  
+      <div style="color: black; padding-top: 15px; padding-left: 25px;">
+          <mat-form-field appearance="outline">
+            <mat-label><sup>
+                <mat-label class="required-color">*</mat-label>
+              </sup>Add Body</mat-label>
+            <textarea style="width: 100%;" #bodyInput  matInput maxlength="2000" cols="45" rows="5" formControlName="body"></textarea>
+                                       
+          </mat-form-field> 
+          <mat-error *ngIf="f.body.errors !== null">
+            <mat-error *ngIf="(f.body.touched || f.body.dirty) && f.body.errors?.required">
+              {{customValidation.A1}}</mat-error>
+            <mat-error *ngIf="f.body.errors?.invalidName && !f.body.errors.required">
+              {{customValidation.A2}}</mat-error>  
+              </mat-error>
+          <mat-hint style="float: right;">{{f.body?.value?.length}}/2000</mat-hint>                           
+      </div>
+  
+      <div style="padding-left: 15px;" class="row">
+          <div class="col-md-12">
+              <div class="question-container">
+                  <mat-label id="example-radio-group-label">
+                      <strong>
+                          Select standard language options from the list below to be included in the notice.
+                      </strong>
+                  </mat-label>
+              </div>
+          </div>
+      </div>
+  
+      <div style="padding-top: 15px; padding-left: 30px;" class="row" >
+          <div class="col-md-6">
+              <mat-checkbox class="checkbox-element" formControlName="hfaCode">
+                  How to file an appeal
+              </mat-checkbox>
+          </div>
+      </div>
+      <div style="padding-left: 30px;" class="row" >
+          <div class="col-md-6">
+              <mat-checkbox class="checkbox-element" formControlName="wsucfhCode">
+                  We are sending your case for a fair hearing
+              </mat-checkbox>
+          </div>
+      </div>
+      <div style="padding-left: 30px;" class="row" >
+          <div class="col-md-6">
+              <mat-checkbox class="checkbox-element"  formControlName="duacCode">
+                  Did your address change?
+              </mat-checkbox>
+          </div>
+      </div>
+      <div style="padding-left: 30px;" class="row" >
+          <div class="col-md-6">
+              <mat-checkbox class="checkbox-element"  formControlName="hcuCode">
+                  How to contact us
+              </mat-checkbox>
+          </div>
+      </div>
+      <div style="padding-left: 30px;" class="row" >
+        <div class="col-md-6">
+            <mat-checkbox class="checkbox-element"  formControlName="drthCode">
+                Disability Rights Tennessee can help you
+            </mat-checkbox>
+        </div>
+    </div>
+    </ng-container>
+  
+      <div style="padding-left: 15px;" class="row">
+          <div class="col-md-12">
+              <div class="question-container">
+                <mat-label id="example-radio-group-label" *ngIf="showAllOptions">
+                  <strong>
+                    Select additional attachment(s) and/or form(s) from the list below to be sent with the notice.
+                  </strong>
+                </mat-label>
+              </div>
+          </div>
+      </div>
+      <div style="padding-top: 15px; padding-left: 30px;" class="row" >
+          <div class="col-md-6">
+              <mat-checkbox class="checkbox-element"  formControlName="shAttachment"  (change)="isNoneSelected()">
+                  Special Help Attachment
+              </mat-checkbox>
+          </div>
+          <div class="col-md-6">
+              <mat-checkbox class="checkbox-element"  formControlName="wform"  (change)="isNoneSelected()">
+                  Withdrawal Form
+              </mat-checkbox>
+          </div>
+      </div>
+      <div style="padding-left: 30px;" class="row" >
+          <div class="col-md-6">
+              <mat-checkbox class="checkbox-element"  formControlName="flaAttachment"  (change)="isNoneSelected()">
+                  Foregin Language Assistance Attachment
+              </mat-checkbox>
+          </div>
+          <div class="col-md-6">
+              <mat-checkbox class="checkbox-element"  formControlName="prpForm"  (change)="isNoneSelected()">
+                  Permission to Release PHI Form
+              </mat-checkbox>
+          </div>
+      </div>
+      <div style="padding-left: 30px;" class="row" >
+          <div class="col-md-6">
+              <mat-checkbox class="checkbox-element"  formControlName="erAttachment"  (change)="isNoneSelected()">
+                  Estate Recovery Attachment
+              </mat-checkbox>
+          </div>
+          <div class="col-md-6">
+              <mat-checkbox class="checkbox-element"  formControlName="tairForm"  (change)="isNoneSelected()">
+                  TennCare Authorized Individual Representative Form
+              </mat-checkbox>
+          </div>
+      </div>
+      <div style="padding-left: 30px;" class="row" >
+          <div class="col-md-6">
+              <mat-checkbox class="checkbox-element"  formControlName="gpAttachment"  (change)="isNoneSelected()">
+                  Green Page Attachment
+              </mat-checkbox>
+          </div>
+          <div class="col-md-6">
+              <mat-checkbox class="checkbox-element"  formControlName="taorForm"  (change)="isNoneSelected()">
+                  TenCare Authorized Organization Representative Form
+              </mat-checkbox>
+          </div>
+      </div>
+      <div style="padding-left: 30px;" class="row" >
+          <div class="col-md-6">
+              <mat-checkbox class="checkbox-element"  formControlName="ppAttachment" (change)="isNoneSelected()">
+                  Pink Page Attachment
+              </mat-checkbox>
+          </div>
+          <div class="col-md-6">
+            <mat-checkbox class="checkbox-element"  formControlName="kbpqAttachment" (change)="isNoneSelected()">
+                Katie Beckett Prioritization Questionnaire Attachment
+            </mat-checkbox>
+        </div>
+      </div>
+  
+    </form>
+  </div>
+  

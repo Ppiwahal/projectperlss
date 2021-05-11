@@ -1,0 +1,67 @@
+<div style="margin-top: 30px;">
+    <mat-accordion style="margin-top: 30px;">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header style="background-color: #f5f5f5">
+            <mat-panel-title>
+             Onsite Assessment Results <span class="text-align-right">Review Details </span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <form [formGroup]="onSiteAssessResultsForm"  (ngSubmit)="submitOnsiteAssesResults(onSiteAssessResultsForm)">
+              <div class="wrapper">
+                <div>
+                  <mat-label><span class="required">*</span>Based on this independent review, I have concluded that the;</mat-label>
+                  <div class="check-list">
+                      <mat-checkbox class="example-margin"  formControlName="reviewedForSafetySw">I have reviewed for safety</mat-checkbox>
+                      <mat-checkbox class="example-margin" formControlName="atRiskLocNotMetSw">At Risk level of care was not met, therefore safety has not been reviwed [TennCare Rule 1200-13-01-.02(127)(a)]</mat-checkbox>
+                  </div>
+              </div>
+                <div style="margin-top: 30px; width: 40%;">
+                  <mat-form-field appearance="outline">
+                    <mat-label><span class="required">*</span>NF Level of Care for this PAE</mat-label>
+                      <mat-select formControlName="nfLocPaeCd">
+                          <mat-option value=''>select an option </mat-option>
+                          <mat-option *ngFor = "let ro of  nfLevelCareforPAE" value={{ro.code}}>{{ro.value}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                </div>
+                <div style="margin-top: 30px;">
+                    By my signature, I certify that the above information is accurate and true to the best of my knowledge,
+                    I am a Registered Nurse licensed by the State of Tennessee and have made this decision in accordance
+                    with TennCare rule 1200-13-01-.10.
+                </div>
+                <div style="margin-top: 30px; width:40%;">
+                  <mat-form-field appearance="outline">
+                    <mat-label><span class="required">*</span>Registered Nurse Reviewer Printed Name</mat-label>
+                    <input matInput formControlName="rnName">
+                    </mat-form-field>
+                </div>
+                <div style="margin-top: 30px; width: 40%;">
+                  <mat-form-field appearance="outline">
+                    <mat-label><span class="required">*</span>What documentation requested by the Appeals Unit Obtained?</mat-label>
+                      <mat-select formControlName="aplRqstDocObtainSw">
+                          <mat-option value=''>select an option </mat-option>
+                          <mat-option *ngFor = "let ro of  docummentObtained" value={{ro.code}}>{{ro.value}}</mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                </div>
+                <div style="margin-top: 30px;">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Describe any additional documentation provided</mat-label>
+                      <textarea matInput class="note-textarea" #aplExpectOutcome maxlength="2000" ></textarea>
+                    </mat-form-field>
+                    <div class="character-count">
+                      {{aplExpectOutcome.value.length}}/2000
+                    </div>
+                </div>
+                <div class="share-icon-wrapper">
+                  <span class="material-icons">
+                      screen_share
+                  </span>
+                  <button  type="submit" class="submit-buttom">DOWNLOAD ONSITE EVALUATION SUMMARY</button>
+                </div>
+              </div>
+            </form>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+

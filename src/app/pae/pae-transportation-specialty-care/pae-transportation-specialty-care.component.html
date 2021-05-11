@@ -1,0 +1,173 @@
+<form [formGroup]="myForm" (ngSubmit)="next()">
+  <div class="pageMargin">
+    <div class="row" style="width: 100%;">
+      <div class="col-md-8" style="width: 100% !important;">
+      </div>
+      <div class="col-md-4">
+        <table id="applicantName">
+          <tr>
+            <th><b>APPLICANT NAME :</b> Jessica Jones</th>
+          </tr>
+       </table>
+      </div>
+    </div>
+
+    <div class="applicant-sub-heading">Ambulance or Specialized Transport
+    </div>
+
+    <div style="width: 95%;">
+      <div class="question-container">
+        <div class="row">
+          <div class="col-md-12">
+            <label id="example-radio-group-label" style="text-indent: -9px;">
+                <mat-label class="required-color">*</mat-label>
+                Does the applicant require ambulance or specialized medical transport?
+              </label>
+          </div>
+       </div>
+      </div>
+      <div class="radio-option-container">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-radio-group formControlName="aplcntAmbSplcareSw">
+              <div *ngIf="getFormData().aplcntAmbSplcareSw.hasError('required') &&
+                        (getFormData().aplcntAmbSplcareSw.touched || submitted)">
+                <mat-error>{{customValidation.A1}}</mat-error>
+              </div>
+              <div>
+                <mat-radio-button value="Y">Yes</mat-radio-button>
+              </div>
+              <div>
+                <mat-radio-button value="N">No</mat-radio-button>
+              </div>
+            </mat-radio-group>
+          </div>
+       </div>
+      </div>
+      <mat-divider class="perlss-section-divider"></mat-divider>
+      <div class="applicant-sub-heading">Transport Equipment
+      </div>
+      <div class="question-container">
+        <div class="row">
+          <div class="col-md-12">
+            <label id="example-radio-group-label" style="text-indent: -9px;">
+                <mat-label class="required-color">*</mat-label>
+                Does the applicant require specialized transport equipment? (e.g. seating harness, lift; not including a
+                regular car seat)
+            </label>
+          </div>
+       </div>
+      </div>
+      <div class="radio-option-container">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-radio-group formControlName="aplcntTransEquipSw">
+              <div *ngIf="getFormData().aplcntTransEquipSw.hasError('required') &&
+                          (getFormData().aplcntTransEquipSw.touched || submitted)">
+                <mat-error>{{customValidation.A1}}</mat-error>
+              </div>
+              <div>
+                <mat-radio-button value="Y">Yes</mat-radio-button>
+              </div>
+              <div>
+                <mat-radio-button value="N">No</mat-radio-button>
+              </div>
+            </mat-radio-group>
+          </div>
+       </div>
+      </div>
+      <mat-divider class="perlss-section-divider"></mat-divider>
+      <div class="applicant-sub-heading">Specialized Monitoring
+      </div>
+      <div class="question-container">
+        <div class="row">
+          <div class="col-md-12">
+            <label id="example-radio-group-label" style="text-indent: -9px;">
+                <mat-label class="required-color">*</mat-label>
+                Does the applicant require specialized monitoring en route during transport?
+              </label>
+          </div>
+       </div>
+      </div>
+      <div class="radio-option-container">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-radio-group formControlName="aplcntSplMonitorSw">
+              <div *ngIf="getFormData().aplcntSplMonitorSw.hasError('required') &&
+                          (getFormData().aplcntSplMonitorSw.touched || submitted)">
+                <mat-error>{{customValidation.A1}}</mat-error>
+              </div>
+              <div>
+                <mat-radio-button value="Y">Yes</mat-radio-button>
+              </div>
+              <div>
+                <mat-radio-button value="N">No</mat-radio-button>
+              </div>
+            </mat-radio-group>
+          </div>
+       </div>
+      </div>
+
+      <mat-divider class="perlss-section-divider"></mat-divider>
+
+      <div class="applicant-sub-heading">Primary or Specialty Monitoring
+      </div>
+
+      <div class="question-container">
+        <div class="row">
+          <div class="col-md-12">
+            <label id="example-radio-group-label" style="text-indent: -14.5px;">
+                <mat-label class="required-color">*</mat-label>
+                Does the applicant require any of the primary or specialty care requirements listed below? (Select ALL
+                that apply)
+            </label>
+          </div>
+       </div>
+        <div>
+          <mat-error *ngIf="(!transportSelected && !transportNoneSelected) && submitted">{{customValidation.A1}}
+          </mat-error>
+          <mat-error *ngIf="(transportSelected && transportNoneSelected) && submitted">{{customValidation.A26}}
+          </mat-error>
+       </div>
+      </div>
+
+      <div class="chkboxContainer">
+        <div>
+          <mat-checkbox formControlName="reqSixPrim6mnthsSw" (change)="onDeclineHealth($event)">Require 6 or more
+            primary/specialty care visit over the last 6 months
+          </mat-checkbox>
+       </div>
+        <div>
+          <mat-checkbox class="checkbox-element" formControlName="reqTransFiftyPrimSw"
+            (change)="onDeclineHealth($event)">
+            Require transportation for more than 50 miles to primary care
+          </mat-checkbox>
+       </div>
+        <div>
+          <mat-checkbox class="checkbox-element" formControlName="reqTransFiftySplSw" (change)="onNoneSelected($event)">
+            Require transportation for more than 50 miles to specialty care
+          </mat-checkbox>
+       </div>
+        <div>
+          <mat-checkbox class="checkbox-element" formControlName="notAppliSw" (change)="onNoneSelected($event)">
+            Not applicable
+          </mat-checkbox>
+       </div>
+      </div>
+      <div class="row" style="margin-left: 5px; padding-top: 50px;">
+        <div class="col-md-2" style="text-align: left;">
+          <button type="button" mat-flat-button color="primary" style="font-size: 20px; padding: 12px 20px;"
+            class="perlss-click-button-white" (click)="goBack()">BACK</button>
+       </div>
+        <div class="col-md-4" style="text-align: left;">
+          <button mat-flat-button color="primary" style="font-size: 20px; padding: 12px 20px;"
+            class="perlss-click-button-white-noborder" type="button" (click)="saveTransportationSpeciality('saveExit')" >SAVE AND EXIT</button>
+       </div>
+        <div class="col-md-6" style="text-align: right;">
+          <button mat-flat-button color="primary" style="font-size: 20px;  padding: 12px 20px;"
+            class="perlss-click-button">NEXT</button>
+       </div>
+      </div>
+    </div>
+  </div>
+</form>

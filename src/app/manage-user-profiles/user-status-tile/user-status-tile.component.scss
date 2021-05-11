@@ -1,0 +1,27 @@
+.box{
+    border: 2px solid #174A7C;
+    text-align: center;
+}
+.box div{
+    border-bottom: 2px solid #174A7C;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #CDDDF4;
+}
+.status-name{
+    margin-top: 25px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.status{
+    font-weight: bold;
+    font-size: 30px;
+    cursor: pointer;
+    &:active, &:focus {
+      border: none;
+      outline: none;
+    }
+    text-decoration: underline;
+ }

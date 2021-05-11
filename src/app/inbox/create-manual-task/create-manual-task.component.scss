@@ -1,0 +1,33 @@
+.required-color {
+    color: #f44336;
+}
+
+.create-manualtask-button{
+    padding-top: 50px;
+}
+
+.search-icon{
+    position: absolute;
+    right: 5px;
+    padding-top: 10px;
+}
+
+::ng-deep .toast-message{
+    color: white;
+    font-size: 16px;
+}
+
+.select-hr { 
+    border-bottom: 1px solid #000; 
+}
+.text-area{
+    margin-top: 15px;
+  }
+  .character-count{
+    float: right;
+    margin-top: -24px;
+  }
+
+  div > .mat-form-field {
+    width: 100%;
+  }

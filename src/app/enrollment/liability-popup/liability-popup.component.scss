@@ -1,0 +1,64 @@
+.popup-header-container{
+  padding-left: 45px;
+  padding-right: 45px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  margin-left: 10px;
+}
+
+.mat-dialog-container {
+  padding: 0;
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+  border-radius: 7px;
+  border: 2px solid #225282;
+}
+
+.popup-close-icon{
+  transform: scale(1.5);
+  cursor: pointer;
+  color: #8b99ac;
+  padding-top: 9px;
+}
+
+.patient-liability-table{
+  padding: 54px;
+}
+
+h4 {
+  font-size: 25px;
+  line-height: 36px;
+  font-weight: 700;
+  margin: 0;
+  font-family: 'Open Sans';
+  margin: 14.5px 0 9px 0;
+}
+
+
+
+#liabilityTable {
+  font-family: 'Open Sans';
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #35485b;
+  padding: 18px;
+  text-align: center;
+}
+
+#liabilityTable td{
+    padding: 18px;
+    border-bottom: 2px solid #999999;
+}
+
+#liabilityTable th, #liabilityTable tr {
+  padding-top: 25px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #35485b;
+}
+
+#liabilityTable th {
+  color: #225282;
+  border-bottom: 2px solid #35485b;
+}

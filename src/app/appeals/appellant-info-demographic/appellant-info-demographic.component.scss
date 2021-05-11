@@ -1,0 +1,23 @@
+.applicant-information {
+    font-size: 14px;
+    padding: 15px 0 15px 30px;
+    border: 1px solid #547e1a;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 25px 50px;
+    padding: 10px;
+}
+
+.grid-container > div {
+    text-align: left;
+    font-size: 14px;
+    color: black;
+}
+
+.color-black {
+    color: black;
+    font-size: 14px;
+}

@@ -1,0 +1,193 @@
+.text-align-right {
+    flex: 1;
+    text-align: right;
+    padding-right: 20px;
+  }
+  .box-wrapper{
+      display: flex;
+      justify-content: flex-end;
+  }
+
+  .box{
+      display: flex;
+      margin-right: 20px;
+      font-weight: bold;
+      div{
+        width: 35px;
+        text-align: center;
+        height: 21px;
+        font-weight: bold;
+        margin-right: 8px;
+      }
+      span{
+          color: black;
+          margin-top: 2px;
+      }
+  }
+
+  .green-box{
+    div{
+        border: 2px solid green;
+    }
+  }
+
+  .orange-box{
+    div{
+        border: 2px solid orange;
+    }
+  }
+
+  .red-box{
+    div{
+        border: 2px solid red;
+    }
+  }
+
+  .paragraph{
+    font-size: 17px;
+    color: black;
+    line-height: 25px;
+    word-spacing: 2px;
+    margin-top: 25px;
+  }
+
+
+//   tablehhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+table {
+    margin-top: 30px;
+    width: 100%;
+  }
+  
+  tr.example-detail-row {
+    height: 0;
+  }
+  
+  tr.example-element-row:not(.example-expanded-row):hover {
+    background: whitesmoke;
+  }
+  
+  tr.example-element-row:not(.example-expanded-row):active {
+    background: #efefef;
+  }
+  
+  .example-element-row td {
+    border-bottom-width: 0;
+  }
+  
+  .example-element-detail {
+    overflow: hidden;
+    display: flex;
+  }
+
+  table tr:last-child td {
+    border-bottom: 1px solid #1B365D;
+}
+
+.active-class{
+    background-color: #eaf8ff;
+    border-bottom: 1px solid lightgray;
+  }
+
+  .inside-table-wrapper{
+      width: 100%;
+  }
+
+  .innerTable{
+      margin-top: 15px;
+      display: flex;
+      justify-content: space-between;
+  }
+
+
+  .style-p{
+    margin: 0;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  .table-box{
+      display: flex;
+      justify-content: center;
+      div{
+        border: 1px solid;
+        width: 25px;
+        text-align: center;
+        margin-right: 15px;
+      }
+  }
+
+  .text-align{
+      text-align: center;
+  }
+
+  .table2 tr:last-child td {
+      margin: 0;
+    font-weight: bold;
+    color: black;
+}
+
+.person-info{
+    display: flex;
+    margin-top: 20px;
+    div{
+        margin-right: 5%;
+    }
+}
+
+.required{
+    color: red;
+}
+
+.button-wrapper{
+  display: flex;
+  button{
+    min-width: unset!important;
+    margin-right: 10px;
+  }
+}
+
+.green{
+  color: green;
+  border: 2px solid green;
+  font-weight: bold;
+}
+.orange{
+  color: orange;
+  border: 2px solid orange;
+  font-weight: bold;
+}
+.red{
+  color: red;
+  border: 2px solid red;
+  font-weight: bold;
+}
+.grey{
+  color: grey;
+  font-weight: bold;
+}
+
+th{
+  width: 16.6%;
+}
+
+.character-count{
+  float: right;
+  margin-top: -24px;
+}
+
+.text-area{
+  width: 100%;
+  padding: 15px 0 0 0;
+  position: relative;
+}
+
+.comment-error{
+  position: absolute;
+  top:100%;
+  font-size: 13px;
+  color: red;
+}
+
+

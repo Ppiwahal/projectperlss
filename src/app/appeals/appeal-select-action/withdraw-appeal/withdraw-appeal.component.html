@@ -1,0 +1,23 @@
+<div style="margin-top: 20px;">
+  <div class="row pointer">
+    <span class="col icon-width" (click)="openUploadRightNav()"><strong>Upload Withdraw Appeal</strong></span>
+    <span class="col material-icons" (click)="openUploadRightNav()">
+      cloud_upload
+    </span>
+  </div>
+</div>
+<form [formGroup]="withdrawAppealForm">
+  <div>
+    <mat-form-field style="margin-top:30px;" appearance="outline">
+      <mat-label><span class="required">*</span>Withdrawal Comments</mat-label>
+      <textarea formControlName="withdrawalComments" matInput cols="152" rows="5"></textarea>
+    </mat-form-field>
+    <mat-error *ngIf="isShowErrors && withdrawAppealForm.get('withdrawalComments')?.hasError('required')">
+      <span>{{customValidation.A1}}</span>
+    </mat-error>
+  </div>
+</form>
+<div style="margin-top: 40px; margin-bottom: 20px;">
+  <button style="margin-right: 50px; color: #174A7C;" (click)="cancel()" mat-stroked-button>CANCEL</button>
+  <button mat-stroked-button class="perlss-click-button" (click)="withdrawAppeal()">SAVE</button>
+</div>

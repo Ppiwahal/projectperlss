@@ -1,0 +1,950 @@
+<div class="pageMargin">
+  <!-- <div class="w60 floatRight">
+    <div class="waiting" *ngIf="!applicationInformation?">
+      <p><span>Fetching Data please wait ...</span></p>
+    </div>
+  </div> -->
+  <div class="row" id="pM">
+    <mat-label class="applicant-information-label"><strong>Applicant Information</strong></mat-label>
+    <div class="applicant-information-details">
+      <div class="row applicant-info-background">
+        <div class="col-lg-3">
+          <mat-label class="mat-label-custom"> APPLICANT NAME: </mat-label>
+        </div>
+        <div class="col-lg-3">
+          <mat-label class="mat-label-value-cls">{{applicationInformation?.firstName}}
+            {{applicationInformation?.lastName}}</mat-label>
+        </div>
+        <div class="col-lg-3">
+          <mat-label class="mat-label-custom"> REFERRAL ID: </mat-label>
+        </div>
+        <div class="col-lg-3">
+          <mat-label class="mat-label-value-cls">{{applicationInformation?.refId}}
+            <mat-label *ngIf="(applicationInformation?.refId === '' || applicationInformation?.refId === null || applicationInformation?.refId === undefined)">---
+            </mat-label>
+          </mat-label>
+        </div>
+      </div>
+
+      <div class="row applicant-info-background">
+        <div class="col-lg-3">
+          <mat-label class="mat-label-custom"> PERSON ID: </mat-label>
+        </div>
+        <div class="col-lg-3">
+          <mat-label class="mat-label-value-cls">{{applicationInformation?.prsnId}}
+            <mat-label *ngIf="(applicationInformation?.prsnId === '' || applicationInformation?.prsnId === null || applicationInformation?.prsnId === undefined)">---
+            </mat-label>
+
+          </mat-label>
+        </div>
+        <div class="col-lg-3">
+          <mat-label class="mat-label-custom"> PAE ID: </mat-label>
+        </div>
+        <div class="col-lg-3">
+          <mat-label class="mat-label-value-cls">{{applicationInformation?.paeId}}
+            <mat-label *ngIf="(applicationInformation?.paeId === '' || applicationInformation?.paeId === null || applicationInformation?.paeId === undefined)">---
+            </mat-label>
+          </mat-label>
+        </div>
+      </div>
+
+      <div class="row applicant-info-background">
+        <div class="col-lg-3">
+          <mat-label class="mat-label-custom"> DATE OF BIRTH: </mat-label>
+        </div>
+        <div class="col-lg-3">
+          <mat-label class="mat-label-value-cls">{{covertDate(applicationInformation?.dobDt)}}
+            <mat-label *ngIf="(applicationInformation?.dobDt === '' || applicationInformation?.dobDt === null || applicationInformation?.dobDt === undefined)">---
+            </mat-label>
+
+          </mat-label>
+        </div>
+        <div class="col-lg-3">
+          <mat-label class="mat-label-custom"> PAE CERTIFICATION DATE: </mat-label>
+        </div>
+        <div class="col-lg-3">
+          <mat-label class="mat-label-value-cls">{{covertDate(applicationInformation?.certificateDt)}}
+            <mat-label *ngIf="(applicationInformation?.certificateDt === '' || applicationInformation?.certificateDt === null || applicationInformation?.certificateDt === undefined)">---
+            </mat-label>
+          </mat-label>
+        </div>
+      </div>
+
+      <div class="row applicant-info-background">
+        <div class="col-lg-3">
+          <mat-label class="mat-label-custom"> SSN: </mat-label>
+        </div>
+        <div class="col-lg-3">
+          <mat-label class="mat-label-value-cls">{{getSSNMask(applicationInformation?.ssn)}}</mat-label>
+          <mat-label *ngIf="(applicationInformation?.ssn === '' || applicationInformation?.ssn === null || applicationInformation?.ssn === undefined)">---
+          </mat-label>
+        </div>
+        <div class="col-lg-3">
+          <mat-label class="mat-label-custom"> Enrollment Status: </mat-label>
+        </div>
+        <div class="col-lg-3">
+          <mat-label class="mat-label-value-cls">
+            {{applicationInformation?.enrStatusCdDesc}}
+            <mat-label *ngIf="(applicationInformation?.enrStatusCdDesc === '' || applicationInformation?.enrStatusCdDesc === null || applicationInformation?.enrStatusCdDesc === undefined)">---
+            </mat-label>
+          </mat-label>
+        </div>
+      </div>
+      <hr />
+      <div class="divider">
+      </div>
+      <div class="applicant-info-background">
+        <div class="row applicant-info-background">
+          <div class="col-lg-3">
+            <mat-label class="mat-label-custom"> PROGRAM REQUESTED: </mat-label>
+          </div>
+          <div class="col-lg-3">
+            <mat-label class="mat-label-value-cls">{{applicationInformation?.rqstdEnrGrpCdDesc}}
+              <mat-label *ngIf="(applicationInformation?.rqstdEnrGrpCdDesc === '' || applicationInformation?.rqstdEnrGrpCdDesc === null || applicationInformation?.rqstdEnrGrpCdDesc === undefined)">---
+              </mat-label>
+            </mat-label>
+          </div>
+          <div class="col-lg-3">
+            <mat-label class="mat-label-custom"> GRANDFATHERED: </mat-label>
+          </div>
+          <div class="col-lg-3">
+            <mat-label class="mat-label-value-cls">{{applicationInformation?.grandfatheredSw}}
+              <mat-label *ngIf="(applicationInformation?.grandfatheredSw === '' || applicationInformation?.grandfatheredSw === null || applicationInformation?.grandfatheredSw === undefined)">---
+              </mat-label>
+            </mat-label>
+          </div>
+        </div>
+        <div class="row applicant-info-background">
+          <div class="col-lg-3">
+            <mat-label class="mat-label-custom"> PROGRAM APPROVED: </mat-label>
+          </div>
+          <div class="col-lg-3">
+            <mat-label class="mat-label-value-cls"> {{applicationInformation?.submittedEnrGrpCdDesc}}
+              <mat-label *ngIf="(applicationInformation?.submittedEnrGrpCdDesc === '' || applicationInformation?.submittedEnrGrpCdDesc === null || applicationInformation?.submittedEnrGrpCdDesc === undefined)">---
+              </mat-label>
+            </mat-label>
+          </div>
+          <div class="col-lg-3">
+            <mat-label class="mat-label-custom">INTERIM: </mat-label>
+          </div>
+          <div class="col-lg-3">
+            <mat-label class="mat-label-value-cls">{{applicationInformation?.interimSw}}
+              <mat-label *ngIf="(applicationInformation?.interimSw === '' || applicationInformation?.interimSw === null || applicationInformation?.interimSw === undefined)">---
+              </mat-label>
+            </mat-label>
+          </div>
+        </div>
+        <div class="row applicant-info-background">
+          <div class="col-lg-3">
+            <mat-label class="mat-label-custom"> SLOT STATUS: </mat-label>
+          </div>
+          <div class="col-lg-3">
+            <mat-label class="mat-label-value-cls">{{applicationInformation?.sltStatusCdDesc}}
+              <mat-label *ngIf="(applicationInformation?.sltStatusCdDesc === '' || applicationInformation?.sltStatusCdDesc === null || applicationInformation?.sltStatusCdDesc === undefined)">---
+              </mat-label>
+            </mat-label>
+          </div>
+          <div class="col-lg-3">
+            <mat-label class="mat-label-custom"> APPEAL FILED: </mat-label>
+          </div>
+          <div class="col-lg-3">
+            <mat-label class="mat-label-value-cls">{{applicationInformation?.appealField}}
+              <mat-label *ngIf="(applicationInformation?.appealField === '' || applicationInformation?.appealField === null || applicationInformation?.appealField === undefined)">---
+              </mat-label>
+            </mat-label>
+          </div>
+        </div>
+        <div class="row applicant-info-background">
+          <div class="col-lg-3">
+            <mat-label class="mat-label-custom"> ADJUDICATED ACUITY SCORE: </mat-label>
+          </div>
+          <div class="col-lg-3">
+            <mat-label class="mat-label-value-cls">{{applicationInformation?.acuityScore}}
+              <mat-label *ngIf="(applicationInformation?.acuityScore === '' || applicationInformation?.acuityScore === null || applicationInformation?.acuityScore === undefined)">---
+              </mat-label>
+            </mat-label>
+          </div>
+          <div class="col-lg-3">
+            <mat-label class="mat-label-custom"> ASSIGNED MCO:</mat-label>
+          </div>
+          <div class="col-lg-3">
+            <mat-label class="mat-label-value-cls">{{applicationInformation?.secOrganization.entityName}}
+              <mat-label *ngIf="(applicationInformation?.secOrganization.entityName === '' || applicationInformation?.secOrganization.entityName === null || applicationInformation?.secOrganization.entityName=== undefined)">---
+              </mat-label>
+            </mat-label>
+          </div>
+        </div>
+        <div class="row applicant-info-background">
+          <div class="col-lg-3">
+            <mat-label class="mat-label-custom"> TRANSITION PAE: </mat-label></div>
+            <div class="col-lg-3">
+            <mat-label>---
+            </mat-label>
+          </div>
+          <div class="col-lg-3">
+            <mat-label class="mat-label-custom"> TRANSITION ID:</mat-label></div>
+            <div class="col-lg-3">
+            <mat-label>---
+            </mat-label>
+          </div>
+          <div class="col-lg-3">
+            <mat-label class="mat-label-value-cls"> </mat-label>
+          </div>
+        </div>
+        <div class="row applicant-info-background">
+          <div class="col-lg-3">
+            <mat-label class="mat-label-custom"> TRANSITION FROM: </mat-label>
+          </div>
+          <div class="col-lg-3">
+            <mat-label class="mat-label-value-cls"> {{applicationInformation?.tnsFromCdDesc}}
+              <mat-label *ngIf="(applicationInformation?.tnsFromCdDesc === '' || applicationInformation?.tnsFromCdDesc === null || applicationInformation?.tnsFromCdDesc === undefined)">---
+              </mat-label> </mat-label>
+          </div>
+          <div class="col-lg-3">
+            <mat-label class="mat-label-custom"> TRANSITION TO:</mat-label>
+          </div>
+          <div class="col-lg-3">
+            <mat-label class="mat-label-value-cls"> {{applicationInformation?.tnsToCdDesc}}
+              <mat-label *ngIf="(applicationInformation?.tnsToCdDesc === '' || applicationInformation?.tnsToCdDesc === null || applicationInformation?.tnsToCdDesc === undefined)">---
+              </mat-label>
+            </mat-label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-width">
+
+    <div style="padding-right:5vw;">
+    <button type="button" 
+        mat-flat-button color="primary" 
+        class="mmis-eligibility-button" style="background-color:#174A7C" (click)="mmisPopup()">
+        MMIS Verify Eligibility Look-up
+      </button>
+    </div>
+    <br>
+    <br>
+
+    <div *ngIf="!showTransitions">
+      <div class="row accordian" (click)="toggleDropDown('transitionReviewCriteria')">
+        <mat-toolbar>
+          <span class="background transition-accordian accordian-title">
+            Transition Review
+          </span>
+          <span class="dropdown-toggle review-details">
+            Review Details
+          </span>
+          <span>
+            <div>
+              <mat-icon class="material-icons" style="font-size: 25px; color: #ED6053;"
+                *ngIf="isTransitionReviewDropDownToggled">
+              </mat-icon>
+              <mat-icon class="material-icons" style="font-size: 25px; color: #ED6053;"
+                *ngIf="!isTransitionReviewDropDownToggled">
+              </mat-icon>
+            </div>
+            <mat-icon class="iconStyle">error_outline</mat-icon>
+            <!-- <mat-icon class="iconStyle green">check_circle</mat-icon> -->
+          </span>
+        </mat-toolbar>
+  </div>
+
+      <div *ngIf="isTransitionReviewDropDownToggled">
+        <form [formGroup]="myForm">
+          <br />
+          <div class="row">
+            <div class="col">
+              <mat-label> Review Decision </mat-label>
+              <mat-form-field appearance="outline">
+                <mat-select>
+                  <mat-option *ngFor="let row of medicaidEligibilityRt" [value]="row.code">
+                    {{row.description}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col link-class">
+              <span>
+                <a (click)="onViewPatientLiabilityDetails()">
+                  <span class="liability-popup">
+                    Edit Transition Request
+                  </span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </form>
+        <div class="row" style="padding-left:0px">
+          <div class="col-lg-9">
+            <mat-form-field appearance="outline">
+          <mat-label >Comments</mat-label>
+          <textarea matInput #comments maxlength="2000"></textarea>
+          <mat-hint style="float:right"> {{comments.value.length}}/2000</mat-hint>
+            </mat-form-field>
+        <button mat-flat-button class="saveButton">
+              Save
+            </button>
+            <button type="submit" mat-stroked-button>
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="row" (click)="toggleDropDown('financialEligibilityCriteria')">
+      <mat-toolbar>
+        <span class="background transition-accordian accordian-title">
+          Financial Eligibility
+          <span class="dropdown-toggle review-details">Review Details</span>
+        </span>
+        <span>
+          <div>
+            <mat-icon class="iconStyle" style="color: #ED6053;"
+              *ngIf="isFinancialEligibilityDropDownToggled && !isdataSaved"> error_outline
+            </mat-icon>
+            <mat-icon class="iconStyle"
+              *ngIf="!isFinancialEligibilityDropDownToggled && !isdataSaved">error_outline
+            </mat-icon>
+          </div>
+          <mat-icon *ngIf="isdataSaved" class="iconStyle green">check_circle</mat-icon>
+        </span>
+      </mat-toolbar>
+    </div>
+
+    <div style="width: 80%; margin-left: 70px;" *ngIf="isFinancialEligibilityDropDownToggled">
+      <form [formGroup]="myForm">
+        <div class="enrollment-sub-desciption" *ngIf="ischeckEligiblity">
+          <label style="font-weight:bold">NOTE:</label> Financial Eligibility details are not available yet. Please
+          click
+          on the button below to check for updates.
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <button type="submit" class="feButton" (click)="onClickCheckFinancialElgbltyBtn()" mat-flat-button>
+              CHECK FINANCIAL ELIGIBILITY
+            </button>
+          </div>
+        </div>
+        <br />
+        <div class="row rowElement">
+          <div class="col-md-5">
+            <mat-form-field appearance="outline">
+              <mat-label>
+              <mat-label class="required-color">*</mat-label>Medicaid Eligibility</mat-label>
+              <mat-select formControlName="ctgryEligDesc">
+                <mat-option *ngFor="let row of medicaidEligibilityRt" [value]="row.description">
+                  {{row.description}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="getFormData()?.ctgryEligDesc?.errors != null || submitted">
+                <mat-error *ngIf="myForm.get('ctgryEligDesc').errors?.required">
+                  {{customValidation.A1}}
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-5 link-class">
+            <span><a (click)="onViewPatientLiabilityDetails()"><span class="liability-popup">View Patient Liability
+                  Details</span></a>
+            </span>
+          </div>
+        </div>
+
+        <div class="row rowElement">
+          <div class="col-md-5">
+            <mat-form-field appearance="outline">
+              <mat-label>Patient Liability Amount</mat-label>
+              <input matInput formControlName="amount">
+            </mat-form-field>
+          </div>
+          <div class="col-md-5">
+            <mat-form-field appearance="outline">
+              <mat-label> Effective date Of Patient Liability </mat-label>
+              <input matInput [matDatepicker]="ptntLiabilityPicker" formControlName="patientLbltyStartDt">
+              <mat-datepicker-toggle matSuffix [for]="ptntLiabilityPicker"></mat-datepicker-toggle>
+              <mat-datepicker [startAt]="startDate" #ptntLiabilityPicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row rowElement">
+          <div class="col-md-5">
+            <mat-form-field appearance="outline">
+              <mat-label>
+              <mat-label class="required-color">*</mat-label>Medicaid Effective date</mat-label>
+              <input matInput [matDatepicker]="effectiveDtPicker" formControlName="ctgryEligBeginDt">
+              <mat-datepicker-toggle matSuffix [for]="effectiveDtPicker"></mat-datepicker-toggle>
+              <mat-datepicker [startAt]="startDate" #effectiveDtPicker></mat-datepicker>
+              <mat-error *ngIf="getFormData()?.effectiveDtPicker?.errors != null || submitted">
+                <mat-error *ngIf="myForm.get('effectiveDtPicker').errors?.required">
+                  {{customValidation.A1}}
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-5">
+            <mat-form-field appearance="outline">
+              <mat-label>
+              <mat-label class="required-color">*</mat-label>Medicaid End date</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="ctgryEligEndDt">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker [startAt]="startDate" #picker></mat-datepicker>
+              <mat-error *ngIf="getFormData()?.ctgryEligEndDt?.errors != null || submitted">
+                <mat-error *ngIf="myForm.get('ctgryEligEndDt').errors?.required">
+                  {{customValidation.A1}}
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <button mat-flat-button *ngIf="displayFeEditButton" (click)="editFinancialEligibility()" class="editButton">
+              Edit
+            </button>
+          </div>
+
+          <div>
+          <button mat-flat-button *ngIf="!displayFeEditButton" (click)="saveFinancialEligibility()" class="saveButton">
+              Save<mat-progress-spinner *ngIf="displaySpinner" class="example-margin" [color]="color" [mode]="mode"
+                [value]="value" [diameter]="20" style="margin-left:25px; margin-top:-22px">
+              </mat-progress-spinner>
+            </button>
+          </div>
+
+          <div>
+            <button mat-flat-button *ngIf="!displayFeEditButton" (click)="disableFinancialEligibility()"
+              class="cancelButton">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+
+  <br>
+
+    <div class="row" (click)="toggleDropDown('enrollmentDetailsDropDown')" *ngIf="isFinancial">
+      <mat-toolbar>
+        <span class="background transition-accordian accordian-title">
+          Enrollment Details
+        </span>
+        <span class="dropdown-toggle review-details">Review Details</span>
+        <span>
+          <div>
+            <mat-icon class="material-icons" style="font-size: 25px; color: #ED6053;"
+              *ngIf="isEnrollmentDetailsDropDownToggled">
+            </mat-icon>
+            <mat-icon class="material-icons" style="font-size: 25px; color: #ED6053;"
+              *ngIf="!isEnrollmentDetailsDropDownToggled">
+            </mat-icon>
+          </div>
+          <mat-icon class="iconStyle">error_outline</mat-icon>
+          <mat-icon *ngIf="isEnrolled" class="iconStyle green">check_circle</mat-icon>
+        </span>
+      </mat-toolbar>
+    </div>
+  <div class="page-length">
+    <div style="width: 80%;" *ngIf="isEnrollmentDetailsDropDownToggled">
+
+      <form [formGroup]="myForm">
+      <div class="adj-results">
+          <div *ngIf="enrGroup=='CG1'">
+            <div class="row">
+              <mat-label class="summary-label">PASRR Summary: </mat-label>
+            </div>
+            <div class="row">
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-custom"> Submitted Date: </mat-label>
+              </div>
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-value-cls">
+                  {{covertDate(enrollmentDetailData.adjPasrrOutcomeVO.lvl1SubmitDt)}}</mat-label>
+              </div>
+            </div>
+            <div class="row">
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-custom"> Level 1 Decision : </mat-label>
+              </div>
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-value-cls"> {{enrollmentDetailData.adjPasrrOutcomeVO.lvl1DcsnCd}}
+                </mat-label>
+              </div>
+            </div>
+            <div class="row">
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-custom"> Payor Source : </mat-label>
+              </div>
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-value-cls"> {{enrollmentDetailData.adjPasrrOutcomeVO.payorSrcCd}}
+                </mat-label>
+              </div>
+            </div>
+            <div class="row">
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-custom"> Decision Date : </mat-label>
+              </div>
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-value-cls">
+                  {{covertDate(enrollmentDetailData.adjPasrrOutcomeVO.lvl1DcsnDt)}} </mat-label>
+              </div>
+            </div>
+            <div class="row">
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-custom"> Level 2 Decision : </mat-label>
+              </div>
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-value-cls"> {{enrollmentDetailData.adjPasrrOutcomeVO.lvl2DcsnCd}}
+                </mat-label>
+              </div>
+            </div>
+            <div class="row">
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-custom"> Effective Date: </mat-label>
+              </div>
+            <div class="col-md-6">
+              <mat-label class="pasrr-label-value-cls"> {{covertDate(enrollmentDetailData.adjPasrrOutcomeVO.lvl2EffDt)}}
+                </mat-label>
+              </div>
+            </div>
+            <div class="row">
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-custom"> End Date: </mat-label>
+              </div>
+            <div class="col-md-6">
+              <mat-label class="pasrr-label-value-cls"> {{covertDate(enrollmentDetailData.adjPasrrOutcomeVO.lvl2EndDt)}}
+                </mat-label>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="row">
+            <mat-label class="summary-label"><strong>Adjudication Results:</strong> </mat-label>
+            </div>
+            <div class="row">
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-custom"> Enrollment Group : </mat-label>
+              </div>
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-value-cls"> {{enrollmentDetailData.enrollGrpCdDesc}} </mat-label>
+              </div>
+            </div>
+            <div class="row">
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-custom"> Adjudication Decision : </mat-label>
+              </div>
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-value-cls"> {{enrollmentDetailData.locDcsnCdDesc}} </mat-label>
+              </div>
+            </div>
+            <div class="row">
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-custom"> Approved ERC : </mat-label>
+              </div>
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-value-cls"> {{enrollmentDetailData.approvedERC}} </mat-label>
+              </div>
+            </div>
+            <div class="row">
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-custom"> PAE Effective Date : </mat-label>
+              </div>
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-value-cls"> {{covertDate(enrollmentDetailData.paeEffDate)}} </mat-label>
+              </div>
+            </div>
+            <div class="row">
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-custom"> PAE End Date : </mat-label>
+              </div>
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-value-cls"> {{covertDate(enrollmentDetailData.paeEndDate)}} </mat-label>
+              </div>
+            </div>
+            <div class="row" *ngIf="enrGroup=='CG3'">
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-custom"> TP Diagnosis : </mat-label>
+              </div>
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-value-cls"> {{enrollmentDetailData.tpDiagnosis}} </mat-label>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="row">
+            <div class="col-md-6">
+              <mat-label class="pasrr-label-custom"> Important Dates : </mat-label>
+            </div>
+          </div>
+          <div class="row" *ngIf="enrGroup=='MOP'">
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-custom"> MOPD : </mat-label>
+              </div>
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-value-cls"> {{covertDate(enrollmentDetailData.mopdDt)}} </mat-label>
+              </div>
+            </div>
+            <div class="row" *ngIf="enrGroup=='CG3'">
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-custom"> NF Anticipated Discharge Date : </mat-label>
+              </div>
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-value-cls"> {{covertDate(enrollmentDetailData.anticipatedDischargeDt)}}
+                </mat-label>
+              </div>
+            </div>
+            <div class="row" *ngIf="enrGroup=='CG3'">
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-custom"> NF Actual Discharge Date : </mat-label>
+              </div>
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-value-cls"> {{covertDate(enrollmentDetailData.actualDischargeDt)}}
+                </mat-label>
+              </div>
+            </div>
+          <div class="row" *ngIf="enrGroup=='PTD'">
+            <div class="col-md-6" >
+                <mat-label class="pasrr-label-custom"> Anticipated Transition Date : </mat-label>
+              </div>
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-value-cls"> {{covertDate(enrollmentDetailData.anticipatedDt)}}</mat-label>
+              </div>
+            </div>
+          <div class="row" *ngIf="enrGroup=='PTD'">
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-custom"> Actual Transition Date : </mat-label>
+              </div>
+            <div class="col-md-6">
+                <mat-label class="pasrr-label-value-cls"> {{covertDate(enrollmentDetailData.actualDt)}} </mat-label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br /><br />
+        <div>
+          <div class="row">
+            <div class="col-6">
+              <mat-form-field appearance="outline">
+                <mat-label> Authorization Status </mat-label>
+              <mat-select (selectionChange)="onAuthorizationStatusChange($event.value)" formControlName="authStatusCd">
+                  <mat-option *ngFor="let row of authorizationStatusRT" [value]="row.code">
+                    {{row.description}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row"*ngIf="isAppeal">
+            <div class="col-6">
+              <mat-radio-group formControlName="cobProcess" (change)="onAlternateNameChange($event)">
+                <mat-label class="req">Is this change to grant Continuation of Benefits (COB)?
+                </mat-label>
+                <mat-radio-button value="Y">Yes</mat-radio-button>
+                <mat-radio-button value="N">No</mat-radio-button>
+              </mat-radio-group>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-6">
+              <mat-form-field appearance="outline">
+                <mat-label>Enrollment Start date</mat-label>
+                <input matInput [matDatepicker]="enrollmentStartDtPicker" formControlName="enrStartDt">
+                <mat-datepicker-toggle matSuffix [for]="enrollmentStartDtPicker"></mat-datepicker-toggle>
+                <mat-datepicker [startAt]="startDate" #enrollmentStartDtPicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-6" class="suggest-start">
+              <mat-label>Suggested Enrollment Start date:</mat-label>
+              <div class="row">
+                <mat-label *ngIf="opaInformation !== undefined && opaInformation !== null">{{covertDate(opaInformation.out_adj_suggestedEnrollmentStartDate)}}</mat-label>
+          </div>
+          <div class="row">
+            <mat-label>Suggested Enrollment End date:</mat-label>
+            <div class="row">
+              <mat-label *ngIf="opaInformation !== undefined && opaInformation !== null">{{covertDate(opaInformation.out_adj_suggestedEnrollmentEndDate)}}</mat-label>
+            </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <mat-form-field appearance="outline">
+                <mat-label>Enrollment End date</mat-label>
+                <input matInput [matDatepicker]="enrollmentEndDatePicker" formControlName="enrEndDt">
+                <mat-datepicker-toggle matSuffix [for]="enrollmentEndDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker [startAt]="startDate" #enrollmentEndDatePicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          
+          </div>
+          <div class="row">
+            <div class="col-10" *ngIf="isAuthorizationDenied">
+              <mat-label> Enrollment Denial Reason </mat-label>
+              <mat-form-field appearance="outline">
+                <mat-select formControlName="enrDenialRsnCd">
+                  <mat-option *ngFor="let row of denialReasonCdRT" [value]="row.code">
+                    {{row.description}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+         
+          <div *ngIf="!isDisenrollmentTask">
+            <table mat-table [dataSource]="enrBenefitDataSource" class="enrollment-table">
+
+              <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+
+              <!-- Position Column -->
+              <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef style="width:23%">Description </th>
+              <td mat-cell *matCellDef="let element" style="width:23%"> {{element.enrBnftTypeCdDesc}} </td>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="group">
+                <th mat-header-cell *matHeaderCellDef> Group </th>
+                <td mat-cell *matCellDef="let element"> {{element.enrBnftGrpCd}} </td>
+              </ng-container>
+
+              <!-- Weight Column -->
+              <ng-container matColumnDef="amount">
+                <th mat-header-cell *matHeaderCellDef> Amount </th>
+                <td mat-cell *matCellDef="let element"> {{element.enrBnftAmt}} </td>
+              </ng-container>
+
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="effectiveDate">
+              <th mat-header-cell *matHeaderCellDef> Effective <br>Date </th>
+                <td mat-cell *matCellDef="let element"> {{covertDate(element.enrBnftEffDt)}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="endDate">
+              <th mat-header-cell *matHeaderCellDef> End <br> Date </th>
+                <td mat-cell *matCellDef="let element"> {{covertDate(element.enrBnftEndDt)}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="userAction">
+              <th mat-header-cell *matHeaderCellDef> User <br> Actions</th>
+                <td mat-cell *matCellDef="let element"> </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedBenefitColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedBenefitColumns;"></tr>
+            </table>
+          </div>
+
+          <div class="row comments-cls" style="padding-left:0px">
+            <div class="col">
+              <mat-form-field appearance="outline">
+              <mat-label>Comments</mat-label>
+              <textarea formControlName="comments" matInput #comments maxlength="2000"></textarea>
+              <mat-hint style="float:right"> {{comments.value.length}}/2000</mat-hint>
+              <mat-error *ngIf="getFormData()?.comments?.errors != null || submitted">
+                <mat-error *ngIf="myForm.get('comments').errors?.required">
+                  {{customValidation.A1}}
+                </mat-error>
+              </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="divider">
+          </div>
+        </div>
+
+        <div *ngIf="isDisenrollmentTask">
+          <div class="row">
+            <div class="col-md-6">
+              <button mat-flat-button color="primary" class="perlss-click-button-white">DISENROLL <mat-icon>offline_pin
+                </mat-icon>
+              </button>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-6">
+              <mat-label> Disenrollment Type </mat-label>
+              <mat-form-field appearance="outline">
+                <mat-select formControlName="disEnrTypeCd">
+                  <mat-option *ngFor="let row of disenrollmentTypeRT" [value]="row.code">
+                    {{row.description}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-6">
+              <mat-label> Disenrollment Reason </mat-label>
+              <mat-form-field appearance="outline">
+                <mat-select formControlName="dsnReasonCd" id="dsnReasonCd">
+                  <mat-option *ngFor="let row of disenrollementReasonRT" [value]="row.code">
+                    {{row.description}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!--  <div class="recordsHeader">
+        <div class="headerContainer">
+          <div id="suppDoc">Supporting Documentation</div>
+        </div>
+      </div> 
+      
+      <div class="recordsContent">
+        <div class="headerContainer">
+          <mat-icon id="search">search</mat-icon>
+          <u>MCO Uploaded Supporting Documentation</u>
+        </div>
+      </div>
+
+      <button (click)="fileDropRef.click()" style="border: none;background: none;">
+        <mat-icon [ngStyle]="{'color':'#4c90d3'}">cloud_upload</mat-icon>
+        <input #fileDropRef type="file" (change)="fileBrowseHandler($event.target.files)" style="display:none;" />
+      </button> -->
+
+          <div class="row">
+            <div class="col-6">
+              <mat-label> Comments: </mat-label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <mat-label> {{chmDisenrollmentData.comments}} </mat-label>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-6">
+              <mat-label> LTSS Decision </mat-label>
+              <mat-form-field appearance="outline">
+                <mat-select formControlName="ltssDscnCd" (selectionChange)="onLtssDecision($event.value)">
+                  <mat-option *ngFor="let row of ltssDscnRT" [value]="row.code">
+                    {{row.description}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="showEndDt">
+            <div class="col-6">
+              <mat-label> Disenrollment Date </mat-label>
+              <mat-form-field appearance="outline">
+                <mat-label>mm/dd/yyyy</mat-label>
+                <input matInput [matDatepicker]="ptntLiabilityPicker" readonly formControlName="disEnrDt">
+                <mat-datepicker-toggle matSuffix [for]="ptntLiabilityPicker"></mat-datepicker-toggle>
+                <mat-datepicker [startAt]="startDate" #ptntLiabilityPicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <button type="submit" mat-flat-button color="primary" class="perlss-click-button"
+                (click)="onDisenrollmentSubmit()">SUBMIT</button>
+            </div>
+          </div>
+        </div>
+        <br>
+        <br>
+   
+      </form>
+      <div class="w60 floatRight">
+        <div class="waiting" *ngIf="showSpinner">
+          <p><span>Saving Data please wait ...</span></p>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="!isDisenrollmentTask">
+        <div class="col">
+          <button type="submit" (click)="authorizeEnrollment()" mat-flat-button color="primary" style="font-size: 23px; float:right; padding: 10px 
+        35px; margin-top: 16px;" class="perlss-click-button">Authorize Enrollment</button>
+        </div>
+      </div>
+  <br><br>
+    </div>
+
+</div>
+<br>
+
+<div style="width: 100%;">
+  <mat-divider class="divider"></mat-divider>
+  <div class="table-width">
+  <span class="accordian-head-summary">
+    <strong>Enrollment Summary</strong>
+    </span>
+    <br>
+    <br>
+    <div class="row" (click)="toggleDropDown('enrollmentSummaryDropdown')">
+    <mat-toolbar class="sumarry-tool">
+      <span class="accordian-title-summary">
+          View Enrollment Summary
+        </span>
+         <span style="padding-left:38vw" class="material-icons">
+        aspect_ratio
+        </span>
+      </mat-toolbar>
+    </div>
+    
+    <div *ngIf="isEnrollmentSummaryDropDownToggled" >
+    <table mat-table [dataSource]="enrSummaryDataSource" class="enrollmentTable" style="width:102%">
+
+        <ng-container matColumnDef="group">
+        <th mat-header-cell *matHeaderCellDef>Enrollment <br> Group </th>
+        <td mat-cell *matCellDef="let element" style="width:25%"> {{element.enrGrpCdDesc}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="startDate">
+        <th mat-header-cell *matHeaderCellDef> Enrollment <br> Start Date </th>
+          <td mat-cell *matCellDef="let element"> {{covertDate(element.enrStartDt)}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="endDate">
+        <th mat-header-cell *matHeaderCellDef> Enrollment <br>End Date </th>
+          <td mat-cell *matCellDef="let element"> {{covertDate(element.enrEndDt)}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Enrollment Status </th>
+          <td mat-cell *matCellDef="let element"> {{element.enrStatusCdDesc}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef> Authorization Date </th>
+          <td mat-cell *matCellDef="let element"> {{covertDate(element.authDt)}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="recordId">
+          <th mat-header-cell *matHeaderCellDef> Record ID</th>
+          <td mat-cell *matCellDef="let element"> {{element.paeId}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedSummaryColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedSummaryColumns;"></tr>
+      </table>
+    </div>
+  </div>
+      
+      <div class="w60 floatRight">
+        <div class="waiting" *ngIf="showSpinner">
+          <p><span>Saving Data please wait ...</span></p>
+  </div>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="pageMargin">
+
+<div  class="body-font-style">
+	<mat-label class="sub-heading">Confirmation</mat-label>
+  <br><br>
+	<mat-divider class="perlss-section-divider"></mat-divider>
+  <br>
+  <div>
+	<div>
+		Congratulations! You have successfully submitted an Employment
+    and Community First CHOICES referral. <br>Please note down the Referral
+    ID mentioned below for your reference.
+    </div>
+  </div>
+    <br>
+    <br>
+    <div style="text-align: center;">
+    <div  style="font-size: 29px;">
+		<b>{{refId}}</b>
+    </div>
+    <br>
+    <br>
+    <div >
+		You can also print a copy of your referral by clicking on the button below.
+    </div>
+    <br>
+    <br>
+    <div>
+        <button mat-raised-button color="warn" (click)="generatePdf()"><mat-icon>search</mat-icon> PRINT REFERRAL </button>
+    </div>
+  </div>
+    <br>
+    <br>
+    <div>
+    <div  >
+		<b>Note:</b> We will take a look at this information and send you a letter. If you don’t receive a letter in the next two weeks, you can call us at 877-224-0219.
+
+    </div>
+    <br>
+    <div >
+		 We will also send someone out to see you. They will share information about the Employment and Community First CHOICES program and gather 
+     some additional information about you. They will also tell you what the next steps in the process will be.
+
+    </div>
+</div>
+
+<div class="row button-container">
+  <div class="col-md-12 chkStyle">
+    <button type="submit" mat-flat-button color="primary"
+            class="perlss-click-button chkW" (click)="redirectDashboard()">NEXT</button>
+  </div>
+</div>
+
+<!-- <div  style="text-align: right;">
+    <button mat-flat-button color="primary"
+        style="font-size: 20px; padding: 15px 35px;"
+        class="perlss-click-button" type="button" (click)="redirectDashboard()">NEXT</button>
+      </div>
+    </div>
+
+</div> -->

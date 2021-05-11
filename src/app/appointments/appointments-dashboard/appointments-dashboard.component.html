@@ -1,0 +1,40 @@
+<div class="pageMargin">
+  <div class="wrapper">
+    <div class="create-box" routerLink="/ltss/appointments/search">
+      <p class="create-status-name">
+        <mat-icon [inline]="true">
+          event_available
+        </mat-icon>
+      </p>
+      <p class="create-status">SEARCH OR ADD<br>APPOINTMENTS</p>
+    </div>
+    <div class="right">
+      <div class="box2Heading">Appointments</div>
+      <div class="row appointments">
+        <div style="padding-bottom: 16px; font-size: 18px;" class="col-md-7" routerLink="/ltss/appointments/search">
+          <mat-icon class="icon1"
+            matTooltip="Upcoming Appointments are defined as the appointments you have scheduled within the next 30 calendar days.">
+            info_outline</mat-icon><span class="upcoming-Appoints">Upcoming<br>Appointments</span>
+        </div>
+        <div class="col-md-5 upcomingAppoint" (click)="navigateToSearch('upcomingAppoints')">{{
+          upcomingAppointments}}</div>
+      </div>
+      <mat-divider class="perlss-section-divider"></mat-divider>
+      <div class="row infoMissAppointments">
+        <div class="col-md-7" style="font-size: 18px;">
+          <mat-icon class="icon2"
+            matTooltip="An appointment has been scheduled but no intake outcome has been entered yet.">info_outline
+          </mat-icon><span class="missed-Appoints">Missed<br>Appointments</span>
+        </div>
+        <div class="col-md-5 missedAppoint" (click)="navigateToSearch('missedAppointments')">{{ missAppointments}}</div>
+      </div>
+    </div>
+</div>
+
+<hr>
+<ng-container>
+
+<full-calendar eventLimit="true" [options]="calendarOptions" style="height: auto;width: 100%;margin-top: 50px"></full-calendar>
+
+</ng-container>
+</div>

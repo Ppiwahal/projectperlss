@@ -1,0 +1,160 @@
+h4 {
+  font-size: 1.4vw;
+  line-height: 2vw;
+  font-weight: 700;
+  margin: 0;
+  padding: 1.1vw 0 .3vw 0;
+  color: #547E1A;
+  font-family: 'Open Sans';
+  margin: 0.8vw 0 0.5vw 0;
+}
+
+.page-header-container{
+  .row{
+    .col-md-4{
+    max-width: 100%;
+    width: 100%;
+    }
+  }
+}
+
+.applicant-name-container{
+    padding: 1vw;
+    vertical-align: middle;
+    justify-content: center;
+    font-size: 1.1vw;
+    border: 2px solid;
+    border-color: #4D7E20;
+    text-align: center;
+}
+
+.form-container{
+  padding-top: 1.5vw;
+  .row {
+    padding-bottom: 0vw;
+    .col-md-6{
+      .is-activated{
+        height: 4vw;
+        width: 100%;
+        margin-top: 0.5vw;
+        margin-bottom: 0.5vw;
+        padding-left: 1vw;
+        text-align: left;
+        border: solid 1px;
+        border-color: #1B365C;
+        .button-icon{
+          float: right;
+          margin-top: 0.5vw;
+          margin-bottom: 0.5vw;
+        }
+      }
+
+      .is-deactivated{
+        width: 100%;
+        height: 4vw;
+        padding-left: 1vw;
+        margin-top: 0.5vw;
+        margin-bottom: 0.5vw;
+        text-align: left;
+        border: solid 1px;
+        border-color: #1B365C;
+        background-color:#1B365C;
+        color: white;
+        .button-icon{
+          float: right;
+          margin-top: 0.5vw;
+          margin-bottom: 0.5vw;
+          background-color: #1B365C;
+          color: WHITE;
+        }
+      }
+    }
+  }
+}
+
+
+
+.button-container{
+  padding-top: 5vh;
+  .row{
+    .col-md-2{
+      text-align: left;
+    }
+    .col-md-4{
+      text-align: left;
+    }
+    .col-md-6{
+      text-align: right;
+    }
+    .perlss-click-button, .perlss-click-button-white-noborder, .perlss-click-button-white{
+      font-size: 1.4vw !important;
+    }
+  }
+}
+
+.required-color {
+  color: #EE3524;
+}
+
+
+#skilledSummary, #serviceScore, #fileUpload {
+  font-family: 'Open Sans';
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #35485b;
+  padding: 1vw;
+  text-align: center;
+  .left{
+    text-align: left;
+  }
+
+}
+
+
+
+#skilledSummary td, #skilledSummary th, #serviceScore td, #serviceScore th, #fileUpload td, #fileUpload th {
+  padding: 1vw;
+  border-bottom: 0.5px solid #999999;
+  .green{
+    display: inline-flex;
+    vertical-align: middle;
+    color: rgb(47, 165, 0);
+  }
+  .red{
+    display: inline-flex;
+    vertical-align: middle;
+    color: #f31e1e;
+  }
+  span{
+    margin-left: 1vw;
+  }
+}
+
+#skilledSummary th, #serviceScore th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #CDDDF4;
+  border-bottom: 1px solid #35485b;
+}
+
+#fileUpload th, #fileUpload tr {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #35485b;
+}
+
+.wide {
+  width: 62.5%;
+}
+
+.wider {
+  width: 80%;
+}
+
+.file-upload-container{
+  padding-top: 1vw;
+}
+
+.upload-icon{
+  color:  rgb(76, 144, 211);
+}

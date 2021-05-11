@@ -1,0 +1,45 @@
+<div class="responsive">
+    <div class="form">
+      <div class="scroller">
+        <app-change-management-common mode="demograph">
+          <div  *ngIf="firstPanel"  class="alert-container-note">
+            <div class="row">
+              <div class="col-md-12">
+                <span class="red-text">
+                  <strong>NOTE:</strong>
+               </span>
+               &nbsp;&nbsp;
+                <mat-label> Applicant Details have been validated. Acknowledge below to confirm.
+               </mat-label>
+             </div>
+           </div>
+         </div>
+         <div *ngIf="secondPanel" class="alert-container">
+          <div class="row">
+            <div class="col-md-12">
+              <span class="red-text">
+                <strong>NOTE:</strong>
+             </span>
+             &nbsp;&nbsp;
+              <mat-label> Applicant Details Cannot be updated. Please contact LTSS Help desk at 1-877-224-0219.
+             </mat-label>
+           </div>
+         </div>
+       </div>
+       <div  *ngIf="firstPanel"   class="row">
+         <div class="checkbox">
+       <mat-checkbox  (click)="onClick()" [(ngModel)]="iAccept">
+        <mat-label><span>I Acknowledge that all the information provided above is accurate.</span>
+        </mat-label>
+      </mat-checkbox>
+    </div>
+    </div>
+    <div  *ngIf="firstPanel"  class="row">
+      <div class="col margin">
+        <button mat-flat-button color="primary" class="perlss-click-button submit" [disabled]="!iAccept" (click)="submit()" >SUBMIT</button>
+      </div>
+    </div>
+        </app-change-management-common>
+      </div>
+    </div>
+  </div>

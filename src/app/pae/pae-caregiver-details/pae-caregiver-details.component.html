@@ -1,0 +1,341 @@
+ <form [formGroup]="myForm" (ngSubmit)="next()">
+    <div class="pageMargin">
+      <div class="row" style="width: 100%;">
+        <div class="col-md-8" style="width: 100% !important;">
+        </div>
+        <div class="col-md-4">
+          <table id="applicantName">
+            <tr>
+              <th> <b>APPLICANT NAME : </b> Jessica Jones</th>
+            </tr>
+          </table>
+        </div>
+      </div>
+  
+      <div class="applicant-sub-heading">Skilled Interventions
+      </div>
+  
+      <div style="width: 95%;">
+        <div class="question-container">
+          <div class="row">
+            <div class="col-md-12">
+              <label id="example-radio-group-label" style="text-indent: -9px;">
+                  <mat-label class="required-color">*</mat-label>
+                  Select if the applicant's caregiving includes any of the interventions listed below, if applicable.
+                </label>
+            </div>
+          </div>
+        </div>
+        <div class="radio-option-container">
+          <div class="row">
+            <div class="col-md-12">
+              <mat-radio-group formControlName="caregiverIntervnCd">
+                <div *ngIf="getFormData().caregiverIntervnCd.hasError('required') &&
+                          (getFormData().caregiverIntervnCd.touched || submitted)">
+                  <mat-error>{{customValidation.A1}}</mat-error>
+                </div>
+                <div>
+                  <mat-radio-button value="CS">Caregiving includes complex skilled medical interventions</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="DS">Caregiving includes (non-complex) daily skilled nursing tasks (not including medication administration)</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="NA">Not Applicable</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+        </div>
+        <mat-divider class="perlss-section-divider"></mat-divider>
+        <div class="applicant-sub-heading">Monitoring
+        </div>
+        <div class="question-container">
+          <div class="row">
+            <div class="col-md-12">
+              <label id="example-radio-group-label" style="text-indent: -9px;">
+                  <mat-label class="required-color">*</mat-label>
+                  Select the frequency of applicant's awake monitoring (for a medical condition) at night, if applicable.
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="radio-option-container">
+          <div class="row">
+            <div class="col-md-12">
+              <mat-radio-group formControlName="aplcntFreqAwkeMonitrCd">
+                <div *ngIf="getFormData().aplcntFreqAwkeMonitrCd.hasError('required') &&
+                            (getFormData().aplcntFreqAwkeMonitrCd.touched || submitted)">
+                  <mat-error>{{customValidation.A1}}</mat-error>
+                </div>
+                <div>
+                  <mat-radio-button value="OA">Child requires constant overnight awake monitoring</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="II">Child routinely requires intermittent intervention throughout the night</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="NA">Not Applicable</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+        </div>
+        <mat-divider class="perlss-section-divider"></mat-divider>
+
+        <div class="applicant-sub-heading">Other Caregiving Interventions and Behaviors
+        </div>
+  
+        <div class="question-container">
+          <div class="row">
+            <div class="col-md-12">
+              <label id="example-radio-group-label" style="text-indent: -14.5px;">
+                  <mat-label class="required-color">*</mat-label>
+                  Does the applicant display any behaviors or require additional interventions mentioned below? (Select ALL that apply)
+              </label>
+            </div>
+          </div>
+          <div>
+            <mat-error *ngIf="(!transportSelected && !transportNoneSelected) && submitted">{{customValidation.A1}}
+            </mat-error>
+            <mat-error *ngIf="(transportSelected && transportNoneSelected) && submitted">{{customValidation.A26}}
+            </mat-error>
+          </div>
+        </div>
+  
+        <div class="chkboxContainer">
+          <div>
+            <mat-checkbox formControlName="hansonCaregvngSw" (change)="onDeclineHealth($event)">≥ 40 hours/week hands-on caregiving for child with complex needs and/or disabilities
+            </mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox class="checkbox-element" formControlName="musculoContracDeformSw" (change)="onDeclineHealth($event)"
+              >
+              Has musculoskeletal contractures and deformities
+            </mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox class="checkbox-element" formControlName="riskChokRespDisSw" (change)="onDeclineHealth($event)">
+              High risk for choking or respiratory distress
+            </mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox class="checkbox-element" formControlName="implBehvPlanSw" (change)="onDeclineHealth($event)">
+              Includes implementation of Behavior Plan for severe self-injurious or physically aggressive behaviors
+            </mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox class="checkbox-element" formControlName="reqLocMonSw" (change)="onDeclineHealth($event)">
+              Requires location monitoring, includes wander prevention, door monitors, cameras
+            </mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox class="checkbox-element" formControlName="homeBoundEduSw" (change)="onDeclineHealth($event)">
+              Homebound education required
+            </mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox class="checkbox-element" formControlName="addNoneAboveSw" (change)="onNoneSelected($event)">
+              None of the above
+            </mat-checkbox>
+          </div>
+        </div> 
+
+        <mat-divider class="perlss-section-divider"></mat-divider>
+
+
+        <div class="applicant-sub-heading">Caregiver Burden
+        </div>
+        <div class="question-container">
+          <div class="row">
+            <div class="col-md-12">
+              <label id="example-radio-group-label" style="text-indent: -9px;">
+                  <mat-label class="required-color">*</mat-label>
+                  Is the applicant part of single parent/guardian family or two parent/guardian family?
+                </label>
+            </div>
+          </div>
+        </div>
+        <div class="radio-option-container">
+          <div class="row">
+            <div class="col-md-12">
+              <mat-radio-group formControlName="singleTwoPrntFmlyCd">
+                <div *ngIf="getFormData().singleTwoPrntFmlyCd.hasError('required') &&
+                            (getFormData().singleTwoPrntFmlyCd.touched || submitted)">
+                  <mat-error>{{customValidation.A1}}</mat-error>
+                </div>
+                <div>
+                  <mat-radio-button value="Y">Single Parent/guardian family</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">Two Parent/guardian family</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="row">
+            <div class="col-md-12">
+              <label id="example-radio-group-label" style="text-indent: -9px;">
+                  <mat-label class="required-color">*</mat-label>
+                  Is there any other adult caregiver living in the home?
+                </label>
+            </div>
+          </div>
+        </div>
+        <div class="radio-option-container">
+          <div class="row">
+            <div class="col-md-12">
+              <mat-radio-group formControlName="othrAdultCaregiverSw">
+                <div *ngIf="getFormData().othrAdultCaregiverSw.hasError('required') &&
+                            (getFormData().othrAdultCaregiverSw.touched || submitted)">
+                  <mat-error>{{customValidation.A1}}</mat-error>
+                </div>
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="row">
+            <div class="col-md-12">
+              <label id="example-radio-group-label" style="text-indent: -9px;">
+                  <mat-label class="required-color">*</mat-label>
+                  Does the parent/guardian display significant health problems or disabilities that limit caregiving?
+                </label>
+            </div>
+          </div>
+        </div>
+        <div class="radio-option-container">
+          <div class="row">
+            <div class="col-md-12">
+              <mat-radio-group formControlName="parntAdultDisSw">
+                <div *ngIf="getFormData().parntAdultDisSw.hasError('required') &&
+                            (getFormData().parntAdultDisSw.touched || submitted)">
+                  <mat-error>{{customValidation.A1}}</mat-error>
+                </div>
+                <div>
+                  <mat-radio-button value="Y">Yes</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="N">No</mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+        </div>
+
+        <div class="question-container">
+          <div class="row">
+            <div class="col-md-12">
+              <label id="example-radio-group-label" style="text-indent: -9px;">
+                  <mat-label class="required-color">*</mat-label>
+                  Does one or both parents/guardians display significant health problems or disabilities that limit caregiving?
+                </label>
+            </div>
+          </div>
+        </div>
+        <div class="radio-option-container">
+          <div class="row">
+            <div class="col-md-12">
+              <mat-radio-group formControlName="parntHealthDisSw">
+                <div *ngIf="getFormData().parntHealthDisSw.hasError('required') &&
+                            (getFormData().parntHealthDisSw.touched || submitted)">
+                  <mat-error>{{customValidation.A1}}</mat-error>
+                </div>
+                <div>
+                  <mat-radio-button value="OP">One of the parents/guardians</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="BP">Both of the parents/guardians</mat-radio-button>
+                </div>
+                <div>
+                  <mat-radio-button value="NO">Not applicable</mat-radio-button>
+                </div>
+               
+              </mat-radio-group>
+            </div>
+          </div>
+        </div>
+  
+        <mat-divider class="perlss-section-divider"></mat-divider>
+
+
+    
+        <div class="applicant-sub-heading">Additional Caregiver Details
+        </div>
+  
+        <div class="question-container">
+          <div class="row">
+            <div class="col-md-12">
+              <label id="example-radio-group-label" style="text-indent: -14.5px;">
+                  <mat-label class="required-color">*</mat-label>
+                  Please select any additional family details mentioned below. (Select ALL that apply)
+              </label>
+            </div>
+          </div>
+          <div>
+            <mat-error *ngIf="(!transportSelected && !transportNoneSelected) && submitted">{{customValidation.A1}}
+            </mat-error>
+            <mat-error *ngIf="(transportSelected && transportNoneSelected) && submitted">{{customValidation.A26}}
+            </mat-error>
+          </div>
+        </div>
+  
+        <div class="chkboxContainer">
+          <div>
+            <mat-checkbox formControlName="moreChildDisSw" (change)="onDeclineHealth($event)"> More than 1 child under 21 with diagnosed disability requiring daily assistance living in family home
+            </mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox class="checkbox-element" formControlName="othrAdultDisSw" (change)="onDeclineHealth($event)"
+              >
+              Other adults (not caregivers) in home with diagnosed disability or medical condition requiring daily assistance living in family home
+            </mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox class="checkbox-element" formControlName="othrChildLivHmeSw" (change)="onDeclineHealth($event)">
+              Other children under age 6 living in the home (excluding child with a disability)
+            </mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox class="checkbox-element" formControlName="moreParntHealthDisCd" (change)="onDeclineHealth($event)">
+              Parent is also a caregiver for an adult family member diagnosed w/ disability or medical condition requiring daily assistance but not living in family home
+            </mat-checkbox>
+          </div>
+          <div>
+            <mat-checkbox class="checkbox-element" formControlName="othrCareNoneAboveSw">
+              None of the above
+            </mat-checkbox>
+          </div>
+        </div> 
+
+        
+        <mat-divider class="perlss-section-divider"></mat-divider>
+  
+        <div class="row" style="margin-left: 5px; padding-top: 50px;">
+          <div class="col-md-2" style="text-align: left;">
+            <button type="button" mat-flat-button color="primary" style="font-size: 20px; padding: 12px 20px;"
+              class="perlss-click-button-white" (click)="goBack()">BACK</button>
+          </div>
+          <div class="col-md-4" style="text-align: left;">
+            <button mat-flat-button color="primary" style="font-size: 20px; padding: 12px 20px;"
+              class="perlss-click-button-white-noborder" type="button" >SAVE AND EXIT</button>
+          </div>
+          <div class="col-md-6" style="text-align: right;">
+            <button mat-flat-button color="primary" style="font-size: 20px;  padding: 12px 20px;"
+              class="perlss-click-button">NEXT</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+

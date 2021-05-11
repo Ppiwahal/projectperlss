@@ -1,0 +1,47 @@
+
+table {
+    width: 100%;
+}
+
+th {
+    width: 20%;
+}
+td{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+table tr:last-child td {
+    border-bottom: 1px solid #1B365D;
+}
+
+.button-content{
+    padding-top: 20px;
+}
+
+.back-button{
+    text-align: left;
+}
+
+.next-button{
+    text-align: right;
+}
+
+.highlight-button {
+  background-color: #174A7C !important;
+  color: white !important;
+  mat-icon {
+   fill: white !important;
+  }
+}
+
+#mainTable th{
+    font-size: 14px;
+    font-weight: bold;
+    color: #04537D;
+    border-bottom: 3px solid #1B365D;
+  }
+  
+  #mainTable {
+    border: 1px solid #1B365D;
+  }

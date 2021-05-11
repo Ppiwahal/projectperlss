@@ -1,0 +1,220 @@
+@import '../../../colors.scss';
+
+.applicant-sub-heading {
+  font-weight: bold;
+  color: #547E1A;
+  font-size: 22px;
+  margin-left: 10px;
+  margin-top: 5px;
+}
+
+.radio-option-container {
+  padding-top: 10px;
+  padding-bottom: 40px;
+  margin-left: 50px;
+}
+.question-container{
+  padding-top: 25px;
+  margin-left: 50px;
+}
+
+.button-container {
+  margin-top: 20px;
+}
+
+.transfer_sub_container {
+  padding: 2px;
+  margin-top: 20px;
+  background: aliceblue;
+  padding: 20px;
+}
+
+.div-container {
+  margin-top: 30px;
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 2px solid #89a560;
+  
+}
+
+::ng-deep.mat-checkbox-layout{
+  white-space: normal !important;
+  }
+
+::ng-deep .mat-checkbox-inner-container {
+  margin-top: 4px !important;
+  white-space: normal;
+}
+
+#applicantName {
+  border: 2px solid;
+  border-color: #4D7E20;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+}
+::ng-deep .mat-form-field {
+  width: 100%;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: $colorControlBackground;
+  border-radius: 5px;
+  border-color: #CED4DA;
+}
+
+.checkbox-element {
+    position: relative;
+    top: 20%;
+    transform: translateY(-20%);
+}
+
+.required-color {
+  color: #ED6053;
+}
+
+.required {
+  color: #ED6053;
+}
+
+.validationContainer {
+  margin-bottom: 10px;
+}
+
+.table-descr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.status-header {
+  padding-left: 35px;
+  font-weight: bold;
+  font-size: 16px;
+  background-color: #cdddf4;
+}
+
+.iconTextContainer {
+  position: relative;
+  padding-top: 4px;
+  text-align: center;
+  color: black;
+  font-weight: bold;
+}
+
+.statusText {
+  position:absolute;
+  padding-top:7px;
+}
+
+.usrActions {
+  padding-left: 30px;
+  font-size: 14px;
+}
+
+.perlss-section-divider {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.statHeader {
+  font-weight: bold;
+  font-size: large;
+}
+
+.chkBoxContainer {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.chkboxContent {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.reqSafety{
+  width: 30%;
+  height: 72px;
+  padding-left: 18px;
+  margin-top: 9px;
+  margin-bottom: 9px;
+  text-align: left;
+  border: solid 1px;
+  border-color: #1B365C;
+  background-color:white;
+  color: grey;
+  .button-icon{
+    float: right;
+    margin-top: 9px;
+    margin-bottom: 9px;
+    background-color: grey;
+    color: white;
+  }
+}
+
+.reqSafety:focus{
+  height: 72px;
+  width: 30%;
+  margin-top: 9px;
+  margin-bottom: 9px;
+  padding-left: 18px;
+  text-align: left;
+  border: solid 1px;
+  border-color: #1B365C;
+  background-color:#1B365C;
+  color: white;
+  .button-icon{
+    float: right;
+    margin-top: 9px;
+    margin-bottom: 9px;
+    background-color: white;
+    color: #1B365C;
+  }
+}
+
+#safetySummary, #serviceScore, #fileUpload {
+  font-family: 'Open Sans';
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #35485b;
+  padding: 18px;
+  text-align: center;
+  .left{
+    text-align: left;
+  }
+
+}
+
+.row {
+  margin-right: 36px !important;
+}
+
+#safetyServiceSummary, #status, #userActions{
+  padding: 18px;
+  font-size: large;
+}
+
+#headerRow{
+  background: aliceblue;
+  color: black;
+}
+
+.spacing {
+  padding: 18px;
+  font-size: initial;
+}
+
+.red-icon-tooltip {
+  color: #ed6053;
+  transform: scale(0.8);  
+  cursor: pointer;
+}
+
+#borders {
+  border-top: 1px solid #1B365C;
+  border-bottom: 1px solid #1B365C;
+}
+
+.gotoDetailsLink:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

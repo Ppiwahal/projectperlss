@@ -1,0 +1,6 @@
+<div class="pageMargin">
+  <app-slot-dashboard-queues (emitSearchRequest)="handleSearchRequest($event)"></app-slot-dashboard-queues>
+  <app-slot-dashboard-summary></app-slot-dashboard-summary>
+  <app-slot-dashboard-katie-beckett></app-slot-dashboard-katie-beckett>
+  <app-slot-dashboard-ecf-choices [searchresults]="searchResults"></app-slot-dashboard-ecf-choices>
+</div>

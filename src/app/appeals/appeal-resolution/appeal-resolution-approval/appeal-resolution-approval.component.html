@@ -1,0 +1,185 @@
+<div class="wrapper">
+  <form [formGroup]="approvalForm">
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" style="width:100% !important">
+          <mat-label><span class="required">*</span><span>Approval Reason</span></mat-label>
+          <mat-select formControlName="approvalReason" (selectionChange)="onApprovalReasonChange($event)"
+            placeholder="Select Status">
+            <mat-option value=''>Select an option</mat-option>
+            <mat-option *ngFor="let reason of appealApproval" [value]="reason.code">{{reason.value}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-error *ngIf="isShowErrors && approvalForm.get('approvalReason')?.hasError('required')">
+          <span>{{customValidation.A1}}</span>
+        </mat-error>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" style="width:100% !important">
+          <mat-label><span class="required">*</span><span>Approval Clarification Reason</span>
+          </mat-label>
+          <mat-select formControlName="approvalClarificationReason" placeholder="Select Status">
+            <mat-option value=''>Select an option</mat-option>
+            <mat-option *ngFor="let clarification of approvalReasonClarification" [value]="clarification.code">
+              {{clarification.value}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-error *ngIf="isShowErrors && approvalForm.get('approvalClarificationReason')?.hasError('required')">
+          <span>{{customValidation.A1}}</span>
+        </mat-error>
+      </div>
+    </div>
+    <div *ngIf="isLocResNonLocPNMPS">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" style="width:100% !important">
+            <mat-label><span class="required">*</span><span>Department Approving PASRR</span></mat-label>
+            <mat-select formControlName="departmentApprovingPASRR" placeholder="Select Status">
+              <mat-option value=''>Select an option</mat-option>
+              <mat-option *ngFor="let department of departmentApprovingPasrr" [value]="department.entityCode">
+                {{department.entity}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-error *ngIf="isShowErrors && approvalForm.get('departmentApprovingPASRR')?.hasError('required')">
+            <span>{{customValidation.A1}}</span>
+          </mat-error>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" style="width:100% !important">
+            <mat-label><span class="required">*</span><span>PASRR Resubmission Date</span></mat-label>
+            <input [min]="minDate" formControlName="PASRRResubmissionDate" placeholder="MM/DD/YYYY" aria-label="hearing date and time"
+              matInput [matDatepicker]="resubmissionDate" autocomplete="off">
+            <mat-datepicker-toggle matSuffix [for]="resubmissionDate"></mat-datepicker-toggle>
+            <mat-datepicker [startAt]="startDate" #resubmissionDate></mat-datepicker>
+          </mat-form-field>
+          <mat-error *ngIf="isShowErrors && approvalForm.get('PASRRResubmissionDate')?.hasError('required')">
+            <span>{{customValidation.A1}}</span>
+          </mat-error>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" style="width:100% !important">
+            <mat-label><span class="required">*</span><span>PASRR Effective Approval Date</span></mat-label>
+            <input [min]="minDate" formControlName="PASRREffectiveApprovalDate" placeholder="MM/DD/YYYY"
+              aria-label="hearing date and time" matInput [matDatepicker]="effectiveApprovalDate" autocomplete="off">
+            <mat-datepicker-toggle matSuffix [for]="effectiveApprovalDate"></mat-datepicker-toggle>
+            <mat-datepicker [startAt]="startDate" #effectiveApprovalDate></mat-datepicker>
+          </mat-form-field>
+          <mat-error *ngIf="isShowErrors && approvalForm.get('PASRREffectiveApprovalDate')?.hasError('required')">
+            <span>{{customValidation.A1}}</span>
+          </mat-error>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label><span class="required">*</span><span>Approved Client ID</span></mat-label>
+            <input formControlName="approvedClientId" aria-label="pae id" maxlength="20" matInput />
+          </mat-form-field>
+          <mat-error *ngIf="isShowErrors && approvalForm.get('approvedClientId')?.hasError('required')">
+            <span>{{customValidation.A1}}</span>
+          </mat-error>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label><span class="required">*</span><span>Approved Episode ID</span></mat-label>
+            <input formControlName="approvedEpisodeId" aria-label="pae id" maxlength="20" matInput />
+          </mat-form-field>
+          <mat-error *ngIf="isShowErrors && approvalForm.get('approvedEpisodeId')?.hasError('required')">
+            <span>{{customValidation.A1}}</span>
+          </mat-error>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <mat-form-field appearance="outline" style="width:100% !important">
+          <mat-label><span class="required">*</span><span>Approval Comments:</span></mat-label>
+          <textarea formControlName="approvalComments" matInput maxlength="2000" rows="2" placeholder=""></textarea>
+          <mat-hint align="end">{{approvalForm.controls.approvalComments.value ?
+            approvalForm.controls.approvalComments.value.length : 0}} / 2000</mat-hint>
+        </mat-form-field>
+        <mat-error *ngIf="isShowErrors && approvalForm.get('approvalComments')?.hasError('required')">
+          <span>{{customValidation.A1}}</span>
+        </mat-error>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" style="width:100% !important">
+          <mat-label><span class="required">*</span><span>Select Action to Complete Appeal Resolution</span></mat-label>
+          <mat-select formControlName="appealResolutionAction" (selectionChange)="onAppealResolutionChange($event)"
+            placeholder="Select Status">
+            <mat-option value=''>Select an option</mat-option>
+            <mat-option *ngFor="let action of actionToCompleteAppealResolution" [value]="action.name">{{action.value}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-error *ngIf="isShowErrors && approvalForm.get('appealResolutionAction')?.hasError('required')">
+          <span>{{customValidation.A1}}</span>
+        </mat-error>
+      </div>
+    </div>
+    <div *ngIf="isUpdatePasrr" class="row">
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" style="width:100% !important">
+          <mat-label><span class="required">*</span><span>PASRR Effective Date</span></mat-label>
+          <input formControlName="PASRREffectiveDate" placeholder="MM/DD/YYYY" aria-label="hearing date and time"
+            matInput [matDatepicker]="effectiveDate" autocomplete="off">
+          <mat-datepicker-toggle matSuffix [for]="effectiveDate"></mat-datepicker-toggle>
+          <mat-datepicker [startAt]="startDate" #effectiveDate></mat-datepicker>
+        </mat-form-field>
+        <mat-error *ngIf="isShowErrors && approvalForm.get('PASRREffectiveDate')?.hasError('required')">
+          <span>{{customValidation.A1}}</span>
+        </mat-error>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" style="width:100% !important">
+          <mat-label><span class="required">*</span><span>PASRR Is Approved Based on</span></mat-label>
+          <mat-select formControlName="PASRRApprovedBasedOn" (selectionChange)="onAppealResolutionChange($event)"
+            placeholder="Select Status">
+            <mat-option value=''>Select an option</mat-option>
+            <mat-option *ngFor="let action of safetyAndScore" [value]="action.name">{{action.value}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-error *ngIf="isShowErrors && approvalForm.get('PASRRApprovedBasedOn')?.hasError('required')">
+          <span>{{customValidation.A1}}</span>
+        </mat-error>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field appearance="outline" style="width:100% !important">
+          <mat-label><span class="required">*</span><span>PASRR Approval Comments:</span></mat-label>
+          <textarea formControlName="PASRRApprovalComments" matInput maxlength="2000" rows="2"
+            placeholder=""></textarea>
+          <mat-hint align="end">{{approvalForm.controls.PASRRApprovalComments.value ?
+            approvalForm.controls.PASRRApprovalComments.value.length : 0}} / 2000</mat-hint>
+        </mat-form-field>
+        <mat-error *ngIf="isShowErrors && approvalForm.get('PASRRApprovalComments')?.hasError('required')">
+          <span>{{customValidation.A1}}</span>
+        </mat-error>
+      </div>
+    </div>
+    <div *ngIf="isNoActionPending" class="row">
+      <div class="col-md-12">
+        <mat-form-field appearance="outline" style="width:100% !important">
+          <mat-label><span class="required">*</span><span>Action taken to close the appeal:</span></mat-label>
+          <textarea formControlName="actionTaken" matInput maxlength="2000" rows="2" placeholder=""></textarea>
+          <mat-hint align="end">{{approvalForm.controls.actionTaken.value ?
+            approvalForm.controls.actionTaken.value.length : 0}} / 2000</mat-hint>
+        </mat-form-field>
+        <mat-error *ngIf="isShowErrors && approvalForm.get('actionTaken')?.hasError('required')">
+          <span>{{customValidation.A1}}</span>
+        </mat-error>
+      </div>
+    </div>
+  </form>
+  <div class="buttons">
+    <button mat-stroked-button type="button" (click)="navigateBack()">BACK</button>
+    <button *ngIf="isNoActionPending" mat-stroked-button type="button" class="perlss-click-button"
+      (click)="closeAppeal()">CLOSE APPEAL</button>
+    <button *ngIf="isSubmit" mat-stroked-button type="button" class="search-result-Button submit-button"
+      (click)="submit()">SUBMIT</button>
+    <button *ngIf="isNext" mat-stroked-button type="button" class="search-result-Button" (click)="next()">NEXT</button>
+  </div>
+</div>

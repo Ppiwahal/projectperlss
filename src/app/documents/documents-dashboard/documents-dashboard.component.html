@@ -1,0 +1,169 @@
+<div style="margin: 0px 40px 30px 40px;" class="pageMargin">
+  <div class="row" style="width: 100%;padding-left: 14px;">
+    <div class="app-sub-heading">
+      Search Criteria
+    </div>
+  </div>
+  <div style="padding-bottom: 20px;">
+    <p>Please use the criteria below to search by person details or document details.</p>
+  </div>
+  <div style="width: 100%;font-size: 14px;">
+    <div class="row">
+      <div class="col-md-12">
+        <strong style="color: black;">Person Search</strong>
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Search by Applicant Name, Date Of Birth, SSN, Person ID, County</mat-label>
+          <input matInput [(ngModel)]="personDisplayName" [matAutocomplete]="auto" #applicantNameInput
+            placeholder="Search by Applicant Name, Date Of Birth, SSN, Person ID, County">
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)='handleSelection($event.option.value)'>
+            <mat-option class="select-hr" *ngFor="let option of personOptions" [value]="option">
+              <strong>Applicant Name:</strong>{{option.prsnDetail.firstName}} {{option.prsnDetail.lastName}},
+              <strong>Date Of Birth:</strong>
+              {{ option.prsnDetail?.dobDt }},
+              <strong>SSN:</strong>{{option.prsnDetail?.ssn}}, <strong>Person ID:</strong>
+              {{option.prsnDetail?.prsnId}} <span *ngIf="option.prsnDetail.prsnCountyName">, <strong>County:</strong></span>
+              {{option.prsnDetail?.prsnCountyName}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+    </div>
+    <div>
+      <div class="row">
+        <div class="col-md-6">
+          <strong style="color: black;">Referral ID</strong>
+          <mat-form-field appearance="outline" style="width: 100%;">
+            <input aria-label="referral id" maxlength="20" matInput [(ngModel)]="referralId" />
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <strong style="color: black;">PAE ID</strong>
+          <mat-form-field appearance="outline" style="width: 100%;">
+            <input aria-label="pae id" maxlength="20" matInput [(ngModel)]="paeId" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <strong style="color: black;">Appeal ID</strong>
+          <mat-form-field appearance="outline" style="width: 100%;">
+            <input aria-label="appeal id" maxlength="20" matInput [(ngModel)]="appealId" />
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <strong style="color: black;">PAE Status</strong>
+          <mat-form-field appearance="outline" style="width:100% !important">
+            <mat-select (selectionChange)="statusChange($event)" placeholder="Select Status">
+              <mat-option value=''>Select Status </mat-option>
+              <mat-option *ngFor="let status of paeStatusDropDown" [value]="status.code">{{status.value}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="showError" class="row" style="padding-top: 20px; padding-bottom: 20px;">
+      <div class="col">
+        <strong style="color: red;">{{errorMessage}}</strong>
+      </div>
+    </div>
+    <div class="row" style="padding-bottom: 40px;">
+      <div class="col">
+        <button type="submit" mat-flat-button color="primary"
+          style="font-size: 16px;  padding: 3px 25px; margin-top: 16px;" (click)="executeSearch()"
+          class="perlss-click-button"><strong>SEARCH</strong></button>
+      </div>
+    </div>
+  </div>
+  <mat-divider class="perlss-section-divider" [hidden]='isSearchCompleted'></mat-divider>
+  <div [hidden]='isSearchCompleted'>
+    <div class="row" style="width: 100%;margin:auto">
+      <div class="app-sub-heading col-md-7" style="width: 100% !important;">
+        Search Results
+      </div>
+      <mat-form-field style="width: 50%;" class="col-md-5" appearance="outline">
+        <mat-label>Search Filter</mat-label>
+        <input aria-label="search filter" matInput (keyup)="applyFilter($event)" placeholder="" #input>
+      </mat-form-field>
+    </div>
+    <table aria-label mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8"
+      style="width: 100%;font-size: 12px;">
+      <ng-container matColumnDef="name">
+        <th id="personName" mat-header-cell *matHeaderCellDef class='table-th'>Person Name </th>
+        <td mat-cell class="table-td" *matCellDef="let element">
+          <span *ngIf="element.firstName || element.lastName">{{element.firstName}} {{element.lastName}}</span>
+          <span *ngIf="!element.firstName || !element.lastName">N/A</span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="ssn">
+        <th id="ssn" mat-header-cell *matHeaderCellDef class='table-th'>SSN </th>
+        <td mat-cell class="table-td" *matCellDef="let element">
+          <span *ngIf="element.ssn">{{formatSSN(element.ssn)}}</span>
+          <span *ngIf="!element.ssn">N/A</span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="referralId">
+        <th id="refId" mat-header-cell *matHeaderCellDef class='table-th'>Referral ID </th>
+        <td mat-cell class="table-td" *matCellDef="let element">
+          <span *ngIf="element.refId">{{element.refId}}</span>
+          <span *ngIf="!element.refId">N/A</span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="paeId">
+        <th id="paeId" mat-header-cell *matHeaderCellDef class='table-th'>PAE ID </th>
+        <td mat-cell class="table-td" *matCellDef="let element">
+          <span *ngIf="element.paeId">{{element.paeId}}</span>
+          <span *ngIf="!element.paeId">N/A</span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="appointmentType">
+        <th id="aplId" mat-header-cell *matHeaderCellDef class='table-th'>Appeal ID</th>
+        <td mat-cell class="table-td" *matCellDef="let element">
+          <span *ngIf="element.aplId">{{element.aplId}}</span>
+          <span *ngIf="!element.aplId">N/A</span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="appointmentStatus">
+        <th id="paeStatus" mat-header-cell *matHeaderCellDef class='table-th'>PAE Status </th>
+        <td mat-cell class="table-td" *matCellDef="let element">
+          <span *ngIf="element.paeStatus">{{element.paeStatus}}</span>
+          <span *ngIf="!element.paeStatus">N/A</span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+          <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+            <div style="font-size: 12px;">
+              <table aria-label class="table table-borderless"
+                style="width: 60%;border: 0px;border-bottom:0px;text-align: left; margin-top: 14px;">
+                <tr class="d-flex">
+                  <td class="col-4" *ngIf="element.dobDt" style="border-bottom:0px"><strong>Date of
+                      birth</strong><br />{{ element.dobDt }}</td>
+                  <td class="col-4" *ngIf="element.prsnId" style="border-bottom:0px"><strong>Person ID</strong><br />{{
+                    element.prsnId }}</td>
+                  <td class="col-4" *ngIf="element.refStatus" style="border-bottom:0px"><strong>Referral
+                      Status</strong><br />{{ element.refStatus }}</td>
+                  <td class="col-4" *ngIf="element.aplStatus" style="border-bottom:0px"><strong>Appeal
+                      Status</strong><br />{{ element.aplStatus }}</td>
+                  <td class="col-4" *ngIf="!element.aplStatus" style="border-bottom:0px"></td>
+                  <td class="col-4" *ngIf="!element.refStatus" style="border-bottom:0px"></td>
+                  <td class="col-4" style="border-bottom:0px;">
+                    <button type="search" class="search-result-Button" (click)="navigateToHistory(element)">VIEW /
+                      UPLOAD</button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="element-row"
+        [class.expanded-row]="expandedElement === element"
+        (click)="expandedElement = expandedElement === element ? null : element">
+      </tr>
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+    </table>
+  </div>
+  <mat-paginator  [hidden]="isSearchCompleted" [pageSizeOptions]="[ 10, 25, 50, 100]">
+  </mat-paginator>
+</div>

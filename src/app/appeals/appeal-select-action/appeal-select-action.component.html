@@ -1,0 +1,94 @@
+<div style="width: 90%; margin:auto; margin-top: 30px;">
+    <div class="header">
+        <p class="header-p">Start</p>
+        <p class="required">
+            <span>*</span>Required
+        </p>
+    </div>
+    <div>
+        <app-appellant-info [appellantInfoStatus]="appellantInfoStatus" [appellantInfo]="appellantInfo">
+        </app-appellant-info>
+    </div>
+    <div>
+        <app-request-summary [requestSummary]="requestSummary" [otherDepartmentNameDetails]="otherDepartmentNameDetails"
+            [whoIsFilingAppeal]="whoIsFilingAppeal" [appealFilingMethod]="appealFilingMethod"></app-request-summary>
+    </div>
+
+    <mat-divider></mat-divider>
+    <div style="margin-top: 30px;">
+        <p style="font-size: 18px; font-weight: bold; color: green; margin-bottom:30px;">Appeal Action</p>
+        <div style="width: 35%;">
+            <mat-form-field appearance="outline">
+                <mat-label>
+                    <mat-label class="required-color"></mat-label>What would you like to do?
+                </mat-label>
+                <mat-select (selectionChange)="onAppealActionChange($event.value)">
+                    <mat-option value=''>Select</mat-option>
+                    <mat-option *ngFor="let ac of appealActions" value={{ac.code}}>{{ac.value}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div *ngIf="code==''">
+
+    </div>
+    <div *ngIf="code=='A'">
+        <app-requested-documents [documentType]="documentType" [searchElement]="searchElement">
+        </app-requested-documents>
+    </div>
+    <div *ngIf="code=='B'">
+        <app-special-service [searchElement]="searchElement"></app-special-service>
+    </div>
+    <div *ngIf="code=='C'">
+        <app-update-docket [docketNum]="docketNum" [searchElement]="searchElement"></app-update-docket>
+    </div>
+    <div *ngIf="code=='D'">
+        <app-reschedule-hearing [searchElement]="searchElement"></app-reschedule-hearing>
+    </div>
+    <div *ngIf="code=='E'">
+        <app-upload-order [searchElement]="searchElement"></app-upload-order>
+    </div>
+    <div *ngIf="code=='F'">
+        <app-withdraw-appeal [searchElement]="searchElement"></app-withdraw-appeal>
+    </div>
+    <div *ngIf="code=='G'">
+        <form [formGroup]="addHearingSummaryForm">
+            <div style="margin-top: 30px;">
+                <mat-form-field appearance="outline">
+                    <mat-label><span class="required">*</span>Add Hearing Summary</mat-label>
+                    <textarea formControlName="hearingSummary" matInput cols="152" rows="5"></textarea>
+                </mat-form-field>
+                <mat-error *ngIf="isShowErrors && addHearingSummaryForm.get('hearingSummary')?.hasError('required')">
+                    <span>{{customValidation.A1}}</span>
+                </mat-error>
+                <div style="margin-top: 40px; margin-bottom: 20px;">
+                    <button style="margin-right: 50px; color: #174A7C;" mat-stroked-button
+                        (click)="cancelHearingSummary()">CANCEL </button>
+                    <button mat-stroked-button class="perlss-click-button" (click)="hearingSummary()">SAVE </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div *ngIf="code=='H'">
+        <app-pasrr-correction-letter [searchElement]="searchElement"></app-pasrr-correction-letter>
+    </div>
+    <div *ngIf="code=='I'">
+        <div style="margin-top: 40px; margin-bottom: 20px;">
+            <button style="margin-right: 50px; color: #174A7C;" mat-stroked-button>CANCEL </button>
+            <button mat-stroked-button class="perlss-click-button" (click)="navigateToOnsiteAssesment()">NEXT </button>
+        </div>
+    </div>
+    <div *ngIf="code=='J'">
+        <div style="margin-top: 40px; margin-bottom: 20px;">
+            <button style="margin-right: 50px; color: #174A7C;" mat-stroked-button>CANCEL </button>
+            <button mat-stroked-button class="perlss-click-button" (click)="reopenAppeal()">REOPEN </button>
+        </div>
+    </div>
+    <div *ngIf="code=='K'">
+        <div style="margin-top: 40px; margin-bottom: 20px;">
+            <button style="margin-right: 50px; color: #174A7C;" mat-stroked-button>CANCEL </button>
+            <button mat-stroked-button class="perlss-click-button" (click)="navigateToAppealantDetails()"> NEXT
+            </button>
+        </div>
+    </div>
+</div>

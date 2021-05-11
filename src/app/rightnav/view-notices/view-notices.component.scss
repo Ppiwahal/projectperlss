@@ -1,0 +1,78 @@
+@import '../../../colors.scss';
+
+.header-row {
+    margin: 5px;
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+}
+
+.person-details {
+    margin-top: 20px;
+}
+
+.table-header-content {
+    font-size: 14px;
+    font-family: 'Open Sans';
+    color: #1B365D;
+}
+
+.note-list {
+    border: 1px solid lightgrey;
+    margin: 40px 20px 20px 20px;
+    border-radius: 5px;
+}
+
+.note-header {
+    margin: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #174A7C;
+}
+
+.notices-header {
+    //margin: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #174A7C;
+    float: right;
+}
+
+.note-content {
+    max-height: 50vh;
+    overflow: auto;
+}
+
+.note-description {
+    display: flex;
+    justify-content: space-between;
+}
+
+.note-icon {
+    color: rgb(238, 73, 86);
+}
+
+ul {
+    padding: 0;
+    margin: 10px;
+    list-style-type: none;
+}
+
+.icon-wrapper {
+    font-weight: bold;
+    margin-left: 40px;
+    position: relative;
+    margin-bottom: 10px;
+    padding-right: 270px;
+    .icon-span {
+        position: absolute;
+        top: -4px;
+        left: -30px;
+    }
+}
+
+.note-detail {
+    margin-left: 40px;
+    font-weight: bold;
+}

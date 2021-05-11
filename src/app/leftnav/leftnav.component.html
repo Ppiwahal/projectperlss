@@ -1,0 +1,97 @@
+<mat-sidenav-container id="sideNavChild" class="perlss-sidenav-container" [class.closed]="!isSideNavToggled" >
+    <mat-sidenav role="navigation" aria-label="main"  mode="side" opened [disableClose]="true" >
+      <mat-card>
+        <mat-card-header class="perlss-account-card">
+          <div class="initials" *ngIf="isSideNavToggledWait">
+            {{userInitials}}
+          </div>
+          <div class="titles chkMargin" *ngIf="isSideNavToggledWait">
+            <mat-card-title class="perlss-account-name" [style]="{'font-size': userFontSize }">{{currentUser.firstName}} {{currentUser.lastName}}</mat-card-title>
+            <mat-card-subtitle>{{currentUser.entityName}}</mat-card-subtitle>
+          </div>
+          <mat-icon class="sidenav-menu-toggle-icon" (click)="toggleSideNav()" *ngIf="isSideNavToggledWait">format_indent_decrease</mat-icon>
+          <mat-icon class="sidenav-menu-toggle-icon icon-rotate" (click)="toggleSideNav()" *ngIf="!isSideNavToggledWait">format_indent_decrease</mat-icon>
+        </mat-card-header>
+      </mat-card>
+
+      <div class="sideNavMenu sideNavMenu-main">
+        <div class="sideNavScroller">
+          <ng-container *ngFor="let menuItem of menuData, let x = index">
+            <div class="line" *ngIf="x > 0 && !menuItem.hidden"></div>
+            <div class="parent" [attr.menuId]="menuItem.id" *ngIf="!menuItem.hidden" (click)="toggle($event)">
+              <ng-container *ngIf="isSideNavToggledWait">
+                <p>{{menuItem.text}}</p>
+                <mat-icon *ngIf="menuItem.children && menuItem.open">arrow_drop_up</mat-icon>
+                <mat-icon *ngIf="menuItem.children && !menuItem.open ">arrow_drop_down</mat-icon>
+              </ng-container>
+              <ng-container *ngIf="!isSideNavToggled">
+                <span class="toggled" [matTooltip]="menuItem.text" [matTooltipPosition]="'right'">more_vert</span>
+              </ng-container>
+            </div>
+            <div class="children" *ngIf="menuItem.open && menuItem.children?.length > 0 && !menuItem.hidden" >
+              <div *ngFor="let menuSubItem of menuItem.children">
+                <ng-container *ngIf="!menuSubItem.hidden">
+                  <div *ngIf="!menuSubItem.selected && !menuSubItem.disabled" routerLink="{{menuSubItem.id}}"
+                    routerLinkActive="active" #rla="routerLinkActive" >
+                    <ng-container *ngIf="menuSubItem.icon">
+                      <mat-icon *ngIf="!isSideNavToggled" [matTooltip]="menuSubItem.text" [matTooltipPosition]="'right'">{{menuSubItem.icon}}</mat-icon>
+                      <mat-icon *ngIf="isSideNavToggled">{{menuSubItem.icon}}</mat-icon>
+                    </ng-container>
+                    <span *ngIf="!menuSubItem.icon"></span>
+                    <div *ngIf="isSideNavToggledWait">{{menuSubItem.text}}</div>
+                  </div>
+                  <ng-container *ngIf="menuSubItem.selected || menuSubItem.disabled">
+                    <div class="selected" [ngClass]="{'disabled': menuSubItem.disabled }">
+                      <ng-container *ngIf="menuSubItem.icon">
+                        <mat-icon *ngIf="isSideNavToggled" [matTooltip]="menuSubItem.text" [matTooltipPosition]="'right'">{{menuSubItem.icon}}</mat-icon>
+                        <mat-icon *ngIf="!isSideNavToggled">{{menuSubItem.icon}}</mat-icon>
+                      </ng-container>
+                      <span *ngIf="!menuSubItem.icon"></span>
+                      <div *ngIf="isSideNavToggledWait">{{menuSubItem.text}}</div>
+                    </div>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+            <div *ngIf="menuItem.open && menuItem.children?.length === 0">
+              <p>Menu items to be added here</p>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content role="main">
+      <div class="perlss_page_content">
+        <mat-card>
+          <mat-card-header class="perlss-page-header-card">
+            <h1 [innerHTML]="pageHeader" *ngIf="complexPageHeader?.length === 0"></h1>
+            <h1 *ngIf="complexPageHeader?.length > 0">
+              <span *ngFor="let titlePart of complexPageHeader; let i =  index;">
+                <span *ngIf="titlePart.routeTo" style="color: #174a7c; text-decoration: underline;">
+                  <a style="color: #174a7c;" routerLink={{titlePart.routeTo}}>{{titlePart.text}}</a>
+                </span>
+                 <span *ngIf="!titlePart.routeTo">{{titlePart.text}}</span>
+                <span *ngIf="i !== (complexPageHeader.length - 1)"> / </span>
+              </span>
+            </h1>
+            <img *ngIf="waiting" class="waiting" src="/assets/images/waiting.gif" alt="Image not found" />
+          </mat-card-header>
+        </mat-card>
+
+        <div class="page-footer-container">
+          <div *ngIf ="loaderService.isLoading | async" class="loader-container">
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          </div>
+          <app-rightnav></app-rightnav>
+          <div class="page-scroller">
+            <div class="page-container">
+              <div *ngIf="pageError" class="pageMargin">{{ pageError }}</div>
+              <router-outlet *ngIf="!pageError"></router-outlet>
+            </div>
+            <app-footer></app-footer>
+          </div>
+        </div>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>

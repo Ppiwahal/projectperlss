@@ -1,0 +1,139 @@
+<div class="responsive">
+	<form [formGroup]="PaeWelcomeForm" (ngSubmit)="onSubmit()">
+
+		<div class="scroller noPad">
+
+			<ng-container *ngIf="showResult">
+				<div class="applicantData">
+					<ng-container *ngFor="let row of applicantData;let i = index">
+						<ng-container *ngIf="row == 'separator'">
+							<hr />
+						</ng-container>
+						<div *ngIf="row !== 'separator'">
+							<div *ngFor="let item of row">
+								<label>{{item.label}}</label>
+								<div *ngIf="item.value && item.label !== 'REFERRAL STATUS' && item.label !== 'REFERRAL SOURCE'
+									&& item.label !== 'ECF SLOT TYPE' && item.label !== 'ECF SLOT STATUS' && item.label !== 'SSN'">{{item.value}}</div>
+								<div *ngIf="item.value && item.label === 'REFERRAL STATUS' && i === 7">{{mapForRefStatus.get(item.value)}}</div>
+								<div *ngIf="item.value && item.label === 'REFERRAL SOURCE' && i === 7">{{mapForRefSource.get(item.value)}}</div>
+								<div *ngIf="item.value && item.label === 'ECF SLOT TYPE' && i === 8">{{displayedSlot}}</div>
+								<div *ngIf="item.value && item.label === 'ECF SLOT STATUS' && i === 9">{{mapForSlotStatus.get(item.value)}}</div>
+								<div *ngIf="item.value && item.label === 'SSN' && i === 3">{{getSSNMask(item.value)}}</div>
+								<div *ngIf="!item.value" class="tbd">---</div>
+							</div>
+						</div>
+					</ng-container>
+				</div>
+
+				<div class="padded">
+
+					<h3>PAE Action</h3>
+
+					<div class="row">
+						<mat-form-field appearance="outline" class="width40">
+							<mat-label class="req">What would you like to do?</mat-label>
+							<mat-select #choosedValue (valueChange)="onActionChange(choosedValue.value)"
+								formControlName="paeActionCd"
+								[ngClass]="{ 'is-invalid': (f.paeActionCd.touched || submitted) && f.paeActionCd.errors }">
+                <mat-option *ngFor="let paeAction of paeActionDropDownFilterList" [value]="paeAction.code">{{paeAction.value}}</mat-option>
+							</mat-select>
+            </mat-form-field>
+            <mat-error *ngIf="(f.paeActionCd.touched || submitted) && f.paeActionCd.errors?.required">
+              {{customValidation.A1}}
+            </mat-error>
+						<div class="float">
+							<div class="greenBorder" *ngIf="statusAction == 'safetyEval'">
+								<label>Safety Evaluation Due Date:</label>
+								<p>{{safetyEvaluationDueDate}}</p>
+							</div>
+						</div>
+					</div>
+
+					<ng-container *ngIf="statusAction === 'CLS'">
+						<div class="row">
+							<mat-form-field appearance="outline" class="width40">
+								<mat-label class="req">Select Closure Reason</mat-label>
+								<mat-select #choosedValue formControlName="closureReason"
+									[ngClass]="{ 'is-invalid': f.closureReason.touched && f.closureReason.errors }">
+									<mat-option value="moved">Moved out of State</mat-option>
+								</mat-select>
+								<mat-error *ngIf="f.closureReason.errors && f.closureReason.touched && f.closureReason.errors.required">
+									{{customValidation.A1}}
+								</mat-error>
+							</mat-form-field>
+						</div>
+
+						<h3>Comments</h3>
+						<div class="row width60 textArea">
+							<textarea maxlength="2000" formControlName="closureComments"
+								(keyup)="updateClosureComments($event)"></textarea>
+							<p>{{closureComments.length}}/2000</p>
+						</div>
+
+						<div class="alert">
+							<label>ALERT:</label>
+							<p>If you close the applicant's Referral, then the applicant will need
+								to reapply in order to be considered again for an LTSS Program.</p>
+						</div>
+
+						<div class="row">
+							<div class="solitaryCheckbox">
+								<mat-checkbox formControlName="closureAttest">
+									<mat-label class="req">I attest that all details for withdrawing are recorded above
+										and I
+										understand that the applicant will be removed from the process.</mat-label>
+								</mat-checkbox>
+							</div>
+						</div>
+					</ng-container>
+
+					<div class="row" *ngIf="statusAction === 'addSSI'">
+						<mat-form-field appearance="outline" class="width40">
+							<mat-label class="req">SSI Application</mat-label>
+							<mat-select #choosedValue (valueChange)="onSsiStatusChange(choosedValue.value)"
+								formControlName="ssiStatus"
+								[ngClass]="{ 'is-invalid': (f.ssiStatus.touched || submitted) && f.ssiStatus.errors }">
+								<mat-option value="pending">SSI Pending</mat-option>
+								<mat-option value="denied">SSI Denied</mat-option>
+								<mat-option value="close">Non-compliant</mat-option>
+							</mat-select>
+							<mat-error *ngIf="f.ssiStatus.errors && f.ssiStatus.touched && f.ssiStatus.errors.required">
+								{{customValidation.A1}}
+							</mat-error>
+						</mat-form-field>
+					</div>
+
+					<div class="row" *ngIf="statusAction == 'addCost'">
+						<mat-form-field appearance="outline" class="width40">
+							<mat-label class="req">Average cost of Care for Individual</mat-label>
+							<input matInput formControlName="statusAverageCostOfCare"
+								placeholder="Average cost of Care for Individual">
+							<mat-error
+								*ngIf="f.statusAverageCostOfCare.errors && f.statusAverageCostOfCare.touched && f.statusAverageCostOfCare.errors.required">
+								{{customValidation.A1}}
+							</mat-error>
+						</mat-form-field>
+					</div>
+
+					<div class="row" *ngIf="statusAction == 'safetyEval'">
+						<mat-radio-group (change)="onExtensionChange($event)" formControlName="requestExtension">
+							<mat-label class="req">Would you like to request an extension?</mat-label>
+							<mat-radio-button [checked]=true value="yes">Yes</mat-radio-button>
+							<mat-radio-button value="no">No</mat-radio-button>
+						</mat-radio-group>
+						<div class="note red">
+							<p><span>Note:</span>Extension must be based on the reasonable needs or request of the
+								applicant.</p>
+						</div>
+					</div>
+				</div>
+			</ng-container>
+		</div>
+		<div class="buttonBar">
+			<button *ngIf="!showSubmitButton" mat-flat-button color="primary" type="button" class="perlss-click-button"
+				(click)="onNextClick()">NEXT</button>
+			<button *ngIf="showSubmitButton" mat-flat-button color="primary" type="button" class="perlss-click-button"
+				(click)="onSubmitClick()">Submit</button>
+		</div>
+	</form>
+</div>

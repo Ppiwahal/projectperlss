@@ -1,0 +1,83 @@
+<form [formGroup]="requestedDocForm" (ngSubmit)="submit()">
+    <div class="top-section">
+        <p class="header">What Documents are being requested?</p>
+        <ul class="list">
+            <li *ngIf="documentRequested?.docsReqPlancareSw === 'Y' ">- Plan of Care</li>
+            <li *ngIf="documentRequested?.docsReqCcnotesSw === 'Y'">- CC Notes</li>
+            <li *ngIf="documentRequested?.docsReqCostNeuSw === 'Y'">- Cost Neutrality</li>
+            <li *ngIf="documentRequested?.docsReqRiskAgrmtSw === 'Y'">- Risk Agreement</li>
+            <li *ngIf="documentRequested?.incidentReportSw === 'Y'">- Incident Reports(Provider/Police)</li>
+            <li *ngIf="documentRequested?.fmlyAttestationSw === 'Y'">- Family attestation describing the individual during the development years</li>
+            <li *ngIf="documentRequested?.fsiqCurrSw === 'Y'">- Current FSIQ</li>
+            <li *ngIf="documentRequested?.fsiqPriorSw === 'Y'">- FSIQ prior to the age of 18</li>
+            <li *ngIf="documentRequested?.iepSw === 'Y'">- LEP</li>
+            <li *ngIf="documentRequested?.lsaSw === 'Y'">- LSA</li>
+        </ul>
+        <p class="header">Others documents being requested:</p>
+        <div *ngIf="documentRequested?.othrSw === 'Y'; else elseBlock">
+            <p>{{documentRequested.othrComments}}</p>
+        </div>
+        <ng-template #elseBlock>--</ng-template>
+    </div>
+    <div class="drop-down">
+        <mat-form-field appearance="outline">
+            <mat-label><span class="required-color">*</span>Please select all the documents types that apply:</mat-label>
+            <mat-select multiple="true" formControlName="documentType">
+                <mat-option *ngFor = "let ac of documentType" value={{ac.code}}>{{ac.value}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="f().documentType !== undefined && f().documentType.errors !== null">
+                <mat-error *ngIf="f().documentType.touched || f().documentType.errors.required">
+                    {{customValidation.A1}}
+                </mat-error>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div>
+            <mat-form-field appearance="outline">
+                <mat-label><span class="required-color">*</span>Document Description</mat-label>
+                <textarea matInput class="note-textarea" #docDesc maxlength="2000" formControlName="docDesc"></textarea>
+                <mat-error *ngIf="f().docDesc !== undefined && f().docDesc.errors !== null">
+                    <mat-error *ngIf="f().docDesc.touched || f().docDesc.errors.required">
+                        {{customValidation.A1}}
+                    </mat-error>
+                </mat-error>
+            </mat-form-field>
+            <div class="character-count">
+                {{docDesc.value.length}}/2000
+            </div>
+    </div>
+    <div>
+        <mat-label><span class="required-color">*</span>Upload Documents</mat-label>
+        <div class="fileDropContainer">
+            <div>
+                <mat-icon class="required-color file_upload circle">cloud_upload</mat-icon>
+                <div style="font-weight: bold; color: black; margin-top: 30px;">Drag and Drop Files Here</div>
+                <div class="smallLabel" style="margin-top: 0px; color: black;">(Maximum File Size is 5 MB)</div>
+                <button mat-flat-button class="uploadButton">Browse<input type="file"
+                    accept=".tiff,.tif,.bmp,.jpeg,.pdf,.xlsx,.docx,.jpg" #fileDropRef id="fileDropRef"
+                    (change)="fileBrowseHandler($event.target.files)" multiple /></button>
+                <div class="bottomText">
+                    Acceptable document formats:<br>*.tiff, *.bmp, *.jpeg, *.pdf, *.xslx, *.docx
+                </div>
+            </div>
+        </div>
+        <div *ngIf="showFiles">
+            <div class="show-files" *ngFor="let file of files">
+                <div>
+                    <mat-icon class="required-color">description</mat-icon>
+                </div>
+                <div class="size">
+                    {{ file.name }}<br />{{ file.size / 1048576 | number : '1.2-2'}} MB
+                </div>
+                <div class="right">
+                    <mat-icon class="required-color clickIcon" (click)="deleteFile(file)">
+                        delete_forever</mat-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin-top: 50px;">
+        <button style="margin-right: 50px; color: #174A7C;" mat-stroked-button>CANCEL</button>
+        <button mat-stroked-button class="perlss-click-button" type="submit">SUBMIT</button>
+    </div>
+</form>

@@ -1,0 +1,362 @@
+<div class="app-sub-heading col-md-7" style="width: 100% !important;">
+  ECF CHOICES
+
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <table aria-describedby="ecfChoices" class="mat-table slot-table">
+      <tr>
+        <th id="intakeOutcome">Intake Outcome</th>
+        <th id="agedCaregiver">DD - Aged Caregiver</th>
+        <th id="groups">Groups 7 and 8 RC</th>
+        <th id="reservedCapacity">Other Reserved Capacity</th>
+        <th id="priorityGroup">Priority Group</th>
+      </tr>
+      <tr>
+        <td><strong>Enrollment Group</strong></td>
+        <td>
+          <table aria-describedby="childTable" class="slot-child-table">
+            <tr>
+              <th id="total"><strong>Total</strong></th>
+              <td><strong>F</strong></td>
+              <td><strong>H</strong></td>
+              <td><strong>A</strong></td>
+            </tr>
+          </table>
+       </td>
+        <td>
+          <table aria-describedby="childTable" class="slot-child-table">
+            <tr>
+              <th id="total"><strong>Total</strong></th>
+              <td><strong>F</strong></td>
+              <td><strong>H</strong></td>
+              <td><strong>A</strong></td>
+            </tr>
+          </table>
+       </td>
+        <td>
+          <table aria-describedby="childTable" class="slot-child-table">
+            <tr>
+              <th id="total"><strong>Total</strong></th>
+              <td><strong>F</strong></td>
+              <td><strong>H</strong></td>
+              <td><strong>A</strong></td>
+            </tr>
+          </table>
+       </td>
+        <td>
+          <table aria-describedby="childTable" class="slot-child-table">
+            <tr>
+              <th id="total"><strong>Total</strong></th>
+              <td><strong>F</strong></td>
+              <td><strong>H</strong></td>
+              <td><strong>A</strong></td>
+            </tr>
+          </table>
+       </td>
+      </tr>
+      <tr>
+        <td><strong>ECF CHOICES 4</strong></td>
+        <td>
+          <table aria-describedby="childTable" class="slot-child-table">
+            <tr>
+              <th id="total4" *ngIf="ecfAC"><strong>{{ecfAC.ec4total}}</strong></th>
+              <td *ngIf="ecfAC">{{ecfAC.ec4Filled}}</td>
+              <td *ngIf="ecfAC">{{ecfAC.ec4Held}}</td>
+              <td *ngIf="ecfAC" [ngClass]="{'success': ecfAC.ec4Avail >0}" (click)="onSubmit('EC4','AC',ecfAC.ec4Avail)">{{ecfAC.ec4Avail}}</td>
+            </tr>
+          </table>
+       </td>
+        <td>
+          <table aria-describedby="childTable" class="slot-child-table">
+            <tr>
+              <th id="empty">-</th>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+          </table>
+       </td>
+        <td>
+          <table aria-describedby="childTable" class="slot-child-table">
+            <tr>
+              <th id="ecfOthersRC" *ngIf="ecfOthersRC"><strong>{{ecfOthersRC.ec4total}}</strong></th>
+              <td *ngIf="ecfOthersRC">{{ecfOthersRC.ec4Filled}}</td>
+              <td *ngIf="ecfOthersRC">{{ecfOthersRC.ec4Held}}</td>
+              <td *ngIf="ecfOthersRC" [ngClass]="{'success': ecfOthersRC.ec4Avail >0}" (click)="onSubmit('EC4','RC',ecfOthersRC.ec4Avail)">
+                {{ecfOthersRC.ec4Avail}}</td>
+            </tr>
+          </table>
+       </td>
+        <td>
+          <table aria-describedby="childTable" class="slot-child-table">
+            <tr>
+              <th id="ecfPG" *ngIf="ecfPG"><strong>{{ecfPG.ec4total}}</strong></th>
+              <td *ngIf="ecfPG">{{ecfPG.ec4Filled}}</td>
+              <td *ngIf="ecfPG">{{ecfPG.ec4Held}}</td>
+              <td *ngIf="ecfPG" [ngClass]="{'success': ecfPG.ec4Avail >0}" (click)="onSubmit('EC4','PG',ecfPG.ec4Avail)">{{ecfPG.ec4Avail}}
+              </td>
+            </tr>
+          </table>
+       </td>
+      </tr>
+      <tr>
+        <td><strong>ECF CHOICES 5</strong></td>
+        <td>
+          <table aria-describedby="choice5" class="slot-child-table">
+            <tr>
+              <th id="ecf5" *ngIf="ecfAC"><strong>{{ecfAC.ec5total}}</strong></th>
+              <td *ngIf="ecfAC">{{ecfAC.ec5Filled}}</td>
+              <td *ngIf="ecfAC">{{ecfAC.ec5Held}}</td>
+              <td *ngIf="ecfAC" [ngClass]="{'success': ecfAC.ec4Avail >0}" (click)="onSubmit('EC5','AC',ecfAC.ec5Avail)">{{ecfAC.ec5Avail}}
+              </td>
+            </tr>
+          </table>
+       </td>
+        <td>
+          <table aria-describedby="childtable" class="slot-child-table">
+            <tr>
+              <th id="none">-</th>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+          </table>
+       </td>
+        <td>
+          <table aria-describedby="childTable2" class="slot-child-table">
+            <tr>
+              <th id="OthersRC" *ngIf="ecfOthersRC"><strong>{{ecfOthersRC.ec5total}}</strong></th>
+              <td *ngIf="ecfOthersRC">{{ecfOthersRC.ec5Filled}}</td>
+              <td *ngIf="ecfOthersRC">{{ecfOthersRC.ec5Held}}</td>
+              <td *ngIf="ecfOthersRC" [ngClass]="{'success': ecfOthersRC.ec5Avail >0}" (click)="onSubmit('EC5','RC',ecfOthersRC.ec5Avail)">
+                {{ecfOthersRC.ec5Avail}}</td>
+            </tr>
+          </table>
+       </td>
+        <td>
+          <table aria-describedby="childtable" class="slot-child-table">
+            <tr>
+              <th id="ecfPG" *ngIf="ecfPG"><strong>{{ecfPG.ec5total}}</strong></th>
+              <td *ngIf="ecfPG">{{ecfPG.ec5Filled}}</td>
+              <td *ngIf="ecfPG">{{ecfPG.ec5Held}}</td>
+              <td *ngIf="ecfPG" [ngClass]="{'success': ecfPG.ec5Avail >0}" (click)="onSubmit('EC5','PG',ecfPG.ec5Avail)">{{ecfPG.ec5Avail}}</td>
+            </tr>
+          </table>
+       </td>
+      </tr>
+      <tr>
+        <td><strong>ECF CHOICES 6</strong></td>
+        <td>
+          <table aria-describedby="childtable" class="slot-child-table">
+            <tr>
+              <th id="ecfAC" *ngIf="ecfAC"><strong>{{ecfAC.ec6total}}</strong></th>
+              <td *ngIf="ecfAC">{{ecfAC.ec6Filled}}</td>
+              <td *ngIf="ecfAC">{{ecfAC.ec6Held}}</td>
+              <td *ngIf="ecfAC" [ngClass]="{'success': ecfAC.ec4Avail >0}" (click)="onSubmit('EC6','AC',ecfAC.ec6Avail)">{{ecfAC.ec6Avail}}</td>
+            </tr>
+          </table>
+       </td>
+        <td>
+          <table aria-describedby="childtable" class="slot-child-table">
+            <tr>
+              <th id="empty">-</th>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+          </table>
+       </td>
+        <td>
+          <table aria-describedby="childtable" class="slot-child-table">
+            <tr>
+              <th id="ecfOthersRC" *ngIf="ecfOthersRC"><strong>{{ecfOthersRC.ec6total}}</strong></th>
+              <td *ngIf="ecfOthersRC">{{ecfOthersRC.ec6Filled}}</td>
+              <td *ngIf="ecfOthersRC">{{ecfOthersRC.ec6Held}}</td>
+              <td *ngIf="ecfOthersRC" [ngClass]="{'success': ecfOthersRC.ec6Avail >0}" (click)="onSubmit('EC6','RC',ecfOthersRC.ec6Avail)">
+                {{ecfOthersRC.ec6Avail}}</td>
+            </tr>
+          </table>
+       </td>
+        <td>
+          <table aria-describedby="childtable" class="slot-child-table">
+            <tr>
+              <th id="ecfPG" *ngIf="ecfPG"><strong>{{ecfPG.ec6total}}</strong></th>
+              <td *ngIf="ecfPG">{{ecfPG.ec6Filled}}</td>
+              <td *ngIf="ecfPG">{{ecfPG.ec6Held}}</td>
+              <td *ngIf="ecfPG" [ngClass]="{'success': ecfPG.ec6Avail >0}" (click)="onSubmit('EC6','PG',ecfPG.ec6Avail)">{{ecfPG.ec6Avail}}</td>
+            </tr>
+          </table>
+       </td>
+      </tr>
+      <tr>
+        <td><strong>ECF CHOICES 7</strong></td>
+        <td>
+          <table aria-describedby="childtable" class="slot-child-table">
+            <tr>
+              <th id="empty"><strong>-</strong></th>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+          </table>
+       </td>
+        <td>
+          <table aria-describedby="childtable" class="slot-child-table">
+            <tr>
+              <th id="ecfRC" *ngIf="ecfRC"><strong>{{ecfRC.ec7total}}</strong></th>
+              <td *ngIf="ecfRC">{{ecfRC.ec7Filled}}</td>
+              <td *ngIf="ecfRC">{{ecfRC.ec7Held}}</td>
+              <td *ngIf="ecfRC" [ngClass]="{'success': ecfRC.ec7Avail >0}" (click)="onSubmit('EC7','RC',ecfRC.ec7Avail)">{{ecfRC.ec7Avail}}</td>
+            </tr>
+          </table>
+       </td>
+        <td>
+          <table aria-describedby="childtable" class="slot-child-table">
+            <tr>
+              <th id="empty"><strong>-</strong></th>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+          </table>
+       </td>
+        <td>
+          <table aria-describedby="childtable" class="slot-child-table">
+            <tr>
+              <th id="empty"><strong>-</strong></th>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+          </table>
+       </td>
+      </tr>
+      <tr>
+        <td><strong>ECF CHOICES 8</strong></td>
+        <td>
+          <table aria-describedby="childtable" class="slot-child-table">
+            <tr>
+              <th id="empty"><strong>-</strong></th>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+          </table>
+       </td>
+        <td>
+          <table aria-describedby="childtable" class="slot-child-table">
+            <tr>
+              <th id="ecfRC" *ngIf="ecfRC"><strong>{{ecfRC.ec8total}}</strong></th>
+              <td *ngIf="ecfRC">{{ecfRC.ec8Filled}}</td>
+              <td *ngIf="ecfRC">{{ecfRC.ec8Held}}</td>
+              <td *ngIf="ecfRC" [ngClass]="{'success': ecfRC.ec7Avail >0}" (click)="onSubmit('EC8','RC',ecfRC.ec8Avail)">{{ecfRC.ec8Avail}}</td>
+            </tr>
+          </table>
+       </td>
+        <td>
+          <table aria-describedby="childtable" class="slot-child-table">
+            <tr>
+              <th id="empty"><strong>-</strong></th>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+          </table>
+       </td>
+        <td>
+          <table aria-describedby="childtable" class="slot-child-table">
+            <tr>
+              <th id="empty"><strong>-</strong></th>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+          </table>
+       </td>
+      </tr>
+      <tr>
+        <td><strong>Total</strong></td>
+        <td>
+          <table aria-describedby="childtable" class="slot-child-table">
+            <tr>
+              <th id="ecfAC" *ngIf="ecfAC"><strong>{{ecfAC.ecACtotal}}</strong></th>
+              <td *ngIf="ecfAC">{{ecfAC.ecACFilled}}</td>
+              <td *ngIf="ecfAC">{{ecfAC.ecACHeld}}</td>
+              <td *ngIf="ecfAC">{{ecfAC.ecACAvail}}</td>
+            </tr>
+          </table>
+       </td>
+        <td>
+          <table aria-describedby="childtable" class="slot-child-table">
+            <tr>
+              <th id="ecfRC" *ngIf="ecfRC"><strong>{{ecfRC.ecRCtotal}}</strong></th>
+              <td *ngIf="ecfRC">{{ecfRC.ecRCFilled}}</td>
+              <td *ngIf="ecfRC">{{ecfRC.ecRCHeld}}</td>
+              <td *ngIf="ecfRC">{{ecfRC.ecRCAvail}}</td>
+            </tr>
+          </table>
+       </td>
+        <td>
+          <table aria-describedby="childtable" class="slot-child-table">
+            <tr>
+              <th id="ecfOthersRC" *ngIf="ecfOthersRC"><strong>{{ecfOthersRC.ecRCtotal}}</strong></th>
+              <td *ngIf="ecfOthersRC">{{ecfOthersRC.ecRCFilled}}</td>
+              <td *ngIf="ecfOthersRC">{{ecfOthersRC.ecRCHeld}}</td>
+              <td *ngIf="ecfOthersRC">{{ecfOthersRC.ecRCAvail}}</td>
+            </tr>
+          </table>
+       </td>
+        <td>
+          <table aria-describedby="childtable" class="slot-child-table">
+            <tr>
+              <th id="ecfPG" *ngIf="ecfPG"><strong>{{ecfPG.ecPGtotal}}</strong></th>
+              <td *ngIf="ecfPG">{{ecfPG.ecPGFilled}}</td>
+              <td *ngIf="ecfPG">{{ecfPG.ecPGHeld}}</td>
+              <td *ngIf="ecfPG">{{ecfPG.ecPGAvail}}</td>
+            </tr>
+          </table>
+       </td>
+      </tr>
+    </table>
+  </div>
+  <div *ngIf="!taskTableShowResult" class="spinner"></div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="ecf-status">
+      <div class="row" (click)="getSearchResultsBySltStatus('OC')">
+        <div class="col-9">
+          <div class="ecf-text">OVER CAPACITY</div>
+       </div>
+        <div class="col-3 text-right">
+          <div *ngIf="slotOCAndTIP" class="ecf-text">{{slotOCAndTIP.overCapacityCount}}</div>
+       </div>
+      </div>
+    </div>
+    <div class="ecf-status">
+      <div class="row" (click)="getSearchResultsBySltStatus('TIP')">
+        <div class="col-9">
+          <div class="ecf-text">TRANSITION IN PROGRESS</div>
+       </div>
+        <div class="col-3 text-right">
+          <div *ngIf="slotOCAndTIP" class="ecf-text">{{slotOCAndTIP.transitionCount}}</div>
+       </div>
+      </div>
+    </div>
+  </div>
+</div>
+<mat-divider class="perlss-section-divider"></mat-divider>
+
+<div class="row">
+  <div class="col-12 pb-4">
+    <app-slot-dashboard-referral-waiting-list></app-slot-dashboard-referral-waiting-list>
+  </div>
+</div>
+<mat-divider class="perlss-section-divider pb-4"></mat-divider>
+<div class="row">
+  <div class="col-12">
+    <app-slot-dashboard-search [searchResult]="searchresults"></app-slot-dashboard-search>
+  </div>
+
+</div>

@@ -1,0 +1,231 @@
+@import '../../../colors.scss';
+
+app-upload-documents-popup {
+    margin: 0;
+    padding: 0;
+    background: pink;
+}
+
+.circle {
+    border-radius: 50%;
+    padding: 12px;
+    background: white;
+    border: 1px solid #ed6053;
+    color: #ed6053;
+    text-align: center;
+}
+
+.show-files {
+    display: flex;
+    justify-content: center;
+    color: #1B365D;
+    margin-top: 15px;
+}
+
+.label-black {
+    color: black;
+    padding-left: 5px;
+    padding-top: 5px;
+}
+
+.show-files {
+    margin-top: 0.2vm
+}
+
+.file-error {
+    color: red;
+}
+
+.size {
+    margin-left: 36px;
+    color: black;
+}
+
+.document-body{
+    overflow: auto; 
+}
+
+.right {
+    margin-left: auto;
+}
+
+.person-details{
+    padding: 21.5px 57.5px 0 45px;
+}
+
+.table-header-content{
+    font-size: 18px;
+    font-family: 'Open Sans';
+    color: #1B365D;
+    font-weight: bold;
+}
+
+p.label {
+    margin: 0;
+}
+
+
+
+.fullLeft { 
+    margin-left: 18px;
+    width: calc(100% - 21.5px);
+    padding: 0;
+
+    > p {
+        margin-right: 0;
+    }
+}
+
+
+.fileDropContainer {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    margin-top: 18px;
+    padding-top: 15px;
+    text-align: center;
+    border: dashed 1px #979797;
+    position: relative;
+
+    .uploadButton {
+        padding: 0;
+        background-color: white;
+        color: #ed6053;
+        border: 1px solid #ed6053 !important;
+        margin: 9px 0 0 0;
+    }
+
+    > mat-icon {
+        margin: 27px 0 0 0;
+    }
+
+    > * {
+      margin: 3.5px 0;
+    }
+}
+
+.file_upload {
+    transform: scale(1.5);
+}
+
+.required-color {
+    color: #ed6053;
+}
+
+mat-icon{
+    font-family: 'Material Icons' !important;
+}
+
+#fileDropRef {
+    opacity: 0;
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+}
+
+.bottomText {
+    font-size: 14.5px;
+    padding: 9px;
+    font-weight: bold;
+    color: black;
+}
+
+.smallLabel {
+    font-size: 14.5px;
+    font-weight: bold;
+    color: black;
+}
+
+::ng-deep .multiselect-dropdown .dropdown-btn .selected-item {
+    background: white !important ;
+    border: 1px solid black !important;
+    color: black !important;
+    border-radius: 9px !important;
+}
+
+::ng-deep .multiselect-dropdown .dropdown-btn .selected-item a{
+    color: black !important;
+}
+
+::ng-deep .multiselect-dropdown .dropdown-btn {
+    border: 1px solid black !important;
+}
+
+.cloud-icon-wrapper{
+    position: relative;
+}
+
+.note-icon{
+    color: #ed6053;
+    cursor: pointer;
+}
+
+.size {
+    position: absolute;
+    top: 1px;
+    left: 0px;
+}
+
+.delete-icons {
+    float: right;
+    color: #ed6053;
+    cursor: pointer;
+}
+
+.document-header-row {
+    margin: 12px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.close-icon {
+    color: #1B365D;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: -18px;
+    margin-bottom: 17px;
+}
+
+.person-details {
+    margin-top: 20px;
+}
+
+.table-header-content {
+    font-size: 14px;
+    font-family: 'Open Sans';
+    color: #1B365D;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-left: -18px;
+}
+
+.header-row {
+    margin: 5px;
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+}
+
+.required-color {
+    color: #f44336;
+}
+
+.upload-document-heading {
+    font-weight: bold;
+    color: #4D7E20;
+    font-size: 18px;
+}
+.upload-document-number {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.form {
+    padding-left: 20px;
+}

@@ -1,0 +1,1309 @@
+<div class="responsive">
+  <form [formGroup]="myForm">
+    <div class="scroller">
+      <div class="applicantName">{{applicantName}}</div>
+      <h2>Applicant Contact Details</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Email Address</mat-label>
+            <input matInput formControlName="applicantEmailAddr" placeholder="Email Address"
+              [ngClass]="{ 'is-invalid': f.applicantEmailAddr.touched && f.applicantEmailAddr.errors }">
+          </mat-form-field>
+          <mat-error *ngIf="f.applicantEmailAddr.errors?.invalidEmail && !f.applicantEmailAddr.errors.required">
+            {{customValidation.A9}}
+          </mat-error>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4">
+          <mat-form-field appearance="outline">
+            <mat-label>Cell Phone</mat-label>
+            <input matInput formControlName="applicantCellPhNum" placeholder="(xxx)-xxx-xxxx" mask="000-000-0000"
+              (change)="setPrefferedPhoneType('applicantCellPhNum')"
+              [ngClass]="{ 'is-invalid': f.applicantCellPhNum.touched && f.applicantCellPhNum.errors }">
+          </mat-form-field>
+          <ng-container *ngIf="f.applicantCellPhNum.errors">
+            <mat-error *ngIf="f.applicantCellPhNum.errors.required">{{customValidation.A1}}</mat-error>
+            <mat-error
+              *ngIf="f.applicantCellPhNum.errors.maxLength == null && !f.applicantCellPhNum.errors?.invalidPhone && !f.applicantCellPhNum.errors.required">
+              {{customValidation.A97}}</mat-error>
+            <mat-error *ngIf="f.applicantCellPhNum.errors?.invalidPhone && !f.applicantCellPhNum.errors.required">
+              Phone number is invalid
+            </mat-error>
+          </ng-container>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field appearance="outline">
+            <mat-label>Home Phone</mat-label>
+            <input matInput formControlName="applicantHomePhNum" placeholder="(xxx)-xxx-xxxx" mask="000-000-0000"
+              (change)="setPrefferedPhoneType('applicantHomePhNum')"
+              [ngClass]="{ 'is-invalid': f.applicantHomePhNum.touched && f.applicantHomePhNum.errors }">
+          </mat-form-field>
+          <ng-container *ngIf="f.applicantHomePhNum.errors">
+            <mat-error *ngIf="f.applicantHomePhNum.errors.required">{{customValidation.A1}}</mat-error>
+            <mat-error
+              *ngIf="f.applicantHomePhNum.errors.maxLength == null && !f.applicantHomePhNum.errors?.invalidPhone && !f.applicantHomePhNum.errors.required">
+              {{customValidation.A97}}</mat-error>
+            <mat-error *ngIf="f.applicantHomePhNum.errors?.invalidPhone && !f.applicantHomePhNum.errors.required">
+              Phone number is invalid
+            </mat-error>
+          </ng-container>
+        </div>
+        <div class="col-md-4">
+          <mat-form-field appearance="outline">
+            <mat-label>Work Phone</mat-label>
+            <input matInput formControlName="applicantWorkPhNum" placeholder="(xxx)-xxx-xxxx" mask="000-000-0000"
+              (change)="setPrefferedPhoneType('applicantWorkPhNum')"
+              [ngClass]="{ 'is-invalid': f.applicantWorkPhNum.touched && f.applicantWorkPhNum.errors }">
+          </mat-form-field>
+          <ng-container *ngIf="f.applicantWorkPhNum.errors">
+            <mat-error *ngIf="f.applicantWorkPhNum.errors.required">{{customValidation.A1}}</mat-error>
+            <mat-error
+              *ngIf="f.applicantWorkPhNum.errors.maxLength == null && !f.applicantWorkPhNum.errors?.invalidPhone && !f.applicantWorkPhNum.errors.required">
+              {{customValidation.A97}}</mat-error>
+            <mat-error *ngIf="f.applicantWorkPhNum.errors?.invalidPhone && !f.applicantWorkPhNum.errors.required">
+              Phone number is invalid
+            </mat-error>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="showPreferredPhoneType">
+        <div class="col-md-4">
+          <mat-form-field appearance="outline">
+            <mat-label class="req">Preferred Phone Type
+            </mat-label>
+            <mat-select (change)="onPhoneTypeChange($event)" #prefPhoneType formControlName="prefPhTypeCd"
+              [ngClass]="{ 'is-invalid': (f.prefPhTypeCd.touched || submitted) && f.prefPhTypeCd.errors }">
+              <mat-option value="CL">Cell Phone</mat-option>
+              <mat-option value="HM">Home Phone</mat-option>
+              <mat-option value="WK">Work Phone</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-error
+            *ngIf="f.prefPhTypeCd.errors && (f.prefPhTypeCd.touched || submitted) && f.prefPhTypeCd.errors.required">
+            {{customValidation.A1}}
+          </mat-error>
+
+        </div>
+      </div>
+      <div class="row">
+       
+          <mat-label class="req">What is your preferred language for letters we send you?
+          </mat-label>
+          <div class="w50">
+          <mat-form-field appearance="outline">
+            <mat-select formControlName="prefLangLettersCd"
+              [ngClass]="{ 'is-invalid': (f.prefLangLettersCd.touched || submitted) && f.prefLangLettersCd.errors }">
+              <mat-option value="ENG">English</mat-option>
+              <mat-option value="SPAN">Spanish</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-error
+              *ngIf="f.prefLangLettersCd.errors && (f.prefLangLettersCd.touched || submitted) && f.prefLangLettersCd.errors.required">
+              {{customValidation.A1}}
+            </mat-error>
+        </div>
+      </div>
+
+      <div class="extraPadding">
+        <mat-radio-group (change)="onChange($event)" formControlName="appDsgnSw" *ngIf="showQuestion">
+          <mat-label class="req">Does the applicant want someone else (we call this person a Designee) to get letters we mail from
+            TennCare?</mat-label>
+          <mat-radio-button value="Y">Yes</mat-radio-button>
+          <mat-radio-button value="N">No</mat-radio-button>
+        </mat-radio-group>
+      </div>     
+
+      <div class="row" style="margin-left: 25px;" *ngIf="applicantLess18">
+        <label id="note"><b>Note: Because the applicant is under 18, we
+            will send letters about them to an adult who can help them. We call
+            this person a Designee.</b></label>
+      </div>
+
+      <div>
+        <div class="row" *ngIf="isDesignee || applicantLess18">
+          <div class="col-md-4">
+            <mat-form-field appearance="outline">
+              <mat-label class="req">Designee First Name</mat-label>
+              <input matInput formControlName="firstName" placeholder="Designee First Name" maxlength="45"
+                [ngClass]="{ 'is-invalid': (f.firstName.touched || submitted) && f.firstName.errors }">
+            </mat-form-field>
+            <ng-container *ngIf="f.firstName.errors != null">
+              <mat-error *ngIf="(f.firstName.touched || submitted) && f.firstName.errors.required">
+                {{customValidation.A1}}
+              </mat-error>
+              <mat-error *ngIf="f.firstName.errors?.invalidName && !f.firstName.errors.required">
+                {{customValidation.A2}}</mat-error>
+            </ng-container>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline">
+            <mat-label>Designee Middle Initial</mat-label>
+            <input matInput formControlName="midInitial" placeholder="MI" mask="S">
+          </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline">
+              <mat-label class="req">Designee Last Name
+              </mat-label>
+              <input matInput formControlName="lastName" placeholder="Designee Last Name"
+                [ngClass]="{ 'is-invalid': f.lastName.touched && f.lastName.errors }">
+            </mat-form-field>
+            <mat-error *ngIf="f.lastName.errors !== null">
+              <mat-error
+                *ngIf="f.lastName.errors.maxLength == null && !f.lastName.errors?.invalidName && !f.lastName.errors.required">
+                Cannot exceed 45 characters</mat-error>
+              <mat-error *ngIf="(f.lastName.touched || submitted) && f.lastName.errors.required">
+                {{customValidation.A1}}
+              </mat-error>
+              <mat-error *ngIf="f.lastName.errors?.invalidName && !f.lastName.errors.required">
+                {{customValidation.A2}}</mat-error>
+            </mat-error>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="isDesignee || applicantLess18">
+          <div class="col-md-4">
+            <mat-form-field appearance="outline">
+              <mat-label class="req">Designee Relationship</mat-label>
+              <mat-select formControlName="reltshpCd"
+                [ngClass]="{ 'is-invalid': f.reltshpCd.touched && f.reltshpCd.errors }">
+                <mat-option *ngFor="let relation of relationList" [value]="relation.code">
+                  {{relation.value}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-error *ngIf="f.reltshpCd.errors">
+              <mat-error *ngIf="f.reltshpCd.touched && f.reltshpCd.errors.required">
+                {{customValidation.A1}}
+              </mat-error>
+            </mat-error>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline">
+              <mat-label class="req">Designee Phone Number</mat-label>
+              <input matInput formControlName="cellPhNum" mask="000-000-0000" placeholder="(xxx)-xxx-xxxx"
+                [ngClass]="{ 'is-invalid': f.cellPhNum.touched && f.cellPhNum.errors }">
+            </mat-form-field>
+            <mat-error *ngIf="f.cellPhNum.errors">
+              <mat-error
+                *ngIf="f.cellPhNum.errors.maxLength == null && !f.cellPhNum.errors?.invalidPhone && !f.cellPhNum.errors.required">
+                {{customValidation.A97}}</mat-error>
+              <mat-error *ngIf="f.cellPhNum.touched && f.cellPhNum.errors.required">{{customValidation.A1}}
+              </mat-error>
+              <mat-error *ngIf="f.cellPhNum.errors?.invalidPhone && !f.cellPhNum.errors.required">
+                Phone number is invalid
+              </mat-error>
+            </mat-error>
+          </div>
+        </div>
+
+        <div class="col-md-8" *ngIf="isKB">
+          <mat-checkbox class="checkbox-element" formControlName="hasLegalRightsSw">
+            Has legal rights to the child's record?
+          </mat-checkbox>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 extraPadding">
+            <mat-radio-group formControlName="appInterSw" (change)="onNeedInterpreterChange($event)">
+              <mat-label class="req">Does the applicant or their designee need 
+                interpreter services?</mat-label>
+              <mat-radio-button value="Y">Yes</mat-radio-button>
+              <mat-radio-button value="N">No</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="col-md-6 extraPadding" *ngIf="showHideLang">
+            <mat-label class="req">For what language?
+            </mat-label>
+            <mat-form-field appearance="outline">
+              <mat-select formControlName="interprtLang"
+                [ngClass]="{ 'is-invalid': f.interprtLang.touched && f.interprtLang.errors }">
+                <mat-option *ngFor="let interprtLang of langList" [value]="interprtLang.code">
+                  {{interprtLang.value}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-error *ngIf="f.interprtLang.errors">
+              <mat-error *ngIf="f.interprtLang.touched && f.interprtLang.errors.required">{{customValidation.A1}}
+              </mat-error>
+            </mat-error>
+          </div>
+        </div>
+
+        <mat-radio-group *ngIf="isDesignee || applicantLess18" (change)="onMailAddrChange($event)"
+          formControlName="mailSw">
+          <mat-label class="req">Is the designee mailing address different from the applicant's mailing address?</mat-label>
+          <mat-radio-button value="Y">Yes</mat-radio-button>
+          <mat-radio-button value="N">No</mat-radio-button>
+        </mat-radio-group>
+
+        <div *ngIf="showHideMailAddr">
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label><sup>
+                    <mat-label class="required-color">*</mat-label>
+                  </sup>Address Format</mat-label>
+                <mat-select formControlName="mailAddressFormatCd" (selectionChange)="onMailAddressFormat($event)">
+                  <mat-option value="USAD">US Address</mat-option>
+                  <mat-option value="MLTY">Military Address</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>
+                  <mat-label class="required-color"><sup>*</sup></mat-label>Address Line 1
+                </mat-label>
+                <input matInput formControlName="mailAddrLine1" placeholder="Address Line 1"
+                  [ngClass]="{ 'is-invalid': f.mailAddrLine1.touched && f.mailAddrLine1.errors }">
+              </mat-form-field>
+              <mat-error *ngIf="f.mailAddrLine1.errors !== null">
+                <mat-error
+                  *ngIf="f.mailAddrLine1.errors.maxLength == null && !f.mailAddrLine1.errors.pattern && !f.mailAddrLine1.errors.required">
+                  Cannot exceed 100 characters</mat-error>
+                <mat-error *ngIf="(f.mailAddrLine1.touched || submitted) && f.mailAddrLine1.errors.required">
+                  {{customValidation.A1}}
+                </mat-error>
+                <mat-error *ngIf="f.mailAddrLine1.errors.pattern && !f.mailAddrLine1.errors.required">
+                  {{customValidation.A2}}
+                </mat-error>
+              </mat-error>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>Address Line 2</mat-label>
+                <input matInput formControlName="mailAddrLine2" placeholder="Address Line 2"
+                  [ngClass]="{ 'is-invalid': f.mailAddrLine2.touched && f.mailAddrLine2.errors }">
+              </mat-form-field>
+              <mat-error *ngIf="f.mailAddrLine2.errors !== null">
+                <mat-error *ngIf="f.mailAddrLine2.errors.maxLength == null && !f.mailAddrLine2.errors.pattern ">
+                  Cannot exceed
+                  50 characters</mat-error>
+                <mat-error *ngIf="f.mailAddrLine2.errors.pattern">{{customValidation.A2}}</mat-error>
+              </mat-error>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="!mailAddrFormatSW">
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>
+                  <mat-label class="required-color"><sup>*</sup></mat-label>City
+                </mat-label>
+                <input matInput formControlName="mailCity" placeholder="City"
+                  [ngClass]="{ 'is-invalid': f.mailCity.touched && f.mailCity.errors }">
+              </mat-form-field>
+              <mat-error *ngIf="f.mailCity.errors !== null">
+                <mat-error
+                  *ngIf="f.mailCity.errors.maxLength == null && !f.mailCity.errors?.invalid && !f.mailCity.errors.required">
+                  Cannot exceed 25 characters</mat-error>
+                <mat-error *ngIf="(f.mailCity.touched || submitted) && f.mailCity.errors.required">
+                  {{customValidation.A1}}</mat-error>
+                <mat-error *ngIf="f.mailCity.errors?.invalid && !f.mailCity.errors.required">
+                  {{customValidation.A2}}</mat-error>
+              </mat-error>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" style="width: 100%;">
+                <mat-label>
+                  <mat-label class="required-color"><sup>*</sup></mat-label>State
+                </mat-label>
+                <mat-select matNativeControl formControlName="mailState" (selectionChange)="trackStateAlt($event)">
+                  <mat-option *ngFor="let state of stateList" [value]="state.code">
+                    {{state.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-error *ngIf="f.mailState.errors !== null">
+                <mat-error *ngIf="f.mailState.touched && f.mailState.errors.required">
+                  {{customValidation.A1}}</mat-error>
+              </mat-error>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
+              <mat-form-field appearance="outline" style="width:100% !important">
+                <mat-label>
+                  <mat-label class="required-color"><sup>*</sup></mat-label>Zip Code
+                </mat-label>
+                <input matInput formControlName="mailZip" placeholder="Zip Code"
+                  [ngClass]="{ 'is-invalid': f.mailZip.touched && f.mailZip.errors }">
+              </mat-form-field>
+              <mat-error *ngIf="f.mailZip.errors !== null">
+                <mat-error *ngIf="(f.mailZip.touched || submitted) && f.mailZip.errors.required">
+                  {{customValidation.A1}}</mat-error>
+                <mat-error *ngIf="f.mailZip.errors.pattern">{{customValidation.A7}}</mat-error>
+              </mat-error>
+            </div>
+            <div class="col-md-3">
+              <mat-form-field appearance="outline" style="width:100% !important">
+                <mat-label>Ext</mat-label>
+                <input matInput formControlName="mailZipExtn" placeholder="Ext"
+                  [ngClass]="{ 'is-invalid': f.mailZipExtn.touched && f.mailZipExtn.errors }">
+              </mat-form-field>
+              <mat-error *ngIf="f.mailZipExtn.errors !== null">
+                <mat-error *ngIf="f.mailZipExtn.errors.pattern || f.mailZipExtn.errors?.invalid">
+                  {{customValidation.A2}}</mat-error>
+              </mat-error>
+            </div>
+            <div class="col-md-6" *ngIf="!mailAddrFormatSW">
+              <mat-form-field appearance="outline" style="width: 100%;" *ngIf="isTN2">
+                <mat-label>
+                  <mat-label class="required-color"><sup>*</sup></mat-label>County
+                </mat-label>
+                <mat-select matNativeControl formControlName="mailCounty">
+                  <mat-option *ngFor="let county of countyList" [value]="county.code">
+                    {{county.value}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-error *ngIf="f.mailCounty.errors !== null">
+                <mat-error *ngIf="(f.mailCounty.touched || submitted) && f.mailCounty.errors.required">
+                  {{customValidation.A1}}</mat-error>
+              </mat-error>
+            </div>
+          </div>
+          <div *ngIf="mailAddrFormatSW">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" style="width:100% !important">
+                  <mat-label>
+                    <mat-label class="required-color"><sup>*</sup></mat-label>APO / FPO
+                  </mat-label>
+                  <mat-select formControlName="apoFpoCd2">
+                    <mat-option value="APO">APO - Air / Army Post Office</mat-option>
+                    <mat-option value="FPO">FPO- Fleet Post Office</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-error *ngIf="f.apoFpoCd2.errors !== null">
+                  <mat-error *ngIf="(f.apoFpoCd2.touched || submitted) && f.apoFpoCd2.errors.required">
+                    {{customValidation.A1}}</mat-error>
+                </mat-error>
+              </div>
+            </div>
+
+            <div class="row" *ngIf="mailAddrFormatSW">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" style="width:100% !important">
+                  <mat-label>
+                    <mat-label class="required-color"><sup>*</sup></mat-label>AA / AE / AP
+                  </mat-label>
+                  <mat-select formControlName="aaAeApCd2">
+                    <mat-option *ngFor="let miltarytStatus of Miltary_statusRt" [value]="miltarytStatus.code">
+                      {{miltarytStatus.value}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-error *ngIf="f.aaAeApCd2.errors !== null">
+                  <mat-error *ngIf="(f.aaAeApCd2.touched || submitted) && f.aaAeApCd2.errors.required">
+                    {{customValidation.A1}}</mat-error>
+                </mat-error>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-4">
+              <button mat-flat-button color="primary" style="margin:0px 0px" class="perlss-click-button" (click)='validateAddress()'>VALIDATE
+                ADDRESS</button>
+            </div>
+          </div>
+        </div>
+        <br>
+
+        <mat-radio-group (change)="onContactInfoChange($event)" *ngIf="isKB">
+          <mat-label>Is the designee contact information different from the applicant's contact details?</mat-label>
+          <mat-radio-button value="Y">Yes</mat-radio-button>
+          <mat-radio-button value="N">No</mat-radio-button>
+        </mat-radio-group>
+
+        <div class="row" *ngIf="showHideContactDetails">
+          <div class="col-md-6">
+            <mat-form-field appearance="outline">
+              <mat-label>Designee Email Address</mat-label>
+              <input matInput formControlName="emailAddress2" placeholder="Email Address"
+                [ngClass]="{ 'is-invalid': f.emailAddress2.touched && f.emailAddress2.errors }">
+              <mat-error *ngIf="f.emailAddress2.errors">
+                <mat-error *ngIf="f.emailAddress2.errors?.invalidEmail && !f.emailAddress2.errors.required">
+                  {{customValidation.A9}}
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="showHideContactDetails">
+          <div class="col-md-4">
+            <mat-form-field appearance="outline">
+              <mat-label>Designee Cell Phone</mat-label>
+              <input matInput formControlName="cellPhone2" mask="000-000-0000" placeholder="(xxx)-xxx-xxxx"
+                [ngClass]="{ 'is-invalid': f.cellPhone2.touched && f.cellPhone2.errors }">
+              <mat-error *ngIf="f.cellPhone2.errors">
+                <mat-error *ngIf="f.cellPhone2.errors.required">{{customValidation.A1}}</mat-error>
+                <mat-error
+                  *ngIf="f.cellPhone2.errors.maxLength == null && !f.cellPhone2.errors?.invalidPhone && !f.cellPhone2.errors.required">
+                  Cannot exceed 10 characters</mat-error>
+                <mat-error *ngIf="f.cellPhone2.errors?.invalidPhone && !f.cellPhone2.errors.required">
+                  Phone number is invalid
+                </mat-error>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline">
+              <mat-label>Designee Home Phone</mat-label>
+              <input matInput formControlName="homePhone2" placeholder="Home Phone" mask="000-000-0000"
+                placeholder="(xxx)-xxx-xxxx" [ngClass]="{ 'is-invalid': f.homePhone2.touched && f.homePhone2.errors }">
+            </mat-form-field>
+            <mat-error *ngIf="f.homePhone2.errors">
+              <mat-error *ngIf="f.homePhone2.touched && f.homePhone2.errors.required">{{customValidation.A1}}
+              </mat-error>
+              <mat-error
+                *ngIf="f.homePhone2.errors.maxLength == null && !f.homePhone2.errors?.invalidPhone && !f.homePhone2.errors.required">
+                Cannot exceed 10 characters</mat-error>
+              <mat-error *ngIf="f.homePhone2.errors?.invalidPhone && !f.homePhone2.errors.required">
+                Phone number is invalid
+              </mat-error>
+            </mat-error>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline">
+              <mat-label>Designee Work Phone</mat-label>
+              <input matInput formControlName="workPhone2" placeholder="Work Phone" mask="000-000-0000"
+                placeholder="(xxx)-xxx-xxxx" [ngClass]="{ 'is-invalid': f.workPhone2.touched && f.workPhone2.errors }">
+            </mat-form-field>
+            <mat-error *ngIf="f.workPhone2.errors">
+              <mat-error *ngIf="f.workPhone2.touched && f.workPhone2.errors.required">{{customValidation.A1}}
+              </mat-error>
+              <mat-error
+                *ngIf="f.workPhone2.errors.maxLength == null && !f.workPhone2.errors?.invalidPhone && !f.workPhone2.errors.required">
+                Cannot exceed 10 characters</mat-error>
+              <mat-error *ngIf="f.workPhone2.errors?.invalidPhone && !f.workPhone2.errors.required">
+                Phone number is invalid
+              </mat-error>
+            </mat-error>
+          </div>
+        </div>
+
+      </div>
+
+      <mat-accordion *ngIf="isKB">
+        <mat-expansion-panel class="expansionPanel">
+          <mat-expansion-panel-header class="expansionHeader">
+            <mat-panel-title>
+              Head of Household
+            </mat-panel-title>
+            <span>
+              <mat-panel-description class="expansionDetails">
+                VIEW DETAILS
+              </mat-panel-description>
+            </span>
+          </mat-expansion-panel-header>
+          <div class="innerContainer">
+            <h2>Person Details</h2>
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field appearance="outline" style="width:100% !important">
+                  <mat-label><sup>
+                      <mat-label class="required-color">*</mat-label>
+                    </sup>First Name</mat-label>
+                  <input matInput formControlName="firstName" placeholder="First Name">
+                  <mat-error *ngIf="f.firstName.errors !== null">
+                    <mat-error
+                      *ngIf="f.firstName.errors.maxLength == null && !f.firstName.errors?.invalidName && !f.firstName.errors.required">
+                      Cannot exceed 45 characters</mat-error>
+                    <mat-error *ngIf="f.firstName.errors.required && (f.firstName.touched  || submitted)">
+                      {{customValidation.A1}}</mat-error>
+                    <mat-error *ngIf="f.firstName.errors?.invalidName && !f.firstName.errors.required">
+                      {{customValidation.A2}}
+                    </mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-2">
+                <mat-form-field appearance="outline" style="width:100% !important">
+                  <mat-label>MI</mat-label>
+                  <input matInput formControlName="midInitial" placeholder="MI" mask="S" >
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field appearance="outline" style="width:100% !important">
+                  <mat-label><sup>
+                      <mat-label class="required-color">*</mat-label>
+                    </sup>Last Name</mat-label>
+                  <input matInput formControlName="lastName" placeholder="Last Name"
+                    [ngClass]="{ 'is-invalid': f.lastName.touched && f.lastName.errors }">
+                  <mat-error *ngIf="f.lastName.errors !== null">
+                    <mat-error
+                      *ngIf="f.lastName.errors.maxLength == null && !f.lastName.errors?.invalidName && !f.lastName.errors.required">
+                      Cannot exceed 45 characters</mat-error>
+                    <mat-error *ngIf="f.lastName.errors.required && (f.lastName.touched || submitted)">
+                      {{customValidation.A1}}</mat-error>
+                    <mat-error *ngIf="f.lastName.errors?.invalidName && !f.lastName.errors.required">
+                      {{customValidation.A2}}
+                    </mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-2">
+                <mat-form-field appearance="outline" style="width:100% !important">
+                  <mat-label>Suffix</mat-label>
+                  <mat-select matNativeControl formControlName="suffix" aria-placeholder="Select an option">
+                    <mat-option value="Jr">Jr</mat-option>
+                    <mat-option value="Sr">Sr</mat-option>
+                    <mat-option value="III">III</mat-option>
+                    <mat-option value="IV">IV</mat-option>
+                    <mat-option value="V">V</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <br>
+            <mat-divider class="perlss-section-divider"></mat-divider>
+            <h2>Physical Address</h2>
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" style="width:100% !important">
+                  <mat-label><sup>
+                      <mat-label class="required-color">*</mat-label>
+                    </sup>Address Format</mat-label>
+                  <mat-select formControlName="addressFormatCd" (selectionChange)="onAddressFormat($event)">
+                    <mat-option value="USAD">US Address</mat-option>
+                    <mat-option value="MLTY">Military Address</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-label>
+                    <mat-label class="required-color"><sup>*</sup></mat-label>Address Line 1
+                  </mat-label>
+                  <input matInput formControlName="addressLine1" placeholder="Address Line 1"
+                    [ngClass]="{ 'is-invalid': f.addressLine1.touched && f.addressLine1.errors }">
+                  <mat-error *ngIf="f.addressLine1.errors !== null">
+                    <mat-error
+                      *ngIf="f.addressLine1.errors.maxLength == null && !f.addressLine1.errors.pattern && !f.addressLine1.errors.required">
+                      Cannot exceed 100 characters</mat-error>
+                    <mat-error *ngIf="(f.addressLine1.touched || submitted) && f.addressLine1.errors.required">
+                      {{customValidation.A1}}
+                    </mat-error>
+                    <mat-error *ngIf="f.addressLine1.errors.pattern && !f.addressLine1.errors.required">
+                      {{customValidation.A2}}
+                    </mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-label>Address Line 2</mat-label>
+                  <input matInput formControlName="addressLine2" placeholder="Address Line 2"
+                    [ngClass]="{ 'is-invalid': f.addressLine2.touched && f.addressLine2.errors }">
+                  <mat-error *ngIf="f.addressLine2.errors !== null">
+                    <mat-error *ngIf="f.addressLine2.errors.maxLength == null && !f.addressLine2.errors.pattern ">
+                      Cannot exceed
+                      50 characters</mat-error>
+                    <mat-error *ngIf="f.addressLine2.errors.pattern">{{customValidation.A2}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-label><sup>
+                      <mat-label class="required-color">*</mat-label>
+                    </sup>City</mat-label>
+                  <input matInput formControlName="city" placeholder="City"
+                    [ngClass]="{ 'is-invalid': f.city.touched && f.city.errors }">
+                  <mat-error *ngIf="f.city.errors !== null">
+                    <mat-error
+                      *ngIf="f.city.errors.maxLength == null && !f.city.errors?.invalid && !f.city.errors.required">
+                      Cannot exceed 25 characters</mat-error>
+                    <mat-error *ngIf="(f.city.touched || submitted) && f.city.errors.required">
+                      {{customValidation.A1}}</mat-error>
+                    <mat-error *ngIf="f.city.errors?.invalid && !f.city.errors.required">
+                      {{customValidation.A2}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-label><sup>
+                      <mat-label class="required-color">*</mat-label>
+                    </sup>State</mat-label>
+                  <mat-select matNativeControl formControlName="stateCd" (selectionChange)="trackState($event)">
+                    <mat-option *ngFor="let state of stateList" [value]="state.code">
+                      {{state.value}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="f.stateCd.errors !== null">
+                    <mat-error *ngIf="(f.stateCd.touched || submitted) && f.stateCd.errors.required">
+                      {{customValidation.A1}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <mat-form-field appearance="outline" style="width:100% !important ">
+                  <mat-label><sup>
+                      <mat-label class="required-color">*</mat-label>
+                    </sup>Zip Code</mat-label>
+                  <input matInput formControlName="zipcode" placeholder="Zip Code"
+                    [ngClass]="{ 'is-invalid': f.zipcode.touched && f.zipcode.errors }">
+                  <mat-error *ngIf="f.zipcode.errors !== null">
+                    <mat-error *ngIf="(f.zipcode.touched || submitted) && f.zipcode.errors.required">
+                      {{customValidation.A1}}</mat-error>
+                    <mat-error *ngIf="f.zipcode.errors.pattern">{{customValidation.A7}}
+                    </mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                <mat-form-field appearance="outline" style="width:100% !important">
+                  <mat-label>Ext</mat-label>
+                  <input matInput formControlName="zipExt" placeholder="Ext"
+                    [ngClass]="{ 'is-invalid': f.zipExt.touched && f.zipExt.errors }">
+                  <mat-error *ngIf="f.zipExt.errors !== null">
+                    <mat-error *ngIf="f.zipExt.errors.pattern || f.zipExt.errors?.invalid">
+                      {{customValidation.A2}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" style="width:100% !important" *ngIf="isTN">
+                  <mat-label><sup>
+                      <mat-label class="required-color">*</mat-label>
+                    </sup>County</mat-label>
+                  <mat-select matNativeControl formControlName="countyCd">
+                    <mat-option *ngFor="let county of countyList" [value]="county.code">
+                      {{county.value}}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="f.countyCd.errors !== null">
+                    <mat-error *ngIf="(f.countyCd.touched || submitted) && f.countyCd.errors.required">
+                      {{customValidation.A1}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row" *ngIf="addrFormatSW">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" style="width:100% !important">
+                  <mat-label><sup>
+                      <mat-label class="required-color">*</mat-label>
+                    </sup>APO / FPO</mat-label>
+                  <mat-select formControlName="apoFpoCd">
+                    <mat-option value="APO">APO - Air / Army Post Office</mat-option>
+                    <mat-option value="FPO">FPO- Fleet Post Office</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="f.apoFpoCd.errors !== null">
+                    <mat-error *ngIf="(f.apoFpoCd.touched || submitted) && f.apoFpoCd.errors.required">
+                      {{customValidation.A1}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row" *ngIf="addrFormatSW">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" style="width:100% !important">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>AA / AE / AP
+                  </mat-label>
+                  <mat-select formControlName="aaAeApCd">
+                    <mat-option value="AA">AA - Armed Forces America</mat-option>
+                    <mat-option value="AE">FPO- Armed Forces Africa</mat-option>
+                    <mat-option value="AP">FPO- Armed Forces Pacific</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="f.aaAeApCd.errors !== null">
+                    <mat-error *ngIf="(f.aaAeApCd.touched || submitted) && f.aaAeApCd.errors.required">
+                      {{customValidation.A1}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+                <button mat-flat-button color="primary" class="validateBtn"
+                  style="width: 100%; font-size: 25px; margin: 0.5px 0.5px">VALIDATE ADDRESS</button>
+            
+            <mat-divider class="perlss-section-divider"></mat-divider>
+            <h2>Mailing Address</h2>
+
+            <mat-radio-group (change)="onMailAddrChange2($event)" formControlName="mailSwHoh">
+              <mat-label>Is the mailing address the same as the physical address?</mat-label>
+              <mat-radio-button value="Y">Yes</mat-radio-button>
+              <mat-radio-button value="N">No</mat-radio-button>
+            </mat-radio-group>
+
+            <div *ngIf="mailAddrSW">
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label><sup>
+                        <mat-label class="required-color">*</mat-label>
+                      </sup>Address Format</mat-label>
+                    <mat-select formControlName="mailAddressFormatCd2" (selectionChange)="onMailAddressFormat2($event)">
+                      <mat-option value="USAD">US Address</mat-option>
+                      <mat-option value="MLTY">Military Address</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>
+                      <mat-label class="required-color"><sup>*</sup></mat-label>Address Line 1
+                    </mat-label>
+                    <input matInput formControlName="mailAddrLine1ex" placeholder="Address Line 1"
+                      [ngClass]="{ 'is-invalid': f.mailAddrLine1ex.touched && f.mailAddrLine1ex.errors }">
+                    <mat-error *ngIf="f.mailAddrLine1ex.errors !== null">
+                      <mat-error
+                        *ngIf="f.mailAddrLine1ex.errors.maxLength == null && !f.mailAddrLine1ex.errors.pattern && !f.mailAddrLine1ex.errors.required">
+                        Cannot exceed 100 characters</mat-error>
+                      <mat-error *ngIf="(f.mailAddrLine1ex.touched || submitted) && f.mailAddrLine1ex.errors.required">
+                        {{customValidation.A1}}
+                      </mat-error>
+                      <mat-error *ngIf="f.mailAddrLine1ex.errors.pattern && !f.mailAddrLine1ex.errors.required">
+                        {{customValidation.A2}}
+                      </mat-error>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>Address Line 2</mat-label>
+                    <input matInput formControlName="mailAddrLine2ex" placeholder="Address Line 2"
+                      [ngClass]="{ 'is-invalid': f.mailAddrLine2ex.touched && f.mailAddrLine2.errors }">
+                    <mat-error *ngIf="f.mailAddrLine2ex.errors !== null">
+                      <mat-error
+                        *ngIf="f.mailAddrLine2ex.errors.maxLength == null && !f.mailAddrLine2ex.errors.pattern ">
+                        Cannot exceed
+                        50 characters</mat-error>
+                      <mat-error *ngIf="f.mailAddrLine2ex.errors.pattern">{{customValidation.A2}}</mat-error>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>
+                      <mat-label class="required-color"><sup>*</sup></mat-label>City
+                    </mat-label>
+                    <input matInput formControlName="mailCity2" placeholder="City"
+                      [ngClass]="{ 'is-invalid': f.mailCity2.touched && f.mailCity2.errors }">
+                    <mat-error *ngIf="f.mailCity2.errors !== null">
+                      <mat-error
+                        *ngIf="f.mailCity2.errors.maxLength == null && !f.mailCity2.errors?.invalid && !f.mailCity2.errors.required">
+                        Cannot exceed 25 characters</mat-error>
+                      <mat-error *ngIf="(f.mailCity2.touched || submitted) && f.mailCity2.errors.required">
+                        {{customValidation.A1}}</mat-error>
+                      <mat-error *ngIf="f.mailCity2.errors?.invalid && !f.mailCity2.errors.required">
+                        {{customValidation.A2}}</mat-error>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-label>
+                      <mat-label class="required-color"><sup>*</sup></mat-label>State
+                    </mat-label>
+                    <mat-select matNativeControl formControlName="mailState2"
+                      (selectionChange)="trackStateAlt2($event)">
+                      <mat-option *ngFor="let state of stateList" [value]="state.code">
+                        {{state.value}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="f.mailState2.errors !== null">
+                      <mat-error *ngIf="f.mailState2.touched && f.mailState2.errors.required">
+                        {{customValidation.A1}}</mat-error>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-3">
+                  <mat-form-field appearance="outline" style="width:100% !important">
+                    <mat-label>
+                      <mat-label class="required-color"><sup>*</sup></mat-label>Zip Code
+                    </mat-label>
+                    <input matInput formControlName="mailZip2" placeholder="Zip Code"
+                      [ngClass]="{ 'is-invalid': f.mailZip2.touched && f.mailZip2.errors }">
+                    <mat-error *ngIf="f.mailZip2.errors !== null">
+                      <mat-error *ngIf="(f.mailZip2.touched || submitted) && f.mailZip2.errors.required">
+                        {{customValidation.A1}}</mat-error>
+                      <mat-error *ngIf="f.mailZip2.errors.pattern">{{customValidation.A7}}
+                      </mat-error>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field appearance="outline" style="width:100% !important">
+                    <mat-label>Ext</mat-label>
+                    <input matInput formControlName="mailZipExtn2" placeholder="Ext"
+                      [ngClass]="{ 'is-invalid': f.mailZipExtn2.touched && f.mailZipExtn2.errors }">
+                    <mat-error *ngIf="f.mailZipExtn2.errors !== null">
+                      <mat-error *ngIf="f.mailZipExtn2.errors.pattern || f.mailZipExtn2.errors?.invalid">
+                        {{customValidation.A2}}</mat-error>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field appearance="outline" style="width: 100%;" *ngIf="isTN2">
+                    <mat-label>
+                      <mat-label class="required-color"><sup>*</sup></mat-label>County
+                    </mat-label>
+                    <mat-select matNativeControl formControlName="mailCounty2">
+                      <mat-option *ngFor="let county of countyList" [value]="county.code">
+                        {{county.value}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="f.mailCounty2.errors !== null">
+                      <mat-error *ngIf="(f.mailCounty2.touched || submitted) && f.mailCounty2.errors.required">
+                        {{customValidation.A1}}</mat-error>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div *ngIf="mailAddrFormatSW2">
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field appearance="outline" style="width:100% !important">
+                      <mat-label>
+                        <mat-label class="required-color"><sup>*</sup></mat-label>APO / FPO
+                      </mat-label>
+                      <mat-select formControlName="apoFpoCd3">
+                        <mat-option value="APO">APO - Air / Army Post Office</mat-option>
+                        <mat-option value="FPO">FPO- Fleet Post Office</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="f.apoFpoCd3.errors !== null">
+                        <mat-error *ngIf="(f.apoFpoCd3.touched || submitted) && f.apoFpoCd3.errors.required">
+                          {{customValidation.A1}}</mat-error>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row" *ngIf="mailAddrFormatSW2">
+                  <div class="col-md-6">
+                    <mat-form-field appearance="outline" style="width:100% !important">
+                      <mat-label>
+                        <mat-label class="required-color"><sup>*</sup></mat-label>AA / AE / AP
+                      </mat-label>
+                      <mat-select formControlName="aaAeApCd3">
+                        <mat-option value="AA">AA - Armed Forces America</mat-option>
+                        <mat-option value="AE">FPO- Armed Forces Africa</mat-option>
+                        <mat-option value="AP">FPO- Armed Forces Pacific</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="f.aaAeApCd3.errors !== null">
+                        <mat-error *ngIf="(f.aaAeApCd3.touched || submitted) && f.aaAeApCd3.errors.required">
+                          {{customValidation.A1}}</mat-error>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+                  <button mat-flat-button color="primary" class="perlss-click-button"
+                    style="width: 100%; font-size: 25px; margin: 0.5px 0.5px">VALIDATE ADDRESS</button>
+               
+           
+            <br>
+            <mat-divider class="perlss-section-divider"></mat-divider>
+            <h2>Contact Details</h2>
+
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>Email Address</mat-label>
+                  <input matInput formControlName="emailAddress3" placeholder="Email Address"
+                    [ngClass]="{ 'is-invalid': f.emailAddress3.touched && f.emailAddress3.errors }">
+                  <mat-error *ngIf="f.emailAddress3.errors">
+                    <mat-error *ngIf="f.emailAddress3.errors?.invalidEmail && !f.emailAddress3.errors.required">
+                      {{customValidation.A9}}
+                    </mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field appearance="outline">
+                  <mat-label>Cell Phone</mat-label>
+                  <input matInput formControlName="cellPhone3" placeholder="Cell Phone" mask="000-000-0000"
+                    placeholder="(xxx)-xxx-xxxx"
+                    [ngClass]="{ 'is-invalid': f.cellPhone3.touched && f.cellPhone3.errors }">
+                  <mat-error *ngIf="f.cellPhone3.errors">
+                    <mat-error *ngIf="f.cellPhone3.errors.required">{{customValidation.A1}}</mat-error>
+                    <mat-error
+                      *ngIf="f.cellPhone3.errors.maxLength == null && !f.cellPhone3.errors?.invalidPhone && !f.cellPhone3.errors.required">
+                      Cannot exceed 10 characters</mat-error>
+                    <mat-error *ngIf="f.cellPhone3.errors?.invalidPhone && !f.cellPhone3.errors.required">
+                      Phone number is invalid
+                    </mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field appearance="outline">
+                  <mat-label>Home Phone</mat-label>
+                  <input matInput formControlName="homePhone3" placeholder="Home Phone" mask="000-000-0000"
+                    placeholder="(xxx)-xxx-xxxx"
+                    [ngClass]="{ 'is-invalid': f.homePhone3.touched && f.homePhone3.errors }">
+                </mat-form-field>
+                <mat-error *ngIf="f.homePhone3.errors">
+                  <mat-error *ngIf="f.homePhone3.touched && f.homePhone3.errors.required">{{customValidation.A1}}
+                  </mat-error>
+                  <mat-error
+                    *ngIf="f.homePhone3.errors.maxLength == null && !f.homePhone3.errors?.invalidPhone && !f.homePhone3.errors.required">
+                    Cannot exceed 10 characters</mat-error>
+                  <mat-error *ngIf="f.homePhone3.errors?.invalidPhone && !f.homePhone3.errors.required">
+                    Phone number is invalid
+                  </mat-error>
+                </mat-error>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field appearance="outline">
+                  <mat-label>Work Phone</mat-label>
+                  <input matInput formControlName="workPhone3" placeholder="Work Phone" mask="000-000-0000"
+                    placeholder="(xxx)-xxx-xxxx"
+                    [ngClass]="{ 'is-invalid': f.workPhone3.touched && f.workPhone3.errors }">
+                </mat-form-field>
+                <mat-error *ngIf="f.workPhone3.errors">
+                  <mat-error *ngIf="f.workPhone3.touched && f.workPhone3.errors.required">{{customValidation.A1}}
+                  </mat-error>
+                  <mat-error
+                    *ngIf="f.workPhone3.errors.maxLength == null && !f.workPhone3.errors?.invalidPhone && !f.workPhone3.errors.required">
+                    Cannot exceed 10 characters</mat-error>
+                  <mat-error *ngIf="f.workPhone3.errors?.invalidPhone && !f.workPhone3.errors.required">
+                    Phone number is invalid
+                  </mat-error>
+                </mat-error>
+              </div>
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label class="req">What is the preferred language for letters we send to the applicant?
+                  </mat-label>
+                  <mat-select formControlName="preflangCd2"
+                    [ngClass]="{ 'is-invalid': f.preflangCd2.touched && f.preflangCd2.errors }">
+                    <mat-option *ngFor="let language of languageList" [value]="language.code">
+                      {{language.value}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-error *ngIf="f.preflangCd2.errors && f.preflangCd2.touched && f.preflangCd2.errors.required">{{customValidation.A1}}</mat-error>
+              </div>
+            </div>
+
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <br>
+
+      <mat-accordion *ngIf="isKB">
+        <mat-expansion-panel class="expansionPanel">
+          <mat-expansion-panel-header class="expansionHeader">
+            <mat-panel-title>
+              Authorized Representative
+            </mat-panel-title>
+            <span>
+              <mat-panel-description class="expansionDetails">
+                VIEW DETAILS
+              </mat-panel-description>
+            </span>
+          </mat-expansion-panel-header>
+          <div class="innerContainer">
+            <h2>Person Details</h2>
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field appearance="outline" style="width:100% !important">
+                  <mat-label><sup>
+                      <mat-label class="required-color">*</mat-label>
+                    </sup>First Name</mat-label>
+                  <input matInput placeholder="First Name">
+                </mat-form-field>
+              </div>
+              <div class="col-md-2">
+                <mat-form-field appearance="outline" style="width:100% !important">
+                  <mat-label>MI</mat-label>
+                  <input matInput placeholder="MI">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field appearance="outline" style="width:100% !important">
+                  <mat-label><sup>
+                      <mat-label class="required-color">*</mat-label>
+                    </sup>Last Name</mat-label>
+                  <input matInput placeholder="Last Name">
+                </mat-form-field>
+              </div>
+              <div class="col-md-2">
+                <mat-form-field appearance="outline" style="width:100% !important">
+                  <mat-label>Suffix</mat-label>
+                  <mat-select matNativeControl aria-placeholder="Select an option">
+                    <mat-option value="Jr">Jr</mat-option>
+                    <mat-option value="Sr">Sr</mat-option>
+                    <mat-option value="III">III</mat-option>
+                    <mat-option value="IV">IV</mat-option>
+                    <mat-option value="V">V</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label class="req">Relationship</mat-label>
+                  <mat-select>
+                    <mat-option *ngFor="let relation of relationList" [value]="relation.code">
+                      {{relation.value}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" style="width:100% !important">
+                  <mat-label><sup>
+                    </sup>Organization Name</mat-label>
+                  <input matInput>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" style="width:100% !important">
+                  <mat-label><sup>
+                    </sup>ID Number</mat-label>
+                  <input matInput>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-md-8">
+              <mat-checkbox class="checkbox-element">
+                Responsibilities and permissions granted to this assisting person
+              </mat-checkbox>
+            </div>
+
+            <br>
+            <mat-divider class="perlss-section-divider"></mat-divider>
+
+            <h2>Address</h2>
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" style="width:100% !important">
+                  <mat-label><sup>
+                      <mat-label class="required-color">*</mat-label>
+                    </sup>Address Format</mat-label>
+                  <mat-select formControlName="addressFormatCd2" (selectionChange)="onAddressFormat2($event)">
+                    <mat-option value="USAD">US Address</mat-option>
+                    <mat-option value="MLTY">Military Address</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-label>
+                    <mat-label class="required-color"><sup>*</sup></mat-label>Address Line 1
+                  </mat-label>
+                  <input matInput formControlName="addressLine1ex" placeholder="Address Line 1">
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-label>Address Line 2</mat-label>
+                  <input matInput formControlName="addressLine2ex" placeholder="Address Line 2">
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-label><sup>
+                      <mat-label class="required-color">*</mat-label>
+                    </sup>City</mat-label>
+                  <input matInput formControlName="city2" placeholder="City">
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-label><sup>
+                      <mat-label class="required-color">*</mat-label>
+                    </sup>State</mat-label>
+                  <mat-select matNativeControl formControlName="stateCd2">
+                    <mat-option *ngFor="let state of stateList" [value]="state.code">
+                      {{state.value}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <mat-form-field appearance="outline" style="width:100% !important ">
+                  <mat-label><sup>
+                      <mat-label class="required-color">*</mat-label>
+                    </sup>Zip Code</mat-label>
+                  <input matInput formControlName="zipcode2" placeholder="Zip Code">
+                </mat-form-field>
+              </div>
+              <div class="col-md-3">
+                <mat-form-field appearance="outline" style="width:100% !important">
+                  <mat-label>Ext</mat-label>
+                  <input matInput formControlName="zipExt2" placeholder="Ext">
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" style="width:100% !important" *ngIf="isTN">
+                  <mat-label><sup>
+                      <mat-label class="required-color">*</mat-label>
+                    </sup>County</mat-label>
+                  <mat-select matNativeControl formControlName="countyCd2">
+                    <mat-option *ngFor="let county of countyList" [value]="county.code">
+                      {{county.value}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row" *ngIf="addrFormatSW">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" style="width:100% !important">
+                  <mat-label><sup>
+                      <mat-label class="required-color">*</mat-label>
+                    </sup>APO / FPO</mat-label>
+                  <mat-select formControlName="apoFpoCd4">
+                    <mat-option value="APO">APO - Air / Army Post Office</mat-option>
+                    <mat-option value="FPO">FPO- Fleet Post Office</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row" *ngIf="addrFormatSW">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline" style="width:100% !important">
+                  <mat-label>
+                    <mat-label class="required-color">*</mat-label>AA / AE / AP
+                  </mat-label>
+                  <mat-select formControlName="aaAeApCd4">
+                    <mat-option value="AA">AA - Armed Forces America</mat-option>
+                    <mat-option value="AE">FPO- Armed Forces Africa</mat-option>
+                    <mat-option value="AP">FPO- Armed Forces Pacific</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+
+            <button mat-flat-button color="primary" class="perlss-click-button wide"
+              style="width: 100%; font-size: 25px; margin: 0.5px 0.5px">VALIDATE ADDRESS</button>
+
+
+            <mat-divider class="perlss-section-divider"></mat-divider>
+            <h2>Contact Details</h2>
+
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>Email Address</mat-label>
+                  <input matInput formControlName="emailAddress3" placeholder="Email Address"
+                    [ngClass]="{ 'is-invalid': f.emailAddress3.touched && f.emailAddress3.errors }">
+                  <mat-error *ngIf="f.emailAddress3.errors">
+                    <mat-error *ngIf="f.emailAddress3.errors?.invalidEmail && !f.emailAddress3.errors.required">
+                      {{customValidation.A9}}
+                    </mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <mat-form-field appearance="outline">
+                  <mat-label>Cell Phone</mat-label>
+                  <input matInput formControlName="cellPhone3" placeholder="Cell Phone" mask="000-000-0000"
+                    [ngClass]="{ 'is-invalid': f.cellPhone3.touched && f.cellPhone3.errors }">
+                  <mat-error *ngIf="f.cellPhone3.errors">
+                    <mat-error *ngIf="f.cellPhone3.errors.required">{{customValidation.A1}}</mat-error>
+                    <mat-error
+                      *ngIf="f.cellPhone3.errors.maxLength == null && !f.cellPhone3.errors?.invalidPhone && !f.cellPhone3.errors.required">
+                      Cannot exceed 10 characters</mat-error>
+                    <mat-error *ngIf="f.cellPhone3.errors?.invalidPhone && !f.cellPhone3.errors.required">
+                      Phone number is invalid
+                    </mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field appearance="outline">
+                  <mat-label>Home Phone</mat-label>
+                  <input matInput formControlName="homePhone3" placeholder="Home Phone" mask="000-000-0000"
+                    placeholder="(xxx)-xxx-xxxx"
+                    [ngClass]="{ 'is-invalid': f.homePhone3.touched && f.homePhone3.errors }">
+                </mat-form-field>
+                <ng-container *ngIf="f.homePhone3.errors">
+                  <mat-error *ngIf="f.homePhone3.touched && f.homePhone3.errors.required">{{customValidation.A1}}
+                  </mat-error>
+                  <mat-error
+                    *ngIf="f.homePhone3.errors.maxLength == null && !f.homePhone3.errors?.invalidPhone && !f.homePhone3.errors.required">
+                    Cannot exceed 10 characters</mat-error>
+                  <mat-error *ngIf="f.homePhone3.errors?.invalidPhone && !f.homePhone3.errors.required">
+                    Phone number is invalid
+                  </mat-error>
+                </ng-container>
+              </div>
+              <div class="col-md-4">
+                <mat-form-field appearance="outline">
+                  <mat-label>Work Phone</mat-label>
+                  <input matInput formControlName="workPhone3" placeholder="Work Phone" mask="000-000-0000"
+                    maxlength="10" placeholder="(xxx)-xxx-xxxx"
+                    [ngClass]="{ 'is-invalid': f.workPhone3.touched && f.workPhone3.errors }">
+                </mat-form-field>
+                <ng-container *ngIf="f.workPhone3.errors">
+                  <mat-error *ngIf="f.workPhone3.touched && f.workPhone3.errors.required">{{customValidation.A1}}
+                  </mat-error>
+                  <mat-error *ngIf="f.workPhone3.errors?.invalidPhone && !f.workPhone3.errors.required">
+                    Phone number is invalid
+                  </mat-error>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    <div class="buttonBar">
+      <button mat-flat-button type="button" class="perlss-click-button-white" (click)="back()">BACK</button>
+      <button mat-flat-button color="primary" class="perlss-click-button-white-noborder" (click)="saveAndExit()"><span
+          class="hoverClass">SAVE AND EXIT</span></button>
+      <button *ngIf="enableNext" mat-flat-button color="primary" class="perlss-click-button"
+        (click)="saveContactInformation()">NEXT</button>
+      <mat-spinner *ngIf="showSpinner" id="spinnerStyle" [diameter]="24" color="warn" mode="indeterminate">
+      </mat-spinner>
+    </div>
+  </form>
+  <!-- <button (click)="showWarning()">Test Button</button> -->
+</div>

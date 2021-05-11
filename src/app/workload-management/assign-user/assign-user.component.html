@@ -1,0 +1,75 @@
+<div class="row-header">
+  <span class="col-lg-9"
+    [ngClass]="{'update-dialog-heading': displayMode === 'update', 'dialog-heading' : displayMode !== 'update' }">
+    {{displayMode !== 'update' ? 'Assign User' : 'Assign Task' }}
+  </span>
+  <span class="col-lg-3 text-right close-icon" *ngIf="(displayMode !== 'update' || showCloseButton)">
+    <mat-icon (click)=close()>highlight_off</mat-icon>
+  </span>
+</div>
+<mat-divider class="perlss-section-divider" *ngIf="displayMode !== 'update'"></mat-divider>
+
+
+<div  class="assign-user-container">
+  <div class="search-heading" *ngIf="displayMode !== 'update'">
+    Search for User
+  </div>
+  <div style="padding-bottom: 5px;">
+    <input matInput (keyup)="filterUsers($event)" placeholder="" #input class="search-users-text">
+  </div>
+  <div class="assignuser-search-table-container">
+    <table aria-describedby="searchuserstext" mat-table [dataSource]="dataSource" multiTemplateDataRows
+      style="width: 100%;">
+      <ng-container matColumnDef="firstName">
+        <th id="firstName" mat-header-cell *matHeaderCellDef class='table-th'>Name </th>
+        <td mat-cell *matCellDef="let element">{{element.firstName}} {{element.lastName}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="userId">
+        <th id="userId" mat-header-cell *matHeaderCellDef class='table-th'>Username </th>
+        <td mat-cell *matCellDef="let element">{{element.userId}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="entityCd">
+        <th id="entityCd" mat-header-cell *matHeaderCellDef class='table-th'>Entity </th>
+        <td mat-cell *matCellDef="let element">{{element.entityName}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="roleName">
+        <th id="roleName" mat-header-cell *matHeaderCellDef class='table-th'>Role</th>
+        <td mat-cell *matCellDef="let element">{{element.roleName}} </td>
+      </ng-container>
+
+      <ng-container *ngIf="showAssignTask" matColumnDef="statusName">
+        <th id="statusName" mat-header-cell *matHeaderCellDef class='table-th'>Status</th>
+        <td mat-cell *matCellDef="let element">{{element.statusName}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row;columns: displayedColumns;" (click)="selectRow(row)" class="element-row"
+        [class.clicked-row]="selectedRow === row">
+      </tr>
+    </table>
+  </div>
+  <div class="row button-table-content" *ngIf="displayMode === 'update'">
+    <div class="col-md-6">
+      <button mat-flat-button color="primary" class="perlss-click-button button-height"
+        (click)="reassignTask()">REASSIGN</button>
+    </div>
+    <div class="col-md-6">
+      <button mat-flat-button color="primary" class="perlss-click-button button-height" style="float: right;"
+        (click)="sendBackToQueue()">SEND BACK TO QUEUE</button>
+    </div>
+  </div>
+  <div class="row button-table-content" *ngIf="displayMode !== 'update'">
+    <div class="col-md-6">
+      <button mat-flat-button color="primary" class="perlss-click-button button-height" (click)="assignTask()">
+        ASSIGN
+      </button>
+    </div>
+    <div *ngIf="showAssignTask">
+    <button  mat-flat-button color="primary" class="perlss-click-button button-height" >CLEAR ASSIGNMENT</button>
+</div>
+
+  </div>
+</div>

@@ -1,0 +1,863 @@
+<div class="dialog">
+    <div class="header">
+        <h4>Workflow Analytics</h4>
+        <mat-icon (click)="close()">highlight_off</mat-icon>
+    </div>
+    <div class="form perlss_page_content">
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ng-container>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Referral ID</mat-label>
+                                <input matInput placeholder="Referral ID" maxlength="12" autocomplete="off"
+                                    [(ngModel)]="refId" />
+                            </mat-form-field>
+                        </ng-container>
+                    </div>
+                    <div class="col-md-6">
+                        <ng-container>
+                            <mat-form-field appearance="outline">
+                                <mat-label>PAE ID</mat-label>
+                                <input matInput [(ngModel)]="paeId" placeholder="PAE ID" maxlength="10"
+                                    autocomplete="off" />
+                            </mat-form-field>
+                        </ng-container>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ng-container>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Appeal ID</mat-label>
+                                <input matInput [(ngModel)]="appealId" placeholder="Appeal ID" maxlength="10"
+                                    autocomplete="off" />
+                            </mat-form-field>
+                        </ng-container>
+                    </div>
+                    <div class="col-md-6">
+                        <ng-container>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Enter a date range</mat-label>
+
+                                <mat-date-range-input [rangePicker]="picker">
+                                    <input matStartDate [(ngModel)]="dateRangeFrom" placeholder="mm/dd/yyyy">
+                                    <input matEndDate [(ngModel)]="dateRangeTo" placeholder="mm/dd/yyyy">
+                                </mat-date-range-input>
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-date-range-picker #picker></mat-date-range-picker>
+                            </mat-form-field>
+                        </ng-container>
+                        <ng-container *ngIf="dateRangeFrom < minDate">
+                            <mat-error>{{minDateError}}</mat-error>
+                        </ng-container><br>
+                        <ng-container *ngIf="dateRangeTo > today">
+                            <mat-error>{{maxDateError}}</mat-error>
+                        </ng-container>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ng-container>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Activity</mat-label>
+                                <mat-select [(ngModel)]="activity">
+                                    <mat-option *ngFor="let item of activities" [value]="item.code">
+                                        {{item.value}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-12 col-sm-4">
+                <button type="button" mat-flat-button color="primary" (click)="onSearch()" [disabled]="!refId && !paeId"
+                    class="perlss-click-button  search-btn">Search</button>
+            </div>
+        </div>
+        <br>
+        <ng-container *ngIf="showSearchResults">
+            <ng-container *ngIf="noResults; else result">
+                <h4>{{noResultError}}</h4>
+            </ng-container>
+            <ng-template #result>
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-divider class="perlss-horizontal-divider"></mat-divider>
+                        <div class="sname">
+                            <h4>Search Results</h4>
+                            <div class="nameleft">
+                                <p class="sn">{{topLevelData?.firstName}} {{topLevelData?.midInitial}}
+                                    {{topLevelData?.lastName}}</p>
+                                <p>XXX-XX-{{topLevelData?.ssn?.substring(topLevelData?.ssn?.length - 4)}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="idname">
+                            <a>{{topLevelData?.paeId ? topLevelData?.paeId : topLevelData?.refId }}</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-vertical-stepper class="level1" #stepper>
+                            <!-- <ng-template matStepperIcon="done"></ng-template>
+                        <ng-template matStepperIcon="number" let-index="index"></ng-template> -->
+
+                            <ng-container *ngFor="let item of data">
+                                <mat-step state="empty">
+                                    <ng-template matStepLabel>
+
+                                        <div>
+                                            <ng-container
+                                                *ngIf="navgationTexts.includes(item.activityName); else activityName;">
+                                                <a target="_blank"
+                                                    [attr.href]="getPath(item.activityName)">{{item.activityName}}</a>
+                                            </ng-container>
+                                            <ng-template #activityName>
+                                                <b>{{item.activityName}}</b>
+                                            </ng-template>
+                                            <div>
+                                                12/02/2021 12:23 PM </div>
+                                        </div>
+                                        <div class="bar"></div>
+                                        <div class="pull-right">{{item.entityName}}
+                                            <mat-icon matTooltip="{{item.userFirstName}} {{item.userMidInitial}} 
+                                        {{item.userLastName}}">person</mat-icon>
+                                        </div>
+
+                                    </ng-template>
+                                    <!-- {{item.date | date}} -->
+                                    <div>
+                                    </div>
+                                </mat-step>
+
+
+                            </ng-container>
+                            <ng-template matStepperIcon="done"></ng-template>
+                            <ng-template matStepperIcon="edit"></ng-template>
+                            <ng-template matStepperIcon="number" let-index="index"></ng-template>
+                            <ng-template matStepperIcon="empty">
+                                <mat-icon></mat-icon>
+                            </ng-template>
+                        </mat-vertical-stepper>
+                        <!-- <mat-vertical-stepper class="level1" #stepper>
+                        <ng-template matStepperIcon="done"></ng-template>
+                        <ng-template matStepperIcon="number" let-index="index"> {{index === 1 ? stepper.selectedIndex
+                            === 1 ? '-'
+                            : '+' : ""}}</ng-template>
+                        <mat-step state="empty">
+                                <ng-template matStepLabel>
+
+                                    <div><b>Referral submission (RF6363567)</b></div>
+                                    <div class="bar"></div>
+                                    <div class="pull-right" matTooltip="{{name}}">TennCare <mat-icon>person</mat-icon>
+                                    </div>
+
+                                </ng-template>
+                                12/02/2021 12:23 PM
+                                <div>
+                                </div>
+                        </mat-step>
+                        <mat-step>
+                                <ng-template matStepLabel>
+                                    <div>Appeal (APL8739292)</div>
+                                    <div class="bar"></div>
+                                    <div class="pull-right">TennCare <mat-icon>person</mat-icon>
+                                    </div>
+                                </ng-template>
+                                <mat-vertical-stepper class="level2" #stepper1>
+                                    <ng-template matStepperIcon="done"></ng-template>
+                                    <ng-template matStepperIcon="number" let-index="index"> {{index === 2 ?
+                                        stepper1.selectedIndex === 2
+                                        ? '-' : '+' : ""}}</ng-template>
+                                    <mat-step state="empty" [stepControl]="firstFormGroup">
+                                        <form [formGroup]="firstFormGroup">
+                                            <ng-template matStepLabel>
+                                                <div><b>Appeal Field </b></div>
+                                                <div class="bar"></div>
+                                                <div class="pull-right">Amerigroup <mat-icon>person</mat-icon>
+                                                </div>
+                                            </ng-template>
+                                            12/02/2021 12:23 PM
+                                            <div>
+                                               
+                                            </div>
+                                        </form>
+                                    </mat-step>
+                                    <mat-step state="empty" [stepControl]="firstFormGroup">
+                                        <form [formGroup]="firstFormGroup">
+                                            <ng-template matStepLabel>
+                                                <div><b>Appeal Representatives Added</b></div>
+                                                <div class="bar"></div>
+                                                <div class="pull-right">Amerigroup <mat-icon>person</mat-icon>
+                                                </div>
+                                            </ng-template>
+                                            12/02/2021 12:23 PM
+                                            <div>
+                                               
+                                            </div>
+                                        </form>
+                                    </mat-step>
+                                    <mat-step [stepControl]="secondFormGroup">
+                                        <form [formGroup]="secondFormGroup">
+                                            <ng-template matStepLabel>Appeal Review
+                                                <div class="bar"></div>
+                                                <div class="pull-right">Amerigroup <mat-icon>person</mat-icon>
+                                                </div>
+                                            </ng-template>
+                                            12/02/2021 12:23 PM
+                                            <mat-vertical-stepper class="level3" #stepper2>
+                                                <mat-step [stepControl]="firstFormGroup">
+                                                    <form [formGroup]="firstFormGroup">
+                                                        <ng-template matStepLabel>Timeliness REVIEW
+                                                            <div class="bar"></div>
+                                                            <div class="pull-right">Tenncare <mat-icon>person</mat-icon>
+                                                            </div>
+                                                        </ng-template>
+                                                        12/02/2021 12:23 PM
+                                                        <mat-form-field>
+                                                            <mat-label>Name</mat-label>
+                                                            <input matInput placeholder="Last name, First name"
+                                                                formControlName="firstCtrl" required>
+                                                        </mat-form-field>
+                                                        <div>
+                                                            <button mat-button matStepperNext>Next</button>
+                                                        </div>
+                                                    </form>
+                                                </mat-step>
+                                                <mat-step [stepControl]="secondFormGroup">
+                                                    <form [formGroup]="secondFormGroup">
+                                                        <ng-template matStepLabel>Fill out your address</ng-template>
+                                                        <mat-form-field>
+                                                            <mat-label>Address</mat-label>
+                                                            <input matInput formControlName="secondCtrl"
+                                                                placeholder="Ex. 1 Main St, New York, NY" required>
+                                                        </mat-form-field>
+                                                        <div>
+                                                            <button mat-button matStepperPrevious>Back</button>
+                                                            <button mat-button matStepperNext>Next</button>
+                                                        </div>
+                                                    </form>
+                                                </mat-step>
+                                                <mat-step [stepControl]="firstFormGroup">
+                                                    <form [formGroup]="firstFormGroup">
+                                                        <ng-template matStepLabel>Timeliness REVIEW
+                                                            <div class="bar"></div>
+                                                            <div class="pull-right">Tenncare <mat-icon>person</mat-icon>
+                                                            </div>
+                                                        </ng-template>
+                                                        12/02/2021 12:23 PM
+                                                    </form>
+                                                </mat-step>
+                                                <mat-step [stepControl]="firstFormGroup">
+                                                    <form [formGroup]="firstFormGroup">
+                                                        <ng-template matStepLabel>COB REVIEW
+                                                            <div class="bar"></div>
+                                                            <div class="pull-right">Tenncare <mat-icon>person</mat-icon>
+                                                            </div>
+                                                        </ng-template>
+                                                        12/02/2021 12:23 PM
+                                                    </form>
+                                                </mat-step>
+                                                <mat-step [stepControl]="firstFormGroup">
+                                                    <form [formGroup]="firstFormGroup">
+                                                        <ng-template matStepLabel>Disenrollment REVIEW
+                                                            <div class="bar"></div>
+                                                            <div class="pull-right">Tenncare <mat-icon>person</mat-icon>
+                                                            </div>
+                                                        </ng-template>
+                                                        12/02/2021 12:23 PM
+                                                    </form>
+                                                </mat-step>
+                                                <mat-step [stepControl]="firstFormGroup">
+                                                    <form [formGroup]="firstFormGroup">
+                                                        <ng-template matStepLabel>Appeal Nurse REVIEW
+                                                            <div class="bar"></div>
+                                                            <div class="pull-right">Tenncare <mat-icon>person</mat-icon>
+                                                            </div>
+                                                        </ng-template>
+                                                        12/02/2021 12:23 PM
+                                                    </form>
+                                                </mat-step>
+                                                <mat-step [stepControl]="firstFormGroup">
+                                                    <form [formGroup]="firstFormGroup">
+                                                        <ng-template matStepLabel>Target Population REVIEW
+                                                            <div class="bar"></div>
+                                                            <div class="pull-right">Tenncare <mat-icon>person</mat-icon>
+                                                            </div>
+                                                        </ng-template>
+                                                        12/02/2021 12:23 PM
+                                                    </form>
+                                                </mat-step>
+                                                <mat-step [stepControl]="firstFormGroup">
+                                                    <form [formGroup]="firstFormGroup">
+                                                        <ng-template matStepLabel>Send to Onsite
+                                                            <div class="bar"></div>
+                                                            <div class="pull-right">Tenncare <mat-icon>person</mat-icon>
+                                                            </div>
+                                                        </ng-template>
+                                                        12/02/2021 12:23 PM
+                                                    </form>
+                                                </mat-step>
+
+                                            </mat-vertical-stepper>
+                                        </form>
+                                    </mat-step>
+                                    <mat-step>
+                                        <ng-template matStepLabel>Done</ng-template>
+                                        <p>You are now done.</p>
+                                        <div>
+                                            <button mat-button matStepperPrevious>Back</button>
+                                            <button mat-button (click)="stepper.reset()">Reset</button>
+                                        </div>
+                                    </mat-step>
+                                </mat-vertical-stepper>
+                        </mat-step>
+                    </mat-vertical-stepper> -->
+                        <!-- <mat-vertical-stepper class="level1" #stepper>
+                        <ng-template matStepperIcon="done"></ng-template>
+                        <ng-template matStepperIcon="number" let-index="index"> {{index === 1 ? stepper.selectedIndex
+                            === 1 ? '-'
+                            : '+' : ""}}</ng-template>
+                        <mat-step state="empty" [stepControl]="firstFormGroup">
+                            <form [formGroup]="firstFormGroup">
+                                <ng-template matStepLabel>
+
+                                    <div><b>Referral submission (RF6363567)</b></div>
+                                    <div class="bar"></div>
+                                    <div class="pull-right" matTooltip="{{name}}">TennCare <mat-icon>person</mat-icon>
+                                    </div>
+
+                                </ng-template>
+                                12/02/2021 12:23 PM
+                                <div>
+                                </div>
+                            </form>
+                        </mat-step>
+                        <mat-step [stepControl]="secondFormGroup">
+                            <form [formGroup]="secondFormGroup">
+                                <ng-template matStepLabel>
+                                    <div>Appeal (APL8739292)</div>
+                                    <div class="bar"></div>
+                                    <div class="pull-right">TennCare <mat-icon>person</mat-icon>
+                                    </div>
+                                </ng-template>
+                                <mat-vertical-stepper class="level2" #stepper1>
+                                    <ng-template matStepperIcon="done"></ng-template>
+                                    <ng-template matStepperIcon="number" let-index="index"> {{index === 2 ?
+                                        stepper1.selectedIndex === 2
+                                        ? '-' : '+' : ""}}</ng-template>
+                                    <mat-step state="empty" [stepControl]="firstFormGroup">
+                                        <form [formGroup]="firstFormGroup">
+                                            <ng-template matStepLabel>
+                                                <div><b>Appeal Field </b></div>
+                                                <div class="bar"></div>
+                                                <div class="pull-right">Amerigroup <mat-icon>person</mat-icon>
+                                                </div>
+                                            </ng-template>
+                                            12/02/2021 12:23 PM
+                                            <div>
+                                               
+                                            </div>
+                                        </form>
+                                    </mat-step>
+                                    <mat-step state="empty" [stepControl]="firstFormGroup">
+                                        <form [formGroup]="firstFormGroup">
+                                            <ng-template matStepLabel>
+                                                <div><b>Appeal Representatives Added</b></div>
+                                                <div class="bar"></div>
+                                                <div class="pull-right">Amerigroup <mat-icon>person</mat-icon>
+                                                </div>
+                                            </ng-template>
+                                            12/02/2021 12:23 PM
+                                            <div>
+                                               
+                                            </div>
+                                        </form>
+                                    </mat-step>
+                                    <mat-step [stepControl]="secondFormGroup">
+                                        <form [formGroup]="secondFormGroup">
+                                            <ng-template matStepLabel>Appeal Review
+                                                <div class="bar"></div>
+                                                <div class="pull-right">Amerigroup <mat-icon>person</mat-icon>
+                                                </div>
+                                            </ng-template>
+                                            12/02/2021 12:23 PM
+                                            <mat-vertical-stepper class="level3" #stepper2>
+                                                <mat-step [stepControl]="firstFormGroup">
+                                                    <form [formGroup]="firstFormGroup">
+                                                        <ng-template matStepLabel>Timeliness REVIEW
+                                                            <div class="bar"></div>
+                                                            <div class="pull-right">Tenncare <mat-icon>person</mat-icon>
+                                                            </div>
+                                                        </ng-template>
+                                                        12/02/2021 12:23 PM
+                                                        <mat-form-field>
+                                                            <mat-label>Name</mat-label>
+                                                            <input matInput placeholder="Last name, First name"
+                                                                formControlName="firstCtrl" required>
+                                                        </mat-form-field>
+                                                        <div>
+                                                            <button mat-button matStepperNext>Next</button>
+                                                        </div>
+                                                    </form>
+                                                </mat-step>
+                                                <mat-step [stepControl]="secondFormGroup">
+                                                    <form [formGroup]="secondFormGroup">
+                                                        <ng-template matStepLabel>Fill out your address</ng-template>
+                                                        <mat-form-field>
+                                                            <mat-label>Address</mat-label>
+                                                            <input matInput formControlName="secondCtrl"
+                                                                placeholder="Ex. 1 Main St, New York, NY" required>
+                                                        </mat-form-field>
+                                                        <div>
+                                                            <button mat-button matStepperPrevious>Back</button>
+                                                            <button mat-button matStepperNext>Next</button>
+                                                        </div>
+                                                    </form>
+                                                </mat-step>
+                                                <mat-step [stepControl]="firstFormGroup">
+                                                    <form [formGroup]="firstFormGroup">
+                                                        <ng-template matStepLabel>Timeliness REVIEW
+                                                            <div class="bar"></div>
+                                                            <div class="pull-right">Tenncare <mat-icon>person</mat-icon>
+                                                            </div>
+                                                        </ng-template>
+                                                        12/02/2021 12:23 PM
+                                                    </form>
+                                                </mat-step>
+                                                <mat-step [stepControl]="firstFormGroup">
+                                                    <form [formGroup]="firstFormGroup">
+                                                        <ng-template matStepLabel>COB REVIEW
+                                                            <div class="bar"></div>
+                                                            <div class="pull-right">Tenncare <mat-icon>person</mat-icon>
+                                                            </div>
+                                                        </ng-template>
+                                                        12/02/2021 12:23 PM
+                                                    </form>
+                                                </mat-step>
+                                                <mat-step [stepControl]="firstFormGroup">
+                                                    <form [formGroup]="firstFormGroup">
+                                                        <ng-template matStepLabel>Disenrollment REVIEW
+                                                            <div class="bar"></div>
+                                                            <div class="pull-right">Tenncare <mat-icon>person</mat-icon>
+                                                            </div>
+                                                        </ng-template>
+                                                        12/02/2021 12:23 PM
+                                                    </form>
+                                                </mat-step>
+                                                <mat-step [stepControl]="firstFormGroup">
+                                                    <form [formGroup]="firstFormGroup">
+                                                        <ng-template matStepLabel>Appeal Nurse REVIEW
+                                                            <div class="bar"></div>
+                                                            <div class="pull-right">Tenncare <mat-icon>person</mat-icon>
+                                                            </div>
+                                                        </ng-template>
+                                                        12/02/2021 12:23 PM
+                                                    </form>
+                                                </mat-step>
+                                                <mat-step [stepControl]="firstFormGroup">
+                                                    <form [formGroup]="firstFormGroup">
+                                                        <ng-template matStepLabel>Target Population REVIEW
+                                                            <div class="bar"></div>
+                                                            <div class="pull-right">Tenncare <mat-icon>person</mat-icon>
+                                                            </div>
+                                                        </ng-template>
+                                                        12/02/2021 12:23 PM
+                                                    </form>
+                                                </mat-step>
+                                                <mat-step [stepControl]="firstFormGroup">
+                                                    <form [formGroup]="firstFormGroup">
+                                                        <ng-template matStepLabel>Send to Onsite
+                                                            <div class="bar"></div>
+                                                            <div class="pull-right">Tenncare <mat-icon>person</mat-icon>
+                                                            </div>
+                                                        </ng-template>
+                                                        12/02/2021 12:23 PM
+                                                    </form>
+                                                </mat-step>
+                                                <mat-step>
+                                                    <ng-template matStepLabel>Done</ng-template>
+                                                    <p>You are now done.</p>
+                                                    <div>
+                                                        <button mat-button matStepperPrevious>Back</button>
+                                                        <button mat-button (click)="stepper.reset()">Reset</button>
+                                                    </div>
+                                                </mat-step>
+
+                                            </mat-vertical-stepper>
+                                        </form>
+                                    </mat-step>
+                                    <mat-step>
+                                        <ng-template matStepLabel>Done</ng-template>
+                                        <p>You are now done.</p>
+                                        <div>
+                                            <button mat-button matStepperPrevious>Back</button>
+                                            <button mat-button (click)="stepper.reset()">Reset</button>
+                                        </div>
+                                    </mat-step>
+                                </mat-vertical-stepper>
+                            </form>
+                        </mat-step>
+                        <mat-step state="empty" [stepControl]="firstFormGroup">
+                            <form [formGroup]="firstFormGroup">
+                                <ng-template matStepLabel>
+                                    <div><b>TEST FOR NOW</b></div>
+                                    <div class="bar"></div>
+                                    <div class="pull-right">TennCare <mat-icon matTooltip="{{name}}">person</mat-icon>
+                                    </div>
+                                </ng-template>
+                                <mat-vertical-stepper class="level2" #stepper3>
+                                    <ng-template matStepperIcon="done"></ng-template>
+                                    <ng-template matStepperIcon="number" let-index="index"> {{index === 2 ?
+                                        stepper3.selectedIndex === 2
+                                        ? '-' : '+' : ""}}</ng-template>
+                                    <mat-step state="empty" [stepControl]="firstFormGroup">
+                                        <form [formGroup]="firstFormGroup">
+                                            <ng-template matStepLabel>
+                                                <div><b>Appeal Field </b></div>
+                                                <div class="bar"></div>
+                                                <div class="pull-right">Amerigroup <mat-icon>person</mat-icon>
+                                                </div>
+                                            </ng-template>
+                                            12/02/2021 12:23 PM
+                                            <div>
+                                              
+                                            </div>
+                                        </form>
+                                    </mat-step>
+                                    <mat-step [stepControl]="secondFormGroup">
+                                        <form [formGroup]="secondFormGroup">
+                                            <ng-template matStepLabel>Appeal Review</ng-template>
+                                            <mat-vertical-stepper class="level3" #stepper2>
+                                                <mat-step [stepControl]="firstFormGroup">
+                                                    <form [formGroup]="firstFormGroup">
+                                                        <ng-template matStepLabel>Fill out your name</ng-template>
+                                                        <mat-form-field>
+                                                            <mat-label>Name</mat-label>
+                                                            <input matInput placeholder="Last name, First name"
+                                                                formControlName="firstCtrl" required>
+                                                        </mat-form-field>
+                                                        <div>
+                                                            <button mat-button matStepperNext>Next</button>
+                                                        </div>
+                                                    </form>
+                                                </mat-step>
+                                                <mat-step [stepControl]="secondFormGroup">
+                                                    <form [formGroup]="secondFormGroup">
+                                                        <ng-template matStepLabel>Fill out your address</ng-template>
+                                                        <mat-form-field>
+                                                            <mat-label>Address</mat-label>
+                                                            <input matInput formControlName="secondCtrl"
+                                                                placeholder="Ex. 1 Main St, New York, NY" required>
+                                                        </mat-form-field>
+                                                        <div>
+                                                            <button mat-button matStepperPrevious>Back</button>
+                                                            <button mat-button matStepperNext>Next</button>
+                                                        </div>
+                                                    </form>
+                                                </mat-step>
+                                                <mat-step>
+                                                    <ng-template matStepLabel>Done</ng-template>
+                                                    <p>You are now done.</p>
+                                                    <div>
+                                                        <button mat-button matStepperPrevious>Back</button>
+                                                        <button mat-button (click)="stepper.reset()">Reset</button>
+                                                    </div>
+                                                </mat-step>
+
+                                            </mat-vertical-stepper>
+                                        </form>
+                                    </mat-step>
+                                    <mat-step>
+                                        <ng-template matStepLabel>Done</ng-template>
+                                        <p>You are now done.</p>
+                                        <div>
+                                            <button mat-button matStepperPrevious>Back</button>
+                                            <button mat-button (click)="stepper.reset()">Reset</button>
+                                        </div>
+                                    </mat-step>
+                                </mat-vertical-stepper>
+                                <div>
+                                </div>
+                            </form>
+                        </mat-step>
+                        <mat-step state="empty" [stepControl]="firstFormGroup">
+                            <form [formGroup]="firstFormGroup">
+                                <ng-template matStepLabel>
+                                    <div><b>Intake Outcome Submission </b></div>
+                                    <div class="bar"></div>
+                                    <div class="pull-right">Amerigroup <mat-icon>person</mat-icon>
+                                    </div>
+                                </ng-template>
+                                12/02/2021 12:23 PM
+                                <div>
+                                   
+                                </div>
+                            </form>
+                        </mat-step>
+                        <mat-step state="empty" [stepControl]="firstFormGroup">
+                            <form [formGroup]="firstFormGroup">
+                                <ng-template matStepLabel>
+                                    <div><b>Intake Nurse Review </b></div>
+                                    <div class="bar"></div>
+                                    <div class="pull-right">Amerigroup <mat-icon>person</mat-icon>
+                                    </div>
+                                </ng-template>
+                                12/02/2021 12:23 PM
+                                <div>
+                                   
+                                </div>
+                            </form>
+                        </mat-step>
+                        <mat-step state="empty" [stepControl]="firstFormGroup">
+                            <form [formGroup]="firstFormGroup">
+                                <ng-template matStepLabel>
+                                    <div><b>Intake IARC Review </b></div>
+                                    <div class="bar"></div>
+                                    <div class="pull-right">Amerigroup <mat-icon>person</mat-icon>
+                                    </div>
+                                </ng-template>
+                                12/02/2021 12:23 PM
+                                <div>
+                                   
+                                </div>
+                            </form>
+                        </mat-step>
+                        <mat-step state="empty" [stepControl]="firstFormGroup">
+                            <form [formGroup]="firstFormGroup">
+                                <ng-template matStepLabel>
+                                    <div><b> Slot Evaluation Results </b></div>
+                                    <div class="bar"></div>
+                                    <div class="pull-right">Amerigroup <mat-icon>person</mat-icon>
+                                    </div>
+                                </ng-template>
+                                12/02/2021 12:23 PM
+                                <div>
+                                   
+                                </div>
+                            </form>
+                        </mat-step>
+                        <mat-step state="empty" [stepControl]="firstFormGroup">
+                            <form [formGroup]="firstFormGroup">
+                                <ng-template matStepLabel>
+                                    <div><b> PAE Submission </b></div>
+                                    <div class="bar"></div>
+                                    <div class="pull-right">Amerigroup <mat-icon>person</mat-icon>
+                                    </div>
+                                </ng-template>
+                                12/02/2021 12:23 PM
+                                <div>
+                                   
+                                </div>
+                            </form>
+                        </mat-step>
+                        <mat-step state="empty" [stepControl]="firstFormGroup">
+                            <form [formGroup]="firstFormGroup">
+                                <ng-template matStepLabel>
+                                    <div><b> Nurse Adjudication </b></div>
+                                    <div class="bar"></div>
+                                    <div class="pull-right">Amerigroup <mat-icon>person</mat-icon>
+                                    </div>
+                                </ng-template>
+                                12/02/2021 12:23 PM
+                                <div>
+                                   
+                                </div>
+                            </form>
+                        </mat-step>
+                        <mat-step state="empty" [stepControl]="firstFormGroup">
+                            <form [formGroup]="firstFormGroup">
+                                <ng-template matStepLabel>
+                                    <div><b>Safety Assessment Completed </b></div>
+                                    <div class="bar"></div>
+                                    <div class="pull-right">AAAD <mat-icon>person</mat-icon>
+                                    </div>
+                                </ng-template>
+                                12/02/2021 12:23 PM
+                                <div>
+                                   
+                                </div>
+                            </form>
+                        </mat-step>
+                        <mat-step state="empty" [stepControl]="firstFormGroup">
+                            <form [formGroup]="firstFormGroup">
+                                <ng-template matStepLabel>
+                                    <div><b>SIS Assessment Completed </b></div>
+                                    <div class="bar"></div>
+                                    <div class="pull-right">Amerigroup <mat-icon>person</mat-icon>
+                                    </div>
+                                </ng-template>
+                                12/02/2021 12:23 PM
+                                <div>
+                                   
+                                </div>
+                            </form>
+                        </mat-step>
+                        <mat-step state="empty" [stepControl]="firstFormGroup">
+                            <form [formGroup]="firstFormGroup">
+                                <ng-template matStepLabel>
+                                    <div><b>Adjudication Update </b></div>
+                                    <div class="bar"></div>
+                                    <div class="pull-right">Amerigroup <mat-icon>person</mat-icon>
+                                    </div>
+                                </ng-template>
+                                12/02/2021 12:23 PM
+                                <div>
+                                   
+                                </div>
+                            </form>
+                        </mat-step>
+                        <mat-step state="empty" [stepControl]="firstFormGroup">
+                            <form [formGroup]="firstFormGroup">
+                                <ng-template matStepLabel>
+                                    <div><b>Group 3 Interest Response</b></div>
+                                    <div class="bar"></div>
+                                    <div class="pull-right">Amerigroup <mat-icon>person</mat-icon>
+                                    </div>
+                                </ng-template>
+                                12/02/2021 12:23 PM
+                                <div>
+                                   
+                                </div>
+                            </form>
+                        </mat-step>
+                        <mat-step state="empty" [stepControl]="firstFormGroup">
+                            <form [formGroup]="firstFormGroup">
+                                <ng-template matStepLabel>
+                                    <div><b>Service Initiation Date </b></div>
+                                    <div class="bar"></div>
+                                    <div class="pull-right">Amerigroup <mat-icon>person</mat-icon>
+                                    </div>
+                                </ng-template>
+                                12/02/2021 12:23 PM
+                                <div>
+                                   
+                                </div>
+                            </form>
+                        </mat-step>
+                        <mat-step state="empty" [stepControl]="firstFormGroup">
+                            <form [formGroup]="firstFormGroup">
+                                <ng-template matStepLabel>
+                                    <div><b>Actual Transition Date</b></div>
+                                    <div class="bar"></div>
+                                    <div class="pull-right">Amerigroup <mat-icon>person</mat-icon>
+                                    </div>
+                                </ng-template>
+                                12/02/2021 12:23 PM
+                                <div>
+                                   
+                                </div>
+                            </form>
+                        </mat-step>
+                        <mat-step state="empty" [stepControl]="firstFormGroup">
+                            <form [formGroup]="firstFormGroup">
+                                <ng-template matStepLabel>
+                                    <div><b>Enrollment Update</b></div>
+                                    <div class="bar"></div>
+                                    <div class="pull-right">Amerigroup <mat-icon>person</mat-icon>
+                                    </div>
+                                </ng-template>
+                                12/02/2021 12:23 PM
+                                <div>
+                                   
+                                </div>
+                            </form>
+                        </mat-step>
+                        <mat-step state="empty" [stepControl]="firstFormGroup">
+                            <form [formGroup]="firstFormGroup">
+                                <ng-template matStepLabel>
+                                    <div><b>Extended ERC Request </b></div>
+                                    <div class="bar"></div>
+                                    <div class="pull-right">Amerigroup <mat-icon>person</mat-icon>
+                                    </div>
+                                </ng-template>
+                                12/02/2021 12:23 PM
+                                <div>
+                                   
+                                </div>
+                            </form>
+                        </mat-step>
+                        <mat-step state="empty" [stepControl]="firstFormGroup">
+                            <form [formGroup]="firstFormGroup">
+                                <ng-template matStepLabel>
+                                    <div><b>Adjudication Update</b></div>
+                                    <div class="bar"></div>
+                                    <div class="pull-right">Amerigroup <mat-icon>person</mat-icon>
+                                    </div>
+                                </ng-template>
+                                12/02/2021 12:23 PM
+                                <div>
+                                   
+                                </div>
+                            </form>
+                        </mat-step>
+                        <mat-step state="empty" [stepControl]="firstFormGroup">
+                            <form [formGroup]="firstFormGroup">
+                                <ng-template matStepLabel>
+                                    <div><b>Enrollment Update </b></div>
+                                    <div class="bar"></div>
+                                    <div class="pull-right">Amerigroup <mat-icon>person</mat-icon>
+                                    </div>
+                                </ng-template>
+                                12/02/2021 12:23 PM
+                                <div>
+                                   
+                                </div>
+                            </form>
+                        </mat-step>
+                        <mat-step state="empty" [stepControl]="firstFormGroup">
+                            <form [formGroup]="firstFormGroup">
+                                <ng-template matStepLabel>
+                                    <div><b>Transition Request </b></div>
+                                    <div class="bar"></div>
+                                    <div class="pull-right">Amerigroup <mat-icon>person</mat-icon>
+                                    </div>
+                                </ng-template>
+                                12/02/2021 12:23 PM
+                                <div>
+                                   
+                                </div>
+                            </form>
+                        </mat-step>
+                        <mat-step state="empty" [stepControl]="firstFormGroup">
+                            <form [formGroup]="firstFormGroup">
+                                <ng-template matStepLabel>
+                                    <div><b>Transition Complete</b></div>
+                                    <div class="bar"></div>
+                                    <div class="pull-right">Amerigroup <mat-icon>person</mat-icon>
+                                    </div>
+                                </ng-template>
+                                12/02/2021 12:23 PM
+                                <div>
+                                   
+                                </div>
+                            </form>
+                        </mat-step>
+                        <ng-template matStepperIcon="done"></ng-template>
+                        <ng-template matStepperIcon="number" let-index="index"> {{index === 1 ? stepper.selectedIndex
+                            === 1
+                            ? '-' : '+' : ""}}</ng-template>
+                        <ng-template matStepperIcon="empty">
+                            <mat-icon></mat-icon>
+                        </ng-template>
+                    </mat-vertical-stepper> -->
+
+                    </div>
+                </div>
+            </ng-template>
+        </ng-container>
+    </div>
+</div>

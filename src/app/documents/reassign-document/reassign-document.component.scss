@@ -1,0 +1,140 @@
+@import '../../../colors.scss';
+
+.applicant-sub-heading {
+  font-weight: bold;
+  color: #4D7E20;
+  font-size: 22px;
+}
+
+.reassign-sub-heading {
+  font-weight: bold;
+  color: #4D7E20;
+  font-size: 16px;
+  margin-top: 50px;
+}
+
+.doc-container {
+  width: 80%;
+  min-height: 80px;
+  margin-top: 10px;
+  border: solid 1px #979797;
+  text-align: center;
+  margin-top: 25px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.required-color {
+  color: #ed6053;
+}
+
+.common-doc-values-description {
+  margin-top: 10px;
+  text-align: left;
+  color: black;
+  max-width: 25%;
+}
+
+.common-doc-values-type {
+  margin-top: 10px;
+  text-align: left;
+  color: black;
+  max-width: 50%;
+}
+
+.common-doc-values-uploaded {
+  margin-top: 10px;
+  text-align: left;
+  color: black;
+  max-width: 25%;
+}
+
+.right {
+  margin-right: 5px;
+}
+
+.dropdown {
+  width: 50%;
+}
+
+.save-button {
+  font-size: 14px;
+  background-color: #174A7C;
+  color: white;
+  border: none;
+  height: 20px;
+  width: 69px;
+  font-weight: bold;
+}
+
+.navigate-link {
+  text-decoration: underline;
+  color: #174A7C;
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 100px;
+  cursor: pointer;
+  text-align: center;
+  margin-bottom: 200px;
+}
+
+.document-link {
+  cursor: pointer;
+  color: #174A7C;
+  text-decoration: underline;
+  margin-left: 2px;
+  font-size: 15px;
+}
+
+.color-black {
+  color: black;
+  font-size: 14px;
+}
+
+.error-text {
+  color: red;
+  margin: 5px;
+  font-weight: bold;
+}
+
+::ng-deep .multiselect-dropdown .dropdown-btn .selected-item {
+  background: white !important ;
+  border: 1px solid black !important;
+  color: black !important;
+  border-radius: 9px !important;
+}
+
+::ng-deep .multiselect-dropdown .dropdown-btn .selected-item a{
+  color: black !important;
+}
+
+::ng-deep .multiselect-dropdown .dropdown-btn {
+  border: 1px solid black !important;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 25px 50px;
+  padding: 10px;
+}
+
+.grid-container > div {
+  text-align: left;
+  font-size: 14px;
+  color: black;
+}
+
+.applicant-information {
+  font-size: 14px;
+  background-color: #F6FAFF;
+  padding: 15px 0 15px 30px;
+}
+
+.spinner-overlay {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  margin: -25px 0 0 -25px;
+}

@@ -1,0 +1,47 @@
+.app-sub-heading{
+  color: #174A7C;
+    font-weight: bold;
+    font-size: 18px ;
+    padding: 20px 0 15px 0;
+}
+.dashboard-card{
+  text-align: center;
+}
+
+mat-card.dashboard-card{
+  border-top-left-radius: 3.5px;
+  border-bottom-left-radius: 3.5px;
+  border-top-right-radius: 3.5px;
+  border-bottom-right-radius: 3.5px;
+  border-radius: 3.5px;
+  border: 1px solid #174A7C;
+  padding: 0;
+  height: 100%;
+  cursor: pointer;
+}
+mat-card-content {
+  font-family: 'Open Sans';
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.heading{
+  padding-top: 54px;
+  padding-bottom: 36px;
+  color: #174A7C;
+  font-weight: bold;
+  font-size: 18px ;
+}
+
+.count{
+  padding-bottom:8px;
+  position: absolute;
+ bottom: 10px;
+ padding-top:0px;
+ width:100%;
+ color: #174A7C;
+ font-weight: bold;
+ font-size: 18px ;
+}
+
+

@@ -1,0 +1,98 @@
+<mat-accordion>
+    <mat-expansion-panel #mapanel="matExpansionPanel">
+        <mat-expansion-panel-header style="background-color: #f5f5f5">
+            <mat-panel-title>
+                Reconsiderations and Initial Order Appeals
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <form [formGroup]="reconsiderationsInitialOrderForm">
+            <div class="wrapper">
+                <div class="radio-wrapper">
+                    <mat-label style="font-weight: bold; margin-bottom: 10px;">
+                        Was a reconsideration request submitted?
+                    </mat-label>
+                    <mat-radio-group formControlName="rcndrRqstSw" aria-labelledby="example-radio-group-label"
+                        class="example-radio-group" (change)="reconsiderationReqChnaged($event.value)">
+                        <mat-radio-button class="example-radio-button" *ngFor="let radio of yesOrNo"
+                            [value]="radio.code">
+                            {{radio.value}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div *ngIf="ShowReconsidRequest">
+                    <div class="radio-wrapper">
+                        <mat-label style="font-weight: bold; margin-bottom: 10px;">
+                            Who Requested Reconsideration?
+                        </mat-label>
+                        <mat-radio-group formControlName="rcndrRqstBy" aria-labelledby="example-radio-group-label"
+                            class="example-radio-group">
+                            <mat-radio-button class="example-radio-button" *ngFor="let radio of reqConsideration"
+                                [value]="radio.code">
+                                {{radio.value}}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <div style="width: 35%; margin-top: 20px;">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Petition of Reconsideration Request? </mat-label>
+                            <mat-select formControlName="rcndrRqstCd">
+                                <mat-option value=''>Select an Option</mat-option>
+                                <mat-option *ngFor="let ogs of reconsPetitionReq" value={{ogs.code}}>{{ogs.value}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="icon-wrapper" (click)="addPFRorderDetails1()">
+                        <span class="material-icons">
+                            add_circle
+                        </span>
+                        <span class="span-icon-text">ADD PFR ORDER DETAILS</span>
+                    </div>
+                    <div *ngIf="showPFRdetails1">
+                        <app-hearing-order-details [reconsiderationRequestSubmitted]="reconsiderationRequestSubmitted">
+                        </app-hearing-order-details>
+                    </div>
+                </div>
+                <div class="section-2">
+                    <h5>Initial Order Appeal</h5>
+                    <div class="radio-wrapper">
+                        <mat-label style="font-weight: bold; margin-bottom: 10px;">
+                            Was the Initial order appealed?
+                        </mat-label>
+                        <mat-radio-group formControlName="ioAplSw" aria-labelledby="example-radio-group-label"
+                            class="example-radio-group" (change)="initialOrderAppealChanged($event.value)">
+                            <mat-radio-button class="example-radio-button" *ngFor="let radio of yesOrNo"
+                                [value]="radio.code">
+                                {{radio.value}}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <div *ngIf="ShowInitialOrderAppeal">
+                        <div class="radio-wrapper">
+                            <mat-label style="font-weight: bold; margin-bottom: 10px;">
+                                Who Appealed Initial Order?
+                            </mat-label>
+                            <mat-radio-group formControlName="ioAplBy" aria-labelledby="example-radio-group-label"
+                                class="example-radio-group">
+                                <mat-radio-button class="example-radio-button" *ngFor="let radio of reqConsideration"
+                                    [value]="radio.code">
+                                    {{radio.value}}
+                                </mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                        <div class="icon-wrapper" (click)="addPFRorderDetails2()">
+                            <span class="material-icons">
+                                add_circle
+                            </span>
+                            <span class="span-icon-text">ADD PFA ORDER DETAILS</span>
+                        </div>
+                        <div *ngIf="showPFRdetails2">
+                            <app-hearing-order-details (saveSuccess)="saveSuccess($event)" [appealId]="appealId"
+                                [initialOrderAppealed]="initialOrderAppealed"></app-hearing-order-details>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </mat-expansion-panel>
+</mat-accordion>

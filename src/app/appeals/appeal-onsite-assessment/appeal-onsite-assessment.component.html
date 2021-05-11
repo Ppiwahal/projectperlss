@@ -1,0 +1,29 @@
+<div class="wrapper">
+    <div class="header-wrapper">
+        <p class="header">Onsite Assessment</p>
+        <p class="required-tag"> <span class="required">*</span> Required </p>
+    </div>
+    <app-appellant-info [appellantInfoStatus]="appellantInfoStatus" [appellantInfo]="appellantInfo">
+    </app-appellant-info>
+    <app-onsite-assessment-requested [onsiteAssessmentOnLoad]="onsiteAssessmentOnLoad">
+    </app-onsite-assessment-requested>
+    <app-onsite-assessment-table [appealReviewAplId]="appealReviewAplId" 
+                                 [ltssAppealUser]="ltssAppealUser"
+                                 [onsiteReqId]="onsiteReqId"></app-onsite-assessment-table>
+    <app-documents-received-post-noh *ngIf="false"></app-documents-received-post-noh>
+    <app-onsite-evaluation [onsiteAssessmentOnLoad]="onsiteAssessmentOnLoad"
+        (emitOnsiteEvaluation)="saveOnsiteEvaluation($event)" [appealReviewAplId]="appealReviewAplId">
+    </app-onsite-evaluation>
+    <app-saftey-justification [onsiteAssessmentOnLoad]="onsiteAssessmentOnLoad" [dataFromReview]="dataFromReview"
+        (emitSafetyJustification)="emitSafetyJustification($event)"></app-saftey-justification>
+    <app-onsite-assessment-results (emitOnsiteAssessmentResults)="emitOnsiteAssessmentResults($event)">
+    </app-onsite-assessment-results>
+    <app-onsite-assessment-uploaddoc *ngIf="showDocUpload" [aplRqstDocObtainSw]="aplRqstDocObtainSw"
+     (emitUploadDocStatus)="emitUploadDocStatus($event)"></app-onsite-assessment-uploaddoc>
+
+    <div class="buttons">
+        <button mat-stroked-button type="button" (click)="back()"> BACK </button>
+        <button mat-stroked-button type="button" [ngClass]="(!isSubmitEnabled) ? 'disable-button':'perlss-click-button'"
+            class="perlss-click-button" [disabled]="!isSubmitEnabled" (click)="next()"> SUBMIT </button>
+    </div>
+</div>

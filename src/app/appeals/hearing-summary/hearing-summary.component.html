@@ -1,0 +1,153 @@
+<div class="pageMargin">
+  <div class="row-header">
+    <span class="col-lg-9">
+      <h4>Hearing Summary</h4>
+    </span>
+    <span class="col-lg-3 text-right close-icon">
+      <mat-icon (click)=closeDialog()>highlight_off</mat-icon>
+    </span>
+  </div>
+  <hr />
+  <div class="field-content">
+    <div class="row content-bottom">
+      <div class="col-6 left-content">
+        Appellant's Name:
+      </div>
+      <div class="col-6 left-content">
+        {{hearingSummary?.firstName}} {{hearingSummary?.middleName}} {{hearingSummary?.lastName}}
+      </div>
+    </div>
+    <div class="row content-bottom">
+      <div class="col-6 left-content">
+        Person ID:
+      </div>
+      <div class="col-6 left-content">
+        {{hearingSummary?.prsnId ? hearingSummary?.prsnId : '---'}}
+      </div>
+    </div>
+    <div class="row content-bottom">
+      <div class="col-6 left-content">
+        Date of Birth:
+      </div>
+      <div class="col-6 left-content">
+        <span *ngIf="hearingSummary?.dobDt">{{hearingSummary?.dobDt | date: 'MM/dd/yyyy'}}</span>
+        <span *ngIf="!hearingSummary?.dobDt">---</span>
+      </div>
+    </div>
+    <div class="row content-bottom">
+      <div class="col-6 left-content">
+        Interpreter Language:
+      </div>
+      <div class="col-6 left-content">
+        {{hearingSummary?.interpreterLanguage ? hearingSummary?.interpreterLanguage : '---'}}
+      </div>
+    </div>
+    <div class="row content-bottom">
+      <div class="col-6 left-content">
+        Special Services:
+      </div>
+      <div class="col-6 left-content">
+        {{hearingSummary?.specialServices ? hearingSummary?.specialServices : '---'}}
+      </div>
+    </div>
+    <div class="row content-bottom">
+      <div class="col-6 left-content">
+        Appeal ID:
+      </div>
+      <div class="col-6 left-content">
+        {{hearingSummary?.aplId ? hearingSummary?.aplId : '---'}}
+      </div>
+    </div>
+    <div class="row content-bottom">
+      <div class="col-6 left-content">
+        Appeal Status:
+      </div>
+      <div class="col-6 left-content">
+        {{hearingSummary?.appealStatus ? hearingSummary?.appealStatus : '---'}}
+      </div>
+    </div>
+    <div class="row content-bottom">
+      <div class="col-6 left-content">
+        Hearing Date and Time:
+      </div>
+      <div class="col-6 left-content">
+        <span *ngIf="hearingSummary?.ahrngDtTime">{{hearingSummary?.ahrngDtTime | date: 'MM/dd/yyyy'}} {{appealHearingtime}}</span>
+        <span *ngIf="!hearingSummary?.ahrngDtTime">---</span>
+      </div>
+    </div>
+    <div class="row content-bottom">
+      <div class="col-6 left-content">
+        Last Hearing Date & Time:
+      </div>
+      <div class="col-6 left-content">
+        <span *ngIf="hearingSummary?.lhrngDtTime">{{hearingSummary?.lhrngDtTime | date: 'MM/dd/yyyy'}}</span>
+        <span *ngIf="!hearingSummary?.lhrngDtTime">---</span>
+      </div>
+    </div>
+    <div class="row content-bottom">
+      <div class="col-6 left-content">
+        Reason For Continuance:
+      </div>
+      <div class="col-6 left-content">
+        {{hearingSummary?.reasonForContinuance}}
+      </div>
+    </div>
+    <div class="row content-bottom">
+      <div class="col-6 left-content">
+        Number of Time Rescheduled:
+      </div>
+      <div class="col-6 left-content">
+        {{hearingSummary?.timesRescheduled}}
+      </div>
+    </div>
+    <div class="row content-bottom">
+      <div class="col-6 left-content">
+        Docket Number:
+      </div>
+      <div class="col-6 left-content">
+        {{hearingSummary?.docketNum ? hearingSummary?.docketNum : '---'}}
+      </div>
+    </div>
+    <div class="row content-bottom">
+      <div class="col-6 left-content">
+        Uploaded NOH:
+      </div>
+      <div *ngIf="!isApproved" class="col-6 left-content">
+        {{hearingSummary?.nohStatus ? hearingSummary?.nohStatus : '---'}}
+      </div>
+      <div *ngIf="isApproved" class="col-6 left-content">
+        <span class="noh-link" (click)="viewDoc()">{{hearingSummary?.nohStatus ? hearingSummary?.nohStatus : '---'}}</span>
+      </div>
+    </div>
+    <div class="row content-bottom">
+      <div class="col-6 left-content">
+        Attorney:
+      </div>
+      <div class="col-6 left-content">
+        {{hearingSummary?.attorney ? hearingSummary?.attorney : '---'}}
+      </div>
+    </div>
+    <div class="row content-bottom">
+      <div class="col-6 left-content">
+        Witness:
+      </div>
+      <div class="col-6 left-content">
+        {{hearingSummary?.witness ? hearingSummary?.witness : '---'}}
+      </div>
+    </div>
+    <div class="row content-bottom">
+      <div class="col-6 left-content">
+        Hearing Summary:
+      </div>
+      <div class="col-6 left-content">
+        {{hearingSummary?.hearingSummary ? hearingSummary?.hearingSummary : '---'}}
+      </div>
+    </div>
+    <div class="row update-app content-bottom">
+      <div class="col-6 left-content">
+        <button mat-flat-button color="primary" (click)="continue()" class="perlss-click-button"
+          style="font-weight: bold;">CONTINUE</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="responsive">
+  <div class="form">
+    <div class="scroller">
+      <div class="page">
+        <div class="floatChildren">
+          <h2>Task Queues</h2>
+          <div class="w60 floatRight" style="overflow: unset; width:40%">
+            <div class="waiting" *ngIf="!displayTable">
+              <p><span>Fetching Data please wait ...</span></p>
+            </div>
+            <div>
+            <mat-form-field *ngIf="displayTable" appearance="outline" class="formField">
+              <input matInput (keyup)="myFunction()" class="textfield" placeholder="Search for a Queue" id="myInput">
+              <mat-icon matSuffix class="search">search</mat-icon>
+            </mat-form-field>
+            </div>
+          </div>
+        </div>
+        
+
+        <table mat-table [dataSource]="dataSource" *ngIf="displayTable" id="myTable">
+          <ng-container matColumnDef="key">
+            <th mat-header-cell *matHeaderCellDef class="status-header">Queue Name</th>
+            <tr>
+              <td mat-cell *matCellDef="let element" (click)="openTaskDetailsDialog(element)" class="status-headercell"><u class="queueName">{{myMap.get(element.taskMasterId)}}</u></td>
+            </tr>
+          </ng-container>
+          <ng-container matColumnDef="value">
+            <th mat-header-cell *matHeaderCellDef class="status-header">Count</th>
+            <tr>
+              <td mat-cell *matCellDef="let element" class="status-headercell">{{element.count}}</td>
+            </tr>
+          </ng-container>
+          <ng-container matColumnDef="icon">
+            <th mat-header-cell *matHeaderCellDef class="status-header">
+            </th>
+            <tr>
+              <td mat-cell *matCellDef="let element" class="red">
+                <mat-icon class="like-icon" (click)="setFavorite(element.favoriteSw,element.taskMasterId)">
+                  {{element.favoriteSw === 'Y' ? 'favorite' : 'favorite_border'}}
+                </mat-icon>
+              </td>
+            </tr>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>        
+      
+      </div>
+    </div>
+  </div>
+</div>

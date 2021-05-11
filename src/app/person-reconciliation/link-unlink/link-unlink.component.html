@@ -1,0 +1,22 @@
+<div class="pageMargin">
+  <mat-accordion *ngIf="!hideIndividualSection">
+    <mat-expansion-panel [expanded]=true>
+      <mat-expansion-panel-header style="background-color: #f5f5f5">
+        <mat-panel-title>
+          Select Individuals <span class="text-align-right">VIEW DETAILS</span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <app-select-individuals></app-select-individuals>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <mat-accordion *ngIf="showConfirmLink">
+    <mat-expansion-panel [expanded]="hideIndividualSection" style="padding-top: 10px;">
+      <mat-expansion-panel-header style="background-color: #f5f5f5">
+        <mat-panel-title>
+          Confirm Link <span class="text-align-right">VIEW DETAILS</span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <app-conform-link></app-conform-link>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

@@ -1,0 +1,93 @@
+@import '../../../../colors.scss';
+
+tr.element-row:not(.expanded-row):hover {
+    background: $colorControlBackground;
+  }
+  tr.example-detail-row {
+    height: 0;
+  }
+  .example-element-detail {
+    overflow: hidden;
+  }
+
+  tr.element-row:not(.expanded-row):active {
+    background: $colorControlBackground;
+  }
+
+  tr.expanded-row {
+    background: #EDF4FB;
+    font-weight: bold;
+  }
+
+  .align-right {
+    flex: 1;
+    text-align: right;
+  }
+
+  .table-th{
+    font-size: 14px;
+    font-weight: bold;
+    color: #04537D;
+    border-bottom: 3px solid #1B365D;
+  }
+
+  .user-role-heading{
+    color: #4D7E20;
+    font-size: 22px;
+    font-weight: bold;
+  }
+
+  .required {
+    font-size: 12px;
+    justify-content: flex-end;
+    display: flex;
+  }
+
+  table {
+    border: 1px solid #1B365D;
+    width: 100%;
+  }
+
+  table tr:last-child td {
+    border-bottom: 1px solid #1B365D;
+  }
+
+  .mat-paginator {
+    background: none !important;
+  }
+
+  ::ng-deep .mat-checkbox-indeterminate .mat-checkbox-background {
+    background-color: #ED6053 !important;
+  }
+
+  ::ng-deep .mat-checkbox.mat-accent {
+    &.mat-checkbox-checked .mat-checkbox-background {
+      background-color: $colorControlBackground;
+      border: 1px solid #B3B3B3;
+    }
+
+    .mat-checkbox-checkmark-path {
+      stroke: #ED6053 !important;
+    }
+  }
+
+  .subrow-header{
+    font-weight: bold;
+    padding-top: 10px;
+  }
+
+  .subrow-continue-button{
+    padding-bottom: 15px;
+    padding-left: 50%;
+  }
+  .subrow-update-button{
+    padding-left: 50%;
+  }
+
+  .subrow-content{
+    padding-bottom: 12px;
+  }
+
+  .subrow-continue-button-width{
+    width: 111px;
+  }

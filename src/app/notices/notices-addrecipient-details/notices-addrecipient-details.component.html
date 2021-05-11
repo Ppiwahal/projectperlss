@@ -1,0 +1,106 @@
+<div style="padding-left: 16px; padding-top: 10px;" *ngIf="recepientList?.length > 0">
+  <div style="padding-top: 10px;" *ngFor = "let recipient of recepientList;let i = index;">
+  <mat-accordion>
+    <mat-expansion-panel style="border: 1px solid green;">
+      <mat-expansion-panel-header style="padding-top: 10px ;background-color: #f5f5f5" [collapsedHeight]="'54px'">
+        <mat-panel-title style="padding-bottom: 5px;">
+          {{getRecipientName(recipient.recipient)}} <span class="text-align-right">View details</span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div style="width: 35%; padding-left: 50px; padding-bottom: 25px">
+        <mat-card style="background-color: #F6FAFF;">
+          <div style="padding-left: 50px;">
+            <div><strong>Address Line 1:</strong>{{recipient.addrLine1}}, <span (click)="displayEditMode(i)"
+                style="padding-left: 30px; cursor: pointer;">
+                <mat-icon class="red-icon">edit</mat-icon>
+              </span></div>
+            <div><strong>Address Line 2:</strong>{{recipient.addrLine2}},</div>
+            <div><strong>City:</strong>{{recipient.city}},</div>
+            <div><strong>State:</strong>{{recipient.stateCd}},</div>
+            <div><strong>Zip Code:</strong>{{recipient.zipcode}},</div>
+            <div><strong>Ext:</strong>{{recipient.zipExt}},</div>
+            <div><strong>Country:</strong>{{recipient.cntyCd}},</div>
+          </div>
+        </mat-card>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+  </div>
+</div>
+<div>
+<form [formGroup]="addRecipients">
+  <div class="row" style="padding-top: 10px ;margin-left: 2px;">
+    <div class="col-md-4">
+      <mat-form-field appearance="outline" style="width:100% !important">
+        <mat-label> <sup>
+            <mat-label class="required-color">*</mat-label>
+          </sup>Select Recipient </mat-label>
+        <mat-select formControlName="recipient" (selectionChange)="handleRecipientChange()">
+          <mat-option value="">Select an option</mat-option>
+          <mat-option *ngFor="let recipientType of recipientTypes" value={{recipientType.code}} [disabled]="selectedRecipientList.indexOf(recipientType.code) > -1">{{recipientType.value}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-error *ngIf="f.recipient.errors !== null">
+        <mat-error *ngIf="f.recipient.errors?.required && (f.recipient.touched || submitted)">
+          Must select alteast one recipient</mat-error>
+          </mat-error>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field appearance="outline" style="width:100% !important">
+        <mat-label> <sup>
+            <mat-label class="required-color">*</mat-label>
+          </sup>Recipient Name </mat-label>
+        <mat-select formControlName="recipientName">
+          <mat-option value="">Select an option</mat-option>
+          <mat-option *ngFor="let recipientName of recipientNames" value={{recipientName.code}}>{{recipientName.value}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="f.recipientName.errors?.required && (f.recipientName.touched || f.recipientName.dirty)">
+          {{customValidation.A1}}</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row" style="margin-left: 2px;">
+    <div class="col">
+        <div class="row"  *ngIf="selectedRecipient">
+          <div class="col-md-6">
+            <div>
+                <strong>Mailing Address:</strong> <br>
+              {{selectedRecipient?.addrLine1}},  {{selectedRecipient?.addrLine2}} <br>
+              {{selectedRecipient?.city}}, {{selectedRecipient?.stateCd}} {{selectedRecipient?.zipcode}}
+              </div>
+            </div>
+        </div>
+    </div>
+ 
+  </div>
+  <div class="col-md-6">
+    <div style="padding-bottom: 30px; color: black; font-weight: bold;cursor: pointer;" (click)="OnSearch()">
+      <mat-icon>search</mat-icon><span><u>PREVIEW NOTICE</u></span>
+    </div>
+    </div>
+</form>
+  <div class="row" style="width: 100%; margin:auto; margin-top: 30px; margin-bottom: 20px;">
+  
+  <div class="required-color" style="font-size: 14px;">
+    <button style="border: none;background: white;color: #ed6053; font-weight: bold;" (click)=addNewRecipient()>
+      <mat-icon style="font-size: 20px;">add_circle_outline</mat-icon>
+      ADD RECIPIENT
+    </button>
+  </div>
+</div>
+
+<div class="row button-content">
+  <div class="col-6 back-button">
+    <button mat-flat-button matStepperPrevious color="primary" class="perlss-click-button-white">
+      BACK
+    </button>
+  </div>
+  <div class="col-6 next-button">
+    <button mat-button mat-flat-button color="primary" class="perlss-click-button" (click)="postRecipientDetails()">
+      NEXT
+    </button>
+  </div>
+</div>

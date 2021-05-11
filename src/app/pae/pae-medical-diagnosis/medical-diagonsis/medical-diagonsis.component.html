@@ -1,0 +1,12 @@
+<div *ngIf="selectedMenu == 'ICF' || selectedMenu == 'CAC'">
+  <app-medical-diagnosis-icf-application></app-medical-diagnosis-icf-application>
+</div>
+<div *ngIf="selectedMenu == 'EC4' || selectedMenu == 'EC5' || selectedMenu == 'EC6' || selectedMenu == 'EC7' || selectedMenu == 'EC8' || selectedMenu == 'null' || selectedMenu == 'undefined'  ">
+  <app-medical-diagnosis-ecf-application></app-medical-diagnosis-ecf-application>
+</div>
+<div *ngIf="selectedMenu == 'CG1' || selectedMenu == 'CG2' || selectedMenu == 'PACE'">
+  <app-medical-diagnosis-hcbs-application></app-medical-diagnosis-hcbs-application>
+</div>
+<div *ngIf="selectedMenu == 'KB'">
+  <app-medical-diagnosis-kb-application></app-medical-diagnosis-kb-application>
+</div>

@@ -1,0 +1,9 @@
+
+{
+    "person" : "Person Search",
+    "ssn" : 1231231231,
+    "paeId" : "PAE123456",
+    "enrollmentGroup" : "Code",
+    "adjudicationStatus" : "Status",
+    "adjudicationDueDate" : "5 Days"
+}

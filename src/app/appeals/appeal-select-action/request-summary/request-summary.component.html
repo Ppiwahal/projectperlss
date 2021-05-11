@@ -1,0 +1,33 @@
+<div class="wrapper">
+    <p class="heading">Appeal Request Summary</p>
+    <div class="flex-wrapper">
+        <div class="inside-flex">
+            <div class="heading-p">
+                <p>Who Filed the Appeal:</p>
+                <p>Name of the Dept. that Received</p>
+            </div>
+            <div>
+                <P>{{requestSummary?.whoFilingAplCd}}</P>
+                <P>{{requestSummary?.othrDeptNameCd}}</P>
+            </div>
+        </div>
+        <div class="inside-flex">
+            <div class="heading-p">
+                <p>Appeal Filing Method:</p>
+                <p>Date LTSS Received the Appeal</p>
+            </div>
+            <div>
+                <P>{{requestSummary?.aplFilMthdCd}}</P>
+                <P>{{requestSummary?.ltssRcvdAplDt}}</P>
+            </div>
+        </div>
+    </div>
+    <div>
+        <p style="margin: 0; color: black;font-weight:bold; margin: 0 0 5px 0;">What mistake does the appellant think was made?</p>
+        <p>{{requestSummary?.aplMistake}}</p>
+    </div>
+    <div>
+        <p style="margin: 0; color: black;font-weight:bold; margin: 0 0 5px 0;">What does the appellant to happen if they win their appeal?</p>
+        <p>{{requestSummary?.aplExpectOutcome}}</p>
+    </div>
+</div>

@@ -1,0 +1,103 @@
+<div class="responsive">
+	<div class="form">
+		
+		<div class="scroller">
+			<div class="applicantName">{{applicantName}}</div>
+			<h3>Summary</h3>
+
+			<p>Please make sure to provide the details for each section below. If you have supporting documentation,
+				select the cloud icon to upload the documents.</p>
+
+			<table class="activityTable">
+				<thead>
+					<tr style="font-size: 16px !important;">
+						<th style="font-size: 16px !important;">Functional Assessment Summary</th>
+						<th style="font-size: 16px !important;">Status</th>
+						<th style="font-size: 16px !important;">User Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let item of data.functionalAssessmentSummary" >
+						<td>{{item.pageTitle}}</td>
+						<td *ngIf="item.status == 'Completed'">
+							<mat-icon class="green">check</mat-icon><span>Complete</span>
+						</td>
+						<td *ngIf="item.status != 'Completed'">
+							<mat-icon class="red">close</mat-icon><span>Incomplete</span>
+						</td>
+						<td>
+							<span class="link" [routerLink]="[getRoute(item.pageId)]">GO TO DETAILS</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<ng-container *ngIf="showAcuity">
+
+				<h3>Acuity Score</h3>
+				<table class="activityTable">
+					<thead>
+						<tr style="font-size: 16px !important;">
+						   <th style="font-size: 16px !important;">Functional Measure</th>
+						   <th style="font-size: 16px !important;">Acuity Score</th>
+						</tr>
+					</thead>
+					<tbody class="tight">
+						<!-- <tr *ngIf="data.acuityScore.length == 0"><td colspan="2"><span class="waiting"></span></td></tr> -->
+						<ng-container *ngIf="data.acuityScore.length >0">
+							<tr *ngFor="let item of data.acuityScore" >
+								<td>{{item.name}}</td>
+								<td><b>{{item.value}}</b></td>
+							</tr>
+						</ng-container>
+						<tr class="strong"><td>Maximum Possible Acuity Score</td><td>{{maxPossibleAcuScoreNum}}</td></tr>
+					</tbody>
+				</table>
+			</ng-container>
+
+			<ng-container *ngIf="showSupportingDocumentation">
+				<br>
+				<hr>
+				<br>
+				<table class="documentTable">
+					<thead>
+						<tr>
+						<th style="font-size: 16px !important;">Supporting Documentation</th>
+						<th>&nbsp;</th><th>&nbsp;</th>
+						</tr>
+					</thead>
+					<tbody >
+						<tr *ngFor="let item of data.supportingDocumentation" >
+							<td>{{item.name}}</td>
+							<ng-container *ngIf="item.uploaded">
+								<td>
+									<mat-icon class="green">check</mat-icon>
+								</td>
+								<td>
+									<mat-icon class="orange">delete_forever</mat-icon>
+								</td>
+							</ng-container>
+							<ng-container *ngIf="!item.uploaded">
+								<td>
+									<mat-icon class="blue" (click)="uploadDocument()" style="margin-top: 0px !important; font-size: 28.5px;">cloud_upload</mat-icon>
+								</td><td>&nbsp;</td>
+							</ng-container>
+						</tr>
+					</tbody>
+				</table>
+			</ng-container>
+		</div>
+  </div>
+	<div class="buttonBar">
+		<button mat-flat-button type="button"
+			class="perlss-click-button-white" (click)="back()">BACK</button>
+		<button mat-flat-button color="primary"
+			class="perlss-click-button-white-noborder" (click)="saveAndExit()">SAVE AND EXIT</button>
+		<button mat-flat-button color="primary"
+			class="perlss-click-button" (click)="next()">NEXT</button>
+	</div>
+</div>
+
+
+
+ 
+  

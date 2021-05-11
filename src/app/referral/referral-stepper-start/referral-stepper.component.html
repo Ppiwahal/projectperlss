@@ -1,0 +1,27 @@
+<ng-container *ngIf=initializedStepper>
+  <mat-horizontal-stepper class="perlss-stepper" #stepper [linear]="isLinear" labelPosition="bottom" id="pM"
+    [selectedIndex]="currentForm" class="{{ 'last-edited-step-' + currentForm }}">
+    <ng-template matStepperIcon="edit">
+      <mat-icon>done</mat-icon>
+    </ng-template>
+    <mat-step completed= false label="Start Referral" ><app-referral-start (completedStart)="selectedIndex($event)"></app-referral-start></mat-step>
+    <mat-step completed= false label="Applicant Information" ><app-ref-applicant (completedApplicant)="selectedIndex($event)" ></app-ref-applicant></mat-step>
+    <mat-step completed= false label="Contact Information">
+      <ng-container *ngIf="currentForm === 2">
+        <app-ref-contact (completedContact)="selectedIndex($event)"></app-ref-contact>
+      </ng-container>
+    </mat-step>
+    <mat-step completed= false label="School and Work">
+      <ng-container *ngIf="currentForm === 3">
+        <app-referral-school-work (completedSchoolWork)="selectedIndex($event)"></app-referral-school-work>
+      </ng-container>
+    </mat-step>
+    <mat-step completed= false label="Care and Support"><app-ref-care-and-support (completedCareAndSupport)="selectedIndex($event)"></app-ref-care-and-support></mat-step>
+    <mat-step completed= false label="Submit Referral">
+      <ng-container *ngIf="currentForm === 5">
+        <app-referral-submit (completedSubmit)="selectedIndex($event)"></app-referral-submit>
+      </ng-container>
+    </mat-step>
+  </mat-horizontal-stepper>
+</ng-container>
+

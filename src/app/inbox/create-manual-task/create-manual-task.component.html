@@ -1,0 +1,162 @@
+<div>
+    <form [formGroup]="createManualNotice" (ngSubmit)="handleCreateTask()">
+        <p style="padding-top: 25px;">Please use the criteria below to create a manual task.</p>
+        <div style="width: 100%">
+            <mat-form-field style="width: 100%" appearance="outline">
+                <mat-label>Person Task Queue</mat-label>
+                <input matInput [matAutocomplete]="auto"
+                    placeholder="Search by Applicant Name, Date of Birth, SSN, Person ID, Country"
+                    #searchInput [disabled]="isPersonIdsFilled()"
+                    formControlName="searchText">
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)='handleSelection($event.option.id)'>
+                <mat-option class="select-hr" *ngFor="let option of personOptions" [value]="option.prsnDetailTxt" [id]="option.personId">
+                    <span [innerHTML] = option.prsnDetailHtmlTxt></span>
+                </mat-option>
+              </mat-autocomplete>
+              <button matTooltip="Clear Search" mat-button *ngIf="f.searchText?.value" matSuffix mat-icon-button aria-label="Clear"
+                                  (click)="f.searchText.setValue(null)">
+                            <mat-icon>close</mat-icon>
+                          </button>
+            </mat-form-field>
+        </div>
+        <div class="row secondary-data-content">
+            <div class="col-md-6">
+                <mat-label>
+                    <mat-label class="required-color">*</mat-label><strong>Select Task Queue</strong>
+                </mat-label>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-select formControlName="selecttaskQueuesOption" (selectionChange)="handleTaskQueueChange()" required>
+                        <mat-option *ngFor="let taskQueuesOption of  taskQueuesOptions" value={{taskQueuesOption}}>
+                            {{taskQueuesOption}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="createManualNotice.get('selecttaskQueuesOption').hasError('required')">
+                        {{customValidation.A1}}</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-label>
+                    <mat-label class="required-color">*</mat-label><strong>Module</strong>
+                </mat-label>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-select formControlName="selectModuleOption" required>
+                        <mat-option *ngFor="let moduleOption of  moduleOptions" value={{moduleOption.code}}>
+                            {{moduleOption.value}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="createManualNotice.get('selectModuleOption').hasError('required')">
+                        {{customValidation.A1}}</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row secondary-data-content" *ngFor="let obj of totalObjects; let i = index;">
+            <div class="col-md-6">
+                <mat-label>
+                    <strong>Record Type</strong>
+                </mat-label>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-select [formControlName]="obj.recordTypeName" [disabled]="true">
+                        <mat-option *ngFor="let recordType of recordTypes" value={{recordType.name}}>
+                            {{recordType.value}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="createManualNotice.get(obj.recordTypeName)?.hasError('required')">
+                        {{customValidation.A1}}</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6" *ngIf="selectedRecord?.prsn2IdSw === 'Y'; else elseDiv">
+                <mat-label>
+                    <strong>Record ID</strong>
+               </mat-label>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <input [formControlName]="obj.recordIdName" matInput type="text">
+                    <mat-error *ngIf="createManualNotice.get(obj.recordIdName)?.hasError('required')">
+                        {{customValidation.A1}}</mat-error>
+                </mat-form-field>
+            </div>
+            <ng-template #elseDiv>
+                <div class="col-md-6">
+                    <mat-label>
+                        <mat-label class="required-color">*</mat-label><strong>Record ID</strong>
+                   </mat-label>
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                        <input [formControlName]="obj.recordIdName" matInput type="text">
+                        <mat-error *ngIf="createManualNotice.get(obj.recordIdName)?.hasError('required')">
+                            {{customValidation.A1}}</mat-error>
+                    </mat-form-field>
+                </div>
+            </ng-template>
+        </div>
+        <div class="row secondary-data-content">
+            <div class="col-md-6">
+                <mat-label><strong>Assign User</strong></mat-label>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <input matInput type="text"  formControlName="assignUser" readonly>
+                    <button type="button" mat-button matSuffix mat-icon-button (click)="showAssignUserDialog()">
+                        <mat-icon>search</mat-icon>
+                    </button>
+                    <mat-error *ngIf="createManualNotice.get('selectRecordType')?.hasError('required')">
+                        {{customValidation.A1}}</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-label>
+                    <mat-label class="required-color">*</mat-label><strong>Select Task Priority</strong>
+                </mat-label>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <mat-select formControlName="priorityCode" required>
+                        <mat-option *ngFor="let taskPriority of taskPrioritys" value={{taskPriority.code}}>
+                            {{taskPriority.value}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="createManualNotice.get('priorityCode')?.hasError('required')">
+                        {{customValidation.A1}}</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row secondary-data-content">
+            <div class="col-md-6">
+                <mat-label> <mat-label class="required-color">*</mat-label><strong>Person ID 1</strong></mat-label>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <input matInput type="text" formControlName="personId1">
+                  <mat-error *ngIf="createManualNotice.get('personId1')?.hasError('required')">
+                    {{customValidation.A1}}</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6" *ngIf="selectedRecord?.prsn2IdSw === 'Y'">
+                <mat-label>
+                    <mat-label class="required-color">*</mat-label><strong>Person ID 2</strong>
+                </mat-label>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <input matInput type="text"  formControlName="personId2">
+                  <mat-error *ngIf="createManualNotice.get('personId2')?.hasError('required')">
+                    {{customValidation.A1}}</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6" *ngIf ="showDueDate">
+                <mat-label>
+                    <mat-label class="required-color">*</mat-label><strong>Due Date</strong>
+                </mat-label>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                    <input matInput [matDatepicker]="picker" [min]="today"  formControlName="dueDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker [startAt]="startDate" #picker></mat-datepicker>
+                  <mat-error *ngIf="createManualNotice.get('dueDate')?.hasError('required')">
+                    {{customValidation.A1}}</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+            <div class="text-area">
+                <mat-form-field appearance="outline">
+                    <mat-label><span class="required-color">*</span>Task Details</mat-label>
+                    <textarea matInput class="note-textarea" #aplExpectOutcome maxlength="2000" formControlName="taskDetails"></textarea>
+                    <mat-error *ngIf="createManualNotice.get('taskDetails').hasError('required')">
+                      {{customValidation.A1}}</mat-error>
+                  </mat-form-field>
+                <div class="character-count">
+                    {{aplExpectOutcome.value.length}}/2000
+                </div>
+            </div>
+
+        <div class="create-manualtask-button">
+            <button mat-flat-button class="perlss-click-button">CREATE MANUAL TASK</button>
+        </div>
+    </form>
+</div>
